@@ -3,6 +3,7 @@
 namespace Imanghafoori\HeyMan\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Imanghafoori\HeyMan\Exceptions\RoleAlreadyExists;
 use Imanghafoori\HeyMan\Utils\GuardManager;
 
 class Role extends Model
@@ -34,4 +35,20 @@ class Role extends Model
 
         return $role;
     }
+
+    public static function create(array $attributes = [])
+    {
+        $attributes['guard_name'] = $attributes['guard_name'] ?? GuardManager::getDefaultName(static::class);
+
+        if (static::where('name', $attributes['name'])->where('guard_name', $attributes['guard_name'])->first()) {
+            throw RoleAlreadyExists::create($attributes['name'], $attributes['guard_name']);
+        }
+
+        if (app()::VERSION < '5.4') {
+            return parent::create($attributes);
+        }
+
+        return static::query()->create($attributes);
+    }
+
 }
