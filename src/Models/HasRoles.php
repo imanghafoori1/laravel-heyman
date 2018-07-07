@@ -20,6 +20,20 @@ trait HasRoles
         return $role;
     }
 
+    /**
+     * A model may have multiple roles.
+     */
+    public function roles(): MorphToMany
+    {
+        return $this->morphToMany(
+            Role::class,
+            'model',
+            config('heyMan.table_names.model_has_roles'),
+            'model_id',
+            'role_id'
+        );
+    }
+
     protected function getGuardNames(): Collection
     {
         return GuardManager::getNames($this);
