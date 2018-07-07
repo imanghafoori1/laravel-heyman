@@ -4,7 +4,7 @@ namespace Imanghafoori\HeyMan\Utils;
 
 use Illuminate\Support\Collection;
 
-class Guard
+class GuardManager
 {
     /**
      * return collection of (guard_name) property if exist on class or object
