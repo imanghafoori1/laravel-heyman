@@ -19,6 +19,11 @@ trait HasRoles
         return $role;
     }
 
+    protected function getGuardNames(): Collection
+    {
+        return Guard::getNames($this);
+    }
+
     protected function getDefaultGuardName(): string
     {
         return GuardManager::getDefaultName($this);
