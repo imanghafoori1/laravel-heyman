@@ -1,9 +1,11 @@
 <?php
 namespace App;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Imanghafoori\HeyMan\Models\HasRoles;
 
 class User extends Authenticatable
 {
+    use HasRoles;
     /**
      * The attributes that are mass assignable.
      *
