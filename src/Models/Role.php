@@ -21,4 +21,17 @@ class Role extends Model
 
         return $role;
     }
+
+    public static function findByName(string $name, $guardName = null)
+    {
+        $guardName = $guardName ?? GuardManager::getDefaultName(static::class);
+
+        $role = static::where('name', $name)->where('guard_name', $guardName)->first();
+
+        if (! $role) {
+            throw RoleDoesNotExist::named($name);
+        }
+
+        return $role;
+    }
 }
