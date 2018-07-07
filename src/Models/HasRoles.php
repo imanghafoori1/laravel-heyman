@@ -2,6 +2,8 @@
 
 namespace Imanghafoori\HeyMan\Models;
 
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
+use Illuminate\Support\Collection;
 use Imanghafoori\HeyMan\Exceptions\GuardDoesNotMatch;
 use Imanghafoori\HeyMan\Utils\GuardManager;
 
