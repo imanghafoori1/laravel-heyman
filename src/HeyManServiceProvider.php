@@ -14,5 +14,10 @@ class HeyManServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton('hey_man', HeyMan::class);
+
+        $this->mergeConfigFrom(
+            __DIR__.'/../config/heyMan.php',
+            'heyMan'
+        );
     }
 }
