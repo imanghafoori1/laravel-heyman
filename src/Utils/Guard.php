@@ -41,4 +41,11 @@ class Guard
             })
             ->keys();
     }
+
+    public static function getDefaultName($class): string
+    {
+        $default = config('auth.defaults.guard');
+
+        return static::getNames($class)->first() ?: $default;
+    }
 }
