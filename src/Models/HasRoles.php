@@ -7,6 +7,23 @@ use Imanghafoori\HeyMan\Utils\GuardManager;
 
 trait HasRoles
 {
+    public function assignRole(...$roles)
+    {
+        $roles = collect($roles)
+            ->flatten()
+            ->map(function ($role) {
+                return $this->getStoredRole($role);
+            })
+            ->each(function ($role) {
+                $this->ensureModelSharesGuard($role);
+            })
+            ->all();
+
+        $this->roles()->saveMany($roles);
+
+        return $this;
+    }
+
     protected function getStoredRole($role): Role
     {
         if (is_numeric($role)) {
