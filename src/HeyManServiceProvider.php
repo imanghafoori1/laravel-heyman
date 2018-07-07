@@ -10,4 +10,9 @@ class HeyManServiceProvider extends ServiceProvider
     {
         $this->loadMigrationsFrom(__DIR__.'/migrations');
     }
+
+    public function register()
+    {
+        $this->app->singleton('hey_man', HeyMan::class);
+    }
 }
