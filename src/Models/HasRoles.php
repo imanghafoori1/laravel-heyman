@@ -2,6 +2,7 @@
 
 namespace Imanghafoori\HeyMan\Models;
 
+use Imanghafoori\HeyMan\Exceptions\GuardDoesNotMatch;
 use Imanghafoori\HeyMan\Utils\GuardManager;
 
 trait HasRoles
@@ -27,6 +28,13 @@ trait HasRoles
     protected function getDefaultGuardName(): string
     {
         return GuardManager::getDefaultName($this);
+    }
+
+    protected function ensureModelSharesGuard($roleOrPermission)
+    {
+        if (! $this->getGuardNames()->contains($roleOrPermission->guard_name)) {
+            throw GuardDoesNotMatch::create($roleOrPermission->guard_name, $this->getGuardNames());
+        }
     }
 
 }
