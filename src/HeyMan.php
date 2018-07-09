@@ -51,10 +51,6 @@ class HeyMan
             return ! auth()->user()->hasRole($role);
         };
 
-        if (! is_array($this->value)) {
-            $this->value = [$this->value];
-        }
-
         foreach ($this->value as $value) {
             $this->{$this->target}[$value]['role'] = $role;
         }
@@ -164,9 +160,6 @@ class HeyMan
             return Gate::denies($gate, $args);
         };
 
-        if (! is_array($this->value)) {
-            $this->value = [$this->value];
-        }
         foreach ($this->value as $value) {
             $this->{$this->target}[$value]['role'] = $gate;
         }
