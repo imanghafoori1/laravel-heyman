@@ -2,6 +2,8 @@
 
 namespace Imanghafoori\HeyMan;
 
+use Illuminate\Auth\Access\AuthorizationException;
+
 class HeyMan
 {
     private $urls = [];
@@ -51,6 +53,16 @@ class HeyMan
 
         foreach ($this->value as $value) {
             $this->{$this->target}[$value]['role'] = $role;
+        }
+
+        if($this->target == 'creating') {
+            foreach ($this->creating as $model => $props) {
+                $model::creating(function () use ($role) {
+                    if (! auth()->user()->hasRole($role)) {
+                        throw new AuthorizationException();
+                    };
+                });
+            }
         }
 
         $this->value = [];
