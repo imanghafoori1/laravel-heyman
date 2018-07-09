@@ -1,12 +1,19 @@
 <?php
 
 use App\User;
+use Illuminate\Support\Facades\Route;
 use Imanghafoori\HeyMan\Models\Role;
 
 class setUp
 {
     public static function run($testCase)
     {
+        Route::get('/welcome', 'HomeController@index')->name('welcome.name');
+
+        Route::get('/welcome1', function () {
+            return view('welcome');
+        })->name('welcome1.name');
+
         $testCase->artisan('migrate', ['--database' => 'testbench']);
         User::create(['name' => 'iman', 'email' => 'iman@gmail.com', 'password' => bcrypt('a')]);
         $user = User::find(1);
