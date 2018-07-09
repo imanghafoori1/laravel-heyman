@@ -4,6 +4,7 @@ namespace Imanghafoori\HeyMan;
 
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Gate;
 
 class HeyMan
 {
@@ -261,4 +262,78 @@ class HeyMan
         return $this->events;
     }
 
+    public function youShouldPassGate($gate, ...$args)
+    {
+
+        if (! is_array($this->value)) {
+            $this->value = [$this->value];
+        }
+        foreach ($this->value as $value) {
+            $this->{$this->target}[$value]['role'] = $gate;
+        }
+
+        if ($this->target == 'events') {
+            foreach ($this->events as $event => $props) {
+                Event::listen($event, function () use ($gate, $args) {
+                    if (Gate::denies($gate, $args)) {
+                        throw new AuthorizationException();
+                    };
+                });
+            }
+        }
+
+        if($this->target == 'views') {
+            foreach ($this->views as $view => $props) {
+                Event::listen('creating: '.$view, function () use ($gate) {
+                    if (Gate::denies($gate)) {
+                        throw new AuthorizationException();
+                    };
+                });
+            }
+        }
+
+        if($this->target == 'creating') {
+            foreach ($this->creating as $model => $props) {
+                $model::creating(function () use ($gate) {
+                    if (Gate::denies($gate)) {
+                        throw new AuthorizationException();
+                    };
+                });
+            }
+        }
+
+        if ($this->target == 'updating') {
+            foreach ($this->updating as $model => $props) {
+                $model::updating(function () use ($gate) {
+                    if (Gate::denies($gate)) {
+                        throw new AuthorizationException();
+                    };
+                });
+            }
+        }
+
+        if ($this->target == 'saving') {
+            foreach ($this->saving as $model => $props) {
+                $model::saving(function () use ($gate) {
+                    if (Gate::denies($gate)) {
+                        throw new AuthorizationException();
+                    };
+                });
+            }
+        }
+
+        if ($this->target == 'deleting') {
+            foreach ($this->deleting as $model => $props) {
+                $model::deleting(function () use ($gate) {
+                    if (Gate::denies($gate)) {
+                        throw new AuthorizationException();
+                    };
+                });
+            }
+        }
+
+        $this->value = [];
+
+        return $this;
+    }
 }
