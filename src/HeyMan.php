@@ -66,43 +66,15 @@ class HeyMan
             $this->{$this->target}[$value]['role'] = $role;
         }
 
-        if ($this->target == 'creating') {
-            foreach ($this->creating as $model => $props) {
-                $model::creating(function () use ($role) {
-                    if (! auth()->user()->hasRole($role)) {
-                        throw new AuthorizationException();
-                    };
-                });
-            }
-        }
-
-        if ($this->target == 'updating') {
-            foreach ($this->updating as $model => $props) {
-                $model::updating(function () use ($role) {
-                    if (! auth()->user()->hasRole($role)) {
-                        throw new AuthorizationException();
-                    };
-                });
-            }
-        }
-
-        if ($this->target == 'saving') {
-            foreach ($this->saving as $model => $props) {
-                $model::saving(function () use ($role) {
-                    if (! auth()->user()->hasRole($role)) {
-                        throw new AuthorizationException();
-                    };
-                });
-            }
-        }
-
-        if ($this->target == 'deleting') {
-            foreach ($this->deleting as $model => $props) {
-                $model::deleting(function () use ($role) {
-                    if (! auth()->user()->hasRole($role)) {
-                        throw new AuthorizationException();
-                    };
-                });
+        foreach (['creating', 'updating', 'saving', 'deleting'] as $action) {
+            if ($this->target == $action) {
+                foreach ($this->{$action} as $model => $props) {
+                    $model::{$action}(function () use ($role) {
+                        if (! auth()->user()->hasRole($role)) {
+                            throw new AuthorizationException();
+                        }
+                    });
+                }
             }
         }
 
