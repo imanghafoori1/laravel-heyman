@@ -75,6 +75,16 @@ class HeyMan
             }
         }
 
+        if ($this->target == 'saving') {
+            foreach ($this->saving as $model => $props) {
+                $model::saving(function () use ($role) {
+                    if (! auth()->user()->hasRole($role)) {
+                        throw new AuthorizationException();
+                    };
+                });
+            }
+        }
+
         $this->value = [];
 
         return $this;
