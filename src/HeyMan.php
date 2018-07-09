@@ -184,13 +184,7 @@ class HeyMan
             if ($this->target !== $action) {
                 continue;
             }
-            foreach ($this->{$action} as $model => $props) {
-                $model::{$action}(function () use ($predicate) {
-                    if ($predicate()) {
-                        $this->denyAccess();
-                    }
-                });
-            }
+            $this->eloquent($predicate, $action);
         }
     }
 
@@ -202,13 +196,7 @@ class HeyMan
         if ($this->target !== 'views') {
             return ;
         }
-        foreach ($this->views as $view => $props) {
-            Event::listen('creating: '.$view, function () use ($predicate) {
-                if ($predicate()) {
-                    $this->denyAccess();
-                };
-            });
-        }
+        $this->{$this->target}($predicate);
     }
 
     /**
@@ -219,13 +207,7 @@ class HeyMan
         if ($this->target !== 'events') {
             return ;
         }
-        foreach ($this->events as $event => $props) {
-            Event::listen($event, function () use ($predicate) {
-                if ($predicate()) {
-                    $this->denyAccess();
-                };
-            });
-        }
+        $this->{$this->target}($predicate);
     }
 
     /**
@@ -244,5 +226,48 @@ class HeyMan
     {
         $model = $this->normalizeInput($model);
         $this->value = array_merge($this->value, $model);
+    }
+
+    /**
+     * @param $predicate
+     */
+    private function events($predicate)
+    {
+        foreach ($this->events as $event => $props) {
+            Event::listen($event, function () use ($predicate) {
+                if ($predicate()) {
+                    $this->denyAccess();
+                };
+            });
+        }
+    }
+
+    /**
+     * @param $predicate
+     */
+    private function views($predicate)
+    {
+        foreach ($this->views as $view => $props) {
+            Event::listen('creating: '.$view, function () use ($predicate) {
+                if ($predicate()) {
+                    $this->denyAccess();
+                };
+            });
+        }
+    }
+
+    /**
+     * @param $predicate
+     * @param $action
+     */
+    private function eloquent($predicate, $action)
+    {
+        foreach ($this->{$action} as $model => $props) {
+            $model::{$action}(function () use ($predicate) {
+                if ($predicate()) {
+                    $this->denyAccess();
+                }
+            });
+        }
     }
 }
