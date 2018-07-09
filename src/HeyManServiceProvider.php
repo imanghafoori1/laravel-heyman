@@ -22,6 +22,16 @@ class HeyManServiceProvider extends ServiceProvider
                     throw new AuthorizationException();
                 }
             }
+
+            $routeNames = $this->app['hey_man']->getRouteNames();
+            $currentRouteName = $eventObj->route->getName();
+
+            if (isset($routeNames[$currentRouteName]['role'])) {
+                if (! auth()->user()->hasRole($routeNames[$currentRouteName]['role'])) {
+                    throw new AuthorizationException();
+                }
+            }
+
         });
     }
 
