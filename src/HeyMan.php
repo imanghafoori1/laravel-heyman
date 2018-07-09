@@ -222,13 +222,13 @@ class HeyMan
      */
     private function views($predicate)
     {
-        foreach ($this->views as $view => $props) {
-            Event::listen('creating: '.$view, function () use ($predicate) {
-                if ($predicate()) {
-                    $this->denyAccess();
-                };
-            });
-        }
+        $this->events = array_map(function ($view) {
+            return 'creating: '.$view;
+        }, array_keys($this->views));
+
+        $this->events = array_flip($this->events);
+
+        $this->events($predicate);
     }
 
     /**
