@@ -119,7 +119,7 @@ class HeyMan
 
         return $this;
     }
-    
+
     public function whenUpdatingModel($model)
     {
         if (func_num_args() > 1) {
@@ -133,6 +133,23 @@ class HeyMan
         $this->value = array_merge($this->value, $model);
 
         $this->target = 'updating';
+
+        return $this;
+    }
+
+    public function whenSavingModel($model)
+    {
+        if (func_num_args() > 1) {
+            $model = func_get_args();
+        } else {
+            if (! is_array($model)) {
+                $model = [$model];
+            }
+        }
+
+        $this->value = array_merge($this->value, $model);
+
+        $this->target = 'saving';
 
         return $this;
     }
