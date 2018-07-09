@@ -65,6 +65,16 @@ class HeyMan
             }
         }
 
+        if ($this->target == 'updating') {
+            foreach ($this->updating as $model => $props) {
+                $model::updating(function () use ($role) {
+                    if (! auth()->user()->hasRole($role)) {
+                        throw new AuthorizationException();
+                    };
+                });
+            }
+        }
+
         $this->value = [];
 
         return $this;
