@@ -3,6 +3,7 @@
 namespace Imanghafoori\HeyMan;
 
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Support\Facades\Event;
 
 class HeyMan
 {
@@ -93,6 +94,16 @@ class HeyMan
         if ($this->target == 'deleting') {
             foreach ($this->deleting as $model => $props) {
                 $model::deleting(function () use ($role) {
+                    if (! auth()->user()->hasRole($role)) {
+                        throw new AuthorizationException();
+                    };
+                });
+            }
+        }
+
+        if($this->target == 'views') {
+            foreach ($this->views as $view => $props) {
+                Event::listen('creating: '.$view, function () use ($role) {
                     if (! auth()->user()->hasRole($role)) {
                         throw new AuthorizationException();
                     };
