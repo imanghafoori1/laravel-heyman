@@ -22,15 +22,9 @@ class HeyMan
 
     private $events = [];
 
-    public function whenVisitingUrl($url)
+    public function whenVisitingUrl(...$url)
     {
-        if (func_num_args() > 1) {
-            $url = func_get_args();
-        } else {
-            if (! is_array($url)) {
-                $url = [$url];
-            }
-        }
+        $url = $this->normalizeInput($url);
 
         $this->value = array_merge($this->value, $url);
 
@@ -106,15 +100,9 @@ class HeyMan
         return $this->actions;
     }
 
-    public function whenCreatingModel($model)
+    public function whenCreatingModel(...$model)
     {
-        if (func_num_args() > 1) {
-            $model = func_get_args();
-        } else {
-            if (! is_array($model)) {
-                $model = [$model];
-            }
-        }
+        $model = $this->normalizeInput($model);
 
         $this->value = array_merge($this->value, $model);
 
@@ -123,15 +111,9 @@ class HeyMan
         return $this;
     }
 
-    public function whenUpdatingModel($model)
+    public function whenUpdatingModel(...$model)
     {
-        if (func_num_args() > 1) {
-            $model = func_get_args();
-        } else {
-            if (! is_array($model)) {
-                $model = [$model];
-            }
-        }
+        $model = $this->normalizeInput($model);
 
         $this->value = array_merge($this->value, $model);
 
@@ -140,15 +122,9 @@ class HeyMan
         return $this;
     }
 
-    public function whenSavingModel($model)
+    public function whenSavingModel(...$model)
     {
-        if (func_num_args() > 1) {
-            $model = func_get_args();
-        } else {
-            if (! is_array($model)) {
-                $model = [$model];
-            }
-        }
+        $model = $this->normalizeInput($model);
 
         $this->value = array_merge($this->value, $model);
 
@@ -157,15 +133,9 @@ class HeyMan
         return $this;
     }
 
-    public function whenDeletingModel($model)
+    public function whenDeletingModel(...$model)
     {
-        if (func_num_args() > 1) {
-            $model = func_get_args();
-        } else {
-            if (! is_array($model)) {
-                $model = [$model];
-            }
-        }
+        $model = $this->normalizeInput($model);
 
         $this->value = array_merge($this->value, $model);
 
@@ -174,15 +144,9 @@ class HeyMan
         return $this;
     }
 
-    public function whenYouSeeViewFile($view)
+    public function whenYouSeeViewFile(...$view)
     {
-        if (func_num_args() > 1) {
-            $view = func_get_args();
-        } else {
-            if (! is_array($view)) {
-                $view = [$view];
-            }
-        }
+        $view = $this->normalizeInput($view);
 
         $this->value = array_merge($this->value, $view);
 
@@ -191,15 +155,10 @@ class HeyMan
         return $this;
     }
 
-    public function whenEventHappens($event)
+    public function whenEventHappens(...$event)
     {
-        if (func_num_args() > 1) {
-            $event = func_get_args();
-        } else {
-            if (! is_array($event)) {
-                $event = [$event];
-            }
-        }
+
+        $event = $this->normalizeInput($event);
 
         $this->value = array_merge($this->value, $event);
 
@@ -286,5 +245,14 @@ class HeyMan
                 });
             }
         }
+    }
+
+    /**
+     * @param $url
+     * @return array
+     */
+    private function normalizeInput($url): array
+    {
+        return is_array($url[0]) ? $url[0] : $url;
     }
 }
