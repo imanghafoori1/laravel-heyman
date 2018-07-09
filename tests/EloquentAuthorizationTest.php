@@ -28,4 +28,18 @@ class EloquentAuthorizationTest extends TestCase
 
         User::find(2)->update(['name' => 'imdfvn']);
     }
+
+    public function testUpdatingModelsIsAuthorized2()
+    {
+        setUp::run($this);
+        User::create(['name' => 'iman', 'email' => 'n@gmail.com', 'password' => bcrypt('a')]);
+
+        HeyMan::whenUpdatingModel(User::class)->youShouldHaveRole('reader')->beCareful();
+
+        $this->expectException(AuthorizationException::class);
+
+        $user = User::find(2);
+        $user->name = 'sss';
+        $user->save();
+    }
 }
