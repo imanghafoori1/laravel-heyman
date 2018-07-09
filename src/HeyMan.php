@@ -58,6 +58,10 @@ class HeyMan
 
     public function youShouldHaveRole($role)
     {
+        $predicate = function () use ($role) {
+            return ! auth()->user()->hasRole($role);
+        };
+
         if (! is_array($this->value)) {
             $this->value = [$this->value];
         }
@@ -71,8 +75,8 @@ class HeyMan
                 continue;
             }
             foreach ($this->{$action} as $model => $props) {
-                $model::{$action}(function () use ($role) {
-                    if (! auth()->user()->hasRole($role)) {
+                $model::{$action}(function () use ($predicate) {
+                    if ($predicate()) {
                         $this->denyAccess();
                     }
                 });
@@ -81,8 +85,8 @@ class HeyMan
 
         if ($this->target == 'views') {
             foreach ($this->views as $view => $props) {
-                Event::listen('creating: '.$view, function () use ($role) {
-                    if (! auth()->user()->hasRole($role)) {
+                Event::listen('creating: '.$view, function () use ($predicate) {
+                    if ($predicate()) {
                         $this->denyAccess();
                     };
                 });
@@ -91,8 +95,8 @@ class HeyMan
 
         if ($this->target == 'events') {
             foreach ($this->events as $event => $props) {
-                Event::listen($event, function () use ($role) {
-                    if (! auth()->user()->hasRole($role)) {
+                Event::listen($event, function () use ($predicate) {
+                    if ($predicate()) {
                         $this->denyAccess();
                     };
                 });
