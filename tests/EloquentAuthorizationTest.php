@@ -57,4 +57,16 @@ class EloquentAuthorizationTest extends TestCase
         $user->name = 'sss';
         $user->save();
     }
+
+    public function testUrlIsAuthorized3734()
+    {
+        setUp::run($this);
+        User::create(['name' => 'iman', 'email' => 'n@gmail.com', 'password' => bcrypt('a')]);
+
+        HeyMan::whenSavingModel(User::class)->youShouldHaveRole('reader')->beCareful();
+
+        $this->expectException(AuthorizationException::class);
+
+        User::find(2)->update(['name' => 'sdcsdc']);
+    }
 }
