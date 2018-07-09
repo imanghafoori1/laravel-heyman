@@ -15,6 +15,11 @@ class HeyMan
     private $routeNames = [];
 
     private $actions = [];
+    
+    private $creating = [];
+
+    private $updating = [];
+
 
     public function whenVisitingUrl($url)
     {
