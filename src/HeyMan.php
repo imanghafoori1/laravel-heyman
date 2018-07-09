@@ -254,7 +254,7 @@ class HeyMan
             foreach ($this->events as $event => $props) {
                 Event::listen($event, function () use ($gate, $args) {
                     if (Gate::denies($gate, $args)) {
-                        throw new AuthorizationException();
+                        $this->denyAccess();
                     };
                 });
             }
@@ -264,7 +264,7 @@ class HeyMan
             foreach ($this->views as $view => $props) {
                 Event::listen('creating: '.$view, function () use ($gate) {
                     if (Gate::denies($gate)) {
-                        throw new AuthorizationException();
+                        $this->denyAccess();
                     };
                 });
             }
@@ -274,7 +274,7 @@ class HeyMan
             foreach ($this->creating as $model => $props) {
                 $model::creating(function () use ($gate) {
                     if (Gate::denies($gate)) {
-                        throw new AuthorizationException();
+                        $this->denyAccess();
                     };
                 });
             }
@@ -284,7 +284,7 @@ class HeyMan
             foreach ($this->updating as $model => $props) {
                 $model::updating(function () use ($gate) {
                     if (Gate::denies($gate)) {
-                        throw new AuthorizationException();
+                        $this->denyAccess();
                     };
                 });
             }
@@ -294,7 +294,7 @@ class HeyMan
             foreach ($this->saving as $model => $props) {
                 $model::saving(function () use ($gate) {
                     if (Gate::denies($gate)) {
-                        throw new AuthorizationException();
+                        $this->denyAccess();
                     };
                 });
             }
@@ -304,7 +304,7 @@ class HeyMan
             foreach ($this->deleting as $model => $props) {
                 $model::deleting(function () use ($gate) {
                     if (Gate::denies($gate)) {
-                        throw new AuthorizationException();
+                        $this->denyAccess();
                     };
                 });
             }
