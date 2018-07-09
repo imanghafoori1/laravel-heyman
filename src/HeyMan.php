@@ -220,14 +220,15 @@ class HeyMan
      */
     private function addListenerForViews($predicate)
     {
-        if ($this->target == 'views') {
-            foreach ($this->views as $view => $props) {
-                Event::listen('creating: '.$view, function () use ($predicate) {
-                    if ($predicate()) {
-                        $this->denyAccess();
-                    };
-                });
-            }
+        if ($this->target !== 'views') {
+            return ;
+        }
+        foreach ($this->views as $view => $props) {
+            Event::listen('creating: '.$view, function () use ($predicate) {
+                if ($predicate()) {
+                    $this->denyAccess();
+                };
+            });
         }
     }
 
@@ -236,14 +237,15 @@ class HeyMan
      */
     private function addListenersForEvents($predicate)
     {
-        if ($this->target == 'events') {
-            foreach ($this->events as $event => $props) {
-                Event::listen($event, function () use ($predicate) {
-                    if ($predicate()) {
-                        $this->denyAccess();
-                    };
-                });
-            }
+        if ($this->target !== 'events') {
+            return ;
+        }
+        foreach ($this->events as $event => $props) {
+            Event::listen($event, function () use ($predicate) {
+                if ($predicate()) {
+                    $this->denyAccess();
+                };
+            });
         }
     }
 
