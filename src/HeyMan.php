@@ -70,18 +70,7 @@ class HeyMan
             $this->{$this->target}[$value]['role'] = $role;
         }
 
-        foreach (['creating', 'updating', 'saving', 'deleting'] as $action) {
-            if ($this->target !== $action) {
-                continue;
-            }
-            foreach ($this->{$action} as $model => $props) {
-                $model::{$action}(function () use ($predicate) {
-                    if ($predicate()) {
-                        $this->denyAccess();
-                    }
-                });
-            }
-        }
+        $this->addListenersForEloquent($predicate);
 
         if ($this->target == 'views') {
             foreach ($this->views as $view => $props) {
@@ -277,6 +266,18 @@ class HeyMan
             }
         }
 
+        $this->addListenersForEloquent($predicate);
+
+        $this->value = [];
+
+        return $this;
+    }
+
+    /**
+     * @param $predicate
+     */
+    private function addListenersForEloquent($predicate)
+    {
         foreach (['creating', 'updating', 'saving', 'deleting'] as $action) {
             if ($this->target !== $action) {
                 continue;
@@ -289,9 +290,5 @@ class HeyMan
                 });
             }
         }
-
-        $this->value = [];
-
-        return $this;
     }
 }
