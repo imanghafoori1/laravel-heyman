@@ -10,6 +10,8 @@ class HeyMan
 
     private $value;
 
+    private $routeNames = [];
+
     public function whenVisitingUrl($url)
     {
         $this->value = $url;
@@ -39,6 +41,11 @@ class HeyMan
     public function beCareful()
     {
 
+    }
+
+    public function getRouteNames()
+    {
+        return $this->routeNames;
     }
 
 }
