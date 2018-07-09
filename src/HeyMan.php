@@ -18,6 +18,13 @@ class HeyMan
         return $this;
     }
 
+    public function whenVisitingRoute($routeName)
+    {
+        $this->value = $routeName;
+        $this->target = 'routeNames';
+        return $this;
+    }
+
     public function getUrls()
     {
         return $this->urls;
