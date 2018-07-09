@@ -44,6 +44,16 @@ class RouteAuthorizationTest extends TestCase
         $this->get('welcome')->assertStatus(403);
     }
 
+    public function testUrlIsAuthorized4()
+    {
+        setUp::setUpMe();
+
+        HeyMan::whenVisitingUrl('welcome', 'ewrf')->youShouldHaveRole('writer')->beCareful();
+        HeyMan::whenVisitingUrl('welcome1')->youShouldHaveRole('reader')->beCareful();
+
+        $this->get('/welcome')->assertSuccessful();
+    }
+
     public function testUrlIsAuthorized1()
     {
         setUp::run($this);
