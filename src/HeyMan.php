@@ -67,14 +67,15 @@ class HeyMan
         }
 
         foreach (['creating', 'updating', 'saving', 'deleting'] as $action) {
-            if ($this->target == $action) {
-                foreach ($this->{$action} as $model => $props) {
-                    $model::{$action}(function () use ($role) {
-                        if (! auth()->user()->hasRole($role)) {
-                            throw new AuthorizationException();
-                        }
-                    });
-                }
+            if ($this->target !== $action) {
+                continue;
+            }
+            foreach ($this->{$action} as $model => $props) {
+                $model::{$action}(function () use ($role) {
+                    if (! auth()->user()->hasRole($role)) {
+                        throw new AuthorizationException();
+                    }
+                });
             }
         }
 
