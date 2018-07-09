@@ -270,42 +270,15 @@ class HeyMan
             }
         }
 
-        if($this->target == 'creating') {
-            foreach ($this->creating as $model => $props) {
-                $model::creating(function () use ($gate) {
-                    if (Gate::denies($gate)) {
-                        $this->denyAccess();
-                    };
-                });
+        foreach (['creating', 'updating', 'saving', 'deleting'] as $action) {
+            if ($this->target !== $action) {
+                continue;
             }
-        }
-
-        if ($this->target == 'updating') {
-            foreach ($this->updating as $model => $props) {
-                $model::updating(function () use ($gate) {
+            foreach ($this->{$action} as $model => $props) {
+                $model::{$action}(function () use ($gate) {
                     if (Gate::denies($gate)) {
                         $this->denyAccess();
-                    };
-                });
-            }
-        }
-
-        if ($this->target == 'saving') {
-            foreach ($this->saving as $model => $props) {
-                $model::saving(function () use ($gate) {
-                    if (Gate::denies($gate)) {
-                        $this->denyAccess();
-                    };
-                });
-            }
-        }
-
-        if ($this->target == 'deleting') {
-            foreach ($this->deleting as $model => $props) {
-                $model::deleting(function () use ($gate) {
-                    if (Gate::denies($gate)) {
-                        $this->denyAccess();
-                    };
+                    }
                 });
             }
         }
