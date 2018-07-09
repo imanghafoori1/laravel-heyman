@@ -81,4 +81,28 @@ class EloquentAuthorizationTest extends TestCase
 
         User::find(2)->update(['name' => 'sdcsdc']);
     }
+
+    public function testُDeletingModelsIsAuthorized1()
+    {
+        setUp::run($this);
+        User::create(['name' => 'iman', 'email' => 'n@gmail.com', 'password' => bcrypt('a')]);
+
+        HeyMan::whenDeletingModel(User::class)->youShouldHaveRole('reader')->beCareful();
+
+        $this->expectException(AuthorizationException::class);
+
+        User::find(2)->delete();
+    }
+
+    public function testُDeletingModelsIsAuthorized2()
+    {
+        setUp::run($this);
+        User::create(['name' => 'iman', 'email' => 'n@gmail.com', 'password' => bcrypt('a')]);
+
+        HeyMan::whenDeletingModel([User::class])->youShouldHaveRole('reader')->beCareful();
+
+        $this->expectException(AuthorizationException::class);
+
+        User::destroy([2]);
+    }
 }
