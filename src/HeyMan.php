@@ -242,6 +242,9 @@ class HeyMan
 
     public function youShouldPassGate($gate, ...$args)
     {
+        $predicate = function () use ($gate, $args) {
+            return Gate::denies($gate, $args);
+        };
 
         if (! is_array($this->value)) {
             $this->value = [$this->value];
@@ -252,8 +255,8 @@ class HeyMan
 
         if ($this->target == 'events') {
             foreach ($this->events as $event => $props) {
-                Event::listen($event, function () use ($gate, $args) {
-                    if (Gate::denies($gate, $args)) {
+                Event::listen($event, function () use ($predicate) {
+                    if ($predicate()) {
                         $this->denyAccess();
                     };
                 });
@@ -262,8 +265,8 @@ class HeyMan
 
         if($this->target == 'views') {
             foreach ($this->views as $view => $props) {
-                Event::listen('creating: '.$view, function () use ($gate) {
-                    if (Gate::denies($gate)) {
+                Event::listen('creating: '.$view, function () use ($predicate) {
+                    if ($predicate()) {
                         $this->denyAccess();
                     };
                 });
@@ -275,8 +278,8 @@ class HeyMan
                 continue;
             }
             foreach ($this->{$action} as $model => $props) {
-                $model::{$action}(function () use ($gate) {
-                    if (Gate::denies($gate)) {
+                $model::{$action}(function () use ($predicate) {
+                    if ($predicate()) {
                         $this->denyAccess();
                     }
                 });
