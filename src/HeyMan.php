@@ -23,6 +23,8 @@ class HeyMan
 
     private $views = [];
 
+    private $events = [];
+
     public function whenVisitingUrl($url)
     {
         if (func_num_args() > 1) {
@@ -226,4 +228,27 @@ class HeyMan
 
         return $this;
     }
+
+    public function whenEventHappens($event)
+    {
+        if (func_num_args() > 1) {
+            $event = func_get_args();
+        } else {
+            if (! is_array($event)) {
+                $event = [$event];
+            }
+        }
+
+        $this->value = array_merge($this->value, $event);
+
+        $this->target = 'events';
+
+        return $this;
+    }
+
+    public function getEvents()
+    {
+        return $this->events;
+    }
+
 }
