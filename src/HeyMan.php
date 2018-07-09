@@ -72,15 +72,7 @@ class HeyMan
 
         $this->addListenersForEloquent($predicate);
 
-        if ($this->target == 'views') {
-            foreach ($this->views as $view => $props) {
-                Event::listen('creating: '.$view, function () use ($predicate) {
-                    if ($predicate()) {
-                        $this->denyAccess();
-                    };
-                });
-            }
-        }
+        $this->addListenerForViews($predicate);
 
         if ($this->target == 'events') {
             foreach ($this->events as $event => $props) {
@@ -256,15 +248,7 @@ class HeyMan
             }
         }
 
-        if($this->target == 'views') {
-            foreach ($this->views as $view => $props) {
-                Event::listen('creating: '.$view, function () use ($predicate) {
-                    if ($predicate()) {
-                        $this->denyAccess();
-                    };
-                });
-            }
-        }
+        $this->addListenerForViews($predicate);
 
         $this->addListenersForEloquent($predicate);
 
@@ -287,6 +271,22 @@ class HeyMan
                     if ($predicate()) {
                         $this->denyAccess();
                     }
+                });
+            }
+        }
+    }
+
+    /**
+     * @param $predicate
+     */
+    private function addListenerForViews($predicate)
+    {
+        if ($this->target == 'views') {
+            foreach ($this->views as $view => $props) {
+                Event::listen('creating: '.$view, function () use ($predicate) {
+                    if ($predicate()) {
+                        $this->denyAccess();
+                    };
                 });
             }
         }
