@@ -73,7 +73,7 @@ class HeyMan
             foreach ($this->{$action} as $model => $props) {
                 $model::{$action}(function () use ($role) {
                     if (! auth()->user()->hasRole($role)) {
-                        throw new AuthorizationException();
+                        $this->denyAccess();
                     }
                 });
             }
@@ -83,7 +83,7 @@ class HeyMan
             foreach ($this->views as $view => $props) {
                 Event::listen('creating: '.$view, function () use ($role) {
                     if (! auth()->user()->hasRole($role)) {
-                        throw new AuthorizationException();
+                        $this->denyAccess();
                     };
                 });
             }
@@ -93,7 +93,7 @@ class HeyMan
             foreach ($this->events as $event => $props) {
                 Event::listen($event, function () use ($role) {
                     if (! auth()->user()->hasRole($role)) {
-                        throw new AuthorizationException();
+                        $this->denyAccess();
                     };
                 });
             }
@@ -107,6 +107,11 @@ class HeyMan
     public function beCareful()
     {
 
+    }
+
+    private function denyAccess()
+    {
+        throw new AuthorizationException();
     }
 
     public function getRouteNames()
