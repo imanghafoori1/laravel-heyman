@@ -57,9 +57,9 @@ class HeyMan
 
         $this->addListenersForEloquent($predicate);
 
-        $this->addListenerForViews($predicate);
-
-        $this->addListenersForEvents($predicate);
+        if (in_array($this->target, ['events', 'views'])) {
+            $this->{$this->target}($predicate);
+        }
 
         $this->value = [];
 
@@ -164,11 +164,11 @@ class HeyMan
             $this->{$this->target}[$value]['role'] = $gate;
         }
 
-        $this->addListenersForEvents($predicate);
-
-        $this->addListenerForViews($predicate);
-
         $this->addListenersForEloquent($predicate);
+
+        if (in_array($this->target, ['events', 'views'])) {
+            $this->{$this->target}($predicate);
+        }
 
         $this->value = [];
 
@@ -180,34 +180,9 @@ class HeyMan
      */
     private function addListenersForEloquent($predicate)
     {
-        foreach (['creating', 'updating', 'saving', 'deleting'] as $action) {
-            if ($this->target !== $action) {
-                continue;
-            }
-            $this->eloquent($predicate, $action);
+        if (in_array($this->target, ['creating', 'updating', 'saving', 'deleting'])) {
+            $this->eloquent($predicate);
         }
-    }
-
-    /**
-     * @param $predicate
-     */
-    private function addListenerForViews($predicate)
-    {
-        if ($this->target !== 'views') {
-            return ;
-        }
-        $this->{$this->target}($predicate);
-    }
-
-    /**
-     * @param $predicate
-     */
-    private function addListenersForEvents($predicate)
-    {
-        if ($this->target !== 'events') {
-            return ;
-        }
-        $this->{$this->target}($predicate);
     }
 
     /**
@@ -260,10 +235,10 @@ class HeyMan
      * @param $predicate
      * @param $action
      */
-    private function eloquent($predicate, $action)
+    private function eloquent($predicate)
     {
-        foreach ($this->{$action} as $model => $props) {
-            $model::{$action}(function () use ($predicate) {
+        foreach ($this->{$this->target} as $model => $props) {
+            $model::{$this->target}(function () use ($predicate) {
                 if ($predicate()) {
                     $this->denyAccess();
                 }
