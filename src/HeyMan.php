@@ -16,11 +16,12 @@ class HeyMan
     private $routeNames = [];
 
     private $actions = [];
-    
+
     private $creating = [];
 
     private $updating = [];
 
+    private $views = [];
 
     public function whenVisitingUrl($url)
     {
@@ -43,6 +44,7 @@ class HeyMan
     {
         $this->value = $routeName;
         $this->target = 'routeNames';
+
         return $this;
     }
 
@@ -61,7 +63,7 @@ class HeyMan
             $this->{$this->target}[$value]['role'] = $role;
         }
 
-        if($this->target == 'creating') {
+        if ($this->target == 'creating') {
             foreach ($this->creating as $model => $props) {
                 $model::creating(function () use ($role) {
                     if (! auth()->user()->hasRole($role)) {
@@ -101,7 +103,7 @@ class HeyMan
             }
         }
 
-        if($this->target == 'views') {
+        if ($this->target == 'views') {
             foreach ($this->views as $view => $props) {
                 Event::listen('creating: '.$view, function () use ($role) {
                     if (! auth()->user()->hasRole($role)) {
@@ -131,6 +133,7 @@ class HeyMan
         $this->value = $action;
 
         $this->target = 'actions';
+
         return $this;
     }
 
@@ -223,5 +226,4 @@ class HeyMan
 
         return $this;
     }
-
 }
