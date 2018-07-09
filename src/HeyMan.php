@@ -115,6 +115,16 @@ class HeyMan
             }
         }
 
+        if ($this->target == 'events') {
+            foreach ($this->events as $event => $props) {
+                Event::listen($event, function () use ($role) {
+                    if (! auth()->user()->hasRole($role)) {
+                        throw new AuthorizationException();
+                    };
+                });
+            }
+        }
+
         $this->value = [];
 
         return $this;
