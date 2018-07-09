@@ -74,15 +74,7 @@ class HeyMan
 
         $this->addListenerForViews($predicate);
 
-        if ($this->target == 'events') {
-            foreach ($this->events as $event => $props) {
-                Event::listen($event, function () use ($predicate) {
-                    if ($predicate()) {
-                        $this->denyAccess();
-                    };
-                });
-            }
-        }
+        $this->addListenersForEvents($predicate);
 
         $this->value = [];
 
@@ -238,15 +230,7 @@ class HeyMan
             $this->{$this->target}[$value]['role'] = $gate;
         }
 
-        if ($this->target == 'events') {
-            foreach ($this->events as $event => $props) {
-                Event::listen($event, function () use ($predicate) {
-                    if ($predicate()) {
-                        $this->denyAccess();
-                    };
-                });
-            }
-        }
+        $this->addListenersForEvents($predicate);
 
         $this->addListenerForViews($predicate);
 
@@ -284,6 +268,22 @@ class HeyMan
         if ($this->target == 'views') {
             foreach ($this->views as $view => $props) {
                 Event::listen('creating: '.$view, function () use ($predicate) {
+                    if ($predicate()) {
+                        $this->denyAccess();
+                    };
+                });
+            }
+        }
+    }
+
+    /**
+     * @param $predicate
+     */
+    private function addListenersForEvents($predicate)
+    {
+        if ($this->target == 'events') {
+            foreach ($this->events as $event => $props) {
+                Event::listen($event, function () use ($predicate) {
                     if ($predicate()) {
                         $this->denyAccess();
                     };
