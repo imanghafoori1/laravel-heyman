@@ -18,10 +18,6 @@ class HeyMan
 
     private $actions = [];
 
-    private $creating = [];
-
-    private $updating = [];
-
     private $views = [];
 
     private $events = [];
