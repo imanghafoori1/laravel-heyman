@@ -44,7 +44,7 @@ class EloquentAuthorizationTest extends TestCase
     }
 
 
-    public function testUrlIsAuthorized334()
+    public function testُSavingModelsIsAuthorized2()
     {
         setUp::run($this);
         User::create(['name' => 'iman', 'email' => 'n@gmail.com', 'password' => bcrypt('a')]);
@@ -58,7 +58,7 @@ class EloquentAuthorizationTest extends TestCase
         $user->save();
     }
 
-    public function testUrlIsAuthorized3734()
+    public function testُSavingModelsIsAuthorized3()
     {
         setUp::run($this);
         User::create(['name' => 'iman', 'email' => 'n@gmail.com', 'password' => bcrypt('a')]);
@@ -70,7 +70,7 @@ class EloquentAuthorizationTest extends TestCase
         User::find(2)->update(['name' => 'sdcsdc']);
     }
 
-    public function testUrlIsAuthorized3044()
+    public function testُSavingModelsIsAuthorized1()
     {
         setUp::run($this);
         User::create(['name' => 'iman', 'email' => 'n@gmail.com', 'password' => bcrypt('a')]);
