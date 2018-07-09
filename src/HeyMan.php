@@ -24,18 +24,17 @@ class HeyMan
 
     public function whenVisitingUrl(...$url)
     {
-        $url = $this->normalizeInput($url);
-
-        $this->value = array_merge($this->value, $url);
+        $this->setValue($url);
 
         $this->target = 'urls';
 
         return $this;
     }
 
-    public function whenVisitingRoute($routeName)
+    public function whenVisitingRoute(...$routeName)
     {
-        $this->value = $routeName;
+        $this->setValue($routeName);
+
         $this->target = 'routeNames';
 
         return $this;
@@ -88,9 +87,7 @@ class HeyMan
 
     public function whenCallingAction(...$action)
     {
-        $action = $this->normalizeInput($action);
-
-        $this->value = array_merge($this->value, $action);
+        $this->setValue($action);
 
         $this->target = 'actions';
 
@@ -104,9 +101,7 @@ class HeyMan
 
     public function whenCreatingModel(...$model)
     {
-        $model = $this->normalizeInput($model);
-
-        $this->value = array_merge($this->value, $model);
+        $this->setValue($model);
 
         $this->target = 'creating';
 
@@ -115,9 +110,7 @@ class HeyMan
 
     public function whenUpdatingModel(...$model)
     {
-        $model = $this->normalizeInput($model);
-
-        $this->value = array_merge($this->value, $model);
+        $this->setValue($model);
 
         $this->target = 'updating';
 
@@ -126,9 +119,7 @@ class HeyMan
 
     public function whenSavingModel(...$model)
     {
-        $model = $this->normalizeInput($model);
-
-        $this->value = array_merge($this->value, $model);
+        $this->setValue($model);
 
         $this->target = 'saving';
 
@@ -137,9 +128,7 @@ class HeyMan
 
     public function whenDeletingModel(...$model)
     {
-        $model = $this->normalizeInput($model);
-
-        $this->value = array_merge($this->value, $model);
+        $this->setValue($model);
 
         $this->target = 'deleting';
 
@@ -148,9 +137,7 @@ class HeyMan
 
     public function whenYouSeeViewFile(...$view)
     {
-        $view = $this->normalizeInput($view);
-
-        $this->value = array_merge($this->value, $view);
+        $this->setValue($view);
 
         $this->target = 'views';
 
@@ -159,10 +146,7 @@ class HeyMan
 
     public function whenEventHappens(...$event)
     {
-
-        $event = $this->normalizeInput($event);
-
-        $this->value = array_merge($this->value, $event);
+        $this->setValue($event);
 
         $this->target = 'events';
 
@@ -258,5 +242,14 @@ class HeyMan
     private function normalizeInput($url): array
     {
         return is_array($url[0]) ? $url[0] : $url;
+    }
+
+    /**
+     * @param $model
+     */
+    private function setValue($model)
+    {
+        $model = $this->normalizeInput($model);
+        $this->value = array_merge($this->value, $model);
     }
 }
