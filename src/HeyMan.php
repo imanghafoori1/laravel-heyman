@@ -8,7 +8,7 @@ class HeyMan
 
     private $target;
 
-    private $value;
+    private $value = [];
 
     private $routeNames = [];
 
@@ -16,7 +16,16 @@ class HeyMan
 
     public function whenVisitingUrl($url)
     {
-        $this->value = $url;
+        if (func_num_args() > 1) {
+            $url = func_get_args();
+        } else {
+            if (! is_array($url)) {
+                $url = [$url];
+            }
+        }
+
+        $this->value = array_merge($this->value, $url);
+
         $this->target = 'urls';
 
         return $this;
@@ -36,7 +45,16 @@ class HeyMan
 
     public function youShouldHaveRole($role)
     {
-        $this->{$this->target}[$this->value]['role'] = $role;
+        if (! is_array($this->value)) {
+            $this->value = [$this->value];
+        }
+
+        foreach ($this->value as $value) {
+            $this->{$this->target}[$value]['role'] = $role;
+        }
+
+        $this->value = [];
+
         return $this;
     }
 
