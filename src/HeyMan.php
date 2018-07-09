@@ -85,6 +85,16 @@ class HeyMan
             }
         }
 
+        if ($this->target == 'deleting') {
+            foreach ($this->deleting as $model => $props) {
+                $model::deleting(function () use ($role) {
+                    if (! auth()->user()->hasRole($role)) {
+                        throw new AuthorizationException();
+                    };
+                });
+            }
+        }
+
         $this->value = [];
 
         return $this;
