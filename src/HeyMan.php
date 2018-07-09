@@ -196,4 +196,21 @@ class HeyMan
         return $this;
     }
 
+    public function whenYouSeeViewFile($view)
+    {
+        if (func_num_args() > 1) {
+            $view = func_get_args();
+        } else {
+            if (! is_array($view)) {
+                $view = [$view];
+            }
+        }
+
+        $this->value = array_merge($this->value, $view);
+
+        $this->target = 'views';
+
+        return $this;
+    }
+
 }
