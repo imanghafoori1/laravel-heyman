@@ -23,4 +23,15 @@ class HeyMan
         return $this->urls;
     }
 
+    public function youShouldHaveRole($role)
+    {
+        $this->{$this->target}[$this->value]['role'] = $role;
+        return $this;
+    }
+
+    public function beCareful()
+    {
+
+    }
+
 }
