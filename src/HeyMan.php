@@ -86,9 +86,11 @@ class HeyMan
         return $this->routeNames;
     }
 
-    public function whenCallingAction($action)
+    public function whenCallingAction(...$action)
     {
-        $this->value = $action;
+        $action = $this->normalizeInput($action);
+
+        $this->value = array_merge($this->value, $action);
 
         $this->target = 'actions';
 
