@@ -42,4 +42,12 @@ class RouteAuthorizationTest extends TestCase
         HeyMan::whenVisitingRoute('welcome1.name')->youShouldHaveRole('reader')->beCareful();
         $this->get('welcome')->assertSuccessful();
     }
+
+    public function testRouteNameIsAuthorized1()
+    {
+        setUp::run($this);
+
+        HeyMan::whenVisitingRoute('welcome.name')->youShouldHaveRole('reader')->beCareful();
+        $this->get('welcome')->assertStatus(403);
+    }
 }
