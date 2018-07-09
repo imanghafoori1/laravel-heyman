@@ -12,6 +12,8 @@ class HeyMan
 
     private $routeNames = [];
 
+    private $actions = [];
+
     public function whenVisitingUrl($url)
     {
         $this->value = $url;
@@ -48,4 +50,16 @@ class HeyMan
         return $this->routeNames;
     }
 
+    public function whenCallingAction($action)
+    {
+        $this->value = $action;
+
+        $this->target = 'actions';
+        return $this;
+    }
+
+    public function getActions()
+    {
+        return $this->actions;
+    }
 }
