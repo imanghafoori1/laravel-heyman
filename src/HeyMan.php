@@ -51,15 +51,7 @@ class HeyMan
 
         $this->setTarget($role);
 
-        if (in_array($this->target, ['creating', 'updating', 'saving', 'deleting'])) {
-            $this->eloquent($predicate);
-        }
-
-        if (in_array($this->target, ['events', 'views'])) {
-            $this->{$this->target}($predicate);
-        }
-
-        $this->value = [];
+        $this->mapEvents($predicate);
 
         return $this;
     }
@@ -160,25 +152,9 @@ class HeyMan
 
         $this->setTarget($gate);
 
-        $this->addListenersForEloquent($predicate);
-
-        if (in_array($this->target, ['events', 'views'])) {
-            $this->{$this->target}($predicate);
-        }
-
-        $this->value = [];
+        $this->mapEvents($predicate);
 
         return $this;
-    }
-
-    /**
-     * @param $predicate
-     */
-    private function addListenersForEloquent($predicate)
-    {
-        if (in_array($this->target, ['creating', 'updating', 'saving', 'deleting'])) {
-            $this->eloquent($predicate);
-        }
     }
 
     /**
@@ -213,34 +189,8 @@ class HeyMan
         foreach ($this->value as $event) {
             Event::listen($event, $cb);
         }
-    }
 
-    /**
-     * @param $predicate
-     */
-    private function views($predicate)
-    {
-        $mapper = function ($view) {
-            return 'creating: '.$view;
-        };
-
-        $this->value = array_map($mapper, $this->value);
-
-        $this->events($predicate);
-    }
-
-    /**
-     * @param $predicate
-     */
-    private function eloquent($predicate)
-    {
-        $mapper = function ($model) {
-            return "eloquent.{$this->target}: {$model}";
-        };
-
-        $this->value = array_map($mapper, $this->value);
-
-        $this->events($predicate);
+        $this->value = [];
     }
 
     /**
@@ -251,5 +201,28 @@ class HeyMan
         foreach ($this->value as $value) {
             $this->{$this->target}[$value]['role'] = $gate;
         }
+    }
+
+    private function mapEvents($predicate)
+    {
+        $mapper = function ($view) {
+            return $view;
+        };
+
+        if (in_array($this->target, ['creating', 'updating', 'saving', 'deleting'])) {
+            $mapper = function ($model) {
+                return "eloquent.{$this->target}: {$model}";
+            };
+        }
+
+        if ($this->target == 'views') {
+            $mapper = function ($view) {
+                return 'creating: '.$view;
+            };
+        }
+
+        $this->value = array_map($mapper, $this->value);
+
+        $this->events($predicate);
     }
 }
