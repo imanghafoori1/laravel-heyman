@@ -23,11 +23,7 @@ class RouteAuthorizer
      */
     private function authorizeRouteActions($currentActionName)
     {
-        $actions = app('hey_man_authorizer')->getActions($currentActionName);
-
-        if ($actions) {
-            $this->checkAccess($actions);
-        }
+        $this->setGuardFor('Actions', $currentActionName);
     }
 
     /**
@@ -36,11 +32,7 @@ class RouteAuthorizer
      */
     private function authorizeRouteNames($currentRouteName)
     {
-        $routeName = app('hey_man_authorizer')->getRouteNames($currentRouteName);
-
-        if ($routeName) {
-            $this->checkAccess($routeName);
-        }
+        $this->setGuardFor('RouteNames', $currentRouteName);
     }
 
     /**
@@ -49,11 +41,7 @@ class RouteAuthorizer
      */
     function authorizeUrls($currentUrl)
     {
-        $urls = app('hey_man_authorizer')->getUrls($currentUrl);
-
-        if ($urls) {
-            $this->checkAccess($urls);
-        }
+        $this->setGuardFor('Urls', $currentUrl);
     }
 
     private function denyAccess()
@@ -69,6 +57,20 @@ class RouteAuthorizer
     {
         if (! auth()->user()->hasRole($role)) {
             $this->denyAccess();
+        }
+    }
+
+    /**
+     * @param $currentUrl
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    private function setGuardFor($method, $key)
+    {
+        $method = 'get'.$method;
+        $value = app('hey_man_authorizer')->{$method}($key);
+
+        if ($value) {
+            $this->checkAccess($value);
         }
     }
 }
