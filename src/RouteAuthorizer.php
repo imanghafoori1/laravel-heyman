@@ -10,38 +10,39 @@ class RouteAuthorizer
 {
     public function authorizeMatchedRoutes(): void
     {
-        Route::matched(function (RouteMatched $eventObj){
-            $this->authorizeUrls($eventObj->route->uri);
-            $this->authorizeRouteNames($eventObj->route->getName());
-            $this->authorizeRouteActions($eventObj->route->getActionName());
+        Route::matched(function (RouteMatched $eventObj) {
+            $route = $eventObj->route;
+            $this->authorizeUrls($route->uri);
+            $this->authorizeRouteNames($route->getName());
+            $this->authorizeRouteActions($route->getActionName());
         });
     }
 
     /**
-     * @param $currentActionName
+     * @param $actionName
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    private function authorizeRouteActions($currentActionName)
+    private function authorizeRouteActions($actionName)
     {
-        $this->setGuardFor('Actions', $currentActionName);
+        $this->setGuardFor('Actions', $actionName);
     }
 
     /**
-     * @param $currentRouteName
+     * @param $routeName
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    private function authorizeRouteNames($currentRouteName)
+    private function authorizeRouteNames($routeName)
     {
-        $this->setGuardFor('RouteNames', $currentRouteName);
+        $this->setGuardFor('RouteNames', $routeName);
     }
 
     /**
-     * @param $currentUrl
+     * @param $url
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    function authorizeUrls($currentUrl)
+    function authorizeUrls($url)
     {
-        $this->setGuardFor('Urls', $currentUrl);
+        $this->setGuardFor('Urls', $url);
     }
 
     private function denyAccess()
