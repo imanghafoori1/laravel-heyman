@@ -51,12 +51,12 @@ class RouteAuthorizer
     }
 
     /**
-     * @param $role
+     * @param $predicate
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    private function checkAccess($role)
+    private function checkAccess($predicate)
     {
-        if (! auth()->user()->hasRole($role)) {
+        if ($predicate()) {
             $this->denyAccess();
         }
     }
@@ -68,10 +68,10 @@ class RouteAuthorizer
     private function setGuardFor($method, $key)
     {
         $method = 'get'.$method;
-        $value = app('hey_man_authorizer')->{$method}($key);
+        $predicate = app('hey_man_authorizer')->{$method}($key);
 
-        if ($value) {
-            $this->checkAccess($value);
+        if ($predicate) {
+            $this->checkAccess($predicate);
         }
     }
 }

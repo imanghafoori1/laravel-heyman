@@ -37,7 +37,7 @@ class ConditionApplier
             return ! auth()->user()->hasRole($role);
         };
 
-        $this->setTarget($role);
+        $this->setTarget($predicate);
 
         $this->mapEvents($predicate);
 
@@ -50,7 +50,7 @@ class ConditionApplier
             return Gate::denies($gate, $args);
         };
 
-        $this->setTarget($gate);
+        $this->setTarget($predicate);
 
         $this->mapEvents($predicate);
 
@@ -63,7 +63,7 @@ class ConditionApplier
     private function setTarget($gate)
     {
         foreach ($this->value as $value) {
-            $this->{$this->target}[$value]['role'] = $gate;
+            $this->{$this->target}[$value] = $gate;
         }
     }
 
@@ -119,16 +119,16 @@ class ConditionApplier
 
     public function getUrls($url)
     {
-        return $this->urls[$url]['role'] ?? null;
+        return $this->urls[$url] ?? null;
     }
 
     public function getRouteNames($routeName)
     {
-        return $this->routeNames[$routeName]['role'] ?? null;
+        return $this->routeNames[$routeName] ?? null;
     }
 
     public function getActions($action)
     {
-        return $this->actions[$action]['role'] ?? null;
+        return $this->actions[$action] ?? null;
     }
 }
