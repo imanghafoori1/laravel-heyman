@@ -72,11 +72,11 @@ class HeyMan
     }
 
     /**
-     * @param $url
+     * @param $value
      * @return $this
      */
-    private function authorize($target, $url): ConditionApplier
+    private function authorize($target, $value): ConditionApplier
     {
-        return $this->authorizer->init($target, $this->normalizeInput($url));
+        return $this->authorizer->init($target, $this->normalizeInput($value));
     }
 }
