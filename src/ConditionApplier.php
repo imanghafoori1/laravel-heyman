@@ -54,12 +54,12 @@ class ConditionApplier
     }
 
     /**
-     * @param $gate
+     * @param $callback
      */
-    private function setTarget($gate)
+    private function setTarget(callable $callback)
     {
         foreach ($this->value as $value) {
-            $this->{$this->target}[$value] = $gate;
+            $this->{$this->target}[$value] = $callback;
         }
     }
 
