@@ -26,9 +26,7 @@ class RouteAuthorizer
         $actions = app('hey_man_authorizer')->getActions();
 
         if (isset($actions[$currentActionName]['role'])) {
-            if (! auth()->user()->hasRole($actions[$currentActionName]['role'])) {
-                $this->denyAccess();
-            }
+            $this->checkAccess($actions[$currentActionName]['role']);
         }
     }
 
@@ -41,9 +39,7 @@ class RouteAuthorizer
         $routeNames = app('hey_man_authorizer')->getRouteNames();
 
         if (isset($routeNames[$currentRouteName]['role'])) {
-            if (! auth()->user()->hasRole($routeNames[$currentRouteName]['role'])) {
-                $this->denyAccess();
-            }
+            $this->checkAccess($routeNames[$currentRouteName]['role']);
         }
     }
 
@@ -56,14 +52,23 @@ class RouteAuthorizer
         $urls = app('hey_man_authorizer')->getUrls();
 
         if (isset($urls[$currentUrl]['role'])) {
-            if (! auth()->user()->hasRole($urls[$currentUrl]['role'])) {
-                $this->denyAccess();
-            }
+            $this->checkAccess($urls[$currentUrl]['role']);
         }
     }
 
     private function denyAccess()
     {
         throw new AuthorizationException();
+    }
+
+    /**
+     * @param $role
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    private function checkAccess($role)
+    {
+        if (! auth()->user()->hasRole($role)) {
+            $this->denyAccess();
+        }
     }
 }
