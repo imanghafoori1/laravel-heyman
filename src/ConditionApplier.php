@@ -37,9 +37,7 @@ class ConditionApplier
             return ! auth()->user()->hasRole($role);
         };
 
-        $this->setTarget($predicate);
-
-        $this->mapEvents($predicate);
+        $this->startGuarding($predicate);
 
         return $this;
     }
@@ -50,9 +48,7 @@ class ConditionApplier
             return Gate::denies($gate, $args);
         };
 
-        $this->setTarget($predicate);
-
-        $this->mapEvents($predicate);
+        $this->startGuarding($predicate);
 
         return $this;
     }
@@ -67,13 +63,13 @@ class ConditionApplier
         }
     }
 
-    private function mapEvents($predicate)
+    private function mapEvents()
     {
         $mapper = function ($view) {
             return $view;
         };
 
-        if (in_array($this->target, ['creating', 'updating', 'saving', 'deleting'])) {
+        if ($this->shouldAuthorizeEloquent()) {
             $mapper = function ($model) {
                 return "eloquent.{$this->target}: {$model}";
             };
@@ -86,8 +82,6 @@ class ConditionApplier
         }
 
         $this->value = array_map($mapper, $this->value);
-
-        $this->ListenToEvents($predicate);
     }
 
     /**
@@ -130,5 +124,34 @@ class ConditionApplier
     public function getActions($action)
     {
         return $this->actions[$action] ?? null;
+    }
+
+    /**
+     * @return bool
+     */
+    private function shouldAuthorizeRoute(): bool
+    {
+        return in_array($this->target, ['urls', 'routeNames', 'actions']);
+    }
+
+    /**
+     * @param $predicate
+     */
+    private function startGuarding($predicate)
+    {
+        if ($this->shouldAuthorizeRoute()) {
+            $this->setTarget($predicate);
+        } else {
+            $this->mapEvents();
+            $this->ListenToEvents($predicate);
+        }
+    }
+
+    /**
+     * @return bool
+     */
+    private function shouldAuthorizeEloquent(): bool
+    {
+        return in_array($this->target, ['creating', 'updating', 'saving', 'deleting']);
     }
 }
