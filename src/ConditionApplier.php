@@ -87,13 +87,13 @@ class ConditionApplier
 
         $this->value = array_map($mapper, $this->value);
 
-        $this->events($predicate);
+        $this->ListenToEvents($predicate);
     }
 
     /**
      * @param $predicate
      */
-    private function events($predicate)
+    private function ListenToEvents($predicate)
     {
         $cb = function () use ($predicate) {
             if ($predicate()) {
