@@ -101,9 +101,7 @@ class ConditionApplier
             };
         };
 
-        foreach ($this->value as $event) {
-            Event::listen($event, $cb);
-        }
+        Event::listen($this->value, $cb);
 
         $this->value = [];
     }
