@@ -51,9 +51,7 @@ class HeyMan
             return ! auth()->user()->hasRole($role);
         };
 
-        foreach ($this->value as $value) {
-            $this->{$this->target}[$value]['role'] = $role;
-        }
+        $this->setTarget($role);
 
         $this->addListenersForEloquent($predicate);
 
@@ -160,9 +158,7 @@ class HeyMan
             return Gate::denies($gate, $args);
         };
 
-        foreach ($this->value as $value) {
-            $this->{$this->target}[$value]['role'] = $gate;
-        }
+        $this->setTarget($gate);
 
         $this->addListenersForEloquent($predicate);
 
@@ -243,6 +239,16 @@ class HeyMan
                     $this->denyAccess();
                 }
             });
+        }
+    }
+
+    /**
+     * @param $gate
+     */
+    private function setTarget($gate)
+    {
+        foreach ($this->value as $value) {
+            $this->{$this->target}[$value]['role'] = $gate;
         }
     }
 }
