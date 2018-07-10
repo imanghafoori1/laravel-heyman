@@ -11,18 +11,19 @@ class RouteAuthorizer
     public function authorizeMatchedRoutes(): void
     {
         Route::matched(function (RouteMatched $eventObj){
-            $this->authorizeUrls($eventObj);
-            $this->authorizeRouteNames($eventObj);
-            $this->authorizeRouteActions($eventObj);
+            $this->authorizeUrls($eventObj->route->uri);
+            $this->authorizeRouteNames($eventObj->route->getName());
+            $this->authorizeRouteActions($eventObj->route->getActionName());
         });
     }
+
     /**
-     * @param \Illuminate\Routing\Events\RouteMatched $eventObj
+     * @param $currentActionName
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    private function authorizeRouteActions(RouteMatched $eventObj)
+    private function authorizeRouteActions($currentActionName)
     {
         $actions = app('hey_man_authorizer')->getActions();
-        $currentActionName = $eventObj->route->getActionName();
 
         if (isset($actions[$currentActionName]['role'])) {
             if (! auth()->user()->hasRole($actions[$currentActionName]['role'])) {
@@ -32,12 +33,12 @@ class RouteAuthorizer
     }
 
     /**
-     * @param \Illuminate\Routing\Events\RouteMatched $eventObj
+     * @param $currentRouteName
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    private function authorizeRouteNames(RouteMatched $eventObj)
+    private function authorizeRouteNames($currentRouteName)
     {
         $routeNames = app('hey_man_authorizer')->getRouteNames();
-        $currentRouteName = $eventObj->route->getName();
 
         if (isset($routeNames[$currentRouteName]['role'])) {
             if (! auth()->user()->hasRole($routeNames[$currentRouteName]['role'])) {
@@ -47,11 +48,11 @@ class RouteAuthorizer
     }
 
     /**
-     * @param \Illuminate\Routing\Events\RouteMatched $eventObj
+     * @param $currentUrl
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    function authorizeUrls(RouteMatched $eventObj)
+    function authorizeUrls($currentUrl)
     {
-        $currentUrl = $eventObj->route->uri;
         $urls = app('hey_man_authorizer')->getUrls();
 
         if (isset($urls[$currentUrl]['role'])) {
