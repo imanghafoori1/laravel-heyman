@@ -33,11 +33,7 @@ class ConditionApplier
 
     public function youShouldHaveRole($role)
     {
-        $predicate = function () use ($role) {
-            return ! auth()->user()->hasRole($role);
-        };
-
-        $this->startGuarding($predicate);
+        $this->youShouldPassGate('heyman.youShouldHaveRole', $role);
 
         return $this;
     }
