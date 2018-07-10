@@ -18,8 +18,6 @@ class HeyMan
 
     private $actions = [];
 
-    private $views = [];
-
     private $events = [];
 
     public function whenVisitingUrl(...$url)
@@ -204,7 +202,7 @@ class HeyMan
      */
     private function events($predicate)
     {
-        foreach ($this->events as $event => $props) {
+        foreach ($this->value as $event) {
             Event::listen($event, function () use ($predicate) {
                 if ($predicate()) {
                     $this->denyAccess();
@@ -218,23 +216,20 @@ class HeyMan
      */
     private function views($predicate)
     {
-        $this->events = array_map(function ($view) {
+        $this->value = array_map(function ($view) {
             return 'creating: '.$view;
-        }, array_keys($this->views));
-
-        $this->events = array_flip($this->events);
+        }, $this->value);
 
         $this->events($predicate);
     }
 
     /**
      * @param $predicate
-     * @param $action
      */
     private function eloquent($predicate)
     {
-        foreach ($this->{$this->target} as $model => $props) {
-            $model::{$this->target}(function () use ($predicate) {
+        foreach ($this->value as $value) {
+            $value::{$this->target}(function () use ($predicate) {
                 if ($predicate()) {
                     $this->denyAccess();
                 }
