@@ -23,10 +23,10 @@ class RouteAuthorizer
      */
     private function authorizeRouteActions($currentActionName)
     {
-        $actions = app('hey_man_authorizer')->getActions();
+        $actions = app('hey_man_authorizer')->getActions($currentActionName);
 
-        if (isset($actions[$currentActionName]['role'])) {
-            $this->checkAccess($actions[$currentActionName]['role']);
+        if ($actions) {
+            $this->checkAccess($actions);
         }
     }
 
@@ -36,10 +36,10 @@ class RouteAuthorizer
      */
     private function authorizeRouteNames($currentRouteName)
     {
-        $routeNames = app('hey_man_authorizer')->getRouteNames();
+        $routeName = app('hey_man_authorizer')->getRouteNames($currentRouteName);
 
-        if (isset($routeNames[$currentRouteName]['role'])) {
-            $this->checkAccess($routeNames[$currentRouteName]['role']);
+        if ($routeName) {
+            $this->checkAccess($routeName);
         }
     }
 
@@ -49,10 +49,10 @@ class RouteAuthorizer
      */
     function authorizeUrls($currentUrl)
     {
-        $urls = app('hey_man_authorizer')->getUrls();
+        $urls = app('hey_man_authorizer')->getUrls($currentUrl);
 
-        if (isset($urls[$currentUrl]['role'])) {
-            $this->checkAccess($urls[$currentUrl]['role']);
+        if ($urls) {
+            $this->checkAccess($urls);
         }
     }
 

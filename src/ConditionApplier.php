@@ -117,18 +117,18 @@ class ConditionApplier
 
     }
 
-    public function getUrls()
+    public function getUrls($url)
     {
-        return $this->urls;
+        return $this->urls[$url]['role'] ?? null;
     }
 
-    public function getRouteNames()
+    public function getRouteNames($routeName)
     {
-        return $this->routeNames;
+        return $this->routeNames[$routeName]['role'] ?? null;
     }
 
-    public function getActions()
+    public function getActions($action)
     {
-        return $this->actions;
+        return $this->actions[$action]['role'] ?? null;
     }
 }
