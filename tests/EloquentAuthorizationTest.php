@@ -1,6 +1,7 @@
 <?php
 
 use App\User;
+use App\User2;
 use Illuminate\Auth\Access\AuthorizationException;
 use Imanghafoori\HeyMan\Facades\HeyMan;
 
@@ -11,6 +12,7 @@ class EloquentAuthorizationTest extends TestCase
         setUp::run($this);
 
         HeyMan::whenCreatingModel(User::class)->youShouldHaveRole('reader')->beCareful();
+        HeyMan::whenCreatingModel(User2::class)->youShouldHaveRole('reader')->beCareful();
 
         $this->expectException(AuthorizationException::class);
 
@@ -22,11 +24,11 @@ class EloquentAuthorizationTest extends TestCase
         setUp::run($this);
         User::create(['name' => 'iman', 'email' => 'n@gmail.com', 'password' => bcrypt('a')]);
 
-        HeyMan::whenUpdatingModel(User::class)->youShouldHaveRole('reader')->beCareful();
-
-        $this->expectException(AuthorizationException::class);
+        HeyMan::whenUpdatingModel(User::class)->youShouldHaveRole('writer')->beCareful();
+        HeyMan::whenCreatingModel(User2::class)->youShouldHaveRole('reader')->beCareful();
 
         User::find(2)->update(['name' => 'imdfvn']);
+        $this->assertTrue(true);
     }
 
     public function testUpdatingModelsIsAuthorized2()
@@ -42,7 +44,6 @@ class EloquentAuthorizationTest extends TestCase
         $user->name = 'sss';
         $user->save();
     }
-
 
     public function testُSavingModelsIsAuthorized2()
     {
@@ -63,7 +64,8 @@ class EloquentAuthorizationTest extends TestCase
         setUp::run($this);
         User::create(['name' => 'iman', 'email' => 'n@gmail.com', 'password' => bcrypt('a')]);
 
-        HeyMan::whenSavingModel(User::class)->youShouldHaveRole('reader')->beCareful();
+        HeyMan::whenUpdatingModel(User::class)->youShouldHaveRole('reader')->beCareful();
+        HeyMan::whenSavingModel(User::class)->youShouldHaveRole('writer')->beCareful();
 
         $this->expectException(AuthorizationException::class);
 
