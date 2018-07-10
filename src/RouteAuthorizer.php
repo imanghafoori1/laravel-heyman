@@ -11,8 +11,9 @@ class RouteAuthorizer
     public function authorizeMatchedRoutes($app): void
     {
         Route::matched(function (RouteMatched $eventObj) use($app) {
+
             $currentUrl = $eventObj->route->uri;
-            $urls = $app['hey_man']->getUrls();
+            $urls = $app['hey_man_authorizer']->getUrls();
 
             if (isset($urls[$currentUrl]['role'])) {
                 if (! auth()->user()->hasRole($urls[$currentUrl]['role'])) {
@@ -20,7 +21,7 @@ class RouteAuthorizer
                 }
             }
 
-            $routeNames = $app['hey_man']->getRouteNames();
+            $routeNames = $app['hey_man_authorizer']->getRouteNames();
             $currentRouteName = $eventObj->route->getName();
 
             if (isset($routeNames[$currentRouteName]['role'])) {
@@ -29,7 +30,7 @@ class RouteAuthorizer
                 }
             }
 
-            $actions = $app['hey_man']->getActions();
+            $actions = $app['hey_man_authorizer']->getActions();
             $currentActionName = $eventObj->route->getActionName();
 
             if (isset($actions[$currentActionName]['role'])) {
@@ -37,7 +38,6 @@ class RouteAuthorizer
                     throw new AuthorizationException();
                 }
             }
-
         });
     }
 

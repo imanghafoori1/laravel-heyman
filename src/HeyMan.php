@@ -2,31 +2,35 @@
 
 namespace Imanghafoori\HeyMan;
 
-use Illuminate\Auth\Access\AuthorizationException;
-use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\Gate;
-
 class HeyMan
 {
-    private $urls = [];
-
     private $target;
 
     private $value = [];
 
-    private $routeNames = [];
-
-    private $actions = [];
-
     private $events = [];
+
+    /**
+     * @var \Imanghafoori\HeyMan\ConditionApplier
+     */
+    private $authorizer;
+
+    /**
+     * HeyMan constructor.
+     */
+    public function __construct()
+    {
+        $this->authorizer = app('hey_man_authorizer');
+    }
 
     public function whenVisitingUrl(...$url)
     {
         $this->setValue($url);
 
         $this->target = 'urls';
-
-        return $this;
+        $t = $this->value;
+        $this->value = [];
+        return $this->authorizer->init('urls', $t);
     }
 
     public function whenVisitingRoute(...$routeName)
@@ -34,41 +38,9 @@ class HeyMan
         $this->setValue($routeName);
 
         $this->target = 'routeNames';
-
-        return $this;
-    }
-
-    public function getUrls()
-    {
-        return $this->urls;
-    }
-
-    public function youShouldHaveRole($role)
-    {
-        $predicate = function () use ($role) {
-            return ! auth()->user()->hasRole($role);
-        };
-
-        $this->setTarget($role);
-
-        $this->mapEvents($predicate);
-
-        return $this;
-    }
-
-    public function beCareful()
-    {
-
-    }
-
-    private function denyAccess()
-    {
-        throw new AuthorizationException();
-    }
-
-    public function getRouteNames()
-    {
-        return $this->routeNames;
+        $t = $this->value;
+        $this->value = [];
+        return ($this->authorizer->init('routeNames', $t));
     }
 
     public function whenCallingAction(...$action)
@@ -76,13 +48,9 @@ class HeyMan
         $this->setValue($action);
 
         $this->target = 'actions';
-
-        return $this;
-    }
-
-    public function getActions()
-    {
-        return $this->actions;
+        $t = $this->value;
+        $this->value = [];
+        return $this->authorizer->init('actions', $t);
     }
 
     public function whenCreatingModel(...$model)
@@ -91,7 +59,7 @@ class HeyMan
 
         $this->target = 'creating';
 
-        return $this;
+        return $this->authorizer->init('creating', $this->value);
     }
 
     public function whenUpdatingModel(...$model)
@@ -100,7 +68,7 @@ class HeyMan
 
         $this->target = 'updating';
 
-        return $this;
+        return $this->authorizer->init('updating', $this->value);
     }
 
     public function whenSavingModel(...$model)
@@ -109,7 +77,7 @@ class HeyMan
 
         $this->target = 'saving';
 
-        return $this;
+        return $this->authorizer->init('saving', $this->value);
     }
 
     public function whenDeletingModel(...$model)
@@ -118,7 +86,7 @@ class HeyMan
 
         $this->target = 'deleting';
 
-        return $this;
+        return $this->authorizer->init('deleting', $this->value);
     }
 
     public function whenYouSeeViewFile(...$view)
@@ -127,7 +95,7 @@ class HeyMan
 
         $this->target = 'views';
 
-        return $this;
+        return $this->authorizer->init('views', $this->value);
     }
 
     public function whenEventHappens(...$event)
@@ -136,25 +104,12 @@ class HeyMan
 
         $this->target = 'events';
 
-        return $this;
+        return $this->authorizer->init('events', $this->value);
     }
 
     public function getEvents()
     {
         return $this->events;
-    }
-
-    public function youShouldPassGate($gate, ...$args)
-    {
-        $predicate = function () use ($gate, $args) {
-            return Gate::denies($gate, $args);
-        };
-
-        $this->setTarget($gate);
-
-        $this->mapEvents($predicate);
-
-        return $this;
     }
 
     /**
@@ -173,56 +128,5 @@ class HeyMan
     {
         $model = $this->normalizeInput($model);
         $this->value = array_merge($this->value, $model);
-    }
-
-    /**
-     * @param $predicate
-     */
-    private function events($predicate)
-    {
-        $cb = function () use ($predicate) {
-            if ($predicate()) {
-                $this->denyAccess();
-            };
-        };
-
-        foreach ($this->value as $event) {
-            Event::listen($event, $cb);
-        }
-
-        $this->value = [];
-    }
-
-    /**
-     * @param $gate
-     */
-    private function setTarget($gate)
-    {
-        foreach ($this->value as $value) {
-            $this->{$this->target}[$value]['role'] = $gate;
-        }
-    }
-
-    private function mapEvents($predicate)
-    {
-        $mapper = function ($view) {
-            return $view;
-        };
-
-        if (in_array($this->target, ['creating', 'updating', 'saving', 'deleting'])) {
-            $mapper = function ($model) {
-                return "eloquent.{$this->target}: {$model}";
-            };
-        }
-
-        if ($this->target == 'views') {
-            $mapper = function ($view) {
-                return 'creating: '.$view;
-            };
-        }
-
-        $this->value = array_map($mapper, $this->value);
-
-        $this->events($predicate);
     }
 }
