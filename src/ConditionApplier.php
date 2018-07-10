@@ -41,7 +41,9 @@ class ConditionApplier
     public function youShouldPassGate($gate, ...$args)
     {
         $predicate = function () use ($gate, $args) {
-            return Gate::denies($gate, $args);
+            if (Gate::denies($gate, $args)) {
+                $this->denyAccess();
+            };
         };
 
         $this->startGuarding($predicate);
@@ -91,7 +93,7 @@ class ConditionApplier
             };
         };
 
-        Event::listen($this->value, $cb);
+        Event::listen($this->value, $predicate);
 
         $this->value = [];
     }

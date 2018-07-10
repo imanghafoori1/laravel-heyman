@@ -2,7 +2,6 @@
 
 namespace Imanghafoori\HeyMan;
 
-use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Routing\Events\RouteMatched;
 use Illuminate\Support\Facades\Route;
 
@@ -45,22 +44,6 @@ class RouteAuthorizer
         $this->setGuardFor('Urls', $url);
     }
 
-    private function denyAccess()
-    {
-        throw new AuthorizationException();
-    }
-
-    /**
-     * @param $predicate
-     * @throws \Illuminate\Auth\Access\AuthorizationException
-     */
-    private function checkAccess($predicate)
-    {
-        if ($predicate()) {
-            $this->denyAccess();
-        }
-    }
-
     /**
      * @param $currentUrl
      * @throws \Illuminate\Auth\Access\AuthorizationException
@@ -71,7 +54,7 @@ class RouteAuthorizer
         $predicate = app('hey_man_authorizer')->{$method}($key);
 
         if ($predicate) {
-            $this->checkAccess($predicate);
+            $predicate();
         }
     }
 }
