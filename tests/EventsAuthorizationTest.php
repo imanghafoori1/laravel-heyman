@@ -17,5 +17,23 @@ class EventsAuthorizationTest extends TestCase
         event('myEvent1');
     }
 
+    public function testEventIsAuthorized2()
+    {
+        setUp::run($this);
 
+        Gate::define('deadEnd', function () {
+            return false;
+        });
+
+        Gate::define('open', function () {
+            return true;
+        });
+
+        HeyMan::whenEventHappens(['myEvent', 'myEvent1'])->youShouldPassGate('deadEnd')->beCareful();
+        HeyMan::whenEventHappens('myEvent4')->youShouldPassGate('open')->beCareful();
+
+        $this->expectException(AuthorizationException::class);
+
+        event('myEvent1');
+    }
 }
