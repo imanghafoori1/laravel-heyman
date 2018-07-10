@@ -51,7 +51,9 @@ class HeyMan
 
         $this->setTarget($role);
 
-        $this->addListenersForEloquent($predicate);
+        if (in_array($this->target, ['creating', 'updating', 'saving', 'deleting'])) {
+            $this->eloquent($predicate);
+        }
 
         if (in_array($this->target, ['events', 'views'])) {
             $this->{$this->target}($predicate);
@@ -202,12 +204,14 @@ class HeyMan
      */
     private function events($predicate)
     {
+        $cb = function () use ($predicate) {
+            if ($predicate()) {
+                $this->denyAccess();
+            };
+        };
+
         foreach ($this->value as $event) {
-            Event::listen($event, function () use ($predicate) {
-                if ($predicate()) {
-                    $this->denyAccess();
-                };
-            });
+            Event::listen($event, $cb);
         }
     }
 
@@ -216,9 +220,11 @@ class HeyMan
      */
     private function views($predicate)
     {
-        $this->value = array_map(function ($view) {
+        $mapper = function ($view) {
             return 'creating: '.$view;
-        }, $this->value);
+        };
+
+        $this->value = array_map($mapper, $this->value);
 
         $this->events($predicate);
     }
@@ -228,13 +234,13 @@ class HeyMan
      */
     private function eloquent($predicate)
     {
-        foreach ($this->value as $value) {
-            $value::{$this->target}(function () use ($predicate) {
-                if ($predicate()) {
-                    $this->denyAccess();
-                }
-            });
-        }
+        $mapper = function ($model) {
+            return "eloquent.{$this->target}: {$model}";
+        };
+
+        $this->value = array_map($mapper, $this->value);
+
+        $this->events($predicate);
     }
 
     /**
