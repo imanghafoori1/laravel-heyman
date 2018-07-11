@@ -13,8 +13,6 @@ class HeyMan
      */
     private $routeAuthorizer;
 
-    private $shouldHaveRole;
-
     /**
      * HeyMan constructor.
      */
@@ -22,7 +20,6 @@ class HeyMan
     {
         $this->authorizer = app('hey_man_authorizer');
         $this->routeAuthorizer = app('hey_man_route_authorizer');
-        $this->shouldHaveRole = app('hey_man_should_have_role');
     }
 
     public function whenVisitingUrl(...$url)
@@ -83,14 +80,15 @@ class HeyMan
      * @param $value
      * @return $this
      */
-    private function authorize($target, $value): ConditionApplier
+    private function authorize($target, $value): YouShouldHave
     {
-        return $this->authorizer->init($target, $this->normalizeInput($value));
+        $authorizer = $this->authorizer->init($target, $this->normalizeInput($value));
+        return new YouShouldHave($authorizer);
     }
 
     private function authorizeRoute($target, $value)
     {
-        $this->routeAuthorizer->init($target, $this->normalizeInput($value));
-        return app('hey_man_should_have_role');
+        $routeAuthorizer = $this->routeAuthorizer->init($target, $this->normalizeInput($value));
+        return new YouShouldHave($routeAuthorizer);
     }
 }

@@ -7,6 +7,18 @@ use Illuminate\Support\Facades\Gate;
 
 class YouShouldHave
 {
+    private $authorizer;
+
+    /**
+     * YouShouldHave constructor.
+     *
+     * @param $authorizer
+     */
+    public function __construct($authorizer)
+    {
+        $this->authorizer = $authorizer;
+    }
+
     public function youShouldHaveRole($role)
     {
         $this->youShouldPassGate('heyman.youShouldHaveRole', $role);
@@ -22,7 +34,7 @@ class YouShouldHave
             };
         };
 
-        app('hey_man_route_authorizer')->startGuarding($predicate);
+        $this->authorizer->startGuarding($predicate);
 
         return $this;
     }
