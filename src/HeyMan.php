@@ -40,36 +40,36 @@ class HeyMan
     public function whenCreatingModel(...$model)
     {
         $model = $this->normalizeModel('creating', $model);
-        return $this->authorize('creating', $model);
+        return $this->authorize($model);
     }
 
     public function whenUpdatingModel(...$model)
     {
         $model = $this->normalizeModel('updating', $model);
-        return $this->authorize('updating', $model);
+        return $this->authorize($model);
     }
 
     public function whenSavingModel(...$model)
     {
         $model = $this->normalizeModel('saving', $model);
-        return $this->authorize('saving', $model);
+        return $this->authorize($model);
     }
 
     public function whenDeletingModel(...$model)
     {
         $model = $this->normalizeModel('deleting', $model);
-        return $this->authorize('deleting', $model);
+        return $this->authorize($model);
     }
 
     public function whenYouSeeViewFile(...$view)
     {
         $view = $this->normalizeView($view);
-        return $this->authorize('views', $view);
+        return $this->authorize($view);
     }
 
     public function whenEventHappens(...$event)
     {
-        return $this->authorize('events', $this->normalizeInput($event));
+        return $this->authorize($this->normalizeInput($event));
     }
 
     /**
@@ -85,9 +85,9 @@ class HeyMan
      * @param $value
      * @return $this
      */
-    private function authorize($target, $value): YouShouldHave
+    private function authorize($value): YouShouldHave
     {
-        $authorizer = $this->authorizer->init($target, $value);
+        $authorizer = $this->authorizer->init($value);
         return new YouShouldHave($authorizer);
     }
 

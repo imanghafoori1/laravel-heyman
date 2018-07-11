@@ -6,19 +6,15 @@ use Illuminate\Support\Facades\Event;
 
 class ConditionApplier
 {
-    private $target;
-
     private $value;
 
     /**
      * ConditionApplier constructor.
      *
-     * @param $target
      * @param $value
      */
-    public function init($target, $value)
+    public function init($value)
     {
-        $this->target = $target;
         $this->value = $value;
         return $this;
     }
