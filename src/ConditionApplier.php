@@ -82,22 +82,6 @@ class ConditionApplier
         $this->value = array_map($mapper, $this->value);
     }
 
-    /**
-     * @param $predicate
-     */
-    private function ListenToEvents($predicate)
-    {
-        $cb = function () use ($predicate) {
-            if ($predicate()) {
-                $this->denyAccess();
-            };
-        };
-
-        Event::listen($this->value, $predicate);
-
-        $this->value = [];
-    }
-
 
     private function denyAccess()
     {
@@ -133,15 +117,16 @@ class ConditionApplier
     }
 
     /**
-     * @param $predicate
+     * @param $callback
      */
-    private function startGuarding($predicate)
+    private function startGuarding(callable $callback)
     {
         if ($this->shouldAuthorizeRoute()) {
-            $this->setTarget($predicate);
+            $this->setTarget($callback);
         } else {
             $this->mapEvents();
-            $this->ListenToEvents($predicate);
+            Event::listen($this->value, $callback);
+            $this->value = [];
         }
     }
 
