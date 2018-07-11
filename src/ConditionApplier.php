@@ -111,17 +111,17 @@ class ConditionApplier
 
     public function getUrls($url)
     {
-        return $this->urls[$url] ?? null;
+        return $this->urls[$url] ?? function(){};
     }
 
     public function getRouteNames($routeName)
     {
-        return $this->routeNames[$routeName] ?? null;
+        return $this->routeNames[$routeName] ?? function(){};
     }
 
     public function getActions($action)
     {
-        return $this->actions[$action] ?? null;
+        return $this->actions[$action] ?? function(){};
     }
 
     /**

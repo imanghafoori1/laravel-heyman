@@ -52,9 +52,6 @@ class RouteAuthorizer
     {
         $method = 'get'.$method;
         $predicate = app('hey_man_authorizer')->{$method}($key);
-
-        if ($predicate) {
-            $predicate();
-        }
+        $predicate();
     }
 }
