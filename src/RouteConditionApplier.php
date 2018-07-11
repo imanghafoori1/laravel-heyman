@@ -27,16 +27,6 @@ class RouteConditionApplier
         return $this;
     }
 
-    /**
-     * @param $callback
-     */
-    private function setTarget(callable $callback)
-    {
-        foreach ($this->value as $value) {
-            $this->{$this->target}[$value] = $callback;
-        }
-    }
-
     public function getUrls($url)
     {
         return $this->urls[$url] ?? function(){};
@@ -57,6 +47,8 @@ class RouteConditionApplier
      */
     public function startGuarding(callable $callback)
     {
-       $this->setTarget($callback);
+        foreach ($this->value as $value) {
+            $this->{$this->target}[$value] = $callback;
+        }
     }
 }
