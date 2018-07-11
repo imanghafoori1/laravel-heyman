@@ -2,9 +2,6 @@
 
 namespace Imanghafoori\HeyMan;
 
-use Illuminate\Auth\Access\AuthorizationException;
-use Illuminate\Support\Facades\Gate;
-
 class RouteConditionApplier
 {
     private $target;
