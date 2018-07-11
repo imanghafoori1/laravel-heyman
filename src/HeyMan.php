@@ -63,12 +63,13 @@ class HeyMan
 
     public function whenYouSeeViewFile(...$view)
     {
+        $view = $this->normalizeView($view);
         return $this->authorize('views', $view);
     }
 
     public function whenEventHappens(...$event)
     {
-        return $this->authorize('events', $event);
+        return $this->authorize('events', $this->normalizeInput($event));
     }
 
     /**
@@ -86,7 +87,7 @@ class HeyMan
      */
     private function authorize($target, $value): YouShouldHave
     {
-        $authorizer = $this->authorizer->init($target, $this->normalizeInput($value));
+        $authorizer = $this->authorizer->init($target, $value);
         return new YouShouldHave($authorizer);
     }
 
@@ -101,7 +102,7 @@ class HeyMan
      * @param $model
      * @return array
      */
-    private function normalizeModel($target, $model): array
+    private function normalizeModel($target, array $model): array
     {
         $model = $this->normalizeInput($model);
         $mapper = function ($model) use ($target) {
@@ -109,5 +110,19 @@ class HeyMan
         };
 
         return array_map($mapper, $model);
+    }
+
+    /**
+     * @param $views
+     * @return array
+     */
+    private function normalizeView(array $views): array
+    {
+        $views = $this->normalizeInput($views);
+        $mapper = function ($view) {
+            return 'creating: '.$view;
+        };
+
+        return array_map($mapper, $views);
     }
 }
