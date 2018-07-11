@@ -51,7 +51,6 @@ class RouteAuthorizer
     private function setGuardFor($method, $key)
     {
         $method = 'get'.$method;
-        $predicate = app('hey_man_authorizer')->{$method}($key);
-        $predicate();
+        app('hey_man_route_authorizer')->{$method}($key)();
     }
 }

@@ -8,6 +8,12 @@ class HeyMan
      * @var \Imanghafoori\HeyMan\ConditionApplier
      */
     private $authorizer;
+    /**
+     * @var \Imanghafoori\HeyMan\RouteConditionApplier
+     */
+    private $routeAuthorizer;
+
+    private $shouldHaveRole;
 
     /**
      * HeyMan constructor.
@@ -15,21 +21,23 @@ class HeyMan
     public function __construct()
     {
         $this->authorizer = app('hey_man_authorizer');
+        $this->routeAuthorizer = app('hey_man_route_authorizer');
+        $this->shouldHaveRole = app('hey_man_should_have_role');
     }
 
     public function whenVisitingUrl(...$url)
     {
-        return $this->authorize('urls', $url);
+        return $this->authorizeRoute('urls', $url);
     }
 
     public function whenVisitingRoute(...$routeName)
     {
-        return $this->authorize('routeNames', $routeName);
+        return $this->authorizeRoute('routeNames', $routeName);
     }
 
     public function whenCallingAction(...$action)
     {
-        return $this->authorize('actions', $action);
+        return $this->authorizeRoute('actions', $action);
     }
 
     public function whenCreatingModel(...$model)
@@ -78,5 +86,11 @@ class HeyMan
     private function authorize($target, $value): ConditionApplier
     {
         return $this->authorizer->init($target, $this->normalizeInput($value));
+    }
+
+    private function authorizeRoute($target, $value)
+    {
+        $this->routeAuthorizer->init($target, $this->normalizeInput($value));
+        return app('hey_man_should_have_role');
     }
 }

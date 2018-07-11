@@ -12,12 +12,6 @@ class ConditionApplier
 
     private $value;
 
-    private $routeNames = [];
-
-    private $actions = [];
-
-    private $urls = [];
-
     /**
      * ConditionApplier constructor.
      *
@@ -49,16 +43,6 @@ class ConditionApplier
         $this->startGuarding($predicate);
 
         return $this;
-    }
-
-    /**
-     * @param $callback
-     */
-    private function setTarget(callable $callback)
-    {
-        foreach ($this->value as $value) {
-            $this->{$this->target}[$value] = $callback;
-        }
     }
 
     private function mapEvents()
@@ -93,41 +77,14 @@ class ConditionApplier
 
     }
 
-    public function getUrls($url)
-    {
-        return $this->urls[$url] ?? function(){};
-    }
-
-    public function getRouteNames($routeName)
-    {
-        return $this->routeNames[$routeName] ?? function(){};
-    }
-
-    public function getActions($action)
-    {
-        return $this->actions[$action] ?? function(){};
-    }
-
-    /**
-     * @return bool
-     */
-    private function shouldAuthorizeRoute(): bool
-    {
-        return in_array($this->target, ['urls', 'routeNames', 'actions']);
-    }
-
     /**
      * @param $callback
      */
     private function startGuarding(callable $callback)
     {
-        if ($this->shouldAuthorizeRoute()) {
-            $this->setTarget($callback);
-        } else {
-            $this->mapEvents();
-            Event::listen($this->value, $callback);
-            $this->value = [];
-        }
+        $this->mapEvents();
+        Event::listen($this->value, $callback);
+        $this->value = [];
     }
 
     /**
