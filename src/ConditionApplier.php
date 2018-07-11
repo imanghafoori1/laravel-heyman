@@ -29,12 +29,6 @@ class ConditionApplier
             return $view;
         };
 
-        if ($this->shouldAuthorizeEloquent()) {
-            $mapper = function ($model) {
-                return "eloquent.{$this->target}: {$model}";
-            };
-        }
-
         if ($this->target == 'views') {
             $mapper = function ($view) {
                 return 'creating: '.$view;
