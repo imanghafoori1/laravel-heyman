@@ -29,6 +29,14 @@ class OtherwiseTest extends TestCase
         $this->get('welcome')->assertStatus(200);
     }
 
+    public function testOtherwise4()
+    {
+        setUp::run($this);
+        HeyMan::whenYouSeeViewFile('welcome')->youShouldHaveRole('writer')->otherwise()->throwNew(\Illuminate\Auth\Access\AuthorizationException::class);
+
+        $this->get('welcome')->assertStatus(200);
+    }
+
     public function _testWhenVisitingUrlCanAcceptArray()
     {
         setUp::run($this);
