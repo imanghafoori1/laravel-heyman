@@ -15,9 +15,18 @@ class OtherwiseTest extends TestCase
     public function testOtherwise1()
     {
         setUp::run($this);
-        HeyMan::whenYouSeeViewFile('welcome')->youShouldHaveRole('reader')->otherwise()->redirectTo('home');
+        HeyMan::whenYouSeeViewFile('welcome')->youShouldBeGuest()->otherwise()->redirectTo('home');
 
         $this->get('welcome')->assertRedirect('home');
+    }
+
+    public function testOtherwise3()
+    {
+        setUp::run($this);
+        auth()->logout();
+        HeyMan::whenYouSeeViewFile('welcome')->youShouldBeGuest()->otherwise()->redirectTo('home');
+
+        $this->get('welcome')->assertStatus(200);
     }
 
     public function _testWhenVisitingUrlCanAcceptArray()
