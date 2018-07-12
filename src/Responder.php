@@ -167,12 +167,19 @@ class Responder
     private function makeListener(): \Closure
     {
         $callbackListener = function () {
-            if (! app('hey_man_you_should_have')->passes()) {
+            if (! $this->passes()) {
                 respondWith($this->response);
             }
         };
 
         return $callbackListener;
+    }
+
+    public function passes()
+    {
+        $cb = app('hey_man_you_should_have')->predicate;
+
+        return ! $cb();
     }
 
     public function __destruct()

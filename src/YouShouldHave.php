@@ -13,15 +13,6 @@ class YouShouldHave
         return $this->youShouldPassGate('heyman.youShouldHaveRole', $role);
     }
 
-    public function youShouldBeGuest()
-    {
-        $this->predicate = function () {
-            return ! auth()->guest();
-        };
-
-        return new BeCareful();
-    }
-
     public function youShouldPassGate($gate, ...$args)
     {
         $this->predicate = function () use ($gate, $args) {
@@ -31,9 +22,12 @@ class YouShouldHave
         return new BeCareful();
     }
 
-    public function passes()
+    public function youShouldBeGuest()
     {
-        $cb = $this->predicate;
-        return !$cb();
+        $this->predicate = function () {
+            return ! auth()->guest();
+        };
+
+        return new BeCareful();
     }
 }
