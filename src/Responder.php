@@ -6,6 +6,8 @@ class Responder
 {
     private $response;
 
+    private $exception;
+
     /**
      * Create a new redirect response to the given path.
      *
@@ -166,6 +168,14 @@ class Responder
      */
     private function makeListener(): \Closure
     {
+        if ($this->exception) {
+            return function () {
+                if ($this->passes()) {
+                    throw $this->exception;
+                }
+            };
+        }
+
         $callbackListener = function () {
             if ($this->passes()) {
                 respondWith($this->response);
@@ -175,11 +185,16 @@ class Responder
         return $callbackListener;
     }
 
-    public function passes()
+    private function passes()
     {
         $cb = app('hey_man_you_should_have')->predicate;
 
         return ! $cb();
+    }
+
+    public function throwNew($exception, $message= '')
+    {
+        $this->exception = new $exception($message);
     }
 
     public function __destruct()
