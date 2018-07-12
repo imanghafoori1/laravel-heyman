@@ -7,20 +7,7 @@ class HeyMan
     /**
      * @var \Imanghafoori\HeyMan\ConditionApplier
      */
-    private $authorizer;
-    /**
-     * @var \Imanghafoori\HeyMan\RouteConditionApplier
-     */
-    private $routeAuthorizer;
-
-    /**
-     * HeyMan constructor.
-     */
-    public function __construct()
-    {
-        $this->authorizer = app('hey_man_authorizer');
-        $this->routeAuthorizer = app('hey_man_route_authorizer');
-    }
+    public $authorizer;
 
     public function whenVisitingUrl(...$url)
     {
@@ -83,18 +70,17 @@ class HeyMan
 
     /**
      * @param $value
-     * @return $this
      */
     private function authorize($value): YouShouldHave
     {
-        $authorizer = $this->authorizer->init($value);
-        return new YouShouldHave($authorizer);
+        $this->authorizer = app('hey_man_authorizer')->init($value);
+        return app('hey_man_you_should_have');
     }
 
     private function authorizeRoute($target, $value)
     {
-        $routeAuthorizer = $this->routeAuthorizer->init($target, $this->normalizeInput($value));
-        return new YouShouldHave($routeAuthorizer);
+        $this->authorizer = app('hey_man_route_authorizer')->init($target, $this->normalizeInput($value));
+        return app('hey_man_you_should_have');
     }
 
     /**

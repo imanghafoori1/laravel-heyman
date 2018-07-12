@@ -20,6 +20,8 @@ class HeyManServiceProvider extends ServiceProvider
         $this->app->singleton('hey_man', HeyMan::class);
         $this->app->singleton('hey_man_authorizer', ConditionApplier::class);
         $this->app->singleton('hey_man_route_authorizer', RouteConditionApplier::class);
+        $this->app->singleton('hey_man_you_should_have', YouShouldHave::class);
+        $this->app->singleton('hey_man_responder', Responder::class);
 
         $this->mergeConfigFrom(
             __DIR__.'/../config/heyMan.php',

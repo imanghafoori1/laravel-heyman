@@ -39,7 +39,7 @@ class RouteAuthorizer
      * @param $url
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    function authorizeUrls($url)
+    public function authorizeUrls($url)
     {
         $this->setGuardFor('Urls', $url);
     }
