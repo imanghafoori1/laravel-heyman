@@ -12,6 +12,7 @@
     ],
     "require": {
         "php": ">=7.0.0",
+        "imanghafoori/laravel-terminator" : "*",
         "laravel/framework":"~5.3"
     },
     "autoload-dev": {
