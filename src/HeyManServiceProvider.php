@@ -9,9 +9,7 @@ class HeyManServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        Gate::define('heyman.youShouldHaveRole', function ($user, $role) {
-            return $user->hasRole($role);
-        });
+        $this->defineGates();
 
         $this->loadMigrationsFrom(__DIR__.'/migrations');
         (new RouteAuthorizer())->authorizeMatchedRoutes($this->app);
@@ -27,5 +25,12 @@ class HeyManServiceProvider extends ServiceProvider
             __DIR__.'/../config/heyMan.php',
             'heyMan'
         );
+    }
+
+    private function defineGates(): void
+    {
+        Gate::define('heyman.youShouldHaveRole', function ($user, $role) {
+            return $user->hasRole($role);
+        });
     }
 }
