@@ -23,7 +23,6 @@ class GuestAuthorizationTest extends TestCase
         $this->get('welcome')->assertStatus(200);
     }
 
-
     public function testUrlIsNotAccessedByGuests1()
     {
         setUp::run($this);
