@@ -45,8 +45,8 @@ class RouteAuthorizer
     }
 
     /**
-     * @param $currentUrl
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @param $method
+     * @param $key
      */
     private function setGuardFor($method, $key)
     {
