@@ -30,4 +30,10 @@ class YouShouldHave
 
         return new BeCareful();
     }
+
+    public function passes()
+    {
+        $cb = $this->predicate;
+        return !$cb();
+    }
 }
