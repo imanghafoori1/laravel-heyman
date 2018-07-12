@@ -11,7 +11,7 @@ class BeCareful
         $predicate = app('hey_man_you_should_have')->predicate;
 
         $callbackListener = function () use ($predicate) {
-            if ($predicate()) {
+            if (! $predicate()) {
                 $this->denyAccess();
             }
         };
