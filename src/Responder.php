@@ -167,7 +167,7 @@ class Responder
     private function makeListener(): \Closure
     {
         $callbackListener = function () {
-            if (! $this->passes()) {
+            if ($this->passes()) {
                 respondWith($this->response);
             }
         };

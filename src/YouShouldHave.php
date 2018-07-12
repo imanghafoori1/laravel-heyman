@@ -16,7 +16,7 @@ class YouShouldHave
     public function youShouldPassGate($gate, ...$args)
     {
         $this->predicate = function () use ($gate, $args) {
-            return Gate::denies($gate, $args);
+            return Gate::allows($gate, $args);
         };
 
         return new BeCareful();
@@ -25,7 +25,7 @@ class YouShouldHave
     public function youShouldBeGuest()
     {
         $this->predicate = function () {
-            return ! auth()->guest();
+            return auth()->guest();
         };
 
         return new BeCareful();
