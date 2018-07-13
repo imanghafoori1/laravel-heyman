@@ -2,8 +2,11 @@
 
 namespace Imanghafoori\HeyMan;
 
+use Imanghafoori\HeyMan\Hooks\EloquentHooks;
+
 class HeyMan
 {
+    use EloquentHooks;
     /**
      * @var \Imanghafoori\HeyMan\ConditionApplier
      */
@@ -22,36 +25,6 @@ class HeyMan
     public function whenCallingAction(...$action)
     {
         return $this->authorizeRoute('actions', $action);
-    }
-
-    public function whenFetchingModel(...$model)
-    {
-        $model = $this->normalizeModel('retrieved', $model);
-        return $this->authorize($model);
-    }
-
-    public function whenCreatingModel(...$model)
-    {
-        $model = $this->normalizeModel('creating', $model);
-        return $this->authorize($model);
-    }
-
-    public function whenUpdatingModel(...$model)
-    {
-        $model = $this->normalizeModel('updating', $model);
-        return $this->authorize($model);
-    }
-
-    public function whenSavingModel(...$model)
-    {
-        $model = $this->normalizeModel('saving', $model);
-        return $this->authorize($model);
-    }
-
-    public function whenDeletingModel(...$model)
-    {
-        $model = $this->normalizeModel('deleting', $model);
-        return $this->authorize($model);
     }
 
     public function whenYouSeeViewFile(...$view)
@@ -87,21 +60,6 @@ class HeyMan
     {
         $this->authorizer = app('hey_man_route_authorizer')->init($target, $this->normalizeInput($value));
         return app('hey_man_you_should_have');
-    }
-
-    /**
-     * @param $target
-     * @param $model
-     * @return array
-     */
-    private function normalizeModel($target, array $model): array
-    {
-        $model = $this->normalizeInput($model);
-        $mapper = function ($model) use ($target) {
-            return "eloquent.{$target}: {$model}";
-        };
-
-        return array_map($mapper, $model);
     }
 
     /**
