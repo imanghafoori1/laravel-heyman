@@ -179,19 +179,19 @@ class Responder
         $cb = app(YouShouldHave::class)->predicate;
 
         if ($this->exception) {
-            return function () use ($resp, $cb) {
+            $e = $this->exception;
+            return function () use ($e, $cb) {
                 if (!$cb()) {
-                    throw $this->exception;
+                    throw $e;
                 }
             };
         }
-        $callbackListener = function () use ($resp, $cb) {
+
+        return function () use ($resp, $cb) {
             if (!$cb()) {
                 respondWith($resp);
             }
         };
-
-        return $callbackListener;
     }
 
     public function throwNew($exception, $message= '')
