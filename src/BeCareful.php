@@ -8,7 +8,7 @@ class BeCareful
 {
     public function beCareful()
     {
-        $predicate = app('hey_man_you_should_have')->predicate;
+        $predicate = app(YouShouldHave::class)->predicate;
 
         $callbackListener = function () use ($predicate) {
             if (! $predicate()) {

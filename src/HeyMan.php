@@ -34,6 +34,6 @@ class HeyMan
     private function authorize($value): YouShouldHave
     {
         $this->authorizer = app('hey_man_authorizer')->init($value);
-        return app('hey_man_you_should_have');
+        return app(YouShouldHave::class);
     }
 }

@@ -169,7 +169,7 @@ class Responder
     private function makeListener(): \Closure
     {
         $resp = $this->response;
-        $cb = app('hey_man_you_should_have')->predicate;
+        $cb = app(YouShouldHave::class)->predicate;
 
         if ($this->exception) {
             return function () use ($resp, $cb) {

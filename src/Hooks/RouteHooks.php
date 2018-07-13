@@ -22,6 +22,6 @@ trait RouteHooks
     private function authorizeRoute($target, $value)
     {
         $this->authorizer = app('hey_man_route_authorizer')->init($target, $this->normalizeInput($value));
-        return app('hey_man_you_should_have');
+        return app(\Imanghafoori\HeyMan\YouShouldHave::class);
     }
 }
