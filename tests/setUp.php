@@ -14,6 +14,11 @@ class setUp
             return view('welcome');
         })->name('welcome1.name');
 
+        Route::get('/event/{event}', function ($event) {
+            event($event);
+        })->name('event.name');
+
+
         $testCase->artisan('migrate', ['--database' => 'testbench']);
         User::create(['name' => 'iman', 'email' => 'iman@gmail.com', 'password' => bcrypt('a')]);
         $user = User::find(1);

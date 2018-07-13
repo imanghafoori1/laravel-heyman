@@ -34,4 +34,13 @@ class YouShouldHave
 
         return new BeCareful();
     }
+
+    public function always()
+    {
+        $this->predicate = function () {
+            return false;
+        };
+
+        return new Responder();
+    }
 }
