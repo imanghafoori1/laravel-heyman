@@ -6,16 +6,16 @@ use Illuminate\Support\Facades\Event;
 
 class ConditionApplier
 {
-    private $value;
+    private $events;
 
     /**
      * ConditionApplier constructor.
      *
-     * @param $value
+     * @param $event
      */
-    public function init($value)
+    public function init($event)
     {
-        $this->value = $value;
+        $this->events = $event;
         return $this;
     }
 
@@ -24,7 +24,7 @@ class ConditionApplier
      */
     public function startGuarding(callable $callback)
     {
-        Event::listen($this->value, $callback);
-        $this->value = [];
+        Event::listen($this->events, $callback);
+        $this->events = [];
     }
 }
