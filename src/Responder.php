@@ -192,6 +192,15 @@ class Responder
         $this->exception = new $exception($message);
     }
 
+    public function abort($code, $message = '', array $headers = [])
+    {
+        try {
+            abort($code, $message, $headers);
+        } catch (\Exception $e) {
+            $this->exception = $e;
+        }
+    }
+
     public function __destruct()
     {
         $callbackListener = $this->makeListener();
