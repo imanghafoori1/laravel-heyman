@@ -24,6 +24,12 @@ class HeyMan
         return $this->authorizeRoute('actions', $action);
     }
 
+    public function whenFetchingModel(...$model)
+    {
+        $model = $this->normalizeModel('retrieved', $model);
+        return $this->authorize($model);
+    }
+
     public function whenCreatingModel(...$model)
     {
         $model = $this->normalizeModel('creating', $model);
