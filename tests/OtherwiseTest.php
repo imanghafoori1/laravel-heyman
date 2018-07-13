@@ -37,6 +37,28 @@ class OtherwiseTest extends TestCase
         $this->get('welcome')->assertStatus(200);
     }
 
+    public function testAbort()
+    {
+        setUp::run($this);
+
+        HeyMan::whenVisitingUrl(['welcome', 'welcome_'])->youShouldHaveRole('reader')->otherwise()->json(['m'=> 'm'], 403);
+        HeyMan::whenVisitingUrl('welcome1')->youShouldHaveRole('writer')->beCareful();
+
+        $this->get('welcome')->assertJson(['m'=>'m'])->assertStatus(403);
+        $this->get('welcome1')->assertStatus(200);
+    }
+
+    public function testAbort1()
+    {
+        setUp::run($this);
+
+        HeyMan::whenVisitingUrl('welcome', 'asdfv')->youShouldHaveRole('reader')->otherwise()->abort(405);
+        HeyMan::whenVisitingUrl('welcome1')->youShouldHaveRole('writer')->beCareful();
+
+        $this->get('welcome')->assertStatus(405);
+        $this->get('welcome1')->assertStatus(200);
+    }
+
     public function _testWhenVisitingUrlCanAcceptArray()
     {
         setUp::run($this);
