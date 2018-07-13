@@ -2,6 +2,8 @@
 
 namespace Imanghafoori\HeyMan;
 
+use Symfony\Component\HttpFoundation\Response;
+
 class Responder
 {
     private $response;
@@ -161,6 +163,11 @@ class Responder
     public function redirectToIntended($default = '/', $status = 302, $headers = [], $secure = null)
     {
         $this->response = response()->redirectToIntended($default, $status, $headers, $secure );
+    }
+
+    public function send(Response $response)
+    {
+        $this->response = $response;
     }
 
     /**
