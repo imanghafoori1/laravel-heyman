@@ -8,8 +8,8 @@ class RouteAuthorizationTest extends TestCase
     {
         setUp::run($this);
 
-        HeyMan::whenVisitingUrl('welcome')->youShouldHaveRole('reader')->beCareful();
-        HeyMan::whenVisitingUrl('welcome1')->youShouldHaveRole('writer')->beCareful();
+        HeyMan::whenVisitingUrl('welcome')->youShouldHaveRole('reader')->toBeAuthorized();
+        HeyMan::whenVisitingUrl('welcome1')->youShouldHaveRole('writer')->toBeAuthorized();
 
         $this->get('welcome')->assertStatus(403);
     }
@@ -18,8 +18,8 @@ class RouteAuthorizationTest extends TestCase
     {
         setUp::run($this);
 
-        HeyMan::whenVisitingUrl(['welcome', 'welcome_'])->youShouldHaveRole('reader')->beCareful();
-        HeyMan::whenVisitingUrl('welcome1')->youShouldHaveRole('writer')->beCareful();
+        HeyMan::whenVisitingUrl(['welcome', 'welcome_'])->youShouldHaveRole('reader')->toBeAuthorized();
+        HeyMan::whenVisitingUrl('welcome1')->youShouldHaveRole('writer')->toBeAuthorized();
 
         $this->get('welcome')->assertStatus(403);
     }
@@ -28,8 +28,8 @@ class RouteAuthorizationTest extends TestCase
     {
         setUp::run($this);
 
-        HeyMan::whenVisitingUrl(['welcome_', 'welcome',])->youShouldHaveRole('reader')->beCareful();
-        HeyMan::whenVisitingUrl('welcome1')->youShouldHaveRole('writer')->beCareful();
+        HeyMan::whenVisitingUrl(['welcome_', 'welcome',])->youShouldHaveRole('reader')->toBeAuthorized();
+        HeyMan::whenVisitingUrl('welcome1')->youShouldHaveRole('writer')->toBeAuthorized();
 
         $this->get('welcome')->assertStatus(403);
     }
@@ -38,8 +38,8 @@ class RouteAuthorizationTest extends TestCase
     {
         setUp::run($this);
 
-        HeyMan::whenVisitingUrl('welcome', 'welcome_')->youShouldHaveRole('reader')->beCareful();
-        HeyMan::whenVisitingUrl('welcome1')->youShouldHaveRole('writer')->beCareful();
+        HeyMan::whenVisitingUrl('welcome', 'welcome_')->youShouldHaveRole('reader')->toBeAuthorized();
+        HeyMan::whenVisitingUrl('welcome1')->youShouldHaveRole('writer')->toBeAuthorized();
 
         $this->get('welcome')->assertStatus(403);
     }
@@ -48,8 +48,8 @@ class RouteAuthorizationTest extends TestCase
     {
         setUp::run($this);
 
-        HeyMan::whenVisitingUrl('welcome_', 'welcome')->youShouldHaveRole('reader')->beCareful();
-        HeyMan::whenVisitingUrl('welcome1')->youShouldHaveRole('writer')->beCareful();
+        HeyMan::whenVisitingUrl('welcome_', 'welcome')->youShouldHaveRole('reader')->toBeAuthorized();
+        HeyMan::whenVisitingUrl('welcome1')->youShouldHaveRole('writer')->toBeAuthorized();
 
         $this->get('welcome')->assertStatus(403);
     }
@@ -58,8 +58,8 @@ class RouteAuthorizationTest extends TestCase
     {
         setUp::run($this);
 
-        HeyMan::whenVisitingUrl('welcome', 'ewrf')->youShouldHaveRole('writer')->beCareful();
-        HeyMan::whenVisitingUrl('welcome1')->youShouldHaveRole('reader')->beCareful();
+        HeyMan::whenVisitingUrl('welcome', 'ewrf')->youShouldHaveRole('writer')->toBeAuthorized();
+        HeyMan::whenVisitingUrl('welcome1')->youShouldHaveRole('reader')->toBeAuthorized();
 
         $this->get('/welcome')->assertSuccessful();
     }
@@ -68,8 +68,8 @@ class RouteAuthorizationTest extends TestCase
     {
         setUp::run($this);
 
-        HeyMan::whenVisitingUrl('welcome')->youShouldHaveRole('reader')->beCareful();
-        HeyMan::whenVisitingUrl('welcome2')->youShouldHaveRole('reader')->beCareful();
+        HeyMan::whenVisitingUrl('welcome')->youShouldHaveRole('reader')->toBeAuthorized();
+        HeyMan::whenVisitingUrl('welcome2')->youShouldHaveRole('reader')->toBeAuthorized();
 
         $this->get('/welcome1')->assertSuccessful();
     }
@@ -78,8 +78,8 @@ class RouteAuthorizationTest extends TestCase
     {
         setUp::run($this);
 
-        HeyMan::whenVisitingUrl('welcome')->youShouldHaveRole('writer')->beCareful();
-        HeyMan::whenVisitingUrl('welcome1')->youShouldHaveRole('reader')->beCareful();
+        HeyMan::whenVisitingUrl('welcome')->youShouldHaveRole('writer')->toBeAuthorized();
+        HeyMan::whenVisitingUrl('welcome1')->youShouldHaveRole('reader')->toBeAuthorized();
 
         $this->get('/welcome')->assertSuccessful();
     }
@@ -88,8 +88,8 @@ class RouteAuthorizationTest extends TestCase
     {
         setUp::run($this);
 
-        HeyMan::whenVisitingRoute('welcome.name')->youShouldHaveRole('writer')->beCareful();
-        HeyMan::whenVisitingRoute('welcome1.name')->youShouldHaveRole('reader')->beCareful();
+        HeyMan::whenVisitingRoute('welcome.name')->youShouldHaveRole('writer')->toBeAuthorized();
+        HeyMan::whenVisitingRoute('welcome1.name')->youShouldHaveRole('reader')->toBeAuthorized();
         $this->get('welcome')->assertSuccessful();
     }
 
@@ -97,7 +97,7 @@ class RouteAuthorizationTest extends TestCase
     {
         setUp::run($this);
 
-        HeyMan::whenVisitingRoute('welcome.name')->youShouldHaveRole('reader')->beCareful();
+        HeyMan::whenVisitingRoute('welcome.name')->youShouldHaveRole('reader')->toBeAuthorized();
         $this->get('welcome')->assertStatus(403);
     }
 
@@ -105,7 +105,7 @@ class RouteAuthorizationTest extends TestCase
     {
         setUp::run($this);
 
-        HeyMan::whenCallingAction(HomeController::class.'@index')->youShouldHaveRole('reader')->beCareful();
+        HeyMan::whenCallingAction(HomeController::class.'@index')->youShouldHaveRole('reader')->toBeAuthorized();
 
         $this->get('welcome')->assertStatus(403);
     }
@@ -114,7 +114,7 @@ class RouteAuthorizationTest extends TestCase
     {
         setUp::run($this);
 
-        HeyMan::whenCallingAction(HomeController::class.'@index')->youShouldHaveRole('writer')->beCareful();
+        HeyMan::whenCallingAction(HomeController::class.'@index')->youShouldHaveRole('writer')->toBeAuthorized();
 
         $this->get('welcome')->assertStatus(200);
     }
@@ -123,8 +123,8 @@ class RouteAuthorizationTest extends TestCase
     {
         setUp::run($this);
 
-        HeyMan::whenVisitingRoute(['welcome.name'])->youShouldHaveRole('writer')->beCareful();
-        HeyMan::whenVisitingRoute('welcome1.name')->youShouldHaveRole('reader')->beCareful();
+        HeyMan::whenVisitingRoute(['welcome.name'])->youShouldHaveRole('writer')->toBeAuthorized();
+        HeyMan::whenVisitingRoute('welcome1.name')->youShouldHaveRole('reader')->toBeAuthorized();
         $this->get('welcome')->assertSuccessful();
     }
 
@@ -132,8 +132,8 @@ class RouteAuthorizationTest extends TestCase
     {
         setUp::run($this);
 
-        HeyMan::whenVisitingRoute('welcome.Oname')->youShouldHaveRole('reader')->beCareful();
-        HeyMan::whenCallingAction(HomeController::class.'@index')->youShouldHaveRole('reader')->beCareful();
+        HeyMan::whenVisitingRoute('welcome.Oname')->youShouldHaveRole('reader')->toBeAuthorized();
+        HeyMan::whenCallingAction(HomeController::class.'@index')->youShouldHaveRole('reader')->toBeAuthorized();
 
         $this->get('welcome')->assertStatus(403);
     }
@@ -142,8 +142,8 @@ class RouteAuthorizationTest extends TestCase
     {
         setUp::run($this);
 
-        HeyMan::whenVisitingUrl(['welcom2', 'ewrf'])->youShouldHaveRole('writer')->beCareful();
-        HeyMan::whenCallingAction(HomeController::class.'@index')->youShouldHaveRole('writer')->beCareful();
+        HeyMan::whenVisitingUrl(['welcom2', 'ewrf'])->youShouldHaveRole('writer')->toBeAuthorized();
+        HeyMan::whenCallingAction(HomeController::class.'@index')->youShouldHaveRole('writer')->toBeAuthorized();
 
         $this->get('welcome')->assertStatus(200);
     }

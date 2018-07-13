@@ -42,7 +42,7 @@ class OtherwiseTest extends TestCase
         setUp::run($this);
 
         HeyMan::whenVisitingUrl(['welcome', 'welcome_'])->youShouldHaveRole('reader')->otherwise()->json(['m'=> 'm'], 403);
-        HeyMan::whenVisitingUrl('welcome1')->youShouldHaveRole('writer')->beCareful();
+        HeyMan::whenVisitingUrl('welcome1')->youShouldHaveRole('writer')->toBeAuthorized();
 
         $this->get('welcome')->assertJson(['m'=>'m'])->assertStatus(403);
         $this->get('welcome1')->assertStatus(200);
@@ -53,29 +53,9 @@ class OtherwiseTest extends TestCase
         setUp::run($this);
 
         HeyMan::whenVisitingUrl('welcome', 'asdfv')->youShouldHaveRole('reader')->otherwise()->abort(405);
-        HeyMan::whenVisitingUrl('welcome1')->youShouldHaveRole('writer')->beCareful();
+        HeyMan::whenVisitingUrl('welcome1')->youShouldHaveRole('writer')->toBeAuthorized();
 
         $this->get('welcome')->assertStatus(405);
         $this->get('welcome1')->assertStatus(200);
-    }
-
-    public function _testWhenVisitingUrlCanAcceptArray()
-    {
-        setUp::run($this);
-
-        HeyMan::whenVisitingUrl(['welcome', 'welcome_'])->youShouldHaveRole('reader')->beCareful();
-        HeyMan::whenVisitingUrl('welcome1')->youShouldHaveRole('writer')->beCareful();
-
-        $this->get('welcome')->assertStatus(403);
-    }
-
-    public function _testUrlIsAuthorized657()
-    {
-        setUp::run($this);
-
-        HeyMan::whenVisitingUrl(['welcome_', 'welcome',])->youShouldHaveRole('reader')->beCareful();
-        HeyMan::whenVisitingUrl('welcome1')->youShouldHaveRole('writer')->beCareful();
-
-        $this->get('welcome')->assertStatus(403);
     }
 }

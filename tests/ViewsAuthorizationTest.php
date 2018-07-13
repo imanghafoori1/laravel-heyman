@@ -9,7 +9,7 @@ class ViewsAuthorizationTest extends TestCase
     {
         setUp::run($this);
 
-        HeyMan::whenYouSeeViewFile('welcome')->youShouldHaveRole('reader')->beCareful();
+        HeyMan::whenYouSeeViewFile('welcome')->youShouldHaveRole('reader')->toBeAuthorized();
 
         $this->expectException(AuthorizationException::class);
 
@@ -20,8 +20,8 @@ class ViewsAuthorizationTest extends TestCase
     {
         setUp::run($this);
 
-        HeyMan::whenYouSeeViewFile(['welcome'])->youShouldHaveRole('reader')->beCareful();
-        HeyMan::whenYouSeeViewFile(['welcome1'])->youShouldHaveRole('reader')->beCareful();
+        HeyMan::whenYouSeeViewFile(['welcome'])->youShouldHaveRole('reader')->toBeAuthorized();
+        HeyMan::whenYouSeeViewFile(['welcome1'])->youShouldHaveRole('reader')->toBeAuthorized();
 
         $this->expectException(AuthorizationException::class);
 

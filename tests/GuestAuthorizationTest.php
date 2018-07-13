@@ -8,8 +8,8 @@ class GuestAuthorizationTest extends TestCase
     {
         setUp::run($this);
 
-        HeyMan::whenVisitingUrl('welcome')->youShouldBeGuest()->beCareful();
-        HeyMan::whenVisitingUrl('welcome1')->youShouldBeGuest()->beCareful();
+        HeyMan::whenVisitingUrl('welcome')->youShouldBeGuest()->toBeAuthorized();
+        HeyMan::whenVisitingUrl('welcome1')->youShouldBeGuest()->toBeAuthorized();
 
         $this->get('welcome')->assertStatus(403);
     }
@@ -18,7 +18,7 @@ class GuestAuthorizationTest extends TestCase
     {
         Route::get('/welcome', 'HomeController@index')->name('welcome.name');
 
-        HeyMan::whenVisitingUrl('welcome')->youShouldBeGuest()->beCareful();
+        HeyMan::whenVisitingUrl('welcome')->youShouldBeGuest()->toBeAuthorized();
 
         $this->get('welcome')->assertStatus(200);
     }
@@ -27,8 +27,8 @@ class GuestAuthorizationTest extends TestCase
     {
         setUp::run($this);
 
-        HeyMan::whenVisitingUrl(['welcome', 'welcome_'])->youShouldBeGuest()->beCareful();
-        HeyMan::whenVisitingUrl('welcome1')->youShouldBeGuest()->beCareful();
+        HeyMan::whenVisitingUrl(['welcome', 'welcome_'])->youShouldBeGuest()->toBeAuthorized();
+        HeyMan::whenVisitingUrl('welcome1')->youShouldBeGuest()->toBeAuthorized();
 
         $this->get('welcome')->assertStatus(403);
     }
@@ -37,8 +37,8 @@ class GuestAuthorizationTest extends TestCase
     {
         setUp::run($this);
 
-        HeyMan::whenVisitingUrl(['welcome_', 'welcome',])->youShouldBeGuest()->beCareful();
-        HeyMan::whenVisitingUrl('welcome1')->youShouldBeGuest()->beCareful();
+        HeyMan::whenVisitingUrl(['welcome_', 'welcome',])->youShouldBeGuest()->toBeAuthorized();
+        HeyMan::whenVisitingUrl('welcome1')->youShouldBeGuest()->toBeAuthorized();
 
         $this->get('welcome')->assertStatus(403);
     }

@@ -6,7 +6,7 @@ use Illuminate\Auth\Access\AuthorizationException;
 
 class BeCareful
 {
-    public function beCareful()
+    public function toBeAuthorized()
     {
         $predicate = app(YouShouldHave::class)->predicate;
 
