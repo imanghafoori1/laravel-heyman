@@ -4,20 +4,15 @@ namespace Imanghafoori\HeyMan;
 
 use Imanghafoori\HeyMan\Hooks\EloquentHooks;
 use Imanghafoori\HeyMan\Hooks\RouteHooks;
+use Imanghafoori\HeyMan\Hooks\ViewHooks;
 
 class HeyMan
 {
-    use EloquentHooks, RouteHooks;
+    use EloquentHooks, RouteHooks, ViewHooks;
     /**
      * @var \Imanghafoori\HeyMan\ConditionApplier
      */
     public $authorizer;
-
-    public function whenYouSeeViewFile(...$view)
-    {
-        $view = $this->normalizeView($view);
-        return $this->authorize($view);
-    }
 
     public function whenEventHappens(...$event)
     {
@@ -40,19 +35,5 @@ class HeyMan
     {
         $this->authorizer = app('hey_man_authorizer')->init($value);
         return app('hey_man_you_should_have');
-    }
-
-    /**
-     * @param $views
-     * @return array
-     */
-    private function normalizeView(array $views): array
-    {
-        $views = $this->normalizeInput($views);
-        $mapper = function ($view) {
-            return 'creating: '.$view;
-        };
-
-        return array_map($mapper, $views);
     }
 }
