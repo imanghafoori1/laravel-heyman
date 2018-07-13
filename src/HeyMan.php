@@ -3,29 +3,15 @@
 namespace Imanghafoori\HeyMan;
 
 use Imanghafoori\HeyMan\Hooks\EloquentHooks;
+use Imanghafoori\HeyMan\Hooks\RouteHooks;
 
 class HeyMan
 {
-    use EloquentHooks;
+    use EloquentHooks, RouteHooks;
     /**
      * @var \Imanghafoori\HeyMan\ConditionApplier
      */
     public $authorizer;
-
-    public function whenVisitingUrl(...$url)
-    {
-        return $this->authorizeRoute('urls', $url);
-    }
-
-    public function whenVisitingRoute(...$routeName)
-    {
-        return $this->authorizeRoute('routeNames', $routeName);
-    }
-
-    public function whenCallingAction(...$action)
-    {
-        return $this->authorizeRoute('actions', $action);
-    }
 
     public function whenYouSeeViewFile(...$view)
     {
@@ -53,12 +39,6 @@ class HeyMan
     private function authorize($value): YouShouldHave
     {
         $this->authorizer = app('hey_man_authorizer')->init($value);
-        return app('hey_man_you_should_have');
-    }
-
-    private function authorizeRoute($target, $value)
-    {
-        $this->authorizer = app('hey_man_route_authorizer')->init($target, $this->normalizeInput($value));
         return app('hey_man_you_should_have');
     }
 
