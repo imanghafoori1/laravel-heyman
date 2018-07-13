@@ -21,4 +21,15 @@ class GateAuthorizationTest extends TestCase
         event('myEvent');
     }
 
+    public function testGateAsMethod()
+    {
+        setUp::run($this);
+
+        HeyMan::whenEventHappens('myEvent')->youShouldPassGate('Gates@helloGate', false)->beCareful();
+
+        $this->expectException(AuthorizationException::class);
+
+        event('myEvent');
+    }
+
 }
