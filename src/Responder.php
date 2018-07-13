@@ -168,28 +168,23 @@ class Responder
      */
     private function makeListener(): \Closure
     {
+        $resp = $this->response;
+        $cb = app('hey_man_you_should_have')->predicate;
+
         if ($this->exception) {
-            return function () {
-                if ($this->passes()) {
+            return function () use ($resp, $cb) {
+                if (!$cb()) {
                     throw $this->exception;
                 }
             };
         }
-
-        $callbackListener = function () {
-            if ($this->passes()) {
-                respondWith($this->response);
+        $callbackListener = function () use ($resp, $cb) {
+            if (!$cb()) {
+                respondWith($resp);
             }
         };
 
         return $callbackListener;
-    }
-
-    private function passes()
-    {
-        $cb = app('hey_man_you_should_have')->predicate;
-
-        return ! $cb();
     }
 
     public function throwNew($exception, $message= '')
