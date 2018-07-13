@@ -35,6 +35,15 @@ class YouShouldHave
         return new BeCareful();
     }
 
+    public function youShouldBeLoggedIn()
+    {
+        $this->predicate = function () {
+            return auth()->check();
+        };
+
+        return new BeCareful();
+    }
+
     public function immediately()
     {
         $this->predicate = function () {
