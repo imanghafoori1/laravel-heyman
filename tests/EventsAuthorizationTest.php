@@ -40,7 +40,7 @@ class EventsAuthorizationTest extends TestCase
     public function testAlways()
     {
         setUp::run($this);
-        HeyMan::whenEventHappens(['my-event', 'myEvent1'])->always()->abort(402);
+        HeyMan::whenEventHappens(['my-event', 'myEvent1'])->immediately()->abort(402);
 
         $this->get('event/my-event')->assertStatus(402);
     }
@@ -48,7 +48,7 @@ class EventsAuthorizationTest extends TestCase
     public function testAlways1()
     {
         setUp::run($this);
-        HeyMan::whenEventHappens(['my-event', 'myEvent1'])->always()->redirectTo('welcome');
+        HeyMan::whenEventHappens(['my-event', 'myEvent1'])->immediately()->redirectTo('welcome');
 
         $this->get('event/my-event')->assertStatus(302)->assertRedirect('welcome');
     }

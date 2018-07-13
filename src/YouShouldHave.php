@@ -35,7 +35,7 @@ class YouShouldHave
         return new BeCareful();
     }
 
-    public function always()
+    public function immediately()
     {
         $this->predicate = function () {
             return false;
