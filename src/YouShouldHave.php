@@ -15,6 +15,10 @@ class YouShouldHave
 
     public function youShouldPassGate($gate, ...$args)
     {
+        if (str_contains($gate, '@')) {
+            Gate::define($gate, $gate);
+        }
+
         $this->predicate = function () use ($gate, $args) {
             return Gate::allows($gate, $args);
         };
