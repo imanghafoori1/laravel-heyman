@@ -107,4 +107,16 @@ class EloquentAuthorizationTest extends TestCase
 
         User::destroy([2]);
     }
+
+    public function testFetchingModelsIsAuthorized()
+    {
+        setUp::run($this);
+
+        HeyMan::whenFetchingModel(User::class)->youShouldHaveRole('reader')->beCareful();
+        HeyMan::whenCreatingModel(User2::class)->youShouldHaveRole('reader')->beCareful();
+
+        $this->expectException(AuthorizationException::class);
+
+        User::find(1);
+    }
 }
