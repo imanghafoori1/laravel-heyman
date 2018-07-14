@@ -99,10 +99,9 @@ HeyMan::whenDeleting(\App\User::class)->thisGateMustAllow('hasRole', 'editor')->
 
 ```php
 HeyMan::whenYouVisitUrl('home')->thisGateMustAllow('hasRole', 'editor')->otherwise()->...;
-HeyMan::whenYouVisitUrl('home')->thisGateMustAllow('SomeClass@someMethod', 'editor')->otherwise()->...;
 ```
 
-#### Referencing a Method:
+#### Referencing a Method (as a Gate):
 
 ```php
 HeyMan::whenYouVisitUrl('home')->thisGateMustAllow('SomeClass@someMethod', 'editor')->otherwise()->...;
