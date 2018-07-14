@@ -10,6 +10,11 @@ trait ViewHooks
         return $this->authorize($view);
     }
 
+    public function whenViewMake(...$args)
+    {
+        return $this->whenYouSeeViewFile(...$args);
+    }
+
     /**
      * @param $views
      * @return array
