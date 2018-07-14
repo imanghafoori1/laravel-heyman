@@ -5,7 +5,7 @@ use Imanghafoori\HeyMan\Facades\HeyMan;
 
 class ViewsAuthorizationTest extends TestCase
 {
-    public function testUrlIsAuthorized()
+    public function testViewIsAuthorized()
     {
         setUp::run($this);
 
@@ -16,7 +16,7 @@ class ViewsAuthorizationTest extends TestCase
         view('welcome');
     }
 
-    public function testUrlIsAuthorized2134()
+    public function testViewIsAuthorized2134()
     {
         setUp::run($this);
 
@@ -26,5 +26,38 @@ class ViewsAuthorizationTest extends TestCase
         $this->expectException(AuthorizationException::class);
 
         view('welcome');
+    }
+
+    public function testViewIsAuthorized34()
+    {
+        setUp::run($this);
+
+        HeyMan::whenViewMake('welcome')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+
+        $this->expectException(AuthorizationException::class);
+
+        view('welcome');
+    }
+
+    public function testViewIsAuthorized21134()
+    {
+        setUp::run($this);
+
+        HeyMan::whenViewMake(['welcome', 'errors.503'])->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+
+        $this->expectException(AuthorizationException::class);
+
+        view('welcome');
+    }
+
+    public function testViewIsAuthorized2174()
+    {
+        setUp::run($this);
+
+        HeyMan::whenViewMake('welcome', 'errors.503')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+
+        $this->expectException(AuthorizationException::class);
+
+        view('errors.503');
     }
 }
