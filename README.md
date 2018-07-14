@@ -1,4 +1,5 @@
-# Hey Man
+# Laravel Hey Man
+
 A package to make authorization a trivial thing and decoupled from the rest of the application
 
 
