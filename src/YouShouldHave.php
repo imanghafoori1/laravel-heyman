@@ -23,7 +23,7 @@ class YouShouldHave
             return Gate::allows($gate, $args);
         };
 
-        return new BeCareful();
+        return new Otherwise();
     }
 
     public function youShouldBeGuest()
@@ -32,7 +32,7 @@ class YouShouldHave
             return auth()->guest();
         };
 
-        return new BeCareful();
+        return new Otherwise();
     }
 
     public function youShouldBeLoggedIn()
@@ -41,7 +41,7 @@ class YouShouldHave
             return auth()->check();
         };
 
-        return new BeCareful();
+        return new Otherwise();
     }
 
     public function immediately()

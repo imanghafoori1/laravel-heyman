@@ -2,7 +2,7 @@
 
 namespace Imanghafoori\HeyMan;
 
-class BeCareful
+class Otherwise
 {
     public function otherwise()
     {
