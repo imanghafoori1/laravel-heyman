@@ -11,8 +11,8 @@ class EloquentAuthorizationTest extends TestCase
     {
         setUp::run($this);
 
-        HeyMan::whenCreatingModel(User::class)->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
-        HeyMan::whenCreatingModel(User2::class)->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+        HeyMan::whenCreating(User::class)->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+        HeyMan::whenCreating(User2::class)->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
 
         $this->expectException(AuthorizationException::class);
 
@@ -24,8 +24,8 @@ class EloquentAuthorizationTest extends TestCase
         setUp::run($this);
         User::create(['name' => 'iman', 'email' => 'n@gmail.com', 'password' => bcrypt('a')]);
 
-        HeyMan::whenUpdatingModel(User::class)->youShouldHaveRole('writer')->otherwise()->weDenyAccess();
-        HeyMan::whenCreatingModel(User2::class)->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+        HeyMan::whenUpdating(User::class)->youShouldHaveRole('writer')->otherwise()->weDenyAccess();
+        HeyMan::whenCreating(User2::class)->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
 
         User::find(2)->update(['name' => 'imdfvn']);
         $this->assertTrue(true);
@@ -36,7 +36,7 @@ class EloquentAuthorizationTest extends TestCase
         setUp::run($this);
         User::create(['name' => 'iman', 'email' => 'n@gmail.com', 'password' => bcrypt('a')]);
 
-        HeyMan::whenUpdatingModel(User::class)->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+        HeyMan::whenUpdating(User::class)->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
 
         $this->expectException(AuthorizationException::class);
 
@@ -50,7 +50,7 @@ class EloquentAuthorizationTest extends TestCase
         setUp::run($this);
         User::create(['name' => 'iman', 'email' => 'n@gmail.com', 'password' => bcrypt('a')]);
 
-        HeyMan::whenSavingModel(User::class)->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+        HeyMan::whenSaving(User::class)->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
 
         $this->expectException(AuthorizationException::class);
 
@@ -64,8 +64,8 @@ class EloquentAuthorizationTest extends TestCase
         setUp::run($this);
         User::create(['name' => 'iman', 'email' => 'n@gmail.com', 'password' => bcrypt('a')]);
 
-        HeyMan::whenUpdatingModel(User::class)->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
-        HeyMan::whenSavingModel(User::class)->youShouldHaveRole('writer')->otherwise()->weDenyAccess();
+        HeyMan::whenUpdating(User::class)->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+        HeyMan::whenSaving(User::class)->youShouldHaveRole('writer')->otherwise()->weDenyAccess();
 
         $this->expectException(AuthorizationException::class);
 
@@ -77,7 +77,7 @@ class EloquentAuthorizationTest extends TestCase
         setUp::run($this);
         User::create(['name' => 'iman', 'email' => 'n@gmail.com', 'password' => bcrypt('a')]);
 
-        HeyMan::whenSavingModel(User::class)->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+        HeyMan::whenSaving(User::class)->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
 
         $this->expectException(AuthorizationException::class);
 
@@ -89,7 +89,7 @@ class EloquentAuthorizationTest extends TestCase
         setUp::run($this);
         User::create(['name' => 'iman', 'email' => 'n@gmail.com', 'password' => bcrypt('a')]);
 
-        HeyMan::whenDeletingModel(User::class)->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+        HeyMan::whenDeleting(User::class)->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
 
         $this->expectException(AuthorizationException::class);
 
@@ -101,7 +101,7 @@ class EloquentAuthorizationTest extends TestCase
         setUp::run($this);
         User::create(['name' => 'iman', 'email' => 'n@gmail.com', 'password' => bcrypt('a')]);
 
-        HeyMan::whenDeletingModel([User::class])->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+        HeyMan::whenDeleting([User::class])->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
 
         $this->expectException(AuthorizationException::class);
 
@@ -112,8 +112,8 @@ class EloquentAuthorizationTest extends TestCase
     {
         setUp::run($this);
 
-        HeyMan::whenFetchingModel(User::class)->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
-        HeyMan::whenCreatingModel(User2::class)->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+        HeyMan::whenFetching(User::class)->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+        HeyMan::whenCreating(User2::class)->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
 
         $this->expectException(AuthorizationException::class);
 
