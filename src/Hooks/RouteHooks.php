@@ -4,7 +4,7 @@ namespace Imanghafoori\HeyMan\Hooks;
 
 trait RouteHooks
 {
-    public function whenVisitingUrl(...$url)
+    public function whenYouVisitUrl(...$url)
     {
         return $this->authorizeRoute('urls', $url);
     }
