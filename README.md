@@ -7,9 +7,9 @@ A package to make authorization a trivial thing and decoupled from the rest of t
 First, we define a simple standard laravel Gate like so:
 
 ```php
-Gate::define('isEditor', function ($user) {
+Gate::define('hasRole', function ($user, $role) {
     // we can check any thing we want about the user in a gate
-    return ($user->role == 'editor') ? true : false;
+    return ($user->role == $role) ? true : false;
 });
 
 ```
@@ -17,7 +17,7 @@ Nothing new here,
 
 So now we can use this gate to authorize and stop the user in various moments of the application life cycle, including:
 - 1- Right after a Route is Matched
-- 2- Right before a blade file is going to be created. For example by calling: `view('myViewFile');` 
+- 2- Right before a blade file is going to be rendered. For example by calling: `view('myViewFile');` 
 - 3- Right before an eloquent model is going to be `read` or `created` or `updated` or `deleted`
 - 4- When any custom event is fired by calling `event('myEvent');`
 
@@ -27,15 +27,15 @@ You can put these codes in your service provider's `boot` method to take effect:
 ```php
 
 // On Url address:
-HeyMan::whenVisitingUrl(['welcome', 'home'])->youShouldPassGate('isEditor')->toBeAuthorized();
+HeyMan::whenVisitingUrl(['welcome', 'home'])->thisGateMustAllow('hasRole', 'editor')->otherwise()->youAreNotAuthorized();
 
 
 // On Route's Name:
-HeyMan::whenVisitingRoute('welcome.name')->youShouldPassGate('isEditor')->toBeAuthorized();
+HeyMan::whenVisitingRoute('welcome.name')->thisGateMustAllow('hasRole', 'editor')->otherwise()->youAreNotAuthorized();
 
 
 // On Action Name:
-HeyMan::whenCallingAction('\App\Http\Controllers\HomeController@index')->youShouldPassGate('isEditor')->toBeAuthorized();
+HeyMan::whenCallingAction('\App\Http\Controllers\HomeController@index')->thisGateMustAllow('hasRole', 'editor')->otherwise()->youAreNotAuthorized();
 
 ```
 
@@ -51,9 +51,9 @@ HeyMan::whenCallingAction('\App\Http\Controllers\HomeController@index')->youShou
 
 ```php 
 
-// to authorize view('welcome');
+// to authorize \View::make();   or   view();
 
- HeyMan::whenYouSeeViewFile('edit_form')->youShouldPassGate('isEditor')->toBeAuthorized();
+ HeyMan::whenViewMake('edit_form')->thisGateMustAllow('hasRole', 'editor')->otherwise()->youAreNotAuthorized();
  ```
  
 This way authorization logic is fired after this line of code is executed:
@@ -67,7 +67,7 @@ so you are putting a guard on the blade file named:`edit_form.blade.php`. (not o
 ## Authorizing Custom Events
 
 ```php
-HeyMan::whenEventHappens('myEvent')->youShouldPassGate('isEditor')->toBeAuthorized();
+HeyMan::whenEventHappens('myEvent')->thisGateMustAllow('hasRole', 'editor')->otherwise()->youAreNotAuthorized();
 ```
 
 This way gate is checked after `event('myEvent')` is executed any where in our app
