@@ -24,6 +24,8 @@ So now we can use this gate to authorize and stop the user in various moments of
 
 You can put these codes in your service provider's `boot` method to take effect:
 
+## Hooking on : Routes
+
 ```php
 
 // On Url address:
@@ -33,7 +35,11 @@ HeyMan::whenVisitingUrl(['welcome', 'home'])->thisGateMustAllow('hasRole', 'edit
 // On Route's Name:
 HeyMan::whenVisitingRoute('welcome.name')->thisGateMustAllow('hasRole', 'editor')->otherwise()->youAreNotAuthorized();
 
+```
 
+## Hooking on : Controller Actions
+
+```php
 // On Action Name:
 HeyMan::whenCallingAction('\App\Http\Controllers\HomeController@index')->thisGateMustAllow('hasRole', 'editor')->otherwise()->youAreNotAuthorized();
 
@@ -46,7 +52,7 @@ HeyMan::whenCallingAction('\App\Http\Controllers\HomeController@index')->thisGat
 #### Note You can pass an string or an array of strings
 
 
-## Authorizing Blade files
+## Hooking on : Blade files
 
 
 ```php 
@@ -64,10 +70,20 @@ view('edit_form');
 so you are putting a guard on the blade file named:`edit_form.blade.php`. (not on the url which eventually leads to it.)
 
 
-## Authorizing Custom Events
+## Hooking on : Custom Events
 
 ```php
 HeyMan::whenEventHappens('myEvent')->thisGateMustAllow('hasRole', 'editor')->otherwise()->youAreNotAuthorized();
 ```
 
 This way gate is checked after `event('myEvent')` is executed any where in our app
+
+
+## Hooking on : Eloquent Model Events
+```php
+HeyMan::whenSaving(\App\User::class)->thisGateMustAllow('hasRole', 'editor')->otherwise()->youAreNotAuthorized();
+HeyMan::whenFetching(\App\User::class)->thisGateMustAllow('hasRole', 'editor')->otherwise()->youAreNotAuthorized();
+HeyMan::whenCreating(\App\User::class)->thisGateMustAllow('hasRole', 'editor')->otherwise()->youAreNotAuthorized();
+HeyMan::whenUpdating(\App\User::class)->thisGateMustAllow('hasRole', 'editor')->otherwise()->youAreNotAuthorized();
+HeyMan::whenDeleting(\App\User::class)->thisGateMustAllow('hasRole', 'editor')->otherwise()->youAreNotAuthorized();
+```
