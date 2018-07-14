@@ -8,8 +8,8 @@ class GuestAuthorizationTest extends TestCase
     {
         setUp::run($this);
 
-        HeyMan::whenVisitingUrl('welcome')->youShouldBeGuest()->otherwise()->weDenyAccess();
-        HeyMan::whenVisitingUrl('welcome1')->youShouldBeGuest()->otherwise()->weDenyAccess();
+        HeyMan::whenYouVisitUrl('welcome')->youShouldBeGuest()->otherwise()->weDenyAccess();
+        HeyMan::whenYouVisitUrl('welcome1')->youShouldBeGuest()->otherwise()->weDenyAccess();
 
         $this->get('welcome')->assertStatus(403);
     }
@@ -18,7 +18,7 @@ class GuestAuthorizationTest extends TestCase
     {
         Route::get('/welcome', 'HomeController@index')->name('welcome.name');
 
-        HeyMan::whenVisitingUrl('welcome')->youShouldBeGuest()->otherwise()->weDenyAccess();
+        HeyMan::whenYouVisitUrl('welcome')->youShouldBeGuest()->otherwise()->weDenyAccess();
 
         $this->get('welcome')->assertStatus(200);
     }
@@ -27,8 +27,8 @@ class GuestAuthorizationTest extends TestCase
     {
         setUp::run($this);
 
-        HeyMan::whenVisitingUrl(['welcome', 'welcome_'])->youShouldBeGuest()->otherwise()->weDenyAccess();
-        HeyMan::whenVisitingUrl('welcome1')->youShouldBeGuest()->otherwise()->weDenyAccess();
+        HeyMan::whenYouVisitUrl(['welcome', 'welcome_'])->youShouldBeGuest()->otherwise()->weDenyAccess();
+        HeyMan::whenYouVisitUrl('welcome1')->youShouldBeGuest()->otherwise()->weDenyAccess();
 
         $this->get('welcome')->assertStatus(403);
     }
@@ -37,8 +37,8 @@ class GuestAuthorizationTest extends TestCase
     {
         setUp::run($this);
 
-        HeyMan::whenVisitingUrl(['welcome_', 'welcome',])->youShouldBeGuest()->otherwise()->weDenyAccess();
-        HeyMan::whenVisitingUrl('welcome1')->youShouldBeGuest()->otherwise()->weDenyAccess();
+        HeyMan::whenYouVisitUrl(['welcome_', 'welcome',])->youShouldBeGuest()->otherwise()->weDenyAccess();
+        HeyMan::whenYouVisitUrl('welcome1')->youShouldBeGuest()->otherwise()->weDenyAccess();
 
         $this->get('welcome')->assertStatus(403);
     }

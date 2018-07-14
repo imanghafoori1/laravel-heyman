@@ -7,7 +7,7 @@ class OtherwiseTest extends TestCase
     public function testOtherwise()
     {
         setUp::run($this);
-        HeyMan::whenVisitingUrl('welcome')->youShouldHaveRole('reader')->otherwise()->redirectTo('home');
+        HeyMan::whenYouVisitUrl('welcome')->youShouldHaveRole('reader')->otherwise()->redirectTo('home');
 
         $this->get('welcome')->assertRedirect('home');
     }
@@ -41,8 +41,8 @@ class OtherwiseTest extends TestCase
     {
         setUp::run($this);
 
-        HeyMan::whenVisitingUrl(['welcome', 'welcome_'])->youShouldHaveRole('reader')->otherwise()->json(['m'=> 'm'], 403);
-        HeyMan::whenVisitingUrl('welcome1')->youShouldHaveRole('writer')->otherwise()->weDenyAccess();
+        HeyMan::whenYouVisitUrl(['welcome', 'welcome_'])->youShouldHaveRole('reader')->otherwise()->json(['m'=> 'm'], 403);
+        HeyMan::whenYouVisitUrl('welcome1')->youShouldHaveRole('writer')->otherwise()->weDenyAccess();
 
         $this->get('welcome')->assertJson(['m'=>'m'])->assertStatus(403);
         $this->get('welcome1')->assertStatus(200);
@@ -52,8 +52,8 @@ class OtherwiseTest extends TestCase
     {
         setUp::run($this);
 
-        HeyMan::whenVisitingUrl('welcome', 'asdfv')->youShouldHaveRole('reader')->otherwise()->abort(405);
-        HeyMan::whenVisitingUrl('welcome1')->youShouldHaveRole('writer')->otherwise()->weDenyAccess();
+        HeyMan::whenYouVisitUrl('welcome', 'asdfv')->youShouldHaveRole('reader')->otherwise()->abort(405);
+        HeyMan::whenYouVisitUrl('welcome1')->youShouldHaveRole('writer')->otherwise()->weDenyAccess();
 
         $this->get('welcome')->assertStatus(405);
         $this->get('welcome1')->assertStatus(200);
