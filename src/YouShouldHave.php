@@ -10,10 +10,10 @@ class YouShouldHave
 
     public function youShouldHaveRole($role)
     {
-        return $this->youShouldPassGate('heyman.youShouldHaveRole', $role);
+        return $this->thisGateMustAllow('heyman.youShouldHaveRole', $role);
     }
 
-    public function youShouldPassGate($gate, ...$args)
+    public function thisGateMustAllow($gate, ...$args)
     {
         if (str_contains($gate, '@')) {
             Gate::define($gate, $gate);

@@ -2,6 +2,7 @@
 
 namespace Imanghafoori\HeyMan;
 
+use Illuminate\Auth\Access\AuthorizationException;
 use Symfony\Component\HttpFoundation\Response;
 
 class Responder
@@ -206,6 +207,11 @@ class Responder
         } catch (\Exception $e) {
             $this->exception = $e;
         }
+    }
+
+    public function weDenyAccess($msg = '')
+    {
+        $this->exception = new AuthorizationException($msg);
     }
 
     public function __destruct()
