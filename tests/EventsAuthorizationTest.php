@@ -9,8 +9,8 @@ class EventsAuthorizationTest extends TestCase
     {
         setUp::run($this);
 
-        HeyMan::whenEventHappens(['myEvent', 'myEvent1'])->youShouldHaveRole('reader')->toBeAuthorized();
-        HeyMan::whenEventHappens('myEvent4')->youShouldHaveRole('reader')->toBeAuthorized();
+        HeyMan::whenEventHappens(['myEvent', 'myEvent1'])->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+        HeyMan::whenEventHappens('myEvent4')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
 
         $this->expectException(AuthorizationException::class);
 
@@ -29,8 +29,8 @@ class EventsAuthorizationTest extends TestCase
             return true;
         });
 
-        HeyMan::whenEventHappens(['myEvent', 'myEvent1'])->youShouldPassGate('deadEnd')->toBeAuthorized();
-        HeyMan::whenEventHappens('myEvent4')->youShouldPassGate('open')->toBeAuthorized();
+        HeyMan::whenEventHappens(['myEvent', 'myEvent1'])->thisGateMustAllow('deadEnd')->otherwise()->weDenyAccess();
+        HeyMan::whenEventHappens('myEvent4')->thisGateMustAllow('open')->otherwise()->weDenyAccess();
 
         $this->expectException(AuthorizationException::class);
 

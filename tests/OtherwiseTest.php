@@ -42,7 +42,7 @@ class OtherwiseTest extends TestCase
         setUp::run($this);
 
         HeyMan::whenVisitingUrl(['welcome', 'welcome_'])->youShouldHaveRole('reader')->otherwise()->json(['m'=> 'm'], 403);
-        HeyMan::whenVisitingUrl('welcome1')->youShouldHaveRole('writer')->toBeAuthorized();
+        HeyMan::whenVisitingUrl('welcome1')->youShouldHaveRole('writer')->otherwise()->weDenyAccess();
 
         $this->get('welcome')->assertJson(['m'=>'m'])->assertStatus(403);
         $this->get('welcome1')->assertStatus(200);
@@ -53,7 +53,7 @@ class OtherwiseTest extends TestCase
         setUp::run($this);
 
         HeyMan::whenVisitingUrl('welcome', 'asdfv')->youShouldHaveRole('reader')->otherwise()->abort(405);
-        HeyMan::whenVisitingUrl('welcome1')->youShouldHaveRole('writer')->toBeAuthorized();
+        HeyMan::whenVisitingUrl('welcome1')->youShouldHaveRole('writer')->otherwise()->weDenyAccess();
 
         $this->get('welcome')->assertStatus(405);
         $this->get('welcome1')->assertStatus(200);

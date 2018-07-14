@@ -14,7 +14,7 @@ class GateAuthorizationTest extends TestCase
             return $yool;
         });
 
-        HeyMan::whenEventHappens('myEvent')->youShouldPassGate('helloGate', false, false)->toBeAuthorized();
+        HeyMan::whenEventHappens('myEvent')->thisGateMustAllow('helloGate', false, false)->otherwise()->weDenyAccess();
 
         $this->expectException(AuthorizationException::class);
 
@@ -25,7 +25,7 @@ class GateAuthorizationTest extends TestCase
     {
         setUp::run($this);
 
-        HeyMan::whenEventHappens('myEvent')->youShouldPassGate('Gates@helloGate', false)->toBeAuthorized();
+        HeyMan::whenEventHappens('myEvent')->thisGateMustAllow('Gates@helloGate', false)->otherwise()->weDenyAccess();
 
         $this->expectException(AuthorizationException::class);
 
