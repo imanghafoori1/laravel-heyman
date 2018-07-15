@@ -30,11 +30,11 @@ You can put these codes in your service provider's `boot` method to take effect:
 ```php
 
 // On Url address:
-HeyMan::whenYouVisitUrl(['welcome', 'home'])->thisGateMustAllow('hasRole', 'editor')->otherwise()->weDenyAccess();
+HeyMan::whenYouVisitUrl(['welcome', 'home'])->thisGateShouldAllow('hasRole', 'editor')->otherwise()->weDenyAccess();
 
 
 // On Route's Name:
-HeyMan::whenVisitingRoute('welcome.name')->thisGateMustAllow('hasRole', 'editor')->otherwise()->weDenyAccess();
+HeyMan::whenVisitingRoute('welcome.name')->thisGateShouldAllow('hasRole', 'editor')->otherwise()->weDenyAccess();
 
 ```
 
@@ -42,7 +42,7 @@ HeyMan::whenVisitingRoute('welcome.name')->thisGateMustAllow('hasRole', 'editor'
 
 ```php
 // On Action Name:
-HeyMan::whenCallingAction('\App\Http\Controllers\HomeController@index')->thisGateMustAllow('hasRole', 'editor')->otherwise()->weDenyAccess();
+HeyMan::whenCallingAction('\App\Http\Controllers\HomeController@index')->thisGateShouldAllow('hasRole', 'editor')->otherwise()->weDenyAccess();
 
 ```
 
@@ -60,7 +60,7 @@ HeyMan::whenCallingAction('\App\Http\Controllers\HomeController@index')->thisGat
 
 // to authorize \View::make();   or   view();
 
- HeyMan::whenViewMake('edit_form')->thisGateMustAllow('hasRole', 'editor')->otherwise()->weDenyAccess();
+ HeyMan::whenViewMake('edit_form')->thisGateShouldAllow('hasRole', 'editor')->otherwise()->weDenyAccess();
  ```
  
 This way authorization logic is fired after this line of code is executed:
@@ -74,7 +74,7 @@ so you are putting a guard on the blade file named:`edit_form.blade.php`. (not o
 ## Hooking on : Custom Events
 
 ```php
-HeyMan::whenEventHappens('myEvent')->thisGateMustAllow('hasRole', 'editor')->otherwise()->weDenyAccess();
+HeyMan::whenEventHappens('myEvent')->thisGateShouldAllow('hasRole', 'editor')->otherwise()->weDenyAccess();
 ```
 
 This way gate is checked after `event('myEvent')` is executed any where in our app
@@ -82,15 +82,15 @@ This way gate is checked after `event('myEvent')` is executed any where in our a
 
 ## Hooking on : Eloquent Model Events
 ```php
-HeyMan::whenSaving(\App\User::class)->thisGateMustAllow('hasRole', 'editor')->otherwise()->weDenyAccess();
-HeyMan::whenFetching(\App\User::class)->thisGateMustAllow('hasRole', 'editor')->otherwise()->weDenyAccess();
-HeyMan::whenCreating(\App\User::class)->thisGateMustAllow('hasRole', 'editor')->otherwise()->weDenyAccess();
-HeyMan::whenUpdating(\App\User::class)->thisGateMustAllow('hasRole', 'editor')->otherwise()->weDenyAccess();
-HeyMan::whenDeleting(\App\User::class)->thisGateMustAllow('hasRole', 'editor')->otherwise()->weDenyAccess();
+HeyMan::whenSaving(\App\User::class)->thisGateShouldAllow('hasRole', 'editor')->otherwise()->weDenyAccess();
+HeyMan::whenFetching(\App\User::class)->thisGateShouldAllow('hasRole', 'editor')->otherwise()->weDenyAccess();
+HeyMan::whenCreating(\App\User::class)->thisGateShouldAllow('hasRole', 'editor')->otherwise()->weDenyAccess();
+HeyMan::whenUpdating(\App\User::class)->thisGateShouldAllow('hasRole', 'editor')->otherwise()->weDenyAccess();
+HeyMan::whenDeleting(\App\User::class)->thisGateShouldAllow('hasRole', 'editor')->otherwise()->weDenyAccess();
 ```
 
 
-## Things You Can Check:
+## Things You Can Check After Hooking:
 
 ### 1 - Checking Gates
 
@@ -98,13 +98,13 @@ HeyMan::whenDeleting(\App\User::class)->thisGateMustAllow('hasRole', 'editor')->
 #### By gate name:
 
 ```php
-HeyMan::whenYouVisitUrl('home')->thisGateMustAllow('hasRole', 'editor')->otherwise()->...;
+HeyMan::whenYouVisitUrl('home')->thisGateShouldAllow('hasRole', 'editor')->otherwise()->...;
 ```
 
 #### Referencing a Method (as a Gate):
 
 ```php
-HeyMan::whenYouVisitUrl('home')->thisGateMustAllow('SomeClass@someMethod', 'editor')->otherwise()->...;
+HeyMan::whenYouVisitUrl('home')->thisGateShouldAllow('SomeClass@someMethod', 'editor')->otherwise()->...;
 ```
 
 #### Passing a Closure:
@@ -115,14 +115,14 @@ $gate = function($user, $role){
     return true;
 }
 
-HeyMan::whenYouVisitUrl('home')->thisGateMustAllow($gate, 'editor')->otherwise()->...;
+HeyMan::whenYouVisitUrl('home')->thisGateShouldAllow($gate, 'editor')->otherwise()->...;
 ```
 
 ### 2 - Checking Authentication:
 
 ```php
-HeyMan::whenYouVisitUrl('home')->youMustBeGuest()->otherwise()->...;
-HeyMan::whenYouVisitUrl('home')->youMustBeLoggedIn()->otherwise()->...;
+HeyMan::whenYouVisitUrl('home')->youShouldBeGuest()->otherwise()->...;
+HeyMan::whenYouVisitUrl('home')->youShouldBeLoggedIn()->otherwise()->...;
 ```
 
 ### 3 - Checking A Closure: (coming soon)
@@ -133,4 +133,63 @@ $callback = function($params){
     return true;
 }
 HeyMan::whenYouVisitUrl('home')->thisClosureMustPass($callback, ['param1'])->otherwise()->...;
+```
+
+
+## Things You Can Enforce After Checking:
+
+### 1 - Deny Access
+
+By calling `weDenyAccess` method an `AuthorizationException` will be thrown if needed
+
+```php
+HeyMan::whenSaving(\App\User::class)->thisGateShouldAllow('hasRole', 'editor')->otherwise()->weDenyAccess();
+```
+
+### 2 - Redirect the user
+
+```php
+// Sample sudo Code
+HeyMan::whenYouVisitUrl('/login')->youShouldBeGuest()->otherwise() ->redirectTo(...);
+HeyMan::whenYouVisitUrl('/login')->youShouldBeGuest()->otherwise() ->redirectToRoute(...);
+HeyMan::whenYouVisitUrl('/login')->youShouldBeGuest()->otherwise() ->redirectToAction(...);
+HeyMan::whenYouVisitUrl('/login')->youShouldBeGuest()->otherwise() ->redirectToIntended(...);
+HeyMan::whenYouVisitUrl('/login')->youShouldBeGuest()->otherwise() ->redirectGuest(...);
+```
+
+### 3- Throw new Exception:
+
+As the first argument, you pass the exception class path, and the exception message as the second.
+
+```php
+HeyMan::whenYouVisitUrl('/login')->youShouldBeGuest()->otherwise() ->throwNew(AuthorizationException::class, 'My Message');
+```
+
+### 4- Abort:
+
+It is exaclty the same as calling the `abort()` laravel helper function.
+
+```php
+HeyMan::whenYouVisitUrl('/login')->youShouldBeGuest()->otherwise() ->abort();
+```
+
+### 5- Send Json or View as Response:
+
+Calling these functions generate exact same response as calling them on the `response()` helper function like this:
+ 
+`return response()->json(...);`
+
+```php
+HeyMan::whenYouVisitUrl('/login')->youShouldBeGuest()->otherwise() ->json(...);
+HeyMan::whenYouVisitUrl('/login')->youShouldBeGuest()->otherwise() ->view(...);
+HeyMan::whenYouVisitUrl('/login')->youShouldBeGuest()->otherwise() ->jsonp(...);
+```
+
+### 6 - Send Any Response Object
+
+```php
+
+$response = response()->make(...);
+
+HeyMan::whenYouVisitUrl('/login')->youShouldBeGuest()->otherwise() ->sned($response);
 ```
