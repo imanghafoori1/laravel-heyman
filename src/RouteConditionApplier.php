@@ -2,6 +2,8 @@
 
 namespace Imanghafoori\HeyMan;
 
+use Illuminate\Support\Str;
+
 class RouteConditionApplier
 {
     private $target;
@@ -29,7 +31,16 @@ class RouteConditionApplier
 
     public function getUrls($url)
     {
-        return $this->urls[$url] ?? function(){};
+        if (array_key_exists($url, $this->urls)) {
+            return $this->urls[$url];
+        };
+        
+        foreach ($this->urls as $pattern => $callback) {
+            if (Str::is($pattern, $url)) {
+                return $callback;
+            };
+        }
+        return function(){};
     }
 
     public function getRouteNames($routeName)

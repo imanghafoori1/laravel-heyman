@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Str;
 use Imanghafoori\HeyMan\Facades\HeyMan;
 
 class RouteAuthorizationTest extends TestCase
@@ -8,7 +9,7 @@ class RouteAuthorizationTest extends TestCase
     {
         setUp::run($this);
 
-        HeyMan::whenYouVisitUrl('welcome')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+        HeyMan::whenYouVisitUrl('welco*')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
         HeyMan::whenYouVisitUrl('welcome1')->youShouldHaveRole('writer')->otherwise()->weDenyAccess();
 
         $this->get('welcome')->assertStatus(403);
