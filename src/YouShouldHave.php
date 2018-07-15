@@ -10,10 +10,10 @@ class YouShouldHave
 
     public function youShouldHaveRole($role)
     {
-        return $this->thisGateMustAllow('heyman.youShouldHaveRole', $role);
+        return $this->thisGateShouldAllow('heyman.youShouldHaveRole', $role);
     }
 
-    public function thisGateMustAllow($gate, ...$args)
+    public function thisGateShouldAllow($gate, ...$args)
     {
         if (is_callable($gate)) {
             Gate::define(str_random(10), $gate);

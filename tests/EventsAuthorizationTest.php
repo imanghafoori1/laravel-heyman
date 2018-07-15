@@ -29,8 +29,8 @@ class EventsAuthorizationTest extends TestCase
             return true;
         });
 
-        HeyMan::whenEventHappens(['myEvent', 'myEvent1'])->thisGateMustAllow('deadEnd')->otherwise()->weDenyAccess();
-        HeyMan::whenEventHappens('myEvent4')->thisGateMustAllow('open')->otherwise()->weDenyAccess();
+        HeyMan::whenEventHappens(['myEvent', 'myEvent1'])->thisGateShouldAllow('deadEnd')->otherwise()->weDenyAccess();
+        HeyMan::whenEventHappens('myEvent4')->thisGateShouldAllow('open')->otherwise()->weDenyAccess();
 
         $this->expectException(AuthorizationException::class);
 
