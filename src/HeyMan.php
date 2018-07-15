@@ -3,21 +3,17 @@
 namespace Imanghafoori\HeyMan;
 
 use Imanghafoori\HeyMan\Hooks\EloquentHooks;
+use Imanghafoori\HeyMan\Hooks\EventHooks;
 use Imanghafoori\HeyMan\Hooks\RouteHooks;
 use Imanghafoori\HeyMan\Hooks\ViewHooks;
 
 class HeyMan
 {
-    use EloquentHooks, RouteHooks, ViewHooks;
+    use EloquentHooks, RouteHooks, ViewHooks, EventHooks;
     /**
      * @var \Imanghafoori\HeyMan\ConditionApplier
      */
     public $authorizer;
-
-    public function whenEventHappens(...$event)
-    {
-        return $this->authorize($this->normalizeInput($event));
-    }
 
     /**
      * @param $url
