@@ -8,7 +8,7 @@ class RouteAuthorizationTest extends TestCase
     {
         setUp::run($this);
 
-        HeyMan::whenYouVisitUrl('welco*')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+        HeyMan::whenYouVisitUrl('/welco*')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
         HeyMan::whenYouVisitUrl('welcome1')->youShouldHaveRole('writer')->otherwise()->weDenyAccess();
 
         $this->get('welcome')->assertStatus(403);
@@ -58,7 +58,7 @@ class RouteAuthorizationTest extends TestCase
     {
         setUp::run($this);
 
-        HeyMan::whenYouVisitUrl('welcome', 'ewrf')->youShouldHaveRole('writer')->otherwise()->weDenyAccess();
+        HeyMan::whenYouVisitUrl('/welcome', 'ewrf')->youShouldHaveRole('writer')->otherwise()->weDenyAccess();
         HeyMan::whenYouVisitUrl('welcome1')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
 
         $this->get('/welcome')->assertSuccessful();
@@ -78,7 +78,7 @@ class RouteAuthorizationTest extends TestCase
     {
         setUp::run($this);
 
-        HeyMan::whenYouVisitUrl('welcome')->youShouldHaveRole('writer')->otherwise()->weDenyAccess();
+        HeyMan::whenYouVisitUrl('/welcome')->youShouldHaveRole('writer')->otherwise()->weDenyAccess();
         HeyMan::whenYouVisitUrl('welcome1')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
 
         $this->get('/welcome')->assertSuccessful();
