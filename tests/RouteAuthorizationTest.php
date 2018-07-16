@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Support\Str;
 use Imanghafoori\HeyMan\Facades\HeyMan;
 
 class RouteAuthorizationTest extends TestCase
@@ -153,6 +152,16 @@ class RouteAuthorizationTest extends TestCase
 
         HeyMan::whenYouVisitUrl(['welcom2', 'ewrf'])->youShouldHaveRole('writer')->otherwise()->weDenyAccess();
         HeyMan::whenCallingAction(HomeController::class.'@index')->youShouldHaveRole('writer')->otherwise()->weDenyAccess();
+
+        $this->get('welcome')->assertStatus(200);
+    }
+
+
+    public function testControllerActionIsAuthorizedWithPattern()
+    {
+        setUp::run($this);
+
+        HeyMan::whenCallingAction(HomeController::class.'@*')->youShouldHaveRole('writer')->otherwise()->weDenyAccess();
 
         $this->get('welcome')->assertStatus(200);
     }
