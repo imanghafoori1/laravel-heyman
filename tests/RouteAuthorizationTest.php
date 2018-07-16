@@ -88,8 +88,8 @@ class RouteAuthorizationTest extends TestCase
     {
         setUp::run($this);
 
-        HeyMan::whenVisitingRoute('welcome.name')->youShouldHaveRole('writer')->otherwise()->weDenyAccess();
-        HeyMan::whenVisitingRoute('welcome1.name')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+        HeyMan::whenYouVisitRoute('welcome.name')->youShouldHaveRole('writer')->otherwise()->weDenyAccess();
+        HeyMan::whenYouVisitRoute('welcome1.name')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
         $this->get('welcome')->assertSuccessful();
     }
 
@@ -97,7 +97,7 @@ class RouteAuthorizationTest extends TestCase
     {
         setUp::run($this);
 
-        HeyMan::whenVisitingRoute('welcome.name')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+        HeyMan::whenYouVisitRoute('welcome.name')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
         $this->get('welcome')->assertStatus(403);
     }
 
@@ -105,7 +105,7 @@ class RouteAuthorizationTest extends TestCase
     {
         setUp::run($this);
 
-        HeyMan::whenVisitingRoute('welcome.*')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+        HeyMan::whenYouVisitRoute('welcome.*')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
         $this->get('welcome')->assertStatus(403);
     }
 
@@ -131,8 +131,8 @@ class RouteAuthorizationTest extends TestCase
     {
         setUp::run($this);
 
-        HeyMan::whenVisitingRoute(['welcome.name'])->youShouldHaveRole('writer')->otherwise()->weDenyAccess();
-        HeyMan::whenVisitingRoute('welcome1.name')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+        HeyMan::whenYouVisitRoute(['welcome.name'])->youShouldHaveRole('writer')->otherwise()->weDenyAccess();
+        HeyMan::whenYouVisitRoute('welcome1.name')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
         $this->get('welcome')->assertSuccessful();
     }
 
@@ -140,7 +140,7 @@ class RouteAuthorizationTest extends TestCase
     {
         setUp::run($this);
 
-        HeyMan::whenVisitingRoute('welcome.Oname')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+        HeyMan::whenYouVisitRoute('welcome.Oname')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
         HeyMan::whenCallingAction('HomeController@index')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
 
         $this->get('welcome')->assertStatus(403);

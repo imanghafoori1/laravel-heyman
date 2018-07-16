@@ -9,7 +9,7 @@ trait RouteHooks
         return $this->authorizeRoute('urls', $url);
     }
 
-    public function whenVisitingRoute(...$routeName)
+    public function whenYouVisitRoute(...$routeName)
     {
         return $this->authorizeRoute('routeNames', $routeName);
     }
