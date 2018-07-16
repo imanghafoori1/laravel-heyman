@@ -40,12 +40,25 @@ class RouteConditionApplier
                 return $callback;
             };
         }
-        return function(){};
+
+        return function () {
+        };
     }
 
     public function getRouteNames($routeName)
     {
-        return $this->routeNames[$routeName] ?? function(){};
+        if (array_key_exists($routeName, $this->routeNames)) {
+            return $this->routeNames[$routeName];
+        }
+
+        foreach ($this->routeNames as $pattern => $callback) {
+            if (Str::is($pattern, $routeName)) {
+                return $callback;
+            };
+        }
+
+        return function () {
+        };
     }
 
     public function getActions($action)
