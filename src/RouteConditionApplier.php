@@ -31,50 +31,17 @@ class RouteConditionApplier
 
     public function getUrls($url)
     {
-        if (array_key_exists($url, $this->urls)) {
-            return $this->urls[$url];
-        };
-        
-        foreach ($this->urls as $pattern => $callback) {
-            if (Str::is($pattern, $url)) {
-                return $callback;
-            };
-        }
-
-        return function () {
-        };
+        return $this->resolveCallback($url, 'urls');
     }
 
     public function getRouteNames($routeName)
     {
-        if (array_key_exists($routeName, $this->routeNames)) {
-            return $this->routeNames[$routeName];
-        }
-
-        foreach ($this->routeNames as $pattern => $callback) {
-            if (Str::is($pattern, $routeName)) {
-                return $callback;
-            };
-        }
-
-        return function () {
-        };
+        return $this->resolveCallback($routeName, 'routeNames');
     }
 
     public function getActions($action)
     {
-        if (array_key_exists($action, $this->actions)) {
-            return $this->actions[$action];
-        }
-
-        foreach ($this->actions as $pattern => $callback) {
-            if (Str::is($pattern, $action)) {
-                return $callback;
-            };
-        }
-
-        return function () {
-        };
+        return $this->resolveCallback($action, 'actions');
     }
 
     /**
@@ -85,5 +52,26 @@ class RouteConditionApplier
         foreach ($this->value as $value) {
             $this->{$this->target}[$value] = $callback;
         }
+    }
+
+    /**
+     * @param $action
+     * @param $type
+     * @return \Closure
+     */
+    private function resolveCallback($action, $type): \Closure
+    {
+        if (array_key_exists($action, $this->{$type})) {
+            return $this->{$type}[$action];
+        }
+
+        foreach ($this->{$type} as $pattern => $callback) {
+            if (Str::is($pattern, $action)) {
+                return $callback;
+            };
+        }
+
+        return function () {
+        };
     }
 }
