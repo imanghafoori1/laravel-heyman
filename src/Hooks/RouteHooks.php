@@ -6,6 +6,12 @@ trait RouteHooks
 {
     public function whenYouVisitUrl(...$url)
     {
+        $removeSlash = function ($url) {
+            return ltrim($url, "/");
+        };
+
+        $url = array_map($removeSlash, $this->normalizeInput($url));
+
         return $this->authorizeRoute('urls', $url);
     }
 
