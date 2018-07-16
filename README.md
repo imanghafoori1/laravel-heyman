@@ -1,6 +1,6 @@
 # Laravel Hey Man
 
-A package to help you write expressive defensive syntax in a functional manner
+## A package to help you write expressive defensive code in a functional manner
 
 
 ## Authorization with laravel gates:
@@ -167,7 +167,7 @@ HeyMan::whenYouVisitUrl('/login')->youShouldBeGuest()->otherwise() ->redirectGue
 
 ### 3- Throw new Exception:
 
-As the first argument, you pass the exception class path, and the exception message as the second.
+As the first argument, you pass the exception's class path and the exception message as the second.
 
 ```php
 HeyMan::whenYouVisitUrl('/login')->youShouldBeGuest()->otherwise() ->throwNew(AuthorizationException::class, 'My Message');
@@ -178,7 +178,7 @@ HeyMan::whenYouVisitUrl('/login')->youShouldBeGuest()->otherwise() ->throwNew(Au
 It is exaclty the same as calling the `abort()` laravel helper function.
 
 ```php
-HeyMan::whenYouVisitUrl('/login')->youShouldBeGuest()->otherwise()->abort();
+HeyMan::whenYouVisitUrl('/login')->youShouldBeGuest()->otherwise()->abort(...);
 ```
 
 ### 5- Send Json or View as Response:
@@ -199,5 +199,5 @@ HeyMan::whenYouVisitUrl('/login')->youShouldBeGuest()->otherwise()->jsonp(...);
 
 $response = response()->make(...);
 
-HeyMan::whenYouVisitUrl('/login')->youShouldBeGuest()->otherwise()->sned($response);
+HeyMan::whenYouVisitUrl('/login')->youShouldBeGuest()->otherwise()->send($response);
 ```
