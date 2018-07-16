@@ -63,7 +63,18 @@ class RouteConditionApplier
 
     public function getActions($action)
     {
-        return $this->actions[$action] ?? function(){};
+        if (array_key_exists($action, $this->actions)) {
+            return $this->actions[$action];
+        }
+
+        foreach ($this->actions as $pattern => $callback) {
+            if (Str::is($pattern, $action)) {
+                return $callback;
+            };
+        }
+
+        return function () {
+        };
     }
 
     /**
