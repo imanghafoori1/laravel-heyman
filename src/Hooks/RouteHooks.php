@@ -14,7 +14,7 @@ trait RouteHooks
         return $this->authorizeRoute('routeNames', $routeName);
     }
 
-    public function whenCallingAction(...$action)
+    public function whenYouCallAction(...$action)
     {
         return $this->authorizeRoute('actions', $action);
     }
