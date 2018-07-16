@@ -102,6 +102,14 @@ class RouteAuthorizationTest extends TestCase
         $this->get('welcome')->assertStatus(403);
     }
 
+    public function testRouteNameIsMatchWithPattern()
+    {
+        setUp::run($this);
+
+        HeyMan::whenVisitingRoute('welcome.*')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+        $this->get('welcome')->assertStatus(403);
+    }
+
     public function testControllerActionIsAuthorized()
     {
         setUp::run($this);
