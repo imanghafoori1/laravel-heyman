@@ -17,7 +17,7 @@ use Imanghafoori\HeyMan\YouShouldHave;
  * @method static YouShouldHave whenYouVisitUrl(array|sting $url)
  * @method static YouShouldHave whenYouVisitRoute(array|sting $routeName)
  * @method static YouShouldHave whenYouCallAction(array|sting $action)
- * @method static YouShouldHave whenViewMake(array|sting $view)
+ * @method static YouShouldHave whenYouViewBlade(array|sting $view)
  * @method static YouShouldHave whenEventHappens(array|sting $event)
  *
  *

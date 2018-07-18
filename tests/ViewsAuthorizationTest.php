@@ -32,7 +32,7 @@ class ViewsAuthorizationTest extends TestCase
     {
         setUp::run($this);
 
-        HeyMan::whenViewMake('welcome')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+        HeyMan::whenYouViewBlade('welcome')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
 
         $this->expectException(AuthorizationException::class);
 
@@ -43,7 +43,7 @@ class ViewsAuthorizationTest extends TestCase
     {
         setUp::run($this);
 
-        HeyMan::whenViewMake(['welcome', 'errors.503'])->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+        HeyMan::whenYouViewBlade(['welcome', 'errors.503'])->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
 
         $this->expectException(AuthorizationException::class);
 
@@ -54,7 +54,7 @@ class ViewsAuthorizationTest extends TestCase
     {
         setUp::run($this);
 
-        HeyMan::whenViewMake('welcome', 'errors.503')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+        HeyMan::whenYouViewBlade('welcome', 'errors.503')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
 
         $this->expectException(AuthorizationException::class);
 

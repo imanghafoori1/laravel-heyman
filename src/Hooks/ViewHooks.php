@@ -10,7 +10,7 @@ trait ViewHooks
         return $this->authorize($view);
     }
 
-    public function whenViewMake(...$args)
+    public function whenYouViewBlade(...$args)
     {
         return $this->whenYouSeeViewFile(...$args);
     }
