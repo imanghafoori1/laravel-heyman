@@ -217,6 +217,6 @@ class Responder
     public function __destruct()
     {
         $callbackListener = $this->makeListener();
-        app('hey_man')->authorizer->startGuarding($callbackListener);
+        app(HeyMan::class)->authorizer->startGuarding($callbackListener);
     }
 }
