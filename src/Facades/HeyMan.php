@@ -9,11 +9,11 @@ use Imanghafoori\HeyMan\YouShouldHave;
 /**
  * Class HeyMan
  *
- * @method static YouShouldHave whenFetching(array|Model $model)
- * @method static YouShouldHave whenCreating(array|Model $model)
- * @method static YouShouldHave whenUpdating(array|Model $model)
- * @method static YouShouldHave whenSaving(array|Model $model)
- * @method static YouShouldHave whenDeleting(array|Model $model)
+ * @method static YouShouldHave whenYouFetch(array|Model $model)
+ * @method static YouShouldHave whenYouCreate(array|Model $model)
+ * @method static YouShouldHave whenYouUpdate(array|Model $model)
+ * @method static YouShouldHave whenYouSave(array|Model $model)
+ * @method static YouShouldHave whenYouDelete(array|Model $model)
  * @method static YouShouldHave whenYouVisitUrl(array|sting $url)
  * @method static YouShouldHave whenYouVisitRoute(array|sting $routeName)
  * @method static YouShouldHave whenYouCallAction(array|sting $action)
@@ -21,7 +21,7 @@ use Imanghafoori\HeyMan\YouShouldHave;
  * @method static YouShouldHave whenEventHappens(array|sting $event)
  *
  *
- * @package Imanghafoori\HeyMan\Facades
+ * @see \Imanghafoori\HeyMan\HeyMan
  */
 class HeyMan extends Facade
 {
