@@ -17,7 +17,7 @@ class HeyManServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->app->singleton('hey_man', HeyMan::class);
+        $this->app->singleton(HeyMan::class, HeyMan::class);
         $this->app->singleton('hey_man_authorizer', ConditionApplier::class);
         $this->app->singleton('hey_man_route_authorizer', RouteConditionApplier::class);
         $this->app->singleton(YouShouldHave::class, YouShouldHave::class);
