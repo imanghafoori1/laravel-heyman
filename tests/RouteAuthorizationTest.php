@@ -113,7 +113,7 @@ class RouteAuthorizationTest extends TestCase
     {
         setUp::run($this);
 
-        HeyMan::whenYouCallAction('HomeController@index')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+        HeyMan::whenYouCallAction('\HomeController@index')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
 
         $this->get('welcome')->assertStatus(403);
     }
@@ -122,7 +122,7 @@ class RouteAuthorizationTest extends TestCase
     {
         setUp::run($this);
 
-        HeyMan::whenYouCallAction('HomeController@index')->youShouldHaveRole('writer')->otherwise()->weDenyAccess();
+        HeyMan::whenYouCallAction('\HomeController@index')->youShouldHaveRole('writer')->otherwise()->weDenyAccess();
 
         $this->get('welcome')->assertStatus(200);
     }
@@ -141,7 +141,7 @@ class RouteAuthorizationTest extends TestCase
         setUp::run($this);
 
         HeyMan::whenYouVisitRoute('welcome.Oname')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
-        HeyMan::whenYouCallAction('HomeController@index')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+        HeyMan::whenYouCallAction('\HomeController@index')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
 
         $this->get('welcome')->assertStatus(403);
     }
@@ -151,7 +151,7 @@ class RouteAuthorizationTest extends TestCase
         setUp::run($this);
 
         HeyMan::whenYouVisitUrl(['welcom2', 'ewrf'])->youShouldHaveRole('writer')->otherwise()->weDenyAccess();
-        HeyMan::whenYouCallAction('HomeController@index')->youShouldHaveRole('writer')->otherwise()->weDenyAccess();
+        HeyMan::whenYouCallAction('\\HomeController@index')->youShouldHaveRole('writer')->otherwise()->weDenyAccess();
 
         $this->get('welcome')->assertStatus(200);
     }
@@ -161,7 +161,27 @@ class RouteAuthorizationTest extends TestCase
     {
         setUp::run($this);
 
-        HeyMan::whenYouCallAction('HomeController@*')->youShouldHaveRole('writer')->otherwise()->weDenyAccess();
+        HeyMan::whenYouCallAction('\\HomeController@*')->youShouldHaveRole('writer')->otherwise()->weDenyAccess();
+
+        $this->get('welcome')->assertStatus(200);
+    }
+
+    public function testControllerActionIsAuthorized134()
+    {
+        setUp::run($this);
+
+        HeyMan::whenYouVisitUrl(['welcom2', 'ewrf'])->youShouldHaveRole('writer')->otherwise()->weDenyAccess();
+        HeyMan::whenYouCallAction('MyController@index')->youShouldHaveRole('writer')->otherwise()->weDenyAccess();
+
+        $this->get('welcome')->assertStatus(200);
+    }
+
+
+    public function testControllerActionIsAuthorized154()
+    {
+        setUp::run($this);
+
+        HeyMan::whenYouCallAction('MyController@*')->youShouldHaveRole('writer')->otherwise()->weDenyAccess();
 
         $this->get('welcome')->assertStatus(200);
     }
