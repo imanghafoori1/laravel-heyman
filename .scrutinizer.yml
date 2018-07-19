@@ -9,9 +9,9 @@ build:
     tests:
         override:
             -
-                command: 'vendor/bin/phpunit --coverage-clover=some-file'
+                command: 'vendor/bin/phpunit --coverage-clover /tmp/coverage.xml'
                 coverage:
-                    file: 'some-file'
+                    file: '/tmp/coverage.xml'
                     format: 'clover'
 checks:
     php:
