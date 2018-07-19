@@ -31,7 +31,7 @@ trait ViewHooks
     {
         $views = $this->normalizeInput($views);
         $mapper = function ($view) {
-            return 'creating: '.$view;
+            return 'creating: '.\Illuminate\View\ViewName::normalize($view);
         };
 
         return array_map($mapper, $views);

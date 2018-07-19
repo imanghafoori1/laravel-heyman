@@ -60,4 +60,15 @@ class ViewsAuthorizationTest extends TestCase
 
         view('errors.503');
     }
+
+    public function testViewIsAuthorized2674()
+    {
+        setUp::run($this);
+
+        HeyMan::whenYouViewBlade('errors/503')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+
+        $this->expectException(AuthorizationException::class);
+
+        view('errors/503');
+    }
 }
