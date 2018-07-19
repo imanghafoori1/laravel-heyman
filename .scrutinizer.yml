@@ -1,6 +1,8 @@
 filter:
     excluded_paths:
-        - 'src/WidgetGenerator.php'
+        - 'src/HeyManServiceProvider.php'
+        - 'src/Facades/*'
+        - 'config/heyMan.php'
         - 'tests/*'
 
 build:
