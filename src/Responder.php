@@ -195,7 +195,7 @@ class Responder
         };
     }
 
-    public function throwNew($exception, $message= '')
+    public function weThrowNew($exception, $message= '')
     {
         $this->exception = new $exception($message);
     }

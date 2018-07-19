@@ -32,7 +32,7 @@ class OtherwiseTest extends TestCase
     public function testOtherwise4()
     {
         setUp::run($this);
-        HeyMan::whenYouSeeViewFile('welcome')->youShouldHaveRole('writer')->otherwise()->throwNew(\Illuminate\Auth\Access\AuthorizationException::class);
+        HeyMan::whenYouSeeViewFile('welcome')->youShouldHaveRole('writer')->otherwise()->weThrowNew(\Illuminate\Auth\Access\AuthorizationException::class);
 
         $this->get('welcome')->assertStatus(200);
     }
