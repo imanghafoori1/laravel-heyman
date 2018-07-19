@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 class RouteAuthorizer
 {
-    public function authorizeMatchedRoutes(): void
+    public function authorizeMatchedRoutes()
     {
         Route::matched(function (RouteMatched $eventObj) {
             $route = $eventObj->route;
