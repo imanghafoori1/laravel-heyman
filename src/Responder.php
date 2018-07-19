@@ -225,4 +225,10 @@ class Responder
         $callbackListener = $this->makeListener();
         app(HeyMan::class)->authorizer->startGuarding($callbackListener);
     }
+
+    public function afterFiringEvent(...$args)
+    {
+        app('events')->dispatch(...$args);
+        return $this;
+    }
 }
