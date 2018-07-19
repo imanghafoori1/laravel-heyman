@@ -21,10 +21,7 @@
         <env name="SESSION_DRIVER" value="array"/>
     </php>
     <logging>
-        <log type="coverage-html" target="./log/codeCoverage" charset="UTF-8"
-             yui="true" highlight="true"
-             lowUpperBound="50" highLowerBound="80"/>
-        <log type="testdox-html" target="./log/testdox.html" />
+        <log type="coverage-clover" target="/tmp/coverage.xml"/>
     </logging>
     <filter>
 
@@ -32,9 +29,7 @@
             <directory suffix=".php">./src/Facades</directory>
         </whitelist>
 
-        <blacklist>
-            <directory>./src/vendor</directory>
-        </blacklist>
+
       
     </filter>
 </phpunit>
