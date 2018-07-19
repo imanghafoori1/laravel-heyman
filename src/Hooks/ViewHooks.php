@@ -11,6 +11,7 @@ trait ViewHooks
     public function whenYouSeeViewFile(...$views)
     {
         $views = $this->normalizeView($views);
+
         return $this->authorize($views);
     }
 
@@ -31,9 +32,17 @@ trait ViewHooks
     {
         $views = $this->normalizeInput($views);
         $mapper = function ($view) {
+            $this->checkViewExists($view);
             return 'creating: '.\Illuminate\View\ViewName::normalize($view);
         };
 
         return array_map($mapper, $views);
+    }
+
+    private function checkViewExists($view)
+    {
+        if (strpos($view, '*') === false) {
+            view()->getFinder()->find($view);
+        }
     }
 }
