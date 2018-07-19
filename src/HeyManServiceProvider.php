@@ -17,11 +17,7 @@ class HeyManServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->app->singleton(HeyMan::class, HeyMan::class);
-        $this->app->singleton('hey_man_authorizer', ConditionApplier::class);
-        $this->app->singleton('hey_man_route_authorizer', RouteConditionApplier::class);
-        $this->app->singleton(YouShouldHave::class, YouShouldHave::class);
-        $this->app->singleton('hey_man_responder', Responder::class);
+        $this->registerSingletons();
 
         $this->mergeConfigFrom(
             __DIR__.'/../config/heyMan.php',
@@ -34,5 +30,14 @@ class HeyManServiceProvider extends ServiceProvider
         Gate::define('heyman.youShouldHaveRole', function ($user, $role) {
             return $user->role == $role;
         });
+    }
+
+    private function registerSingletons()
+    {
+        $this->app->singleton(HeyMan::class, HeyMan::class);
+        $this->app->singleton(ListenerApplier::class, ListenerApplier::class);
+        $this->app->singleton('hey_man_route_authorizer', RouteConditionApplier::class);
+        $this->app->singleton(YouShouldHave::class, YouShouldHave::class);
+        $this->app->singleton('hey_man_responder', Responder::class);
     }
 }
