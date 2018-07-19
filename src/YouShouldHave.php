@@ -16,7 +16,9 @@ class YouShouldHave
     public function thisGateShouldAllow($gate, ...$args)
     {
         if (is_callable($gate)) {
-            Gate::define(str_random(10), $gate);
+            $closure = $gate;
+            $gate = str_random(10);
+            Gate::define($gate, $closure);
         }
 
         if (is_string($gate) && str_contains($gate, '@')) {
