@@ -26,6 +26,7 @@ class HeyMan
 
     /**
      * @param $value
+     * @return YouShouldHave
      */
     private function authorize($value): YouShouldHave
     {
