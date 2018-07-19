@@ -6,15 +6,13 @@ filter:
         - 'tests/*'
 
 build:
-    nodes:
-        coverage:
-            tests:
-                override:
-                    -
-                        command: 'vendor/bin/phpunit --coverage-clover=some-file'
-                        coverage:
-                            file: 'some-file'
-                            format: 'clover'
+    tests:
+        override:
+            -
+                command: 'vendor/bin/phpunit --coverage-clover=some-file'
+                coverage:
+                    file: 'some-file'
+                    format: 'clover'
 checks:
     php:
         code_rating: true
