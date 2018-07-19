@@ -9,114 +9,102 @@ class EloquentAuthorizationTest extends TestCase
 {
     public function testCreatingModelsIsAuthorized()
     {
-        setUp::run($this);
+        setUp::run();
 
         HeyMan::whenYouCreate(User::class)->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
         HeyMan::whenYouCreate(User2::class)->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
 
         $this->expectException(AuthorizationException::class);
 
-        User::create(['name' => 'iman', 'email' => 'n@gmail.com', 'password' => bcrypt('a')]);
+        event('eloquent.creating: '.User::class);
     }
 
     public function testUpdatingModelsIsAuthorized()
     {
-        setUp::run($this);
-        User::create(['name' => 'iman', 'email' => 'n@gmail.com', 'password' => bcrypt('a')]);
+        setUp::run();
 
         HeyMan::whenYouUpdate(User::class)->youShouldHaveRole('writer')->otherwise()->weDenyAccess();
         HeyMan::whenYouCreate(User2::class)->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
 
-        User::find(2)->update(['name' => 'imdfvn']);
+        event('eloquent.updating: '.User::class);
         $this->assertTrue(true);
     }
 
     public function testUpdatingModelsIsAuthorized2()
     {
-        setUp::run($this);
-        User::create(['name' => 'iman', 'email' => 'n@gmail.com', 'password' => bcrypt('a')]);
+        setUp::run();
 
         HeyMan::whenYouUpdate(User::class)->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
 
         $this->expectException(AuthorizationException::class);
 
-        $user = User::find(2);
-        $user->name = 'sss';
-        $user->save();
+        event('eloquent.updating: '.User::class);
     }
 
-    public function testُSavingModelsIsAuthorized2()
+    public function testSavingModelsIsAuthorized2()
     {
-        setUp::run($this);
-        User::create(['name' => 'iman', 'email' => 'n@gmail.com', 'password' => bcrypt('a')]);
+        setUp::run();
 
         HeyMan::whenYouSave(User::class)->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
 
         $this->expectException(AuthorizationException::class);
 
-        $user = User::find(2);
-        $user->name = 'sss';
-        $user->save();
+        event('eloquent.saving: '.User::class);
     }
 
-    public function testُSavingModelsIsAuthorized3()
+    public function testSavingModelsIsAuthorized3()
     {
-        setUp::run($this);
-        User::create(['name' => 'iman', 'email' => 'n@gmail.com', 'password' => bcrypt('a')]);
-
-        HeyMan::whenYouUpdate(User::class)->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
-        HeyMan::whenYouSave(User::class)->youShouldHaveRole('writer')->otherwise()->weDenyAccess();
-
-        $this->expectException(AuthorizationException::class);
-
-        User::find(2)->update(['name' => 'sdcsdc']);
-    }
-
-    public function testُSavingModelsIsAuthorized1()
-    {
-        setUp::run($this);
-        User::create(['name' => 'iman', 'email' => 'n@gmail.com', 'password' => bcrypt('a')]);
+        setUp::run();
 
         HeyMan::whenYouSave(User::class)->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
 
         $this->expectException(AuthorizationException::class);
 
-        User::find(2)->update(['name' => 'sdcsdc']);
+        event('eloquent.saving: '.User::class);
     }
 
-    public function testُDeletingModelsIsAuthorized1()
+    public function testSavingModelsIsAuthorized1()
     {
-        setUp::run($this);
-        User::create(['name' => 'iman', 'email' => 'n@gmail.com', 'password' => bcrypt('a')]);
+        setUp::run();
+
+        HeyMan::whenYouSave(User::class)->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+
+        $this->expectException(AuthorizationException::class);
+
+        event('eloquent.saving: '.User::class);
+    }
+
+    public function testDeletingModelsIsAuthorized1()
+    {
+        setUp::run();
 
         HeyMan::whenYouDelete(User::class)->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
 
         $this->expectException(AuthorizationException::class);
 
-        User::find(2)->delete();
+        event('eloquent.deleting: '.User::class);
     }
 
-    public function testُDeletingModelsIsAuthorized2()
+    public function testDeletingModelsIsAuthorized2()
     {
-        setUp::run($this);
-        User::create(['name' => 'iman', 'email' => 'n@gmail.com', 'password' => bcrypt('a')]);
+        setUp::run();
 
         HeyMan::whenYouDelete([User::class])->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
 
         $this->expectException(AuthorizationException::class);
 
-        User::destroy([2]);
+        event('eloquent.deleting: '.User::class);
     }
 
     public function testFetchingModelsIsAuthorized()
     {
-        setUp::run($this);
+        setUp::run();
 
         HeyMan::whenYouFetch(User::class)->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
         HeyMan::whenYouCreate(User2::class)->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
 
         $this->expectException(AuthorizationException::class);
 
-        User::find(1);
+        event('eloquent.retrieved: '.User::class);
     }
 }

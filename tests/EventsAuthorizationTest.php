@@ -7,7 +7,7 @@ class EventsAuthorizationTest extends TestCase
 {
     public function testEventIsAuthorized1()
     {
-        setUp::run($this);
+        setUp::run();
 
         HeyMan::whenEventHappens(['myEvent', 'myEvent1'])->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
         HeyMan::whenEventHappens('myEvent4')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
@@ -19,7 +19,7 @@ class EventsAuthorizationTest extends TestCase
 
     public function testEventIsAuthorized2()
     {
-        setUp::run($this);
+        setUp::run();
 
         Gate::define('deadEnd', function () {
             return false;
@@ -39,7 +39,7 @@ class EventsAuthorizationTest extends TestCase
 
     public function testAlways()
     {
-        setUp::run($this);
+        setUp::run();
         HeyMan::whenEventHappens(['my-event', 'myEvent1'])->immediately()->abort(402);
 
         $this->get('event/my-event')->assertStatus(402);
@@ -47,7 +47,7 @@ class EventsAuthorizationTest extends TestCase
 
     public function testAlways1()
     {
-        setUp::run($this);
+        setUp::run();
         HeyMan::whenEventHappens(['my-event', 'myEvent1'])->immediately()->redirectTo('welcome');
 
         $this->get('event/my-event')->assertStatus(302)->assertRedirect('welcome');

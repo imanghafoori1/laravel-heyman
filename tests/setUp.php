@@ -1,21 +1,18 @@
 <?php
 
-use App\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 
 class setUp
 {
-    public static function run($testCase)
+    public static function run()
     {
         self::defineRoutes();
-
-
-        $testCase->artisan('migrate', ['--database' => 'testbench']);
-        User::create(['name' => 'iman', 'role' => 'writer', 'email' => 'iman@gmail.com', 'password' => bcrypt('a')]);
-        auth()->loginUsingId(1);
+        self::mock();
     }
 
-    private static function defineRoutes()
+    public static function defineRoutes()
     {
         Route::get('/welcome', 'HomeController@index')->name('welcome.name');
 
@@ -26,5 +23,15 @@ class setUp
         Route::get('/event/{event}', function ($event) {
             event($event);
         })->name('event.name');
+    }
+
+    private static function mock()
+    {
+        Gate::shouldReceive('define')->andReturn(true);
+        Gate::shouldReceive('allows')->with('heyman.youShouldHaveRole', ['reader'])->andReturn(false);
+        Gate::shouldReceive('allows')->with('heyman.youShouldHaveRole', ['writer'])->andReturn(true);
+        Gate::shouldReceive('allows')->andReturn(false);
+        Gate::shouldReceive('define')->andReturn(true);
+        Auth::shouldReceive('guest')->andReturn(false);
     }
 }

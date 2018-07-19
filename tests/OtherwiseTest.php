@@ -1,12 +1,13 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Imanghafoori\HeyMan\Facades\HeyMan;
 
 class OtherwiseTest extends TestCase
 {
     public function testOtherwise()
     {
-        setUp::run($this);
+        setUp::run();
         HeyMan::whenYouVisitUrl('welcome')->youShouldHaveRole('reader')->otherwise()->redirectTo('home');
 
         $this->get('welcome')->assertRedirect('home');
@@ -14,24 +15,15 @@ class OtherwiseTest extends TestCase
 
     public function testOtherwise1()
     {
-        setUp::run($this);
-        HeyMan::whenYouSeeViewFile('welcome')->youShouldBeGuest()->otherwise()->redirectTo('home');
+        setUp::run();
+        HeyMan::whenYouViewBlade('welcome')->youShouldBeGuest()->otherwise()->redirectTo('home');
 
         $this->get('welcome')->assertRedirect('home');
     }
 
-    public function testOtherwise3()
-    {
-        setUp::run($this);
-        auth()->logout();
-        HeyMan::whenYouSeeViewFile('welcome')->youShouldBeGuest()->otherwise()->redirectTo('home');
-
-        $this->get('welcome')->assertStatus(200);
-    }
-
     public function testOtherwise4()
     {
-        setUp::run($this);
+        setUp::run();
         HeyMan::whenYouSeeViewFile('welcome')->youShouldHaveRole('writer')->otherwise()->weThrowNew(\Illuminate\Auth\Access\AuthorizationException::class);
 
         $this->get('welcome')->assertStatus(200);
@@ -39,7 +31,7 @@ class OtherwiseTest extends TestCase
 
     public function testAbort()
     {
-        setUp::run($this);
+        setUp::run();
 
         HeyMan::whenYouVisitUrl(['welcome', 'welcome_'])->youShouldHaveRole('reader')->otherwise()->json(['m'=> 'm'], 403);
         HeyMan::whenYouVisitUrl('welcome1')->youShouldHaveRole('writer')->otherwise()->weDenyAccess();
@@ -50,7 +42,7 @@ class OtherwiseTest extends TestCase
 
     public function testAbort1()
     {
-        setUp::run($this);
+        setUp::run();
 
         HeyMan::whenYouVisitUrl('welcome', 'asdfv')->youShouldHaveRole('reader')->otherwise()->abort(405);
         HeyMan::whenYouVisitUrl('welcome1')->youShouldHaveRole('writer')->otherwise()->weDenyAccess();

@@ -4,9 +4,9 @@ use Imanghafoori\HeyMan\Facades\HeyMan;
 
 class MethodCallTest extends TestCase
 {
-    public function testُCallingMethodsOnClasses()
+    public function testCallingMethodsOnClasses()
     {
-        setUp::run($this);
+        setUp::run();
 
         \Facades\Logger::shouldReceive('info')->once();
 
@@ -17,10 +17,10 @@ class MethodCallTest extends TestCase
         $this->get('welcome');
     }
 
-    public function testُCallingClosures()
+    public function testCallingClosures()
     {
 
-        setUp::run($this);
+        setUp::run();
 
         $this->withoutExceptionHandling();
         $this->expectException(\Exception::class);

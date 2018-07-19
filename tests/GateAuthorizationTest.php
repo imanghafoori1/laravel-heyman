@@ -8,7 +8,7 @@ class GateAuthorizationTest extends TestCase
 {
     public function testGate()
     {
-        setUp::run($this);
+        setUp::run();
 
         Gate::define('helloGate', function ($user, $bool, $yool) {
             return $yool;
@@ -23,7 +23,7 @@ class GateAuthorizationTest extends TestCase
 
     public function testGateAsMethod()
     {
-        setUp::run($this);
+        setUp::run();
 
         HeyMan::whenEventHappens('myEvent')->thisGateShouldAllow('Gates@helloGate', false)->otherwise()->weDenyAccess();
 
@@ -34,7 +34,7 @@ class GateAuthorizationTest extends TestCase
 
     public function testInlineGate()
     {
-        setUp::run($this);
+        setUp::run();
 
 
         $gate = function ($user, $booleanFlag) {
