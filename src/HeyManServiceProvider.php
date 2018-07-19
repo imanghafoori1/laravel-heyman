@@ -32,7 +32,7 @@ class HeyManServiceProvider extends ServiceProvider
     private function defineGates(): void
     {
         Gate::define('heyman.youShouldHaveRole', function ($user, $role) {
-            return $user->hasRole($role);
+            return $user->role == $role;
         });
     }
 }

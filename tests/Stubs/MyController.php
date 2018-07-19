@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 
-class HomeController
+class MyController
 {
     public function index() {
         return view('welcome');

@@ -2,7 +2,6 @@
 
 use App\User;
 use Illuminate\Support\Facades\Route;
-use Imanghafoori\HeyMan\Models\Role;
 
 class setUp
 {
@@ -20,10 +19,7 @@ class setUp
 
 
         $testCase->artisan('migrate', ['--database' => 'testbench']);
-        User::create(['name' => 'iman', 'email' => 'iman@gmail.com', 'password' => bcrypt('a')]);
-        $user = User::find(1);
+        User::create(['name' => 'iman', 'role' => 'writer', 'email' => 'iman@gmail.com', 'password' => bcrypt('a')]);
         auth()->loginUsingId(1);
-        $writerRole = Role::create(['name' => 'writer']);
-        $user->assignRole($writerRole);
     }
 }
