@@ -11,7 +11,8 @@ class RouteAuthorizer
     {
         Route::matched(function (RouteMatched $eventObj) {
             $route = $eventObj->route;
-            $this->authorizeUrls($route->uri);
+            if($eventObj->request->method() === 'GET')
+                $this->authorizeUrls($route->uri);
             $this->authorizeRouteNames($route->getName());
             $this->authorizeRouteActions($route->getActionName());
         });
