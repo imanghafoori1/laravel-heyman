@@ -32,4 +32,20 @@ class GateAuthorizationTest extends TestCase
         event('myEvent');
     }
 
+    public function testInlineGate()
+    {
+        setUp::run($this);
+
+
+        $gate = function ($user, $booleanFlag) {
+            return $booleanFlag;
+        };
+        HeyMan::whenEventHappens('myEvent')->thisGateShouldAllow($gate, false)->otherwise()->weDenyAccess();
+
+
+        $this->expectException(AuthorizationException::class);
+
+        event('myEvent');
+    }
+
 }
