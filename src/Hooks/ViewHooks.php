@@ -4,15 +4,23 @@ namespace Imanghafoori\HeyMan\Hooks;
 
 trait ViewHooks
 {
-    public function whenYouSeeViewFile(...$view)
+    /**
+     * @param array|string $views
+     * @return \Imanghafoori\HeyMan\YouShouldHave
+     */
+    public function whenYouSeeViewFile(...$views)
     {
-        $view = $this->normalizeView($view);
-        return $this->authorize($view);
+        $views = $this->normalizeView($views);
+        return $this->authorize($views);
     }
 
-    public function whenYouViewBlade(...$args)
+    /**
+     * @param array|string $views
+     * @return \Imanghafoori\HeyMan\YouShouldHave
+     */
+    public function whenYouViewBlade(...$views)
     {
-        return $this->whenYouSeeViewFile(...$args);
+        return $this->whenYouSeeViewFile(...$views);
     }
 
     /**
