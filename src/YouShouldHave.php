@@ -15,15 +15,7 @@ class YouShouldHave
 
     public function thisGateShouldAllow($gate, ...$args)
     {
-        if (is_callable($gate)) {
-            $closure = $gate;
-            $gate = str_random(10);
-            Gate::define($gate, $closure);
-        }
-
-        if (is_string($gate) && str_contains($gate, '@')) {
-            Gate::define($gate, $gate);
-        }
+        $gate = $this->defineNewGate($gate);
 
         $this->predicate = function () use ($gate, $args) {
             return Gate::allows($gate, $args);
@@ -57,5 +49,26 @@ class YouShouldHave
         };
 
         return new Responder();
+    }
+
+    /**
+     * @param $gate
+     * @return string
+     */
+    private function defineNewGate($gate): string
+    {
+        // Define a Gate for inline closures passed as gate
+        if (is_callable($gate)) {
+            $closure = $gate;
+            $gate = str_random(10);
+            Gate::define($gate, $closure);
+        }
+
+        // Define a Gate for "class@method" gates
+        if (is_string($gate) && str_contains($gate, '@')) {
+            Gate::define($gate, $gate);
+        }
+
+        return $gate;
     }
 }
