@@ -20,7 +20,6 @@
     },
     "require-dev": {
         "orchestra/testbench": "~3.0",
-        "orchestra/database": "@dev",
         "mockery/mockery": "^0.9.9"
     },
     "autoload": {
