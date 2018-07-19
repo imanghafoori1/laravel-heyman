@@ -4,7 +4,7 @@ namespace Imanghafoori\HeyMan;
 
 use Illuminate\Support\Facades\Event;
 
-class ConditionApplier
+class ListenerApplier
 {
     private $events;
 

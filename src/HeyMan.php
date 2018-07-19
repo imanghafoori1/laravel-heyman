@@ -11,7 +11,7 @@ class HeyMan
 {
     use EloquentHooks, RouteHooks, ViewHooks, EventHooks;
     /**
-     * @var \Imanghafoori\HeyMan\ConditionApplier
+     * @var \Imanghafoori\HeyMan\ListenerApplier
      */
     public $authorizer;
 
@@ -30,7 +30,7 @@ class HeyMan
      */
     private function authorize($value): YouShouldHave
     {
-        $this->authorizer = app('hey_man_authorizer')->init($value);
+        $this->authorizer = app(ListenerApplier::class)->init($value);
         return app(YouShouldHave::class);
     }
 }
