@@ -20,13 +20,21 @@
         <env name="CACHE_DRIVER" value="array"/>
         <env name="SESSION_DRIVER" value="array"/>
     </php>
-  
+    <logging>
+        <log type="coverage-html" target="./log/codeCoverage" charset="UTF-8"
+             yui="true" highlight="true"
+             lowUpperBound="50" highLowerBound="80"/>
+        <log type="testdox-html" target="./log/testdox.html" />
+    </logging>
     <filter>
 
         <whitelist addUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">./src/Facades</directory>
         </whitelist>
 
+        <blacklist>
+            <directory>./src/vendor</directory>
+        </blacklist>
       
     </filter>
 </phpunit>
