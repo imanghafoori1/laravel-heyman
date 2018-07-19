@@ -4,7 +4,7 @@ use Imanghafoori\HeyMan\Facades\HeyMan;
 
 class MethodCallTest extends TestCase
 {
-    public function testُDeletingModelsIsAuthorized1()
+    public function testُCallingMethodsOnClasses()
     {
         setUp::run($this);
 
@@ -17,7 +17,7 @@ class MethodCallTest extends TestCase
         $this->get('welcome');
     }
 
-    public function testُDeletingsIsAuthorized1()
+    public function testُCallingClosures()
     {
 
         setUp::run($this);
