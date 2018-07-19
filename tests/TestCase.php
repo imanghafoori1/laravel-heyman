@@ -14,7 +14,7 @@ abstract class TestCase extends Orchestra\Testbench\TestCase
     {
         parent::setUp();
 
-        $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
+        // $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
 
         // and other test setup steps you need to perform
     }
@@ -28,11 +28,7 @@ abstract class TestCase extends Orchestra\Testbench\TestCase
     protected function getEnvironmentSetUp($app)
     {
         // Setup default database to use sqlite :memory:
-        $app['config']->set('database.default', 'testbench');
-        $app['config']->set('database.connections.testbench', [
-            'driver'   => 'sqlite',
-            'database' => ':memory:',
-            'prefix'   => '',
-        ]);
+        // $app['config']->set('database.default', 'testbench');
+        // $app['config']->set('database.connections.testbench', [ 'driver'   => 'sqlite', 'database' => ':memory:', 'prefix'   => '', ]);
     }
 }

@@ -24,7 +24,7 @@
     <filter>
 
         <whitelist addUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">./src/Utils</directory>
+            <directory suffix=".php">./src/Facades</directory>
         </whitelist>
 
       
