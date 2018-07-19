@@ -214,6 +214,12 @@ class Responder
         $this->exception = new AuthorizationException($msg);
     }
 
+    public function afterCalling($callback, array $parameters = [])
+    {
+        app()->call($callback, $parameters);
+        return $this;
+    }
+
     public function __destruct()
     {
         $callbackListener = $this->makeListener();
