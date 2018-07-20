@@ -32,7 +32,9 @@ class EloquentAuthorizationTest extends TestCase
     {
         setUp::run();
 
-        HeyMan::whenYouUpdate('\App\User')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+        HeyMan::whenYouUpdate('\App\User')->thisClosureShouldAllow(function ($param, $param2 , $user) {
+            return false;
+        }, [1, 2])->otherwise()->weDenyAccess();
 
         $this->expectException(AuthorizationException::class);
 
