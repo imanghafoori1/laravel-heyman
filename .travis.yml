@@ -15,10 +15,9 @@ matrix:
 
 before_install:
   - composer self-update --stable -n
-  - composer require "laravel/framework:${LARAVEL_VERSION}"
 
 install:
-  - travis_retry composer install --no-suggest --prefer-dist -n -o
+  - travis_retry composer install --no-suggest
 
 script:
   - vendor/bin/phpunit --coverage-clover clover.xml;
