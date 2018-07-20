@@ -2,6 +2,8 @@
 
 namespace Imanghafoori\HeyMan\Hooks;
 
+use Imanghafoori\HeyMan\YouShouldHave;
+
 trait EloquentHooks
 {
     /**
