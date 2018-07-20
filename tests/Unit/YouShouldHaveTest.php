@@ -85,4 +85,14 @@ class YouShouldHaveTest extends TestCase
 
         $this->assertTrue($predicate() === false);
     }
+
+    public function testSessionShouldHave()
+    {
+        HeyMan::whenYouVisitUrl('sdf')->sessionShouldHave('some_key');
+        $val = str_random(2);
+        \Illuminate\Support\Facades\Session::shouldReceive('has')->once()->with('some_key')->andReturn($val);
+        $predicate = app(\Imanghafoori\HeyMan\YouShouldHave::class)->predicate;
+
+        $this->assertTrue($predicate() === $val);
+    }
 }

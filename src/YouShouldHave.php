@@ -56,6 +56,16 @@ class YouShouldHave
         return new Otherwise();
     }
 
+
+    public function sessionShouldHave($key)
+    {
+        $this->predicate = function () use ($key) {
+            return session()->has($key);
+        };
+
+        return new Otherwise();
+    }
+
     public function youShouldBeLoggedIn()
     {
         $this->predicate = function () {
