@@ -19,7 +19,7 @@ trait ViewHooks
      * @param array|string $views
      * @return \Imanghafoori\HeyMan\YouShouldHave
      */
-    public function whenYouViewBlade(...$views)
+    public function whenYouMakeView(...$views)
     {
         return $this->whenYouSeeViewFile(...$views);
     }

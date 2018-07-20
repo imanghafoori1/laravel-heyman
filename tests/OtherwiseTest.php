@@ -16,7 +16,7 @@ class OtherwiseTest extends TestCase
     public function testOtherwise1()
     {
         setUp::run();
-        HeyMan::whenYouViewBlade('welcome')->youShouldBeGuest()->otherwise()->redirectTo('home');
+        HeyMan::whenYouMakeView('welcome')->youShouldBeGuest()->otherwise()->redirectTo('home');
 
         $this->get('welcome')->assertRedirect('home');
     }
@@ -24,7 +24,7 @@ class OtherwiseTest extends TestCase
     public function testOtherwise4()
     {
         setUp::run();
-        HeyMan::whenYouSeeViewFile('welcome')->youShouldHaveRole('writer')->otherwise()->weThrowNew(\Illuminate\Auth\Access\AuthorizationException::class);
+        HeyMan::whenYouMakeView('welcome')->youShouldHaveRole('writer')->otherwise()->weThrowNew(\Illuminate\Auth\Access\AuthorizationException::class);
 
         $this->get('welcome')->assertStatus(200);
     }
