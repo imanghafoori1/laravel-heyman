@@ -19,7 +19,6 @@ class MethodCallTest extends TestCase
 
     public function testCallingClosures()
     {
-
         setUp::run();
 
         $this->withoutExceptionHandling();

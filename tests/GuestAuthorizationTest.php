@@ -37,7 +37,7 @@ class GuestAuthorizationTest extends TestCase
     {
         setUp::run();
 
-        HeyMan::whenYouVisitUrl(['welcome_', 'welcome',])->youShouldBeGuest()->otherwise()->weDenyAccess();
+        HeyMan::whenYouVisitUrl(['welcome_', 'welcome'])->youShouldBeGuest()->otherwise()->weDenyAccess();
         HeyMan::whenYouVisitUrl('welcome1')->youShouldBeGuest()->otherwise()->weDenyAccess();
 
         $this->get('welcome')->assertStatus(403);

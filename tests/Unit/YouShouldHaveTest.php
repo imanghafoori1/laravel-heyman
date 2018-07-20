@@ -21,8 +21,7 @@ class YouShouldHaveTest extends TestCase
 
         $predicate = app(\Imanghafoori\HeyMan\YouShouldHave::class)->predicate;
 
-
-        $this->assertEquals($predicate() , 'I do not know');
+        $this->assertEquals($predicate(), 'I do not know');
     }
 
     public function testYouShouldBeGuest()
@@ -32,8 +31,7 @@ class YouShouldHaveTest extends TestCase
 
         $predicate = app(\Imanghafoori\HeyMan\YouShouldHave::class)->predicate;
 
-
-        $this->assertEquals($predicate() , 'I do not know');
+        $this->assertEquals($predicate(), 'I do not know');
     }
 
     public function testThisValueShouldAllow()
@@ -42,7 +40,6 @@ class YouShouldHaveTest extends TestCase
 
         $predicate = app(\Imanghafoori\HeyMan\YouShouldHave::class)->predicate;
         $this->assertTrue($predicate() === false);
-
     }
 
     public function testThisValueShouldAllow2()
@@ -51,7 +48,6 @@ class YouShouldHaveTest extends TestCase
 
         $predicate = app(\Imanghafoori\HeyMan\YouShouldHave::class)->predicate;
         $this->assertTrue($predicate() === true);
-
     }
 
     public function testThisClosureShouldAllow()
@@ -65,9 +61,7 @@ class YouShouldHaveTest extends TestCase
         $predicate = app(\Imanghafoori\HeyMan\YouShouldHave::class)->predicate;
 
         $this->assertTrue($predicate() === true);
-
     }
-
 
     public function testThisClosureShouldAllow2()
     {

@@ -6,6 +6,7 @@ trait ViewHooks
 {
     /**
      * @param array|string $views
+     *
      * @return \Imanghafoori\HeyMan\YouShouldHave
      */
     public function whenYouSeeViewFile(...$views)
@@ -17,6 +18,7 @@ trait ViewHooks
 
     /**
      * @param array|string $views
+     *
      * @return \Imanghafoori\HeyMan\YouShouldHave
      */
     public function whenYouMakeView(...$views)
@@ -26,6 +28,7 @@ trait ViewHooks
 
     /**
      * @param $views
+     *
      * @return array
      */
     private function normalizeView(array $views): array
@@ -33,6 +36,7 @@ trait ViewHooks
         $views = $this->normalizeInput($views);
         $mapper = function ($view) {
             $this->checkViewExists($view);
+
             return 'creating: '.\Illuminate\View\ViewName::normalize($view);
         };
 

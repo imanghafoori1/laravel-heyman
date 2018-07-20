@@ -1,7 +1,5 @@
 <?php
 
-use App\User;
-use App\User2;
 use Illuminate\Auth\Access\AuthorizationException;
 use Imanghafoori\HeyMan\Facades\HeyMan;
 

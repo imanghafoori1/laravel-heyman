@@ -83,7 +83,6 @@ class ViewsAuthorizationTest extends TestCase
         view('errors.503');
     }
 
-
     public function testViewIsAuthorized24()
     {
         setUp::run();

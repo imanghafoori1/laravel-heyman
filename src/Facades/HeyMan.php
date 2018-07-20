@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Facade;
 use Imanghafoori\HeyMan\YouShouldHave;
 
 /**
- * Class HeyMan
+ * Class HeyMan.
  *
  * @method static YouShouldHave whenYouFetch(array|Model $model)
  * @method static YouShouldHave whenYouCreate(array|Model $model)
@@ -19,7 +19,6 @@ use Imanghafoori\HeyMan\YouShouldHave;
  * @method static YouShouldHave whenYouCallAction(array|sting $action)
  * @method static YouShouldHave whenYouViewBlade(array|sting $view)
  * @method static YouShouldHave whenEventHappens(array|sting $event)
- *
  *
  * @see \Imanghafoori\HeyMan\HeyMan
  */

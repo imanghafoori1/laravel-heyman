@@ -20,12 +20,13 @@ class ListenerFactory
     /**
      * @param $e
      * @param $cb
+     *
      * @return \Closure
      */
     private function exceptionCallback($e, $cb): \Closure
     {
         return function () use ($e, $cb) {
-            if (! $cb()) {
+            if (!$cb()) {
                 throw $e;
             }
         };
@@ -34,12 +35,13 @@ class ListenerFactory
     /**
      * @param $resp
      * @param $cb
+     *
      * @return \Closure
      */
     private function responseCallback($resp, $cb): \Closure
     {
         return function () use ($resp, $cb) {
-            if (! $cb()) {
+            if (!$cb()) {
                 list($method, $args) = $resp;
                 respondWith(response()->{$method}(...$args));
             }

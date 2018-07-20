@@ -4,6 +4,5 @@ class Logger
 {
     public function info()
     {
-
     }
 }

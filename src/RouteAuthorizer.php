@@ -11,8 +11,9 @@ class RouteAuthorizer
     {
         Route::matched(function (RouteMatched $eventObj) {
             $route = $eventObj->route;
-            if($eventObj->request->method() === 'GET')
+            if ($eventObj->request->method() === 'GET') {
                 $this->authorizeUrls($route->uri);
+            }
             $this->authorizeRouteNames($route->getName());
             $this->authorizeRouteActions($route->getActionName());
         });
@@ -20,6 +21,7 @@ class RouteAuthorizer
 
     /**
      * @param $actionName
+     *
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     private function authorizeRouteActions($actionName)
@@ -29,6 +31,7 @@ class RouteAuthorizer
 
     /**
      * @param $routeName
+     *
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     private function authorizeRouteNames($routeName)
@@ -38,6 +41,7 @@ class RouteAuthorizer
 
     /**
      * @param $url
+     *
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function authorizeUrls($url)
