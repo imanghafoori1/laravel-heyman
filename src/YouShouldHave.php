@@ -32,7 +32,7 @@ class YouShouldHave
     public function thisMethodShouldAllow($callback, array $parameters = [])
     {
         $this->predicate = function () use ($callback, $parameters) {
-            return (boolean) app()->call($callback, $parameters);
+            return (bool) app()->call($callback, $parameters);
         };
 
         return new Otherwise();
@@ -41,8 +41,9 @@ class YouShouldHave
     public function thisValueShouldAllow($value)
     {
         $this->predicate = function () use ($value) {
-            return (boolean) $value;
+            return (bool) $value;
         };
+
         return new Otherwise();
     }
 
@@ -75,6 +76,7 @@ class YouShouldHave
 
     /**
      * @param $gate
+     *
      * @return string
      */
     private function defineNewGate($gate): string

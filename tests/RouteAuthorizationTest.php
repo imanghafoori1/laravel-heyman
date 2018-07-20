@@ -28,7 +28,7 @@ class RouteAuthorizationTest extends TestCase
     {
         setUp::run();
 
-        HeyMan::whenYouVisitUrl(['welcome_', 'welcome',])->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+        HeyMan::whenYouVisitUrl(['welcome_', 'welcome'])->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
         HeyMan::whenYouVisitUrl('welcome1')->youShouldHaveRole('writer')->otherwise()->weDenyAccess();
 
         $this->get('welcome')->assertStatus(403);
@@ -156,7 +156,6 @@ class RouteAuthorizationTest extends TestCase
         $this->get('welcome')->assertStatus(200);
     }
 
-
     public function testControllerActionIsAuthorizedWithPattern()
     {
         setUp::run();
@@ -175,7 +174,6 @@ class RouteAuthorizationTest extends TestCase
 
         $this->get('welcome')->assertStatus(200);
     }
-
 
     public function testControllerActionIsAuthorized154()
     {

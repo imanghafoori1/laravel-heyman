@@ -16,6 +16,7 @@ class ListenerApplier
     public function init($event)
     {
         $this->events = $event;
+
         return $this;
     }
 

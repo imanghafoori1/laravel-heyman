@@ -8,12 +8,13 @@ trait RouteHooks
 {
     /**
      * @param mixed ...$url
+     *
      * @return YouShouldHave
      */
     public function whenYouVisitUrl(...$url)
     {
         $removeSlash = function ($url) {
-            return ltrim($url, "/");
+            return ltrim($url, '/');
         };
 
         $url = array_map($removeSlash, $this->normalizeInput($url));
@@ -23,6 +24,7 @@ trait RouteHooks
 
     /**
      * @param mixed ...$routeName
+     *
      * @return YouShouldHave
      */
     public function whenYouVisitRoute(...$routeName)
@@ -32,6 +34,7 @@ trait RouteHooks
 
     /**
      * @param mixed ...$action
+     *
      * @return YouShouldHave
      */
     public function whenYouCallAction(...$action)
@@ -48,9 +51,11 @@ trait RouteHooks
 
         return $this->authorizeRoute('actions', $action);
     }
+
     /**
      * @param $target
      * @param $value
+     *
      * @return YouShouldHave
      */
     private function authorizeRoute($target, $value)

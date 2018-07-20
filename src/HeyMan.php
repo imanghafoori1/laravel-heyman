@@ -17,6 +17,7 @@ class HeyMan
 
     /**
      * @param $url
+     *
      * @return array
      */
     private function normalizeInput(array $url): array
@@ -26,17 +27,19 @@ class HeyMan
 
     /**
      * @param $value
+     *
      * @return YouShouldHave
      */
     private function authorize($value): YouShouldHave
     {
         $this->authorizer = app(ListenerApplier::class)->init($value);
+
         return app(YouShouldHave::class);
     }
 
     public function startListening($response, $exception)
     {
-        $callbackListener = app(ListenerFactory::class)->make($response, $exception );
+        $callbackListener = app(ListenerFactory::class)->make($response, $exception);
         $this->authorizer->startGuarding($callbackListener);
     }
 }

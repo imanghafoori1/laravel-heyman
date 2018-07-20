@@ -1,10 +1,10 @@
 <?php
 
 
-
 class HomeController
 {
-    public function index() {
+    public function index()
+    {
         return view('welcome');
     }
 }

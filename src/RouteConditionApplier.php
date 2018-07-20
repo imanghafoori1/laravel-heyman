@@ -26,6 +26,7 @@ class RouteConditionApplier
     {
         $this->target = $target;
         $this->value = $value;
+
         return $this;
     }
 
@@ -57,6 +58,7 @@ class RouteConditionApplier
     /**
      * @param $action
      * @param $type
+     *
      * @return \Closure
      */
     private function resolveCallback($action, $type): \Closure
@@ -68,7 +70,7 @@ class RouteConditionApplier
         foreach ($this->{$type} as $pattern => $callback) {
             if (Str::is($pattern, $action)) {
                 return $callback;
-            };
+            }
         }
 
         return function () {
