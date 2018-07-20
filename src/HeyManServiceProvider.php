@@ -36,7 +36,7 @@ class HeyManServiceProvider extends ServiceProvider
     {
         $this->app->singleton(HeyMan::class, HeyMan::class);
         $this->app->singleton(ListenerApplier::class, ListenerApplier::class);
-        $this->app->singleton('hey_man_route_authorizer', RouteConditionApplier::class);
+        $this->app->singleton(RouteConditionApplier::class, RouteConditionApplier::class);
         $this->app->singleton(YouShouldHave::class, YouShouldHave::class);
         $this->app->singleton(ListenerFactory::class, ListenerFactory::class);
         $this->app->singleton('hey_man_responder', Responder::class);

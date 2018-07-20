@@ -2,6 +2,7 @@
 
 namespace Imanghafoori\HeyMan\Hooks;
 
+use Imanghafoori\HeyMan\EloquentConditionApplier;
 use Imanghafoori\HeyMan\YouShouldHave;
 
 trait EloquentHooks
@@ -13,9 +14,9 @@ trait EloquentHooks
      */
     public function whenYouFetch(...$model)
     {
-        $model = $this->normalizeModel('retrieved', $model);
+        $model = $this->normalizeInput($model);
 
-        return $this->authorize($model);
+        return $this->authorizeModel('retrieved', $model);
     }
 
     /**
@@ -25,9 +26,9 @@ trait EloquentHooks
      */
     public function whenYouCreate(...$model)
     {
-        $model = $this->normalizeModel('creating', $model);
+        $model = $this->normalizeInput($model);
 
-        return $this->authorize($model);
+        return $this->authorizeModel('creating', $model);
     }
 
     /**
@@ -37,9 +38,9 @@ trait EloquentHooks
      */
     public function whenYouUpdate(...$model)
     {
-        $model = $this->normalizeModel('updating', $model);
+        $model = $this->normalizeInput($model);
 
-        return $this->authorize($model);
+        return $this->authorizeModel('updating', $model);
     }
 
     /**
@@ -49,9 +50,9 @@ trait EloquentHooks
      */
     public function whenYouSave(...$model)
     {
-        $model = $this->normalizeModel('saving', $model);
+        $model = $this->normalizeInput($model);
 
-        return $this->authorize($model);
+        return $this->authorizeModel('saving', $model);
     }
 
     /**
@@ -61,24 +62,15 @@ trait EloquentHooks
      */
     public function whenYouDelete(...$model)
     {
-        $model = $this->normalizeModel('deleting', $model);
+        $model = $this->normalizeInput($model);
 
-        return $this->authorize($model);
+        return $this->authorizeModel('deleting', $model);
     }
 
-    /**
-     * @param $target
-     * @param $model
-     *
-     * @return array
-     */
-    private function normalizeModel($target, array $model): array
+    private function authorizeModel($event, $modelClass)
     {
-        $model = $this->normalizeInput($model);
-        $mapper = function ($model) use ($target) {
-            return "eloquent.{$target}: {$model}";
-        };
+        $this->authorizer = app(EloquentConditionApplier::class)->init($event, $modelClass);
 
-        return array_map($mapper, $model);
+        return app(YouShouldHave::class);
     }
 }

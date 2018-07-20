@@ -2,6 +2,7 @@
 
 namespace Imanghafoori\HeyMan\Hooks;
 
+use Imanghafoori\HeyMan\RouteConditionApplier;
 use Imanghafoori\HeyMan\YouShouldHave;
 
 trait RouteHooks
@@ -60,7 +61,7 @@ trait RouteHooks
      */
     private function authorizeRoute($target, $value)
     {
-        $this->authorizer = app('hey_man_route_authorizer')->init($target, $value);
+        $this->authorizer = app(RouteConditionApplier::class)->init($target, $value);
 
         return app(YouShouldHave::class);
     }

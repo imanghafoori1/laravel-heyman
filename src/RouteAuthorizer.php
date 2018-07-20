@@ -56,6 +56,6 @@ class RouteAuthorizer
     private function setGuardFor($method, $key)
     {
         $method = 'get'.$method;
-        app('hey_man_route_authorizer')->{$method}($key)();
+        app(RouteConditionApplier::class)->{$method}($key)();
     }
 }

@@ -8,7 +8,7 @@ class YouShouldHave
 {
     public $predicate;
 
-    public function youShouldHaveRole($role)
+    public function youShouldHaveRole(string $role)
     {
         return $this->thisGateShouldAllow('heyman.youShouldHaveRole', $role);
     }
