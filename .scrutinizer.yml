@@ -5,14 +5,9 @@ filter:
         - 'config/heyMan.php'
         - 'tests/*'
 
-build:
-    tests:
-        override:
-            -
-                command: 'vendor/bin/phpunit --coverage-clover /tmp/coverage.xml'
-                coverage:
-                    file: '/tmp/coverage.xml'
-                    format: 'clover'
+tools:
+    external_code_coverage: true
+
 checks:
     php:
         code_rating: true
