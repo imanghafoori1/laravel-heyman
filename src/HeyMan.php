@@ -33,4 +33,10 @@ class HeyMan
         $this->authorizer = app(ListenerApplier::class)->init($value);
         return app(YouShouldHave::class);
     }
+
+    public function startListening($response, $exception)
+    {
+        $callbackListener = app(ListenerFactory::class)->make($response, $exception );
+        $this->authorizer->startGuarding($callbackListener);
+    }
 }
