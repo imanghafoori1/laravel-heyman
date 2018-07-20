@@ -1,6 +1,6 @@
 language: php
 
-sudo: false
+sudo: true
 
 matrix:
   include:
@@ -21,9 +21,9 @@ install:
   - travis_retry composer install --no-suggest --prefer-dist -n -o
 
 script:
-  - vendor/bin/phpunit --coverage-clover build/logs/clover.xml;
+  - vendor/bin/phpunit --coverage-clover clover.xml;
 
 after_script:
   - wget https://scrutinizer-ci.com/ocular.phar;
-  - php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml;
+  - php ocular.phar code-coverage:upload --format=php-clover clover.xml;
   - bash <(curl -s https://codecov.io/bash)
