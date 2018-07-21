@@ -30,6 +30,7 @@ class setUp
         Gate::shouldReceive('define')->andReturn(true);
         Gate::shouldReceive('allows')->with('heyman.youShouldHaveRole', ['reader'])->andReturn(false);
         Gate::shouldReceive('allows')->with('heyman.youShouldHaveRole', ['writer'])->andReturn(true);
+        Gate::shouldReceive('allows')->with('heyman.youShouldHaveRole', ['writer', 'payload'])->andReturn(true);
         Gate::shouldReceive('allows')->andReturn(false);
         Gate::shouldReceive('define')->andReturn(true);
         Auth::shouldReceive('guest')->andReturn(false);

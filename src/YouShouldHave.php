@@ -13,12 +13,12 @@ class YouShouldHave
         return $this->thisGateShouldAllow('heyman.youShouldHaveRole', $role);
     }
 
-    public function thisGateShouldAllow($gate, ...$args)
+    public function thisGateShouldAllow($gate, ...$parameters)
     {
         $gate = $this->defineNewGate($gate);
 
-        $this->predicate = function ($payload) use ($gate, $args) {
-            return Gate::allows($gate, $args + $payload);
+        $this->predicate = function (...$payload) use ($gate, $parameters) {
+            return Gate::allows($gate, (array_merge($parameters, ...$payload)));
         };
 
         return new Otherwise();
@@ -31,8 +31,8 @@ class YouShouldHave
 
     public function thisMethodShouldAllow($callback, array $parameters = [])
     {
-        $this->predicate = function ($payload) use ($callback, $parameters) {
-            return (bool) app()->call($callback, array_merge($parameters, $payload));
+        $this->predicate = function (...$payload) use ($callback, $parameters) {
+            return (bool) app()->call($callback, array_merge($parameters, ...$payload));
         };
 
         return new Otherwise();

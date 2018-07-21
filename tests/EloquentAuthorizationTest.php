@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Support\Facades\Gate;
 use Imanghafoori\HeyMan\Facades\HeyMan;
 
 class EloquentAuthorizationTest extends TestCase
@@ -24,7 +25,7 @@ class EloquentAuthorizationTest extends TestCase
         HeyMan::whenYouUpdate('\App\User')->youShouldHaveRole('writer')->otherwise()->weDenyAccess();
         HeyMan::whenYouCreate('\App\User2')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
 
-        event('eloquent.updating: App\User', new \App\User());
+        event('eloquent.updating: App\User', 'payload');
         $this->assertTrue(true);
     }
 
@@ -32,8 +33,8 @@ class EloquentAuthorizationTest extends TestCase
     {
         setUp::run();
 
-        HeyMan::whenYouUpdate('\App\User')->thisClosureShouldAllow(function ($param, $param2, $user) {
-            return false;
+        HeyMan::whenYouUpdate('\App\User')->thisClosureShouldAllow(function ($param, $param2 , $user) {
+            return !($param === 1 and $param2 === 2 and (is_a($user, \App\User::class)));
         }, [1, 2])->otherwise()->weDenyAccess();
 
         $this->expectException(AuthorizationException::class);
