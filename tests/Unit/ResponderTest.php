@@ -1,6 +1,6 @@
 <?php
 
-class ResponderTest
+class ResponderTest extends TestCase
 {
     public function testRedirectToIntended()
     {

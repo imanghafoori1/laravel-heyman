@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Imanghafoori\HeyMan\Facades\HeyMan;
 
-class YouShouldHaveTest
+class YouShouldHaveTest extends TestCase
 {
     public function testImmediately()
     {
