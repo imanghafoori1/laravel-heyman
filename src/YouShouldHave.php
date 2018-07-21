@@ -56,7 +56,6 @@ class YouShouldHave
         return new Otherwise();
     }
 
-
     public function sessionShouldHave($key)
     {
         $this->predicate = function () use ($key) {

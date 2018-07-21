@@ -41,7 +41,6 @@ class ListenerFactory
     private function responseCallback($resp, $cb): \Closure
     {
         return function (...$f) use ($resp, $cb) {
-
             if (!$cb($f)) {
                 list($method, $args) = $resp;
                 respondWith(response()->{$method}(...$args));

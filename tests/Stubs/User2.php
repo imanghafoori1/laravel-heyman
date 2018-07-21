@@ -1,5 +1,7 @@
 <?php
+
 namespace App;
+
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User2 extends Authenticatable
