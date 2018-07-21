@@ -12,26 +12,31 @@
 
 
 ```
+
 composer require imanghafoori/laravel-heyman
+
 ```
 
-Imagine your boss comes to you and says :
 
-Hey man, I want to write code in a way that:
+#### Imagine your boss comes to you and says :
 
-When you see the login form, You should already be a guest user, Otherwise you must get redirected to '/panel' url, got it ?
+#### Hey man, I want to write code in a way that:
 
-and you write a code like this to implement what your boss wanted.
+####  When you see the login form, You should already be a guest user, Otherwise you must get redirected to '/panel' url, got it ?
+
+####  and you write a code like this to implement what your boss wanted.
+
 
 ```php
 
 HeyMan::whenYouMakeView('auth/login.blade.php')->youShouldBeGuest()->otherwise()->redirect('/panel');
 
+
 ```
 
-and it works !!!
+#### and it works !!!
 
-That is what this package does for you + a lot more things...
+#### That is what this package does for you + a lot more things...
 
 
 ## Authorization with laravel gates:
