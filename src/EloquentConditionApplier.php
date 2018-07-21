@@ -13,6 +13,7 @@ class EloquentConditionApplier
      *
      * @param $event
      * @param $modelClass
+     *
      * @return \Imanghafoori\HeyMan\EloquentConditionApplier
      */
     public function init($event, $modelClass)
@@ -32,6 +33,4 @@ class EloquentConditionApplier
             $model::{$this->event}($callback);
         }
     }
-
-
 }
