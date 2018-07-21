@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Auth\Access\AuthorizationException;
-use Illuminate\Support\Facades\Gate;
 use Imanghafoori\HeyMan\Facades\HeyMan;
 
 class EloquentAuthorizationTest extends TestCase
@@ -33,7 +32,7 @@ class EloquentAuthorizationTest extends TestCase
     {
         setUp::run();
 
-        HeyMan::whenYouUpdate('\App\User')->thisClosureShouldAllow(function ($param, $param2 , $user) {
+        HeyMan::whenYouUpdate('\App\User')->thisClosureShouldAllow(function ($param, $param2, $user) {
             return !($param === 1 and $param2 === 2 and (is_a($user, \App\User::class)));
         }, [1, 2])->otherwise()->weDenyAccess();
 
