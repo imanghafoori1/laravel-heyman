@@ -5,6 +5,8 @@ namespace Imanghafoori\HeyMan;
 class ListenerFactory
 {
     /**
+     * @param $resp
+     * @param $e
      * @return \Closure
      */
     public function make($resp, $e): \Closure
@@ -42,8 +44,15 @@ class ListenerFactory
     {
         return function (...$f) use ($resp, $cb) {
             if (!$cb($f)) {
-                list($method, $args) = $resp;
-                respondWith(response()->{$method}(...$args));
+
+                $respObj = response();
+                foreach ($resp as $call) {
+                    list($method, $args) = $call;
+                    $respObj = $respObj->{$method}(...$args);
+                }
+
+                respondWith($respObj);
+
             }
         };
     }

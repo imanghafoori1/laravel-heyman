@@ -6,9 +6,11 @@ use Illuminate\Auth\Access\AuthorizationException;
 
 class Responder
 {
-    private $response;
+    private $response = [];
 
     private $exception;
+
+    private $redirect;
 
     /**
      * Create a new redirect response to the given path.
@@ -20,7 +22,8 @@ class Responder
      */
     public function redirectTo($path, $status = 302, $headers = [], $secure = null)
     {
-        $this->response = [__FUNCTION__, func_get_args()];
+        $this->response[] = [__FUNCTION__, func_get_args()];
+        return $this;
     }
 
     /**
@@ -32,7 +35,7 @@ class Responder
      */
     public function make($content = '', $status = 200, array $headers = [])
     {
-        $this->response = [__FUNCTION__, func_get_args()];
+        $this->response[] = [__FUNCTION__, func_get_args()];
     }
 
     /**
@@ -45,7 +48,7 @@ class Responder
      */
     public function view($view, $data = [], $status = 200, array $headers = [])
     {
-        $this->response = [__FUNCTION__, func_get_args()];
+        $this->response[] = [__FUNCTION__, func_get_args()];
     }
 
     /**
@@ -58,7 +61,7 @@ class Responder
      */
     public function json($data = [], $status = 200, array $headers = [], $options = 0)
     {
-        $this->response = [__FUNCTION__, func_get_args()];
+        $this->response[] = [__FUNCTION__, func_get_args()];
     }
 
     /**
@@ -72,7 +75,7 @@ class Responder
      */
     public function jsonp($callback, $data = [], $status = 200, array $headers = [], $options = 0)
     {
-        $this->response = [__FUNCTION__, func_get_args()];
+        $this->response[] = [__FUNCTION__, func_get_args()];
     }
 
     /**
@@ -84,7 +87,7 @@ class Responder
      */
     public function stream($callback, $status = 200, array $headers = [])
     {
-        $this->response = [__FUNCTION__, func_get_args()];
+        $this->response[] = [__FUNCTION__, func_get_args()];
     }
 
     /**
@@ -97,7 +100,7 @@ class Responder
      */
     public function streamDownload($callback, $name = null, array $headers = [], $disposition = 'attachment')
     {
-        $this->response = [__FUNCTION__, func_get_args()];
+        $this->response[] = [__FUNCTION__, func_get_args()];
     }
 
     /**
@@ -110,7 +113,7 @@ class Responder
      */
     public function download($file, $name = null, array $headers = [], $disposition = 'attachment')
     {
-        $this->response = [__FUNCTION__, func_get_args()];
+        $this->response[] = [__FUNCTION__, func_get_args()];
     }
 
     /**
@@ -123,7 +126,8 @@ class Responder
      */
     public function redirectToRoute($route, $parameters = [], $status = 302, $headers = [])
     {
-        $this->response = [__FUNCTION__, func_get_args()];
+        $this->response[] = [__FUNCTION__, func_get_args()];
+        return $this;
     }
 
     /**
@@ -136,7 +140,8 @@ class Responder
      */
     public function redirectToAction($action, $parameters = [], $status = 302, $headers = [])
     {
-        $this->response = [__FUNCTION__, func_get_args()];
+        $this->response[] = [__FUNCTION__, func_get_args()];
+        return $this;
     }
 
     /**
@@ -149,7 +154,8 @@ class Responder
      */
     public function redirectGuest($path, $status = 302, $headers = [], $secure = null)
     {
-        $this->response = [__FUNCTION__, func_get_args()];
+        $this->response[] = [__FUNCTION__, func_get_args()];
+        return $this;
     }
 
     /**
@@ -162,7 +168,8 @@ class Responder
      */
     public function redirectToIntended($default = '/', $status = 302, $headers = [], $secure = null)
     {
-        $this->response = [__FUNCTION__, func_get_args()];
+        $this->response[] = [__FUNCTION__, func_get_args()];
+        return $this;
     }
 
     public function weThrowNew($exception, $message = '')
