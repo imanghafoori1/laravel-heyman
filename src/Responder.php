@@ -18,7 +18,7 @@ class Responder
      * @param array     $headers
      * @param bool|null $secure
      */
-    public function redirectTo($path, $status = 302, $headers = [], $secure = null)
+    public function redirectTo($path, $status = 302, $headers = [], $secure = null): Redirector
     {
         $this->response[] = ['redirectTo', func_get_args()];
 
@@ -123,7 +123,7 @@ class Responder
      * @param int    $status
      * @param array  $headers
      */
-    public function redirectToRoute($route, $parameters = [], $status = 302, $headers = [])
+    public function redirectToRoute($route, $parameters = [], $status = 302, $headers = []): Redirector
     {
         $this->response[] = ['redirectToRoute', func_get_args()];
 
@@ -138,7 +138,7 @@ class Responder
      * @param int    $status
      * @param array  $headers
      */
-    public function redirectToAction($action, $parameters = [], $status = 302, $headers = [])
+    public function redirectToAction($action, $parameters = [], $status = 302, $headers = []): Redirector
     {
         $this->response[] = ['redirectToAction', func_get_args()];
 
@@ -153,7 +153,7 @@ class Responder
      * @param array     $headers
      * @param bool|null $secure
      */
-    public function redirectGuest($path, $status = 302, $headers = [], $secure = null)
+    public function redirectGuest($path, $status = 302, $headers = [], $secure = null): Redirector
     {
         $this->response[] = ['redirectGuest', func_get_args()];
 
@@ -168,7 +168,7 @@ class Responder
      * @param array     $headers
      * @param bool|null $secure
      */
-    public function redirectToIntended($default = '/', $status = 302, $headers = [], $secure = null)
+    public function redirectToIntended($default = '/', $status = 302, $headers = [], $secure = null): Redirector
     {
         $this->response[] = ['redirectToIntended', func_get_args()];
 
