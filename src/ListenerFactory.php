@@ -7,6 +7,7 @@ class ListenerFactory
     /**
      * @param $resp
      * @param $e
+     *
      * @return \Closure
      */
     public function make($resp, $e): \Closure
@@ -44,7 +45,6 @@ class ListenerFactory
     {
         return function (...$f) use ($resp, $cb) {
             if (!$cb($f)) {
-
                 $respObj = response();
                 foreach ($resp as $call) {
                     list($method, $args) = $call;
@@ -52,7 +52,6 @@ class ListenerFactory
                 }
 
                 respondWith($respObj);
-
             }
         };
     }

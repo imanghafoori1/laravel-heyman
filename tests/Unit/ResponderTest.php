@@ -73,5 +73,4 @@ class ResponderTest extends TestCase
             }
         }
     }
-
 }
