@@ -228,12 +228,3 @@ HeyMan::whenYouVisitUrl('/login')-> ... ->otherwise()->json(...);
 HeyMan::whenYouVisitUrl('/login')-> ... ->otherwise()->view(...);
 HeyMan::whenYouVisitUrl('/login')-> ... ->otherwise()->jsonp(...);
 ```
-
-### 6 - Send Any Response Object
-
-```php
-
-$response = response()->make(...);
-
-HeyMan::whenYouVisitUrl('/login')->youShouldBeGuest()->otherwise()->send($response);
-```
