@@ -26,16 +26,18 @@ composer require imanghafoori/laravel-heyman
 
 Imagine your boss comes to you and says :
 
-### Hey man, I want to write code in a way that:
-### When you see the login form, You should already be a guest user,
-### Otherwise you must get redirected to '/panel' url, got it ?
+### Hey man,
+### When you go to login form, You should be guest,
+### Otherwise you must get redirected to '/panel',
+###  Write the code for me, just now
 
-and you write a code like this to implement what your boss wanted.
+and you write code like this to implement what your boss wanted.
 
 
 ```php
 
-HeyMan::whenYouMakeView('auth/login.blade.php')->youShouldBeGuest()->otherwise()->redirect('/panel');
+
+HeyMan::whenYouMakeView('auth.login')->youShouldBeGuest()->otherwise()->redirect('/panel');
 
 
 ```
