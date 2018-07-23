@@ -4,7 +4,7 @@
 
 ![image](https://user-images.githubusercontent.com/6961695/43092242-c26b141a-8ec1-11e8-8108-4e0cc63d0522.png)
 
-
+## And it works !!!
 
 [![code coverage](https://codecov.io/gh/imanghafoori1/laravel-heyman/branch/master/graph/badge.svg)](https://codecov.io/gh/imanghafoori1/laravel-heyman)
 [![Maintainability](https://api.codeclimate.com/v1/badges/9d6be7b057103cb14410/maintainability)](https://codeclimate.com/github/imanghafoori1/laravel-heyman/maintainability)
@@ -42,9 +42,9 @@ HeyMan::whenYouMakeView('auth.login')->youShouldBeGuest()->otherwise()->redirect
 
 ```
 
-### and it works !!!
 
 ### That is what this package does for you + a lot more things...
+
 
 
 ## Authorization with laravel gates:
