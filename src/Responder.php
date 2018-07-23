@@ -6,11 +6,9 @@ use Illuminate\Auth\Access\AuthorizationException;
 
 class Responder
 {
-    private $response = [];
+    public $response = [];
 
     private $exception;
-
-    private $redirect;
 
     /**
      * Create a new redirect response to the given path.
@@ -23,7 +21,8 @@ class Responder
     public function redirectTo($path, $status = 302, $headers = [], $secure = null)
     {
         $this->response[] = [__FUNCTION__, func_get_args()];
-        return $this;
+
+        return new Redirector($this);
     }
 
     /**
@@ -127,7 +126,8 @@ class Responder
     public function redirectToRoute($route, $parameters = [], $status = 302, $headers = [])
     {
         $this->response[] = [__FUNCTION__, func_get_args()];
-        return $this;
+
+        return new Redirector($this);
     }
 
     /**
@@ -141,7 +141,8 @@ class Responder
     public function redirectToAction($action, $parameters = [], $status = 302, $headers = [])
     {
         $this->response[] = [__FUNCTION__, func_get_args()];
-        return $this;
+
+        return new Redirector($this);
     }
 
     /**
@@ -155,7 +156,8 @@ class Responder
     public function redirectGuest($path, $status = 302, $headers = [], $secure = null)
     {
         $this->response[] = [__FUNCTION__, func_get_args()];
-        return $this;
+
+        return new Redirector($this);
     }
 
     /**
@@ -169,7 +171,8 @@ class Responder
     public function redirectToIntended($default = '/', $status = 302, $headers = [], $secure = null)
     {
         $this->response[] = [__FUNCTION__, func_get_args()];
-        return $this;
+
+        return new Redirector($this);
     }
 
     public function weThrowNew($exception, $message = '')
