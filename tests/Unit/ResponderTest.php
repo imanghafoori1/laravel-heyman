@@ -5,10 +5,6 @@ class ResponderTest extends TestCase
     public function testRedirectToIntended()
     {
         $methods = [
-            'redirectToIntended',
-            'redirectToAction',
-            'redirectToRoute',
-            'redirectGuest',
             'stream',
             'streamDownload',
             'view',
@@ -19,22 +15,21 @@ class ResponderTest extends TestCase
         ];
         foreach ($methods as $method) {
             $param = str_random(3);
-            $responder = new \Imanghafoori\HeyMan\Responder();
-            \Imanghafoori\HeyMan\Facades\HeyMan::shouldReceive('startListening')->once()->with([[$method, [$param]]], null);
+            $reaction = new \Imanghafoori\HeyMan\Actions();
+            \Imanghafoori\HeyMan\Facades\HeyMan::shouldReceive('startListening')->once()->with([[$method, [$param]]], null, []);
 
-            $responder->{$method}($param);
+            $reaction->response()->{$method}($param);
         }
     }
 
-    public function testRedirectToIntended222()
+    public function _testRedirectToIntended222()
     {
         $methods = [
             'redirectToIntended',
-
         ];
         foreach ($methods as $method) {
             $param = str_random(3);
-            $responder = new \Imanghafoori\HeyMan\Responder();
+            $responder = new \Imanghafoori\HeyMan\Redirector();
             \Imanghafoori\HeyMan\Facades\HeyMan::shouldReceive('startListening')->once()->with([[$method, [$param]]], null);
 
             $responder->{$method}($param);
@@ -53,23 +48,25 @@ class ResponderTest extends TestCase
         ];
 
         $methods = [
-            'redirectToIntended',
-            'redirectToAction',
-            'redirectToRoute',
-            'redirectGuest',
+            'intended',
+            'action',
+            'route',
+            'guest',
+            'to'
         ];
 
         foreach ($methods2 as $method2) {
             foreach ($methods as $method) {
                 $param = str_random(3);
-                $responder = new \Imanghafoori\HeyMan\Responder();
-                \Imanghafoori\HeyMan\Facades\HeyMan::shouldReceive('startListening')->once()->with([
+                $reaction = new \Imanghafoori\HeyMan\Actions();
+                \Imanghafoori\HeyMan\Facades\HeyMan::shouldReceive('startListening')->once()->with([], null,[
                     [$method, [$param]],
                     [$method2, [['key', 'value']]],
                     ['with', [['a', 'b']]],
-                ], null);
+                ]);
 
-                $responder->{$method}($param)->{$method2}(['key', 'value'])->with(['a', 'b']);
+                $reaction->redirect()->{$method}($param)->{$method2}(['key', 'value'])->with(['a', 'b'])
+                ;
             }
         }
     }

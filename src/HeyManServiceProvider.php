@@ -39,6 +39,6 @@ class HeyManServiceProvider extends ServiceProvider
         $this->app->singleton(RouteConditionApplier::class, RouteConditionApplier::class);
         $this->app->singleton(YouShouldHave::class, YouShouldHave::class);
         $this->app->singleton(ListenerFactory::class, ListenerFactory::class);
-        $this->app->singleton('hey_man_responder', Responder::class);
+        $this->app->singleton('hey_man_responder', Redirector::class);
     }
 }

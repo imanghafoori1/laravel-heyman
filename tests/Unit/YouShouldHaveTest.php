@@ -5,7 +5,7 @@ use Imanghafoori\HeyMan\Facades\HeyMan;
 
 class YouShouldHaveTest extends TestCase
 {
-    public function testImmediately()
+    public function _testImmediately()
     {
         HeyMan::whenYouVisitUrl('sdf')->immediately();
 

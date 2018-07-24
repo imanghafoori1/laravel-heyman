@@ -4,114 +4,90 @@ namespace Imanghafoori\HeyMan;
 
 class Redirector
 {
-    private $responder;
+    private $action;
 
     /**
      * Redirector constructor.
      *
-     * @param \Imanghafoori\HeyMan\Responder $responder
+     * @param $action
      */
-    public function __construct(Responder $responder)
+    public function __construct($action)
     {
-        $this->responder = $responder;
+        $this->action = $action;
     }
 
     /**
-     * Flash a piece of data to the session.
+     * Create a new redirect response to the given path.
      *
-     * @param string|array $key
-     * @param mixed        $value
-     *
-     * @return $this
+     * @param string    $path
+     * @param int       $status
+     * @param array     $headers
+     * @param bool|null $secure
      */
-    public function with($key, $value = null)
+    public function to($path, $status = 302, $headers = [], $secure = null): RedirectionMsg
     {
-        $this->responder->response[] = ['with', func_get_args()];
+        $this->action->redirect[] = ['to', func_get_args()];
 
-        return $this;
+        return new RedirectionMsg($this->action);
     }
 
     /**
-     * Add multiple cookies to the response.
+     * Create a new redirect response to a named route.
      *
-     * @param array $cookies
-     *
-     * @return $this
-     */
-    public function withCookies(array $cookies)
-    {
-        $this->responder->response[] = ['withCookies', func_get_args()];
-
-        return $this;
-    }
-
-    /**
-     * Flash an array of input to the session.
-     *
-     * @param array $input
-     *
-     * @return $this
-     */
-    public function withInput(array $input = null)
-    {
-        $this->responder->response[] = ['withInput', func_get_args()];
-
-        return $this;
-    }
-
-    /**
-     * Flash an array of input to the session.
-     *
-     * @return $this
-     */
-    public function onlyInput()
-    {
-        $this->responder->response[] = ['onlyInput', func_get_args()];
-
-        return $this;
-    }
-
-    /**
-     * Flash an array of input to the session.
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function exceptInput()
-    {
-        $this->responder->response[] = ['exceptInput', func_get_args()];
-
-        return $this;
-    }
-
-    /**
-     * Flash a container of errors to the session.
-     *
-     * @param \Illuminate\Contracts\Support\MessageProvider|array|string $provider
-     * @param string                                                     $key
-     *
-     * @return $this
-     */
-    public function withErrors($provider, $key = 'default')
-    {
-        $this->responder->response[] = ['withErrors', func_get_args()];
-
-        return $this;
-    }
-
-    /**
-     * Dynamically bind flash data in the session.
-     *
-     * @param string $method
+     * @param string $route
      * @param array  $parameters
-     *
-     * @throws \BadMethodCallException
-     *
-     * @return $this
+     * @param int    $status
+     * @param array  $headers
      */
-    public function __call($method, $parameters)
+    public function route($route, $parameters = [], $status = 302, $headers = []): RedirectionMsg
     {
-        $this->responder->response[] = [$method, func_get_args()];
+        $this->action->redirect[] = ['route', func_get_args()];
 
-        return $this;
+        return new RedirectionMsg($this->action);
+    }
+
+    /**
+     * Create a new redirect response to a controller action.
+     *
+     * @param string $action
+     * @param array  $parameters
+     * @param int    $status
+     * @param array  $headers
+     */
+    public function action($action, $parameters = [], $status = 302, $headers = []): RedirectionMsg
+    {
+        $this->action->redirect[] = ['action', func_get_args()];
+
+        return new RedirectionMsg($this->action);
+    }
+
+    /**
+     * Create a new redirect response, while putting the current URL in the session.
+     *
+     * @param string    $path
+     * @param int       $status
+     * @param array     $headers
+     * @param bool|null $secure
+     */
+    public function guest($path, $status = 302, $headers = [], $secure = null): RedirectionMsg
+    {
+        $this->action->redirect[] = ['guest', func_get_args()];
+
+        return new RedirectionMsg($this->action);
+    }
+
+    /**
+     * Create a new redirect response to the previously intended location.
+     *
+     * @param string    $default
+     * @param int       $status
+     * @param array     $headers
+     * @param bool|null $secure
+     */
+    public function intended($default = '/', $status = 302, $headers = [], $secure = null): RedirectionMsg
+    {
+        $this->action->redirect[] = ['intended', func_get_args()];
+
+        return new RedirectionMsg($this->action);
     }
 }

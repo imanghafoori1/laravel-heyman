@@ -106,4 +106,29 @@ class EloquentAuthorizationTest extends TestCase
 
         event('eloquent.retrieved: App\User');
     }
+
+    public function _testHeyWait()
+    {
+        
+     /*   HeyWait::byNow()
+            ->youShouldBeloggedIn()
+            ->otherwise()
+            ->redirectBack();
+
+
+        HeyWait::ifYouAreLoggedIn()->redirectBack();
+        HeyWait::ifGateDenies('')->redirectBack();
+
+        HeyWait::ifIsFalsy(function () {
+            return false;
+        })->redirectBack();
+
+        HeyWait::ifIsFalse(auth()->guest())
+            ->redirect('/home');
+
+        HeyMan::makeSure()
+            ->whenYouVisit('admin/article')
+            ->asGuest()
+            ->youWillBeRedirectedTo('/login');*/
+    }
 }

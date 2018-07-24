@@ -8,16 +8,24 @@ class ListenerFactory
      * @param $resp
      * @param $e
      *
+     * @param $redirect
      * @return \Closure
      */
-    public function make($resp, $e): \Closure
+    public function make($resp, $e, $redirect): \Closure
     {
         $cb = app(YouShouldHave::class)->predicate;
+
         if ($e) {
             return $this->exceptionCallback($e, $cb);
         }
 
-        return $this->responseCallback($resp, $cb);
+        if ($resp) {
+            return $this->responseCallback($resp, $cb);
+        }
+
+        if ($redirect) {
+            return $this->redirectCallback($redirect, $cb);
+        }
     }
 
     /**
@@ -46,6 +54,21 @@ class ListenerFactory
         return function (...$f) use ($resp, $cb) {
             if (!$cb($f)) {
                 $respObj = response();
+                foreach ($resp as $call) {
+                    list($method, $args) = $call;
+                    $respObj = $respObj->{$method}(...$args);
+                }
+
+                respondWith($respObj);
+            }
+        };
+    }
+
+    private function redirectCallback($resp, $cb): \Closure
+    {
+        return function (...$f) use ($resp, $cb) {
+            if (!$cb($f)) {
+                $respObj = redirect();
                 foreach ($resp as $call) {
                     list($method, $args) = $call;
                     $respObj = $respObj->{$method}(...$args);

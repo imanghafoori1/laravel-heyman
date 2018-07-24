@@ -2,28 +2,34 @@
 
 namespace Imanghafoori\HeyMan;
 
-use Illuminate\Auth\Access\AuthorizationException;
-
 class Responder
 {
-    public $response = [];
-
-    private $exception;
+    private $action;
 
     /**
-     * Create a new redirect response to the given path.
+     * Responder constructor.
      *
-     * @param string    $path
-     * @param int       $status
-     * @param array     $headers
-     * @param bool|null $secure
+     * @param $action
      */
-    public function redirectTo($path, $status = 302, $headers = [], $secure = null): Redirector
+    public function __construct($action)
     {
-        $this->response[] = ['redirectTo', func_get_args()];
-
-        return new Redirector($this);
+        $this->action = $action;
     }
+
+    /**
+     * @return \Imanghafoori\HeyMan\RedirectionMsg
+     */
+/*    public function redirect(): RedirectionMsg
+    {
+        $this->action->response[] = ['redirectTo', func_get_args()];
+
+        HeyMan::whenYouVisitUrl('/login')
+            ->youShouldBeGuest()
+            ->otherwise()
+            ->redirectTo('/');
+
+        return new RedirectionMsg($this);
+    }*/
 
     /**
      * Return a new response from the application.
@@ -34,7 +40,7 @@ class Responder
      */
     public function make($content = '', $status = 200, array $headers = [])
     {
-        $this->response[] = ['make', func_get_args()];
+        $this->action->response[] = ['make', func_get_args()];
     }
 
     /**
@@ -47,7 +53,7 @@ class Responder
      */
     public function view($view, $data = [], $status = 200, array $headers = [])
     {
-        $this->response[] = ['view', func_get_args()];
+        $this->action->response[] = ['view', func_get_args()];
     }
 
     /**
@@ -60,7 +66,7 @@ class Responder
      */
     public function json($data = [], $status = 200, array $headers = [], $options = 0)
     {
-        $this->response[] = ['json', func_get_args()];
+        $this->action->response[] = ['json', func_get_args()];
     }
 
     /**
@@ -74,7 +80,7 @@ class Responder
      */
     public function jsonp($callback, $data = [], $status = 200, array $headers = [], $options = 0)
     {
-        $this->response[] = ['jsonp', func_get_args()];
+        $this->action->response[] = ['jsonp', func_get_args()];
     }
 
     /**
@@ -86,7 +92,7 @@ class Responder
      */
     public function stream($callback, $status = 200, array $headers = [])
     {
-        $this->response[] = ['stream', func_get_args()];
+        $this->action->response[] = ['stream', func_get_args()];
     }
 
     /**
@@ -99,7 +105,7 @@ class Responder
      */
     public function streamDownload($callback, $name = null, array $headers = [], $disposition = 'attachment')
     {
-        $this->response[] = ['streamDownload', func_get_args()];
+        $this->action->response[] = ['streamDownload', func_get_args()];
     }
 
     /**
@@ -112,104 +118,6 @@ class Responder
      */
     public function download($file, $name = null, array $headers = [], $disposition = 'attachment')
     {
-        $this->response[] = ['download', func_get_args()];
-    }
-
-    /**
-     * Create a new redirect response to a named route.
-     *
-     * @param string $route
-     * @param array  $parameters
-     * @param int    $status
-     * @param array  $headers
-     */
-    public function redirectToRoute($route, $parameters = [], $status = 302, $headers = []): Redirector
-    {
-        $this->response[] = ['redirectToRoute', func_get_args()];
-
-        return new Redirector($this);
-    }
-
-    /**
-     * Create a new redirect response to a controller action.
-     *
-     * @param string $action
-     * @param array  $parameters
-     * @param int    $status
-     * @param array  $headers
-     */
-    public function redirectToAction($action, $parameters = [], $status = 302, $headers = []): Redirector
-    {
-        $this->response[] = ['redirectToAction', func_get_args()];
-
-        return new Redirector($this);
-    }
-
-    /**
-     * Create a new redirect response, while putting the current URL in the session.
-     *
-     * @param string    $path
-     * @param int       $status
-     * @param array     $headers
-     * @param bool|null $secure
-     */
-    public function redirectGuest($path, $status = 302, $headers = [], $secure = null): Redirector
-    {
-        $this->response[] = ['redirectGuest', func_get_args()];
-
-        return new Redirector($this);
-    }
-
-    /**
-     * Create a new redirect response to the previously intended location.
-     *
-     * @param string    $default
-     * @param int       $status
-     * @param array     $headers
-     * @param bool|null $secure
-     */
-    public function redirectToIntended($default = '/', $status = 302, $headers = [], $secure = null): Redirector
-    {
-        $this->response[] = ['redirectToIntended', func_get_args()];
-
-        return new Redirector($this);
-    }
-
-    public function weThrowNew($exception, $message = '')
-    {
-        $this->exception = new $exception($message);
-    }
-
-    public function abort($code, $message = '', array $headers = [])
-    {
-        try {
-            abort($code, $message, $headers);
-        } catch (\Exception $e) {
-            $this->exception = $e;
-        }
-    }
-
-    public function weDenyAccess($msg = '')
-    {
-        $this->exception = new AuthorizationException($msg);
-    }
-
-    public function afterCalling($callback, array $parameters = [])
-    {
-        app()->call($callback, $parameters);
-
-        return $this;
-    }
-
-    public function __destruct()
-    {
-        app(HeyMan::class)->startListening($this->response, $this->exception);
-    }
-
-    public function afterFiringEvent(...$args)
-    {
-        app('events')->dispatch(...$args);
-
-        return $this;
+        $this->action->response[] = ['download', func_get_args()];
     }
 }

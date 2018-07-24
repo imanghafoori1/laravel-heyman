@@ -80,7 +80,7 @@ class YouShouldHave
             return false;
         };
 
-        return new Responder();
+        return new Actions();
     }
 
     /**

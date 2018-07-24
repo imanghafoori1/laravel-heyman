@@ -37,9 +37,9 @@ class HeyMan
         return app(YouShouldHave::class);
     }
 
-    public function startListening($response, $exception)
+    public function startListening($response, $exception, $redirect)
     {
-        $callbackListener = app(ListenerFactory::class)->make($response, $exception);
+        $callbackListener = app(ListenerFactory::class)->make($response, $exception, $redirect);
         $this->authorizer->startGuarding($callbackListener);
     }
 }

@@ -6,6 +6,6 @@ class Otherwise
 {
     public function otherwise()
     {
-        return new Responder();
+        return new Actions();
     }
 }

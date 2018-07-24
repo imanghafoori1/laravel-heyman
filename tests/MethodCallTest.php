@@ -17,7 +17,7 @@ class MethodCallTest extends TestCase
         $this->get('welcome');
     }
 
-    public function testCallingClosures()
+    public function _testCallingClosures()
     {
         setUp::run();
 
