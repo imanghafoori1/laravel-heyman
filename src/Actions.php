@@ -48,7 +48,6 @@ class Actions
         $this->exception = new AuthorizationException($msg);
     }
 
-
     public function afterFiringEvent(...$args)
     {
         app('events')->dispatch(...$args);
@@ -60,5 +59,4 @@ class Actions
     {
         app(HeyMan::class)->startListening($this->response, $this->exception, $this->redirect);
     }
-
 }

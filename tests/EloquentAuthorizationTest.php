@@ -109,7 +109,7 @@ class EloquentAuthorizationTest extends TestCase
 
     public function _testHeyWait()
     {
-        
+
      /*   HeyWait::byNow()
             ->youShouldBeloggedIn()
             ->otherwise()
