@@ -4,7 +4,7 @@ namespace Imanghafoori\HeyMan;
 
 class RedirectionMsg
 {
-    private $responder;
+    private $action;
 
     /**
      * Actions constructor.
@@ -74,7 +74,7 @@ class RedirectionMsg
     /**
      * Flash an array of input to the session.
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Imanghafoori\HeyMan\RedirectionMsg
      */
     public function exceptInput()
     {
