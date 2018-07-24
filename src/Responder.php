@@ -19,17 +19,17 @@ class Responder
     /**
      * @return \Imanghafoori\HeyMan\RedirectionMsg
      */
-/*    public function redirect(): RedirectionMsg
-    {
-        $this->action->response[] = ['redirectTo', func_get_args()];
-
-        HeyMan::whenYouVisitUrl('/login')
-            ->youShouldBeGuest()
-            ->otherwise()
-            ->redirectTo('/');
-
-        return new RedirectionMsg($this);
-    }*/
+    /*    public function redirect(): RedirectionMsg
+        {
+            $this->action->response[] = ['redirectTo', func_get_args()];
+    
+            HeyMan::whenYouVisitUrl('/login')
+                ->youShouldBeGuest()
+                ->otherwise()
+                ->redirectTo('/');
+    
+            return new RedirectionMsg($this);
+        }*/
 
     /**
      * Return a new response from the application.

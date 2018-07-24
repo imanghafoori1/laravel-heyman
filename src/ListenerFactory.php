@@ -7,8 +7,8 @@ class ListenerFactory
     /**
      * @param $resp
      * @param $e
-     *
      * @param $redirect
+     *
      * @return \Closure
      */
     public function make($resp, $e, $redirect): \Closure
