@@ -37,9 +37,14 @@ class ListenerFactory
     private function exceptionCallback($e, $cb): \Closure
     {
         return function (...$f) use ($e, $cb) {
-            if (!$cb($f)) {
+            if ($cb($f)) {
+                return true;
+            }
+            if (is_object($e)) {
                 throw $e;
             }
+            $exClass = $e['class'];
+            throw new $exClass($e['message']);
         };
     }
 

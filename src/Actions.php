@@ -10,7 +10,7 @@ class Actions
 
     public $redirect = [];
 
-    public $exception;
+    public $exception = [];
 
     public function response()
     {
@@ -31,7 +31,7 @@ class Actions
 
     public function weThrowNew($exception, $message = '')
     {
-        $this->exception = new $exception($message);
+        $this->exception = ['class' => $exception, 'message' => $message];
     }
 
     public function abort($code, $message = '', array $headers = [])
@@ -43,9 +43,9 @@ class Actions
         }
     }
 
-    public function weDenyAccess($msg = '')
+    public function weDenyAccess($message = '')
     {
-        $this->exception = new AuthorizationException($msg);
+        $this->exception = ['class' => AuthorizationException::class, 'message' => $message];
     }
 
     public function afterFiringEvent(...$args)
