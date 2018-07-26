@@ -9,8 +9,6 @@ class ListenerFactory
      */
     private $chain;
 
-    private $caller;
-
     /**
      * ListenerFactory constructor.
      *
@@ -27,8 +25,6 @@ class ListenerFactory
      */
     public function make(): \Closure
     {
-        $this->calls();
-
         $responder = app(ResponderFactory::class)->make();
 
         return $this->callBack($responder);
@@ -42,12 +38,11 @@ class ListenerFactory
     private function callBack($responder): \Closure
     {
         $dispatcher = $this->dispatcher();
-        $calls = $this->caller;
+        $calls = $this->calls();
+
         $cb = $this->chain->predicate;
         $this->chain->reset();
 
-        $this->caller = function () {
-        };
         return function (...$f) use ($responder, $cb, $dispatcher, $calls) {
             if ($cb($f)) {
                 return true;
@@ -80,11 +75,11 @@ class ListenerFactory
         $calls = $this->chain->calls;
 
         if (! $calls) {
-            return $this->caller = function () {
+            return function () {
             };
         }
 
-        return $this->caller = function () use ($calls) {
+        return function () use ($calls) {
             foreach ($calls as $call) {
                 app()->call(...$call);
             }
