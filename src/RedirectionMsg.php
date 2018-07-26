@@ -114,7 +114,7 @@ class RedirectionMsg
      */
     public function __call($method, $parameters)
     {
-        $this->chain->addRedirect($method, func_get_args());
+        $this->chain->addRedirect($method, $parameters);
 
         return $this;
     }

@@ -1,5 +1,7 @@
 <?php
 
+use Imanghafoori\HeyMan\Chain;
+
 class ResponderTest extends TestCase
 {
     public function testRedirectToIntended()
@@ -22,17 +24,8 @@ class ResponderTest extends TestCase
         }
     }
 
-    public function testRedirectWith()
+    public function testRedirect()
     {
-        $methods2 = [
-            'with',
-            'withCookies',
-            'withInput',
-            'onlyInput',
-            'exceptInput',
-            'withErrors',
-        ];
-
         $methods = [
             'intended',
             'action',
@@ -41,15 +34,35 @@ class ResponderTest extends TestCase
             'to',
         ];
 
-        foreach ($methods2 as $method2) {
-            foreach ($methods as $method) {
-                $param = str_random(3);
-                $reaction = app(\Imanghafoori\HeyMan\Actions::class);
-                \Facades\Imanghafoori\HeyMan\Chain::shouldReceive('submitChainConfig')->once();
-                \Facades\Imanghafoori\HeyMan\Chain::shouldReceive('addRedirect');
+        foreach ($methods as $method) {
+            $param = str_random(3);
+            \Facades\Imanghafoori\HeyMan\Chain::shouldReceive('submitChainConfig')->once();
+            \Facades\Imanghafoori\HeyMan\Chain::shouldReceive('addRedirect')->with($method, [$param]);
 
-                $reaction->redirect()->{$method}($param)->{$method2}(['key', 'value'])->with(['a', 'b']);
-            }
+            $reaction = app(\Imanghafoori\HeyMan\Actions::class);
+            $reaction->redirect()->{$method}($param);
         }
     }
+
+    public function testRedirectMsg()
+    {
+        $methods = [
+            'with',
+            'withCookies',
+            'withInput',
+            'onlyInput',
+            'exceptInput',
+            'withErrors',
+            'no',
+        ];
+
+        foreach ($methods as $method) {
+            $param = str_random(2);
+            $chain = Mockery::mock(Chain::class);
+            $chain->shouldReceive('addRedirect')->once()->with($method, [[$param]]);
+            $redirectionMsg = new \Imanghafoori\HeyMan\RedirectionMsg($chain, '');
+            $redirectionMsg->{$method}([$param]);
+        }
+    }
+
 }
