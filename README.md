@@ -16,6 +16,11 @@
 
 
 
+## :ribbon::ribbon::ribbon: HeyMan : "_cleaner code_" :heavy_plus_sign: "_easy authorization_" :ribbon::ribbon::ribbon:
+
+### Built with :heart: for every smart laravel developer
+
+
 ## Installation
 
 ```
@@ -28,10 +33,10 @@ composer require imanghafoori/laravel-heyman
 
 Imagine your boss comes to you and says :
 
-### Hey man,
-### When you go to login form, You should be guest,
-### Otherwise you must get redirected to '/panel',
-###  Write the code for me, just now
+> Hey man,
+> When you go to login form, You should be guest,
+> Otherwise you must get redirected to '/panel',
+>  Write the code for me, just now
 
 and you write code like this to implement what your boss wanted.
 
@@ -197,3 +202,18 @@ You can do so by `afterCalling()` and `afterFiringEvent()` methods.
 HeyMan::whenYouVisitUrl('/login')-> ... ->otherwise()->afterFiringEvent('explode')->response()->json(...);
 HeyMan::whenYouVisitUrl('/login')-> ... ->otherwise()->afterCalling('someclass@method1')->response()->json(...);
 ```
+
+
+--------------------
+
+### :raising_hand: Contributing 
+If you find an issue, or have a better way to do something, feel free to open an issue or a pull request.
+If you use laravel-widgetize in your open source project, create a pull request to provide it's url as a sample application in the README.md file. 
+
+
+### :exclamation: Security
+If you discover any security related issues, please email imanghafoori1@gmail.com instead of using the issue tracker.
+
+
+### :star: Your Stars Make Us Do More :star:
+As always if you found this package useful and you want to encourage us to maintain and work on it. Just press the star button to declare your willing.
