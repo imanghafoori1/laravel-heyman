@@ -6,6 +6,7 @@ use Imanghafoori\HeyMan\Hooks\EloquentHooks;
 use Imanghafoori\HeyMan\Hooks\EventHooks;
 use Imanghafoori\HeyMan\Hooks\RouteHooks;
 use Imanghafoori\HeyMan\Hooks\ViewHooks;
+use Imanghafoori\HeyMan\WatchingStrategies\BasicEventManager;
 
 class HeyMan
 {
@@ -35,20 +36,14 @@ class HeyMan
     }
 
     /**
-     * @param $value
+     * @param $eventName
      *
      * @return YouShouldHave
      */
-    private function authorize($value): YouShouldHave
+    private function holdWhen($eventName): YouShouldHave
     {
-        $this->chain->authorizer = app(ListenerApplier::class)->init($value);
+        $this->chain->eventManager = app(BasicEventManager::class)->init($eventName);
 
         return app(YouShouldHave::class);
-    }
-
-    public function startListening()
-    {
-        $callbackListener = app(ListenerFactory::class)->make();
-        $this->chain->authorizer->startGuarding($callbackListener);
     }
 }

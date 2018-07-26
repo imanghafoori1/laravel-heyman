@@ -2,7 +2,7 @@
 
 namespace Imanghafoori\HeyMan\Hooks;
 
-use Imanghafoori\HeyMan\EloquentConditionApplier;
+use Imanghafoori\HeyMan\WatchingStrategies\EloquentEventsManager;
 use Imanghafoori\HeyMan\YouShouldHave;
 
 trait EloquentHooks
@@ -69,7 +69,7 @@ trait EloquentHooks
 
     private function authorizeModel($event, $modelClass)
     {
-        $this->chain->authorizer = app(EloquentConditionApplier::class)->init($event, $modelClass);
+        $this->chain->eventManager = app(EloquentEventsManager::class)->init($event, $modelClass);
 
         return app(YouShouldHave::class);
     }

@@ -62,6 +62,6 @@ class Actions
 
     public function __destruct()
     {
-        app(HeyMan::class)->startListening();
+        app(Chain::class)->submitChainConfig();
     }
 }

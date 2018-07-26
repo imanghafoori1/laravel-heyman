@@ -7,7 +7,7 @@ class Chain
     /**
      * @var \Imanghafoori\HeyMan\ListenerApplier
      */
-    public $authorizer;
+    public $eventManager;
 
     public $predicate;
 
@@ -30,7 +30,7 @@ class Chain
         $this->response = [];
         $this->predicate = null;
         $this->abort = null;
-        //$this->authorizer = null;
+        //$this->eventManager = null;
     }
 
     public function addRedirect($method, $params)
@@ -61,5 +61,11 @@ class Chain
     public function eventFire($event, $payload, $halt)
     {
         $this->events[] = [$event, $payload, $halt];
+    }
+
+    public function submitChainConfig()
+    {
+        $callbackListener = app(ListenerFactory::class)->make();
+        $this->eventManager->startGuarding($callbackListener);
     }
 }

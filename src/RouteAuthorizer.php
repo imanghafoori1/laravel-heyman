@@ -4,6 +4,7 @@ namespace Imanghafoori\HeyMan;
 
 use Illuminate\Routing\Events\RouteMatched;
 use Illuminate\Support\Facades\Route;
+use Imanghafoori\HeyMan\WatchingStrategies\RouterEventManager;
 
 class RouteAuthorizer
 {
@@ -56,6 +57,6 @@ class RouteAuthorizer
     private function setGuardFor($method, $key)
     {
         $method = 'get'.$method;
-        app(RouteConditionApplier::class)->{$method}($key)();
+        app(RouterEventManager::class)->{$method}($key)();
     }
 }

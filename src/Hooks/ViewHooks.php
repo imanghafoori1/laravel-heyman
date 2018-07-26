@@ -13,7 +13,7 @@ trait ViewHooks
     {
         $views = $this->normalizeView($views);
 
-        return $this->authorize($views);
+        return $this->holdWhen($views);
     }
 
     /**

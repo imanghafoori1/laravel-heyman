@@ -11,6 +11,6 @@ trait EventHooks
      */
     public function whenEventHappens(...$event)
     {
-        return $this->authorize($this->normalizeInput($event));
+        return $this->holdWhen($this->normalizeInput($event));
     }
 }
