@@ -102,6 +102,8 @@ HeyMan::whenYouUpdate(\App\User::class)->...
 HeyMan::whenYouDelete(\App\User::class)->...
 ```
  
+ #### Note that the saving model is passed to the Gate of callback in the next chain call. so for example you can check the ID of the model which is saving.
+ 
 *In case the gate returns `false` an `AuthorizationException` will be thrown.
 *(If it is not the thing you want, do not worry you can customize the action very easily, we will discuss shortly.)
 
@@ -131,18 +133,26 @@ $gate = function($user, $role){
 HeyMan::whenYouVisitUrl('/home')->thisGateShouldAllow($gate, 'editor')->otherwise()->...;
 ```
 
-### 2 - Authentication:
+### 2 - Authentication stuff:
 ```php
 HeyMan::whenYouVisitUrl('/home')->  youShouldBeGuest()    ->otherwise()->...;
 HeyMan::whenYouVisitUrl('/home')->  youShouldBeLoggedIn() ->otherwise()->...;
 ```
 
-### 3 - Checking A Closure or Method Result:
+### 3 - Checking A `Closure` or `Method` or `Value`:
 ```php
-HeyMan::whenYouVisitUrl('home')->thisClosureMustPass('someClass@someMethod', ['param1'])->otherwise()->...;
-
+HeyMan::whenYouVisitUrl('home')->thisMethodShouldAllow('someClass@someMethod', ['param1'])->otherwise()->...;
+HeyMan::whenYouVisitUrl('home')->thisClosureShouldAllow(ّ function($a) { ... }, ['param1'])  ->otherwise()->...;
+HeyMan::whenYouVisitUrl('home')->thisValueShouldAllow(ّ $someValue )->otherwise()->...;
 ```
 
+### Other
+You can also use one of these:
+```
+youShouldAlways()-> ...
+sessionShouldHave()->...
+
+```
 
 --------------------
 
