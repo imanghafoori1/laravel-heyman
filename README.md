@@ -47,6 +47,10 @@ That's it !
 ### That is what this package does for you + a lot more things...
 
 
+### Should You Remember All The Methods? 
+> IDE auto-completion is provided for you, out of the box for every thing.
+
+
 You can put these codes in `AuthServiceProvider.php` (or any other service provider) `boot` method to take effect.
 
 ## Watching Urls
