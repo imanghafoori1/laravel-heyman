@@ -90,7 +90,7 @@ class YouShouldHave
         return app(Otherwise::class);
     }
 
-    public function immediately(): Actions
+    public function youShouldAlways()
     {
         $this->chain->predicate = function () {
             return false;
