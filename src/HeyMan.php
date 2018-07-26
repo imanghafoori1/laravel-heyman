@@ -10,7 +10,6 @@ use Imanghafoori\HeyMan\WatchingStrategies\BasicEventManager;
 
 class HeyMan
 {
-
     use EloquentHooks, RouteHooks, ViewHooks, EventHooks;
 
     private $chain;
