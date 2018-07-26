@@ -29,24 +29,23 @@ class ListenerFactory
      */
     public function make(): \Closure
     {
-        $predicate = $this->chain->predicate;
         $this->dispatcher();
         $this->calls();
 
         if ($this->chain->abort) {
-            return $this->abortCallback($this->chain->abort, $predicate);
+            return $this->abortCallback($this->chain->abort);
         }
 
         if ($this->chain->exception) {
-            return $this->exceptionCallback($this->chain->exception, $predicate);
+            return $this->exceptionCallback($this->chain->exception);
         }
 
         if ($this->chain->response) {
-            return $this->responseCallback($this->chain->response, $predicate);
+            return $this->responseCallback($this->chain->response);
         }
 
         if ($this->chain->redirect) {
-            return $this->redirectCallback($this->chain->redirect, $predicate);
+            return $this->redirectCallback($this->chain->redirect);
         }
     }
 
@@ -56,16 +55,14 @@ class ListenerFactory
      *
      * @return \Closure
      */
-    private function exceptionCallback($e, $cb): \Closure
+    private function exceptionCallback($e): \Closure
     {
-        $this->chain->reset();
-
         $responder = function () use ($e) {
             $exClass = $e['class'];
             throw new $exClass($e['message']);
         };
 
-        return $this->callBack($cb, $responder);
+        return $this->callBack($responder);
     }
 
     /**
@@ -74,10 +71,8 @@ class ListenerFactory
      *
      * @return \Closure
      */
-    private function responseCallback($resp, $cb): \Closure
+    private function responseCallback($resp): \Closure
     {
-        $this->chain->reset();
-
         $responder = function () use ($resp) {
             $respObj = response();
             foreach ($resp as $call) {
@@ -87,13 +82,11 @@ class ListenerFactory
             respondWith($respObj);
         };
 
-        return $this->callBack($cb, $responder);
+        return $this->callBack($responder);
     }
 
-    private function redirectCallback($resp, $cb): \Closure
+    private function redirectCallback($resp): \Closure
     {
-        $this->chain->reset();
-
         $responder = function () use ($resp) {
             $respObj = redirect();
             foreach ($resp as $call) {
@@ -103,7 +96,7 @@ class ListenerFactory
             respondWith($respObj);
         };
 
-        return $this->callBack($cb, $responder);
+        return $this->callBack($responder);
     }
 
     /**
@@ -111,11 +104,12 @@ class ListenerFactory
      * @param $responder
      * @return \Closure
      */
-    private function callBack($cb, $responder): \Closure
+    private function callBack($responder): \Closure
     {
         $dispatcher = $this->dispatcher;
         $calls = $this->caller;
-
+        $cb = $this->chain->predicate;
+        $this->chain->reset();
 
         $this->caller = $this->dispatcher = function () {
         };
@@ -162,13 +156,12 @@ class ListenerFactory
         };
     }
 
-    private function abortCallback($abort, $cb)
+    private function abortCallback($abort)
     {
-        $this->chain->reset();
         $responder = function () use ($abort) {
             abort(...$abort);
         };
 
-        return $this->callBack($cb, $responder);
+        return $this->callBack($responder);
     }
 }
