@@ -112,7 +112,7 @@ This way gate is checked after `event('myEvent')` is executed any where in our a
 
 
 
-## What should be checked:
+## What can be checked:
 
 ### 1 - Gates
 
@@ -128,23 +128,19 @@ $gate = function($user, $role){
     /// some logic
     return true;
 }
-
 HeyMan::whenYouVisitUrl('/home')->thisGateShouldAllow($gate, 'editor')->otherwise()->...;
 ```
 
 ### 2 - Authentication:
 ```php
-HeyMan::whenYouVisitUrl('/home')->youShouldBeGuest()->otherwise()->...;
-HeyMan::whenYouVisitUrl('/home')->youShouldBeLoggedIn()->otherwise()->...;
+HeyMan::whenYouVisitUrl('/home')->  youShouldBeGuest()    ->otherwise()->...;
+HeyMan::whenYouVisitUrl('/home')->  youShouldBeLoggedIn() ->otherwise()->...;
 ```
 
-### 3 - Checking A Closure:
+### 3 - Checking A Closure or Method Result:
 ```php
-$callback = function($params){
-    /// some logic
-    return true;
-}
-HeyMan::whenYouVisitUrl('home')->thisClosureMustPass($callback, ['param1'])->otherwise()->...;
+HeyMan::whenYouVisitUrl('home')->thisClosureMustPass('someClass@someMethod', ['param1'])->otherwise()->...;
+
 ```
 
 
@@ -157,25 +153,26 @@ HeyMan::whenYouVisitUrl('home')->thisClosureMustPass($callback, ['param1'])->oth
 ```php
 HeyMan::whenSaving(\App\User::class)->thisGateShouldAllow('hasRole', 'editor')->otherwise()->weDenyAccess();
 ```
-By calling `weDenyAccess` method an `AuthorizationException` will be thrown if needed
+An `AuthorizationException` will be thrown if needed
 
 
 ### 2 - Redirect
 ```php
-HeyMan::whenYouVisitUrl('/login')-> ... ->otherwise()->redirect()->to(...);
-HeyMan::whenYouVisitUrl('/login')-> ... ->otherwise()->redirect()->route(...);
-HeyMan::whenYouVisitUrl('/login')-> ... ->otherwise()->redirect()->action(...);
+HeyMan::whenYouVisitUrl('/login')-> ... ->otherwise()->redirect()->to(...)     ->with([...]);
+HeyMan::whenYouVisitUrl('/login')-> ... ->otherwise()->redirect()->route(...)  ->withErrors(...);
+HeyMan::whenYouVisitUrl('/login')-> ... ->otherwise()->redirect()->action(...) ->withInput(...);
 HeyMan::whenYouVisitUrl('/login')-> ... ->otherwise()->redirect()->intended(...);
 HeyMan::whenYouVisitUrl('/login')-> ... ->otherwise()->redirect()->guest(...);
 ```
 
 ### 3- Throw Exception:
 ```php
-
-$exceptionType = AuthorizationException::class;
 $msg = 'My Message';
 
-HeyMan::whenYouVisitUrl('/login')->youShouldBeGuest()->otherwise()->throwNew($exceptionType, $msg);
+HeyMan::whenYouVisitUrl('/login')
+    ->youShouldBeGuest()
+    ->otherwise()
+    ->throwNew(AuthorizationException::class, $msg);
 ```
 
 ### 4- Abort:
@@ -184,9 +181,7 @@ HeyMan::whenYouVisitUrl('/login')-> ... ->otherwise()->abort(...);
 ```
 
 ### 5- Send Response:
-
-Calling these functions generate exact same response as calling them on the `response()` helper function like this:
- 
+Calling these functions generate exact same response as calling them on the `response()` helper function:
 `return response()->json(...);`
 
 ```php
@@ -195,4 +190,14 @@ HeyMan::whenYouVisitUrl('/login')-> ... ->otherwise()->response()->view(...);
 HeyMan::whenYouVisitUrl('/login')-> ... ->otherwise()->response()->jsonp(...);
 HeyMan::whenYouVisitUrl('/login')-> ... ->otherwise()->response()->make(...);
 HeyMan::whenYouVisitUrl('/login')-> ... ->otherwise()->response()->download(...);
+```
+
+## Advanced Usage:
+
+You may want to call some method or fire an event right before you send the response back.
+You can do so by `afterCalling()` and `afterFiringEvent()` methods.
+
+```php
+HeyMan::whenYouVisitUrl('/login')-> ... ->otherwise()->afterFiringEvent('explode')->response()->json(...);
+HeyMan::whenYouVisitUrl('/login')-> ... ->otherwise()->afterCalling('someclass@method1')->response()->json(...);
 ```
