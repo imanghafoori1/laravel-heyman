@@ -9,7 +9,7 @@ class YouShouldHaveTest extends TestCase
     {
         HeyMan::whenYouVisitUrl('sdf')->immediately();
 
-        $predicate = app(\Imanghafoori\HeyMan\YouShouldHave::class)->predicate;
+        $predicate = app(\Imanghafoori\HeyMan\Chain::class)->predicate;
 
         $this->assertFalse($predicate());
     }
@@ -19,7 +19,7 @@ class YouShouldHaveTest extends TestCase
         HeyMan::whenYouVisitUrl('sdf')->youShouldBeLoggedIn();
         Auth::shouldReceive('check')->once()->andReturn('I do not know');
 
-        $predicate = app(\Imanghafoori\HeyMan\YouShouldHave::class)->predicate;
+        $predicate = app(\Imanghafoori\HeyMan\Chain::class)->predicate;
 
         $this->assertEquals($predicate(), 'I do not know');
     }
@@ -29,7 +29,7 @@ class YouShouldHaveTest extends TestCase
         HeyMan::whenYouVisitUrl('sdf')->youShouldBeGuest();
         Auth::shouldReceive('guest')->once()->andReturn('I do not know');
 
-        $predicate = app(\Imanghafoori\HeyMan\YouShouldHave::class)->predicate;
+        $predicate = app(\Imanghafoori\HeyMan\Chain::class)->predicate;
 
         $this->assertEquals($predicate(), 'I do not know');
     }
@@ -38,7 +38,7 @@ class YouShouldHaveTest extends TestCase
     {
         HeyMan::whenYouVisitUrl('sdf')->thisValueShouldAllow('');
 
-        $predicate = app(\Imanghafoori\HeyMan\YouShouldHave::class)->predicate;
+        $predicate = app(\Imanghafoori\HeyMan\Chain::class)->predicate;
         $this->assertTrue($predicate() === false);
     }
 
@@ -46,7 +46,7 @@ class YouShouldHaveTest extends TestCase
     {
         HeyMan::whenYouVisitUrl('sdf')->thisValueShouldAllow('sss');
 
-        $predicate = app(\Imanghafoori\HeyMan\YouShouldHave::class)->predicate;
+        $predicate = app(\Imanghafoori\HeyMan\Chain::class)->predicate;
         $this->assertTrue($predicate() === true);
     }
 
@@ -58,7 +58,7 @@ class YouShouldHaveTest extends TestCase
 
         HeyMan::whenYouVisitUrl('sdf')->thisClosureShouldAllow($cb, ['ggg']);
 
-        $predicate = app(\Imanghafoori\HeyMan\YouShouldHave::class)->predicate;
+        $predicate = app(\Imanghafoori\HeyMan\Chain::class)->predicate;
 
         $this->assertTrue($predicate() === true);
     }
@@ -71,7 +71,7 @@ class YouShouldHaveTest extends TestCase
 
         HeyMan::whenYouVisitUrl('sdf')->thisClosureShouldAllow($cb, ['']);
 
-        $predicate = app(\Imanghafoori\HeyMan\YouShouldHave::class)->predicate;
+        $predicate = app(\Imanghafoori\HeyMan\Chain::class)->predicate;
 
         $this->assertTrue($predicate() === false);
     }
@@ -81,7 +81,7 @@ class YouShouldHaveTest extends TestCase
         HeyMan::whenYouVisitUrl('sdf')->thisMethodShouldAllow('SomeClass@someMethod', ['aaa']);
 
         \Facades\SomeClass::shouldReceive('someMethod')->once()->with('aaa')->andReturn(false);
-        $predicate = app(\Imanghafoori\HeyMan\YouShouldHave::class)->predicate;
+        $predicate = app(\Imanghafoori\HeyMan\Chain::class)->predicate;
 
         $this->assertTrue($predicate() === false);
     }
@@ -91,7 +91,7 @@ class YouShouldHaveTest extends TestCase
         HeyMan::whenYouVisitUrl('sdf')->sessionShouldHave('some_key');
         $val = str_random(2);
         \Illuminate\Support\Facades\Session::shouldReceive('has')->once()->with('some_key')->andReturn($val);
-        $predicate = app(\Imanghafoori\HeyMan\YouShouldHave::class)->predicate;
+        $predicate = app(\Imanghafoori\HeyMan\Chain::class)->predicate;
 
         $this->assertTrue($predicate() === $val);
     }

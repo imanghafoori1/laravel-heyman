@@ -6,22 +6,38 @@ use Illuminate\Support\Facades\Gate;
 
 class YouShouldHave
 {
+
     public $predicate;
+
+    /**
+     * @var \Imanghafoori\HeyMan\Chain
+     */
+    private $chain;
+
+    /**
+     * YouShouldHave constructor.
+     *
+     * @param \Imanghafoori\HeyMan\Chain $chain
+     */
+    public function __construct(Chain $chain)
+    {
+        $this->chain = $chain;
+    }
 
     public function youShouldHaveRole(string $role)
     {
         return $this->thisGateShouldAllow('heyman.youShouldHaveRole', $role);
     }
 
-    public function thisGateShouldAllow($gate, ...$parameters)
+    public function thisGateShouldAllow($gate, ...$parameters): Otherwise
     {
         $gate = $this->defineNewGate($gate);
 
-        $this->predicate = function (...$payload) use ($gate, $parameters) {
+        $this->chain->predicate = function (...$payload) use ($gate, $parameters) {
             return Gate::allows($gate, (array_merge($parameters, ...$payload)));
         };
 
-        return new Otherwise();
+        return app(Otherwise::class);
     }
 
     public function thisClosureShouldAllow($callback, array $parameters = [])
@@ -29,58 +45,58 @@ class YouShouldHave
         return $this->thisMethodShouldAllow($callback, $parameters);
     }
 
-    public function thisMethodShouldAllow($callback, array $parameters = [])
+    public function thisMethodShouldAllow($callback, array $parameters = []): Otherwise
     {
-        $this->predicate = function (...$payload) use ($callback, $parameters) {
+        $this->chain->predicate = function (...$payload) use ($callback, $parameters) {
             return (bool) app()->call($callback, array_merge($parameters, ...$payload));
         };
 
-        return new Otherwise();
+        return app(Otherwise::class);
     }
 
     public function thisValueShouldAllow($value)
     {
-        $this->predicate = function () use ($value) {
+        $this->chain->predicate = function () use ($value) {
             return (bool) $value;
         };
 
-        return new Otherwise();
+        return app(Otherwise::class);
     }
 
-    public function youShouldBeGuest()
+    public function youShouldBeGuest(): Otherwise
     {
-        $this->predicate = function () {
+        $this->chain->predicate = function () {
             return auth()->guest();
         };
 
-        return new Otherwise();
+        return app(Otherwise::class);
     }
 
-    public function sessionShouldHave($key)
+    public function sessionShouldHave($key): Otherwise
     {
-        $this->predicate = function () use ($key) {
+        $this->chain->predicate = function () use ($key) {
             return session()->has($key);
         };
 
-        return new Otherwise();
+        return app(Otherwise::class);
     }
 
-    public function youShouldBeLoggedIn()
+    public function youShouldBeLoggedIn(): Otherwise
     {
-        $this->predicate = function () {
+        $this->chain->predicate = function () {
             return auth()->check();
         };
 
-        return new Otherwise();
+        return app(Otherwise::class);
     }
 
     public function immediately()
     {
-        $this->predicate = function () {
+        $this->chain->predicate = function () {
             return false;
         };
 
-        return new Actions();
+        return app(Actions::class);
     }
 
     /**

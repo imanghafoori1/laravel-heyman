@@ -4,8 +4,8 @@ namespace Imanghafoori\HeyMan;
 
 class Otherwise
 {
-    public function otherwise()
+    public function otherwise(): Actions
     {
-        return new Actions();
+        return app(Actions::class);
     }
 }

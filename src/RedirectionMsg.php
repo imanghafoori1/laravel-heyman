@@ -4,16 +4,20 @@ namespace Imanghafoori\HeyMan;
 
 class RedirectionMsg
 {
-    private $action;
+    private $chain;
+
+    private $redirect;
 
     /**
-     * Actions constructor.
+     * Redirector constructor.
      *
-     * @param \Imanghafoori\HeyMan\Actions $action
+     * @param \Imanghafoori\HeyMan\Chain $chain
+     * @param $redirect
      */
-    public function __construct(Actions $action)
+    public function __construct(Chain $chain, $redirect)
     {
-        $this->action = $action;
+        $this->chain = $chain;
+        $this->redirect = $redirect;
     }
 
     /**
@@ -26,7 +30,7 @@ class RedirectionMsg
      */
     public function with($key, $value = null)
     {
-        $this->action->redirect[] = ['with', func_get_args()];
+        $this->chain->addRedirect('with', func_get_args());
 
         return $this;
     }
@@ -40,7 +44,7 @@ class RedirectionMsg
      */
     public function withCookies(array $cookies)
     {
-        $this->action->redirect[] = ['withCookies', func_get_args()];
+        $this->chain->addRedirect('withCookies', func_get_args());
 
         return $this;
     }
@@ -54,7 +58,7 @@ class RedirectionMsg
      */
     public function withInput(array $input = null)
     {
-        $this->action->redirect[] = ['withInput', func_get_args()];
+        $this->chain->addRedirect('withInput', func_get_args());
 
         return $this;
     }
@@ -66,7 +70,7 @@ class RedirectionMsg
      */
     public function onlyInput()
     {
-        $this->action->redirect[] = ['onlyInput', func_get_args()];
+        $this->chain->addRedirect('onlyInput', func_get_args());
 
         return $this;
     }
@@ -78,7 +82,7 @@ class RedirectionMsg
      */
     public function exceptInput()
     {
-        $this->action->redirect[] = ['exceptInput', func_get_args()];
+        $this->chain->addRedirect('exceptInput', func_get_args());
 
         return $this;
     }
@@ -93,7 +97,7 @@ class RedirectionMsg
      */
     public function withErrors($provider, $key = 'default')
     {
-        $this->action->redirect[] = ['withErrors', func_get_args()];
+        $this->chain->addRedirect('withErrors', func_get_args());
 
         return $this;
     }
@@ -110,7 +114,7 @@ class RedirectionMsg
      */
     public function __call($method, $parameters)
     {
-        $this->action->redirect[] = [$method, func_get_args()];
+        $this->chain->addRedirect($method, func_get_args());
 
         return $this;
     }

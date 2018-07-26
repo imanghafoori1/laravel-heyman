@@ -4,15 +4,19 @@ namespace Imanghafoori\HeyMan;
 
 class Responder
 {
+    private $chain;
+
     private $action;
 
     /**
      * Responder constructor.
      *
+     * @param \Imanghafoori\HeyMan\Chain $chain
      * @param $action
      */
-    public function __construct($action)
+    public function __construct(Chain $chain, $action)
     {
+        $this->chain = $chain;
         $this->action = $action;
     }
 
@@ -40,7 +44,7 @@ class Responder
      */
     public function make($content = '', $status = 200, array $headers = [])
     {
-        $this->action->response[] = ['make', func_get_args()];
+        $this->chain->addResponse('make', func_get_args());
     }
 
     /**
@@ -53,7 +57,7 @@ class Responder
      */
     public function view($view, $data = [], $status = 200, array $headers = [])
     {
-        $this->action->response[] = ['view', func_get_args()];
+        $this->chain->addResponse('view', func_get_args());
     }
 
     /**
@@ -66,7 +70,7 @@ class Responder
      */
     public function json($data = [], $status = 200, array $headers = [], $options = 0)
     {
-        $this->action->response[] = ['json', func_get_args()];
+        $this->chain->addResponse('json', func_get_args());
     }
 
     /**
@@ -80,7 +84,7 @@ class Responder
      */
     public function jsonp($callback, $data = [], $status = 200, array $headers = [], $options = 0)
     {
-        $this->action->response[] = ['jsonp', func_get_args()];
+        $this->chain->addResponse('jsonp', func_get_args());
     }
 
     /**
@@ -92,7 +96,7 @@ class Responder
      */
     public function stream($callback, $status = 200, array $headers = [])
     {
-        $this->action->response[] = ['stream', func_get_args()];
+        $this->chain->addResponse('stream', func_get_args());
     }
 
     /**
@@ -105,7 +109,7 @@ class Responder
      */
     public function streamDownload($callback, $name = null, array $headers = [], $disposition = 'attachment')
     {
-        $this->action->response[] = ['streamDownload', func_get_args()];
+        $this->chain->addResponse('streamDownload', func_get_args());
     }
 
     /**
@@ -118,6 +122,6 @@ class Responder
      */
     public function download($file, $name = null, array $headers = [], $disposition = 'attachment')
     {
-        $this->action->response[] = ['download', func_get_args()];
+        $this->chain->addResponse('download', func_get_args());
     }
 }

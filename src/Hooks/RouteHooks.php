@@ -61,7 +61,7 @@ trait RouteHooks
      */
     private function authorizeRoute($target, $value)
     {
-        $this->authorizer = app(RouteConditionApplier::class)->init($target, $value);
+        $this->chain->authorizer = app(RouteConditionApplier::class)->init($target, $value);
 
         return app(YouShouldHave::class);
     }

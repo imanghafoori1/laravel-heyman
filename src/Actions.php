@@ -6,57 +6,62 @@ use Illuminate\Auth\Access\AuthorizationException;
 
 class Actions
 {
-    public $response = [];
+    /**
+     * @var \Imanghafoori\HeyMan\Chain
+     */
+    private $chain;
 
-    public $redirect = [];
-
-    public $exception = [];
+    /**
+     * Actions constructor.
+     *
+     * @param \Imanghafoori\HeyMan\Chain $chain
+     */
+    public function __construct(Chain $chain)
+    {
+        $this->chain = $chain;
+    }
 
     public function response()
     {
-        return new Responder($this);
+        return new Responder($this->chain, $this);
     }
 
     public function redirect()
     {
-        return new Redirector($this);
+        return new Redirector($this->chain, $this);
     }
 
     public function afterCalling($callback, array $parameters = [])
     {
-        app()->call($callback, $parameters);
+        $this->chain->addAfterCall($callback, $parameters);
 
         return $this;
     }
 
     public function weThrowNew($exception, $message = '')
     {
-        $this->exception = ['class' => $exception, 'message' => $message];
+        $this->chain->addException($exception, $message);
     }
 
     public function abort($code, $message = '', array $headers = [])
     {
-        try {
-            abort($code, $message, $headers);
-        } catch (\Exception $e) {
-            $this->exception = $e;
-        }
+        $this->chain->addAbort($code, $message, $headers);
     }
 
     public function weDenyAccess($message = '')
     {
-        $this->exception = ['class' => AuthorizationException::class, 'message' => $message];
+        $this->chain->addException(AuthorizationException::class, $message);
     }
 
-    public function afterFiringEvent(...$args)
+    public function afterFiringEvent($event, $payload = [], $halt = false)
     {
-        app('events')->dispatch(...$args);
+        $this->chain->eventFire($event, $payload , $halt);
 
         return $this;
     }
 
     public function __destruct()
     {
-        app(HeyMan::class)->startListening($this->response, $this->exception, $this->redirect);
+        app(HeyMan::class)->startListening();
     }
 }

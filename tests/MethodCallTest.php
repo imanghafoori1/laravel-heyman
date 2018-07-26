@@ -8,16 +8,18 @@ class MethodCallTest extends TestCase
     {
         setUp::run();
 
-        \Facades\Logger::shouldReceive('info')->once();
+        \Facades\Logger::shouldReceive('info')->once()->with('sss');
 
         HeyMan::whenYouVisitUrl(['welcome', 'welcome_'])
-            ->youShouldHaveRole('writer')->otherwise()
-            ->afterCalling('Logger@info')->weDenyAccess();
+            ->youShouldHaveRole('reader')
+            ->otherwise()
+            ->afterCalling('Logger@info', ['sss'])
+            ->weDenyAccess();
 
         $this->get('welcome');
     }
 
-    public function _testCallingClosures()
+    public function testCallingClosures()
     {
         setUp::run();
 
@@ -28,9 +30,12 @@ class MethodCallTest extends TestCase
         $cb = function () {
             throw new \Exception('You have Called me');
         };
+
         HeyMan::whenYouVisitUrl(['welcome', 'welcome_'])
-            ->youShouldHaveRole('writer')->otherwise()
-            ->afterCalling($cb)->weDenyAccess();
+            ->youShouldHaveRole('reader')
+            ->otherwise()
+            ->afterCalling($cb)
+            ->weDenyAccess();
 
         $this->get('welcome');
     }

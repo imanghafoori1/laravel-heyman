@@ -9,11 +9,20 @@ use Imanghafoori\HeyMan\Hooks\ViewHooks;
 
 class HeyMan
 {
+
     use EloquentHooks, RouteHooks, ViewHooks, EventHooks;
+
+    private $chain;
+
     /**
-     * @var \Imanghafoori\HeyMan\ListenerApplier
+     * HeyMan constructor.
+     *
+     * @param \Imanghafoori\HeyMan\Chain $chain
      */
-    public $authorizer;
+    public function __construct(Chain $chain)
+    {
+        $this->chain = $chain;
+    }
 
     /**
      * @param $url
@@ -32,14 +41,14 @@ class HeyMan
      */
     private function authorize($value): YouShouldHave
     {
-        $this->authorizer = app(ListenerApplier::class)->init($value);
+        $this->chain->authorizer = app(ListenerApplier::class)->init($value);
 
         return app(YouShouldHave::class);
     }
 
-    public function startListening($response, $exception, $redirect)
+    public function startListening()
     {
-        $callbackListener = app(ListenerFactory::class)->make($response, $exception, $redirect);
-        $this->authorizer->startGuarding($callbackListener);
+        $callbackListener = app(ListenerFactory::class)->make();
+        $this->chain->authorizer->startGuarding($callbackListener);
     }
 }

@@ -69,7 +69,7 @@ trait EloquentHooks
 
     private function authorizeModel($event, $modelClass)
     {
-        $this->authorizer = app(EloquentConditionApplier::class)->init($event, $modelClass);
+        $this->chain->authorizer = app(EloquentConditionApplier::class)->init($event, $modelClass);
 
         return app(YouShouldHave::class);
     }
