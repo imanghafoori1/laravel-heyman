@@ -1,10 +1,10 @@
 <?php
 
-namespace Imanghafoori\HeyMan;
+namespace Imanghafoori\HeyMan\WatchingStrategies;
 
 use Illuminate\Support\Str;
 
-class RouteConditionApplier
+class RouterEventManager
 {
     private $target;
 

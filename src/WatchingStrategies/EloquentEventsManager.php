@@ -1,8 +1,8 @@
 <?php
 
-namespace Imanghafoori\HeyMan;
+namespace Imanghafoori\HeyMan\WatchingStrategies;
 
-class EloquentConditionApplier
+class EloquentEventsManager
 {
     private $event;
 
@@ -14,7 +14,7 @@ class EloquentConditionApplier
      * @param $event
      * @param $modelClass
      *
-     * @return \Imanghafoori\HeyMan\EloquentConditionApplier
+     * @return \Imanghafoori\HeyMan\WatchingStrategies\EloquentEventsManager
      */
     public function init($event, $modelClass)
     {

@@ -1,10 +1,10 @@
 <?php
 
-namespace Imanghafoori\HeyMan;
+namespace Imanghafoori\HeyMan\WatchingStrategies;
 
 use Illuminate\Support\Facades\Event;
 
-class ListenerApplier
+class BasicEventManager
 {
     private $events;
 
