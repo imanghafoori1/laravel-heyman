@@ -24,7 +24,7 @@ class YouShouldHave
         $this->chain = $chain;
     }
 
-    public function youShouldHaveRole(string $role)
+    public function youShouldHaveRole(string $role): Otherwise
     {
         return $this->thisGateShouldAllow('heyman.youShouldHaveRole', $role);
     }
@@ -40,7 +40,7 @@ class YouShouldHave
         return app(Otherwise::class);
     }
 
-    public function thisClosureShouldAllow($callback, array $parameters = [])
+    public function thisClosureShouldAllow($callback, array $parameters = []): Otherwise
     {
         return $this->thisMethodShouldAllow($callback, $parameters);
     }
@@ -54,7 +54,7 @@ class YouShouldHave
         return app(Otherwise::class);
     }
 
-    public function thisValueShouldAllow($value)
+    public function thisValueShouldAllow($value): Otherwise
     {
         $this->chain->predicate = function () use ($value) {
             return (bool) $value;
@@ -90,7 +90,7 @@ class YouShouldHave
         return app(Otherwise::class);
     }
 
-    public function immediately()
+    public function immediately(): Actions
     {
         $this->chain->predicate = function () {
             return false;
