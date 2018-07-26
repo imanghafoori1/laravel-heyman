@@ -2,7 +2,7 @@
 
 ## A package to help you write expressive, defensive code in a functional manner
 
-![image](https://user-images.githubusercontent.com/6961695/43092242-c26b141a-8ec1-11e8-8108-4e0cc63d0522.png)
+![image](https://user-images.githubusercontent.com/6961695/43285148-4d86673e-9133-11e8-9415-2df017906762.png)
 
 ## And it works !!!
 
