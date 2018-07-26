@@ -31,7 +31,6 @@ class ListenerFactory
     }
 
     /**
-     * @param $cb
      * @param $responder
      * @return \Closure
      */
