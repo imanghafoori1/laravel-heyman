@@ -64,5 +64,4 @@ class ResponderTest extends TestCase
             $redirectionMsg->{$method}([$param]);
         }
     }
-
 }

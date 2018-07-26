@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Event;
 use Imanghafoori\HeyMan\Facades\HeyMan;
 
 class OtherwiseTest extends TestCase
@@ -19,8 +18,7 @@ class OtherwiseTest extends TestCase
         HeyMan::whenYouVisitUrl('welcome')->youShouldHaveRole('reader')->otherwise()->afterFiringEvent('explode')->redirect()->to('home')->with(['hi', 'jpp']);
 
         $this->expectsEvents('explode');
-        $this->get('welcome')->assertRedirect('home')
-        ;
+        $this->get('welcome')->assertRedirect('home');
     }
 
     public function testOtherwise1()

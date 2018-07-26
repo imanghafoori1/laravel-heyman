@@ -20,7 +20,6 @@ class ListenerFactory
     }
 
     /**
-     *
      * @return \Closure
      */
     public function make(): \Closure
@@ -32,6 +31,7 @@ class ListenerFactory
 
     /**
      * @param $responder
+     *
      * @return \Closure
      */
     private function callBack($responder): \Closure
@@ -57,7 +57,7 @@ class ListenerFactory
     {
         $events = $this->chain->events;
 
-        if (! $events) {
+        if (!$events) {
             return function () {
             };
         }
@@ -73,7 +73,7 @@ class ListenerFactory
     {
         $calls = $this->chain->calls;
 
-        if (! $calls) {
+        if (!$calls) {
             return function () {
             };
         }

@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Gate;
 
 class YouShouldHave
 {
-
     public $predicate;
 
     /**

@@ -55,7 +55,7 @@ class Actions
 
     public function afterFiringEvent($event, $payload = [], $halt = false)
     {
-        $this->chain->eventFire($event, $payload , $halt);
+        $this->chain->eventFire($event, $payload, $halt);
 
         return $this;
     }
