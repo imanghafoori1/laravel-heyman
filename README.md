@@ -36,8 +36,8 @@ Imagine your boss comes to you and says :
 and you write code like this to implement what your boss wanted.
 
 
-![image](https://user-images.githubusercontent.com/6961695/43285311-cca1f178-9133-11e8-94a2-c03178eee3b9.png)
-
+![image](https://user-images.githubusercontent.com/6961695/43285559-8c09a1e6-9134-11e8-841b-2dc933456082.png)
+That's it !
 
 ### That is what this package does for you + a lot more things...
 
