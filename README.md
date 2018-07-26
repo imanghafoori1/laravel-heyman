@@ -42,16 +42,16 @@ and you write code like this to implement what your boss wanted.
 
 
 ![image](https://user-images.githubusercontent.com/6961695/43285559-8c09a1e6-9134-11e8-841b-2dc933456082.png)
-That's it !
-
-### That is what this package does for you + a lot more things...
 
 
-### Should You Remember All The Methods? 
+### That is what this package does for you + a lot more...
+
+
+### Should You Remember and Type in All The Methods? 
 > IDE auto-completion is provided for you, out of the box for every thing.
 
-
-You can put these codes in `AuthServiceProvider.php` (or any other service provider) `boot` method to take effect.
+#### Where do I put these codes ?
+> You can put these codes in `AuthServiceProvider.php` (or any other service provider) `boot` method to take effect.
 
 ## Watching Urls
 
@@ -144,8 +144,8 @@ HeyMan::whenYouVisitUrl('home')->thisValueShouldAllow(ّ $someValue )->otherwise
 ### Other
 You can also use one of these:
 ```
-youShouldAlways()-> ...
-sessionShouldHave()->...
+HeyMan::whenYouVisitUrl('home')->youShouldAlways()-> ...
+HeyMan::whenYouVisitUrl('home')->sessionShouldHave('key1')->...
 
 ```
 
