@@ -5,13 +5,14 @@ use Imanghafoori\HeyMan\Facades\HeyMan;
 
 class YouShouldHaveTest extends TestCase
 {
-    public function _testImmediately()
+    public function testImmediately()
     {
-        HeyMan::whenYouVisitUrl('sdf')->immediately();
+        $r = HeyMan::whenYouVisitUrl('sdf')->youShouldAlways();
 
         $predicate = app(\Imanghafoori\HeyMan\Chain::class)->predicate;
 
         $this->assertFalse($predicate());
+        $r;
     }
 
     public function testYouShouldBeLoggedIn()
