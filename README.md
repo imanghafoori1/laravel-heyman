@@ -1,6 +1,6 @@
 # Laravel Hey Man
 
-## A package to help you write expressive, defensive code in a functional manner
+## A package to help you write expressive code in a functional manner
 
 ![image](https://user-images.githubusercontent.com/6961695/43285148-4d86673e-9133-11e8-9415-2df017906762.png)
 
@@ -36,13 +36,7 @@ Imagine your boss comes to you and says :
 and you write code like this to implement what your boss wanted.
 
 
-```php
-
-
-HeyMan::whenYouMakeView('auth.login')->youShouldBeGuest()->otherwise()->redirect('/panel');
-
-
-```
+![image](https://user-images.githubusercontent.com/6961695/43285311-cca1f178-9133-11e8-94a2-c03178eee3b9.png)
 
 
 ### That is what this package does for you + a lot more things...
