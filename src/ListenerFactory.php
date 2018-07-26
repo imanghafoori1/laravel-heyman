@@ -32,73 +32,9 @@ class ListenerFactory
         $this->dispatcher();
         $this->calls();
 
-        if ($this->chain->abort) {
-            $responder = $this->abortCallback($this->chain->abort);
-        }
-
-        if ($this->chain->exception) {
-            $responder = $this->exceptionCallback($this->chain->exception);
-        }
-
-        if ($this->chain->response) {
-            $responder = $this->responseCallback($this->chain->response);
-        }
-
-        if ($this->chain->redirect) {
-            $responder = $this->redirectCallback($this->chain->redirect);
-        }
+        $responder = app(ResponderFactory::class)->make();
 
         return $this->callBack($responder);
-    }
-
-    /**
-     * @param $e
-     * @param $cb
-     *
-     * @return \Closure
-     */
-    private function exceptionCallback($e): \Closure
-    {
-        $responder = function () use ($e) {
-            $exClass = $e['class'];
-            throw new $exClass($e['message']);
-        };
-
-      return $responder;
-    }
-
-    /**
-     * @param $resp
-     * @param $cb
-     *
-     * @return \Closure
-     */
-    private function responseCallback($resp): \Closure
-    {
-        $responder = function () use ($resp) {
-            $respObj = response();
-            foreach ($resp as $call) {
-                list($method, $args) = $call;
-                $respObj = $respObj->{$method}(...$args);
-            }
-            respondWith($respObj);
-        };
-
-      return $responder;
-    }
-
-    private function redirectCallback($resp): \Closure
-    {
-        $responder = function () use ($resp) {
-            $respObj = redirect();
-            foreach ($resp as $call) {
-                list($method, $args) = $call;
-                $respObj = $respObj->{$method}(...$args);
-            }
-            respondWith($respObj);
-        };
-
-      return $responder;
     }
 
     /**
@@ -156,14 +92,5 @@ class ListenerFactory
                 app()->call(...$call);
             }
         };
-    }
-
-    private function abortCallback($abort)
-    {
-        $responder = function () use ($abort) {
-            abort(...$abort);
-        };
-
-      return $responder;
     }
 }
