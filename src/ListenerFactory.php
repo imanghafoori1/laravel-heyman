@@ -33,20 +33,22 @@ class ListenerFactory
         $this->calls();
 
         if ($this->chain->abort) {
-            return $this->abortCallback($this->chain->abort);
+            $responder = $this->abortCallback($this->chain->abort);
         }
 
         if ($this->chain->exception) {
-            return $this->exceptionCallback($this->chain->exception);
+            $responder = $this->exceptionCallback($this->chain->exception);
         }
 
         if ($this->chain->response) {
-            return $this->responseCallback($this->chain->response);
+            $responder = $this->responseCallback($this->chain->response);
         }
 
         if ($this->chain->redirect) {
-            return $this->redirectCallback($this->chain->redirect);
+            $responder = $this->redirectCallback($this->chain->redirect);
         }
+
+        return $this->callBack($responder);
     }
 
     /**
@@ -62,7 +64,7 @@ class ListenerFactory
             throw new $exClass($e['message']);
         };
 
-        return $this->callBack($responder);
+      return $responder;
     }
 
     /**
@@ -82,7 +84,7 @@ class ListenerFactory
             respondWith($respObj);
         };
 
-        return $this->callBack($responder);
+      return $responder;
     }
 
     private function redirectCallback($resp): \Closure
@@ -96,7 +98,7 @@ class ListenerFactory
             respondWith($respObj);
         };
 
-        return $this->callBack($responder);
+      return $responder;
     }
 
     /**
@@ -162,6 +164,6 @@ class ListenerFactory
             abort(...$abort);
         };
 
-        return $this->callBack($responder);
+      return $responder;
     }
 }
