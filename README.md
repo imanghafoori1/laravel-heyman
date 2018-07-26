@@ -42,15 +42,7 @@ and you write code like this to implement what your boss wanted.
 ### That is what this package does for you + a lot more things...
 
 
-
-So now we can use this gate to authorize and stop the user in various moments of the application life cycle, including:
-- 1- Right after a Route is Matched
-- 2- Right before a blade file is going to be rendered. For example by calling: `view('myViewFile');` 
-- 3- Right before an eloquent model is going to be `read` or `created` or `updated` or `deleted`
-- 4- When any custom event is fired by calling `event('myEvent');`
-
-
-You can put these codes in `AuthServiceProvider.php` (or any other service provider) `boot` method to take effect:
+You can put these codes in `AuthServiceProvider.php` (or any other service provider) `boot` method to take effect.
 
 ## Watching Urls
 
