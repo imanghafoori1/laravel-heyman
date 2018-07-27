@@ -36,9 +36,9 @@ Imagine your boss comes to you and says :
 > Hey man,
 > When you go to login form, You should be guest,
 > Otherwise you must get redirected to '/panel',
->  Write the code for me, just now
+> Write the code for me, just now... But KEEP IN MIND you are not allowed to touch the current code. it is very sensitive and we do not want you to tamper with it. It way break.
 
-and you write code like this to implement what your boss wanted.
+And you write code like this in a `Service Provider` to implement what your boss wanted.
 
 
 ![image](https://user-images.githubusercontent.com/6961695/43285559-8c09a1e6-9134-11e8-841b-2dc933456082.png)
@@ -104,7 +104,6 @@ HeyMan::whenYouDelete(\App\User::class)->...
 
 
 This way gate is checked after `event('myEvent')` is executed any where in our app
-
 
 
 
