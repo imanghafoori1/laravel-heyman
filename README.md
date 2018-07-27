@@ -29,6 +29,12 @@ composer require imanghafoori/laravel-heyman
 
 ```
 
+### Requirements:
+
+```
+PHP > v7.0
+Laravel > v5.4
+```
 
 
 Imagine your boss comes to you and says :
@@ -36,9 +42,11 @@ Imagine your boss comes to you and says :
 > Hey man,
 > When you go to login form, You should be guest,
 > Otherwise you must get redirected to '/panel',
-> Write the code for me, just now... But KEEP IN MIND you are not allowed to touch the current code. it is very sensitive and we do not want you to tamper with it. It way break.
+> Write the code for me, just now... But KEEP IN MIND you are not allowed to touch the current code. it is very sensitive and we do not want you to tamper with it. You may break it.
 
-And you write code like this in a `Service Provider` to implement what your boss wanted.
+
+
+And you write code like this in a Service Provider `boot` method to implement what your boss wanted.
 
 
 ![image](https://user-images.githubusercontent.com/6961695/43285559-8c09a1e6-9134-11e8-841b-2dc933456082.png)
@@ -47,11 +55,23 @@ And you write code like this in a `Service Provider` to implement what your boss
 ### That is what this package does for you + a lot more...
 
 
-### Should You Remember and Type in All The Methods? 
-> IDE auto-completion is provided for you, out of the box for every thing.
+### Structural Benefits:
+
+This way you can fully decouple authorization and a lot of guarding code from the rest of your application code and put it in an other place. So your Controllers and Routes become less crowded. and you will have a central place where you limit the access of users to your application.
+
+
+#### Should You Remember and Type in All The Methods? 
+> IDE `Auto-completion` is fully supported.
+
+![untitled](https://user-images.githubusercontent.com/6961695/43330799-7d02cc54-91d9-11e8-845b-946077033ec6.png)
 
 #### Where do I put these codes ?
 > You can put these codes in `AuthServiceProvider.php` (or any other service provider) `boot` method to take effect.
+
+
+![image](https://user-images.githubusercontent.com/6961695/43330086-66d0b9a2-91d7-11e8-84fb-fa4ff90821a3.png)
+
+
 
 ## Watching Urls
 
