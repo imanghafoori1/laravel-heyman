@@ -62,10 +62,10 @@ class YouShouldHave
         return app(Otherwise::class);
     }
 
-    public function youShouldBeGuest(): Otherwise
+    public function youShouldBeGuest($guard = null): Otherwise
     {
-        $this->chain->predicate = function () {
-            return auth()->guest();
+        $this->chain->predicate = function () use ($guard) {
+            return auth($guard)->guest();
         };
 
         return app(Otherwise::class);
@@ -80,10 +80,10 @@ class YouShouldHave
         return app(Otherwise::class);
     }
 
-    public function youShouldBeLoggedIn(): Otherwise
+    public function youShouldBeLoggedIn($guard = null): Otherwise
     {
-        $this->chain->predicate = function () {
-            return auth()->check();
+        $this->chain->predicate = function () use ($guard) {
+            return auth($guard)->check();
         };
 
         return app(Otherwise::class);
