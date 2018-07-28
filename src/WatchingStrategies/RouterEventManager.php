@@ -17,10 +17,11 @@ class RouterEventManager
     private $urls = [];
 
     /**
-     * RouteConditionApplier constructor.
+     * RouterEventManager constructor.
      *
      * @param $target
      * @param $value
+     * @return \Imanghafoori\HeyMan\WatchingStrategies\RouterEventManager
      */
     public function init($target, $value)
     {
@@ -64,12 +65,21 @@ class RouterEventManager
     private function resolveCallback($action, $type): \Closure
     {
         if (array_key_exists($action, $this->{$type})) {
-            return $this->{$type}[$action];
+            $callback = $this->{$type}[$action];
+            return function () use ($callback) {
+                if (! config('heyman_ignore_route', false)) {
+                    $callback();
+                }
+            };
         }
 
         foreach ($this->{$type} as $pattern => $callback) {
             if (Str::is($pattern, $action)) {
-                return $callback;
+                return function () use ($callback) {
+                    if (! config('heyman_ignore_route', false)) {
+                        $callback();
+                    }
+                };
             }
         }
 
