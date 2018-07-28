@@ -2,47 +2,21 @@
 
 namespace Imanghafoori\HeyMan\WatchingStrategies;
 
-use Illuminate\Support\Str;
-
-class RouterEventManager
+class ViewEventManager
 {
-    private $target;
-
-    private $value;
-
-    private $routeNames = [];
-
-    private $actions = [];
-
-    private $urls = [];
+    private $views;
 
     /**
-     * RouteConditionApplier constructor.
+     * ViewEventManager constructor.
      *
-     * @param $target
-     * @param $value
+     * @param $views
+     * @return \Imanghafoori\HeyMan\WatchingStrategies\ViewEventManager
      */
-    public function init($target, $value)
+    public function init($views)
     {
-        $this->target = $target;
-        $this->value = $value;
+        $this->views = $views;
 
         return $this;
-    }
-
-    public function getUrls($url)
-    {
-        return $this->resolveCallback($url, 'urls');
-    }
-
-    public function getRouteNames($routeName)
-    {
-        return $this->resolveCallback($routeName, 'routeNames');
-    }
-
-    public function getActions($action)
-    {
-        return $this->resolveCallback($action, 'actions');
     }
 
     /**
@@ -50,39 +24,14 @@ class RouterEventManager
      */
     public function startGuarding(callable $callback)
     {
-        foreach ($this->value as $value) {
-            $this->{$this->target}[$value] = $callback;
-        }
-    }
-
-    /**
-     * @param $action
-     * @param $type
-     *
-     * @return \Closure
-     */
-    private function resolveCallback($action, $type): \Closure
-    {
-        if (array_key_exists($action, $this->{$type})) {
-            $callback = $this->{$type}[$action];
-            return function () use ($callback) {
-                if (! config('heyman_ignore_route', false)) {
-                    $callback();
-                }
-            };
-        }
-
-        foreach ($this->{$type} as $pattern => $callback) {
-            if (Str::is($pattern, $action)) {
-                return function () use ($callback) {
-                    if (! config('heyman_ignore_route', false)) {
-                        $callback();
-                    }
-                };
+        $callback = function (...$args) use ($callback) {
+            if (! config('heyman_ignore_view', false)) {
+                $callback(...$args);
             }
-        }
-
-        return function () {
         };
+
+        foreach ($this->views as $view) {
+            view()->creator($view, $callback);
+        }
     }
 }

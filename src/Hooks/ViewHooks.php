@@ -2,6 +2,9 @@
 
 namespace Imanghafoori\HeyMan\Hooks;
 
+use Imanghafoori\HeyMan\WatchingStrategies\ViewEventManager;
+use Imanghafoori\HeyMan\YouShouldHave;
+
 trait ViewHooks
 {
     /**
@@ -13,7 +16,7 @@ trait ViewHooks
     {
         $views = $this->normalizeView($views);
 
-        return $this->holdWhen($views);
+        return $this->watchView($views);
     }
 
     /**
@@ -34,13 +37,14 @@ trait ViewHooks
     private function normalizeView(array $views): array
     {
         $views = $this->normalizeInput($views);
+
         $mapper = function ($view) {
             $this->checkViewExists($view);
-
-            return 'creating: '.\Illuminate\View\ViewName::normalize($view);
         };
 
-        return array_map($mapper, $views);
+        array_walk($views, $mapper);
+
+        return $views;
     }
 
     private function checkViewExists($view)
@@ -48,5 +52,12 @@ trait ViewHooks
         if (strpos($view, '*') === false) {
             view()->getFinder()->find($view);
         }
+    }
+
+    private function watchView($view): YouShouldHave
+    {
+        $this->chain->eventManager = app(ViewEventManager::class)->init($view);
+
+        return app(YouShouldHave::class);
     }
 }
