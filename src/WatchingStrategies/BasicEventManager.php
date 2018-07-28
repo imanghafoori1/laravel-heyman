@@ -9,9 +9,10 @@ class BasicEventManager
     private $events;
 
     /**
-     * ConditionApplier constructor.
+     * BasicEventManager constructor.
      *
      * @param $event
+     * @return \Imanghafoori\HeyMan\WatchingStrategies\BasicEventManager
      */
     public function init($event)
     {
