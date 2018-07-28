@@ -4,6 +4,7 @@ namespace Imanghafoori\HeyMan\Facades;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Facade;
+use Imanghafoori\HeyMan\Ignore;
 use Imanghafoori\HeyMan\YouShouldHave;
 
 /**
@@ -20,6 +21,7 @@ use Imanghafoori\HeyMan\YouShouldHave;
  * @method static YouShouldHave whenYouViewBlade(array|sting $view)
  * @method static YouShouldHave whenYouMakeView(array|sting $view)
  * @method static YouShouldHave whenEventHappens(array|sting $event)
+ * @method static Ignore ignore()
  *
  * @see \Imanghafoori\HeyMan\HeyMan
  */
