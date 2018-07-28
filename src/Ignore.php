@@ -6,21 +6,29 @@ class Ignore
 {
     public function eloquentChecks()
     {
-        config()->set('heyman_ignore_eloquent', true);
+        $this->ignore('heyman_ignore_eloquent');
     }
 
     public function viewChecks()
     {
-        config()->set('heyman_ignore_view', true);
+        $this->ignore('heyman_ignore_view');
     }
 
     public function routeChecks()
     {
-        config()->set('heyman_ignore_route', true);
+        $this->ignore('heyman_ignore_route');
     }
 
     public function eventChecks()
     {
-        config()->set('heyman_ignore_event', true);
+        $this->ignore('heyman_ignore_event');
+    }
+    
+    /**
+     * @param $key
+     */
+    private function ignore($key)
+    {
+        config()->set($key, true);
     }
 }
