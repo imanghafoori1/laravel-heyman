@@ -21,6 +21,7 @@ class RouterEventManager
      *
      * @param $target
      * @param $value
+     *
      * @return \Imanghafoori\HeyMan\WatchingStrategies\RouterEventManager
      */
     public function init($target, $value)
@@ -82,12 +83,13 @@ class RouterEventManager
 
     /**
      * @param $callback
+     *
      * @return \Closure
      */
     private function wrapCallbackForIgnore($callback): \Closure
     {
         return function () use ($callback) {
-            if (! config('heyman_ignore_route', false)) {
+            if (!config('heyman_ignore_route', false)) {
                 $callback();
             }
         };

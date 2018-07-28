@@ -30,7 +30,7 @@ class EloquentEventsManager
     public function startGuarding(callable $callback)
     {
         $c = function (...$args) use ($callback) {
-            if (! config('heyman_ignore_eloquent', false)) {
+            if (!config('heyman_ignore_eloquent', false)) {
                 $callback(...$args);
             }
         };
