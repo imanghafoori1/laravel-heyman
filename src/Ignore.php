@@ -23,7 +23,7 @@ class Ignore
     {
         $this->ignore('heyman_ignore_event');
     }
-    
+
     /**
      * @param $key
      */

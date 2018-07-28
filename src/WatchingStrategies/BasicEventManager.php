@@ -12,6 +12,7 @@ class BasicEventManager
      * BasicEventManager constructor.
      *
      * @param $event
+     *
      * @return \Imanghafoori\HeyMan\WatchingStrategies\BasicEventManager
      */
     public function init($event)

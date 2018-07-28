@@ -10,6 +10,7 @@ class ViewEventManager
      * ViewEventManager constructor.
      *
      * @param $views
+     *
      * @return \Imanghafoori\HeyMan\WatchingStrategies\ViewEventManager
      */
     public function init($views)
@@ -25,7 +26,7 @@ class ViewEventManager
     public function startGuarding(callable $callback)
     {
         $callback = function (...$args) use ($callback) {
-            if (! config('heyman_ignore_view', false)) {
+            if (!config('heyman_ignore_view', false)) {
                 $callback(...$args);
             }
         };
