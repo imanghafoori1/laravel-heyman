@@ -45,4 +45,9 @@ class HeyMan
 
         return app(YouShouldHave::class);
     }
+
+    public function ignore(): Ignore
+    {
+        return app(Ignore::class);
+    }
 }
