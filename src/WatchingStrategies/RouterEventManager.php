@@ -66,24 +66,30 @@ class RouterEventManager
     {
         if (array_key_exists($action, $this->{$type})) {
             $callback = $this->{$type}[$action];
-            return function () use ($callback) {
-                if (! config('heyman_ignore_route', false)) {
-                    $callback();
-                }
-            };
+
+            return $this->wrapCallbackForIgnore($callback);
         }
 
         foreach ($this->{$type} as $pattern => $callback) {
             if (Str::is($pattern, $action)) {
-                return function () use ($callback) {
-                    if (! config('heyman_ignore_route', false)) {
-                        $callback();
-                    }
-                };
+                return $this->wrapCallbackForIgnore($callback);
             }
         }
 
         return function () {
+        };
+    }
+
+    /**
+     * @param $callback
+     * @return \Closure
+     */
+    private function wrapCallbackForIgnore($callback): \Closure
+    {
+        return function () use ($callback) {
+            if (! config('heyman_ignore_route', false)) {
+                $callback();
+            }
         };
     }
 }
