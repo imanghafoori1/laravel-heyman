@@ -9,7 +9,7 @@ class EloquentEventsManager
     private $modelClass;
 
     /**
-     * RouteConditionApplier constructor.
+     * EloquentEventsManager constructor.
      *
      * @param $event
      * @param $modelClass
@@ -29,8 +29,14 @@ class EloquentEventsManager
      */
     public function startGuarding(callable $callback)
     {
+        $c = function (...$args) use ($callback) {
+            if (! config('heyman_ignore_eloquent', false)) {
+                $callback(...$args);
+            }
+        };
+
         foreach ($this->modelClass as $model) {
-            $model::{$this->event}($callback);
+            $model::{$this->event}($c);
         }
     }
 }
