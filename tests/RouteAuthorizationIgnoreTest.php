@@ -11,7 +11,7 @@ class RouteAuthorizationIgnoreTest extends TestCase
         HeyMan::whenYouVisitUrl('/welco*')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
         HeyMan::whenYouVisitUrl('welcome1')->youShouldHaveRole('writer')->otherwise()->weDenyAccess();
 
-        Heyman::ignore()->routeChecks();
+        Heyman::turnOff()->routeChecks();
 
         $this->get('welcome')->assertStatus(200);
     }
@@ -23,7 +23,7 @@ class RouteAuthorizationIgnoreTest extends TestCase
         HeyMan::whenYouVisitUrl(['welcome', 'welcome_'])->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
         HeyMan::whenYouVisitUrl('welcome1')->youShouldHaveRole('writer')->otherwise()->weDenyAccess();
 
-        Heyman::ignore()->routeChecks();
+        Heyman::turnOff()->routeChecks();
 
         $this->get('welcome')->assertStatus(200);
     }
@@ -35,7 +35,7 @@ class RouteAuthorizationIgnoreTest extends TestCase
         HeyMan::whenYouVisitUrl(['welcome_', 'welcome'])->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
         HeyMan::whenYouVisitUrl('welcome1')->youShouldHaveRole('writer')->otherwise()->weDenyAccess();
 
-        Heyman::ignore()->routeChecks();
+        Heyman::turnOff()->routeChecks();
 
         $this->get('welcome')->assertStatus(200);
     }
@@ -47,7 +47,7 @@ class RouteAuthorizationIgnoreTest extends TestCase
         HeyMan::whenYouVisitUrl('welcome', 'welcome_')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
         HeyMan::whenYouVisitUrl('welcome1')->youShouldHaveRole('writer')->otherwise()->weDenyAccess();
 
-        Heyman::ignore()->routeChecks();
+        Heyman::turnOff()->routeChecks();
 
         $this->get('welcome')->assertStatus(200);
     }
@@ -59,7 +59,7 @@ class RouteAuthorizationIgnoreTest extends TestCase
         HeyMan::whenYouVisitUrl('welcome_', 'welcome')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
         HeyMan::whenYouVisitUrl('welcome1')->youShouldHaveRole('writer')->otherwise()->weDenyAccess();
 
-        Heyman::ignore()->routeChecks();
+        Heyman::turnOff()->routeChecks();
 
         $this->get('welcome')->assertStatus(200);
     }
@@ -70,7 +70,7 @@ class RouteAuthorizationIgnoreTest extends TestCase
 
         HeyMan::whenYouVisitRoute('welcome.name')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
 
-        Heyman::ignore()->routeChecks();
+        Heyman::turnOff()->routeChecks();
 
         $this->get('welcome')->assertStatus(200);
     }
@@ -81,7 +81,7 @@ class RouteAuthorizationIgnoreTest extends TestCase
 
         HeyMan::whenYouVisitRoute('welcome.*')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
 
-        Heyman::ignore()->routeChecks();
+        Heyman::turnOff()->routeChecks();
 
         $this->get('welcome')->assertStatus(200);
     }
@@ -92,7 +92,7 @@ class RouteAuthorizationIgnoreTest extends TestCase
 
         HeyMan::whenYouCallAction('\HomeController@index')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
 
-        Heyman::ignore()->routeChecks();
+        Heyman::turnOff()->routeChecks();
 
         $this->get('welcome')->assertStatus(200);
     }
@@ -104,7 +104,7 @@ class RouteAuthorizationIgnoreTest extends TestCase
         HeyMan::whenYouVisitRoute('welcome.Oname')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
         HeyMan::whenYouCallAction('\HomeController@index')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
 
-        Heyman::ignore()->routeChecks();
+        Heyman::turnOff()->routeChecks();
 
         $this->get('welcome')->assertStatus(200);
     }
@@ -116,7 +116,7 @@ class RouteAuthorizationIgnoreTest extends TestCase
         HeyMan::whenYouFetch('\App\User')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
         HeyMan::whenYouCreate('\App\User2')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
 
-        Heyman::ignore()->eloquentChecks();
+        Heyman::turnOff()->eloquentChecks();
 
         event('eloquent.retrieved: App\User');
     }
@@ -130,7 +130,7 @@ class RouteAuthorizationIgnoreTest extends TestCase
             ->otherwise()
             ->weDenyAccess();
 
-        Heyman::ignore()->viewChecks();
+        Heyman::turnOff()->viewChecks();
 
         view('welcome');
     }
