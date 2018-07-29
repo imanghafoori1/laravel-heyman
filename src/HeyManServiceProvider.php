@@ -43,6 +43,5 @@ class HeyManServiceProvider extends ServiceProvider
         $this->app->singleton(ListenerFactory::class, ListenerFactory::class);
         $this->app->singleton(BasicEventManager::class, BasicEventManager::class);
         $this->app->singleton(RouterEventManager::class, RouterEventManager::class);
-        $this->app->singleton(Ignore::class, Ignore::class);
     }
 }

@@ -2,8 +2,15 @@
 
 namespace Imanghafoori\HeyMan;
 
-class Ignore
+class Consider
 {
+    private $mode;
+
+    public function __construct($mode)
+    {
+        $this->mode = $mode;
+    }
+
     public function eloquentChecks()
     {
         $this->ignore('heyman_ignore_eloquent');
@@ -29,6 +36,9 @@ class Ignore
      */
     private function ignore($key)
     {
-        config()->set($key, true);
+        config()->set($key, [
+            'turnOff' => true,
+            'turnOn' => false,
+        ][$this->mode]);
     }
 }

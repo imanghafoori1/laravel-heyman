@@ -46,8 +46,13 @@ class HeyMan
         return app(YouShouldHave::class);
     }
 
-    public function ignore(): Ignore
+    public function turnOff(): Consider
     {
-        return app(Ignore::class);
+        return new Consider('turnOff');
+    }
+
+    public function turnOn(): Consider
+    {
+        return new Consider('turnOn');
     }
 }
