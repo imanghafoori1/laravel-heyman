@@ -121,6 +121,21 @@ class RouteAuthorizationIgnoreTest extends TestCase
         event('eloquent.retrieved: App\User');
     }
 
+    public function testFetchingModelsIsAuthorized_closure_Ignorance()
+    {
+        setUp::run();
+        HeyMan::whenYouFetch('\App\User')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+        HeyMan::whenYouCreate('\App\User2')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+
+        config()->set('heyman_ignore_eloquent', '2222');
+
+        Heyman::turnOff()->eloquentChecks(function (){
+            event('eloquent.retrieved: App\User');
+        });
+        
+        $this->assertEquals(config('heyman_ignore_eloquent'), '2222');
+    }
+
     public function testViewIsAuthorized21134()
     {
         setUp::run();
