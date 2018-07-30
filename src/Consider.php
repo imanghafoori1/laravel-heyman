@@ -31,6 +31,14 @@ class Consider
         $this->ignore('heyman_ignore_event');
     }
 
+    public function allChecks()
+    {
+        $this->eventChecks();
+        $this->eloquentChecks();
+        $this->routeChecks();
+        $this->viewChecks();
+    }
+
     /**
      * @param $key
      */
