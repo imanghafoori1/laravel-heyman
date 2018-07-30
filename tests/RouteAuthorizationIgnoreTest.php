@@ -129,10 +129,10 @@ class RouteAuthorizationIgnoreTest extends TestCase
 
         config()->set('heyman_ignore_eloquent', '2222');
 
-        Heyman::turnOff()->eloquentChecks(function (){
+        Heyman::turnOff()->eloquentChecks(function () {
             event('eloquent.retrieved: App\User');
         });
-        
+
         $this->assertEquals(config('heyman_ignore_eloquent'), '2222');
     }
 
