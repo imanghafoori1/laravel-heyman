@@ -52,7 +52,7 @@ class Consider
         ][$this->mode]);
 
         if (is_null($closure)) {
-            return ;
+            return;
         }
         $closure();
         config()->set($key, $current);
