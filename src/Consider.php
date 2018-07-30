@@ -13,22 +13,22 @@ class Consider
 
     public function eloquentChecks(callable $closure = null)
     {
-        $this->turn('heyman_ignore_eloquent', $closure);
+        return $this->turn('heyman_ignore_eloquent', $closure);
     }
 
     public function viewChecks(callable $closure = null)
     {
-        $this->turn('heyman_ignore_view', $closure);
+        return $this->turn('heyman_ignore_view', $closure);
     }
 
     public function routeChecks(callable $closure = null)
     {
-        $this->turn('heyman_ignore_route', $closure);
+        return $this->turn('heyman_ignore_route', $closure);
     }
 
     public function eventChecks(callable $closure = null)
     {
-        $this->turn('heyman_ignore_event', $closure);
+        return $this->turn('heyman_ignore_event', $closure);
     }
 
     public function allChecks()
@@ -54,7 +54,9 @@ class Consider
         if (is_null($closure)) {
             return;
         }
-        $closure();
+        $result = $closure();
         config()->set($key, $current);
+
+        return $result;
     }
 }
