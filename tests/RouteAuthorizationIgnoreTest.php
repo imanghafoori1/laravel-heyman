@@ -68,7 +68,7 @@ class RouteAuthorizationIgnoreTest extends TestCase
     {
         setUp::run();
 
-        HeyMan::whenYouVisitRoute('welcome.name')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+        HeyMan::whenYouReachRoute('welcome.name')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
 
         Heyman::turnOff()->routeChecks();
 
@@ -79,7 +79,7 @@ class RouteAuthorizationIgnoreTest extends TestCase
     {
         setUp::run();
 
-        HeyMan::whenYouVisitRoute('welcome.*')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+        HeyMan::whenYouReachRoute('welcome.*')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
 
         Heyman::turnOff()->routeChecks();
 
@@ -101,7 +101,7 @@ class RouteAuthorizationIgnoreTest extends TestCase
     {
         setUp::run();
 
-        HeyMan::whenYouVisitRoute('welcome.Oname')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+        HeyMan::whenYouReachRoute('welcome.Oname')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
         HeyMan::whenYouCallAction('\HomeController@index')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
 
         Heyman::turnOff()->routeChecks();
