@@ -12,10 +12,8 @@ class RouteAuthorizer
     {
         Route::matched(function (RouteMatched $eventObj) {
             $route = $eventObj->route;
-            foreach (['GET', 'POST', 'PUT', 'PATCH', 'DELETE',] as $verb) {
+            foreach (['GET', 'POST', 'PUT', 'PATCH', 'DELETE'] as $verb) {
                 if ($eventObj->request->method() === $verb) {
-
-
                     $this->authorizeUrls($verb.$route->uri);
                 }
             }
@@ -58,7 +56,6 @@ class RouteAuthorizer
      * @param $method
      * @param $key
      */
-
     private function setGuardFor(string $method, $key)
     {
         $method = 'get'.$method;
