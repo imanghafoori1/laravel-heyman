@@ -14,6 +14,34 @@ class RouteAuthorizationTest extends TestCase
         $this->get('welcome')->assertStatus(403);
     }
 
+    public function testPostUrls()
+    {
+        setUp::run();
+        HeyMan::whenYouSendPost('post')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
+        $this->post('post')->assertStatus(403);
+    }
+
+    public function testPutUrls()
+    {
+        setUp::run();
+        HeyMan::whenYouSendPut('put')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
+        $this->put('put')->assertStatus(404);
+    }
+
+    public function testPatchUrls()
+    {
+        setUp::run();
+        HeyMan::whenYouSendPatch('patch')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
+        $this->patch('patch')->assertStatus(403);
+    }
+
+    public function testDeleteUrls()
+    {
+        setUp::run();
+        HeyMan::whenYouSendDelete('delete')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
+        $this->delete('delete')->assertStatus(405);
+    }
+
     public function testwhenYouVisitUrlCanAcceptArray()
     {
         setUp::run();

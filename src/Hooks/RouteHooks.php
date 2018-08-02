@@ -28,7 +28,7 @@ trait RouteHooks
      *
      * @return YouShouldHave
      */
-    public function whenYouVisitRoute(...$routeName)
+    public function whenYouReachRoute(...$routeName)
     {
         return $this->authorizeRoute('routeNames', $this->normalizeInput($routeName));
     }
