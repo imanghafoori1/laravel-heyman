@@ -14,13 +14,47 @@ trait RouteHooks
      */
     public function whenYouVisitUrl(...$url)
     {
-        $removeSlash = function ($url) {
-            return ltrim($url, '/');
-        };
+        return $this->authorizeURL($url, 'GET');
+    }
 
-        $url = array_map($removeSlash, $this->normalizeInput($url));
+    /**
+     * @param mixed ...$url
+     *
+     * @return YouShouldHave
+     */
+    public function whenYouSendPost(...$url)
+    {
+        return $this->authorizeURL($url, 'POST');
+    }
 
-        return $this->authorizeRoute('urls', $url);
+    /**
+     * @param mixed ...$url
+     *
+     * @return YouShouldHave
+     */
+    public function whenYouSendPatch(...$url)
+    {
+        return $this->authorizeURL($url, 'PATCH');
+    }
+
+    /**
+     * @param mixed ...$url
+     *
+     * @return YouShouldHave
+     */
+    public function whenYouSendPut(...$url)
+    {
+        return $this->authorizeURL($url, 'PUT');
+    }
+
+    /**
+     * @param mixed ...$url
+     *
+     * @return YouShouldHave
+     */
+    public function whenYouSendDelete(...$url)
+    {
+        return $this->authorizeURL($url, 'DELETE');
     }
 
     /**
@@ -64,5 +98,21 @@ trait RouteHooks
         $this->chain->eventManager = app(RouterEventManager::class)->init($target, $value);
 
         return app(YouShouldHave::class);
+    }
+
+    /**
+     * @param $url
+     * @param $verb
+     * @return \Imanghafoori\HeyMan\YouShouldHave
+     */
+    private function authorizeURL($url, $verb): \Imanghafoori\HeyMan\YouShouldHave
+    {
+        $removeSlash = function ($url) use ($verb) {
+            return $verb.ltrim($url, '/');
+        };
+
+        $url = array_map($removeSlash, $this->normalizeInput($url));
+
+        return $this->authorizeRoute('urls', $url);
     }
 }
