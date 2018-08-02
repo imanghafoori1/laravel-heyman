@@ -23,6 +23,19 @@ class setUp
         Route::get('/event/{event}', function ($event) {
             event($event);
         })->name('event.name');
+
+
+        Route::post('/post', function () {
+            return 'aa';
+        })->name('post.name');
+
+        Route::patch('patch', function () {
+            return 'aa';
+        })->name('patch.name');
+
+        Route::patch('/delete', function () {
+            return 'aa';
+        })->name('delete.name');
     }
 
     private static function mock()
