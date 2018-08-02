@@ -102,6 +102,8 @@ class YouShouldHave
     public function yourRequestShouldBeValid($rules)
     {
         $this->chain->predicate = function () use ($rules) {
+            if(is_callable($rules))
+                $rules = $rules();
             $validator = Validator::make(request()->all(), $rules);
             $validator->validate();
         };
