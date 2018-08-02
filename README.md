@@ -174,9 +174,10 @@ HeyMan::whenYouSendPost('articles.store')->yourRequestShouldBeValid([
 ]);
 ```
 
-That way you do not need to validate requests in your controllers or create dedicated FormRequest classes for validate input.
+That way you do not need to validate requests in your controllers or create dedicated FormRequest classes to validate input.
 
-### Other
+### Other things:
+
 You can also use one of these:
 ```
 HeyMan::whenYouVisitUrl('home')->youShouldAlways()-> ...
