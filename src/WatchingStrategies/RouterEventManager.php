@@ -89,9 +89,8 @@ class RouterEventManager
     private function wrapCallbacksForIgnore($callbacks): array
     {
         return array_map(function ($callback) {
-            return function () use ($callback)
-            {
-                if (! config('heyman_ignore_route', false)) {
+            return function () use ($callback) {
+                if (!config('heyman_ignore_route', false)) {
                     $callback();
                 }
             };

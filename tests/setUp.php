@@ -24,7 +24,6 @@ class setUp
             event($event);
         })->name('event.name');
 
-
         Route::post('/post', function () {
             return 'aa';
         })->name('post.name');

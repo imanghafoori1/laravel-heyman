@@ -103,6 +103,7 @@ trait RouteHooks
     /**
      * @param $url
      * @param $verb
+     *
      * @return \Imanghafoori\HeyMan\YouShouldHave
      */
     private function authorizeURL($url, $verb): \Imanghafoori\HeyMan\YouShouldHave
