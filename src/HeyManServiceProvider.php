@@ -38,7 +38,6 @@ class HeyManServiceProvider extends ServiceProvider
     {
         $this->app->singleton(Chain::class, Chain::class);
         $this->app->singleton(HeyMan::class, HeyMan::class);
-        $this->app->singleton('hey_man_responder', Redirector::class);
         $this->app->singleton(YouShouldHave::class, YouShouldHave::class);
         $this->app->singleton(ListenerFactory::class, ListenerFactory::class);
         $this->app->singleton(BasicEventManager::class, BasicEventManager::class);
