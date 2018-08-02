@@ -26,6 +26,8 @@ class ResponderFactory
             return $this->responseCallback($this->chain->response);
         } elseif ($this->chain->redirect) {
             return $this->redirectCallback($this->chain->redirect);
+        } else {
+            return function () {};
         }
     }
 
