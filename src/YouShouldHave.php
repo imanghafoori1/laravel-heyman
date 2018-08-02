@@ -3,6 +3,7 @@
 namespace Imanghafoori\HeyMan;
 
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Validator;
 
 class YouShouldHave
 {
@@ -96,6 +97,16 @@ class YouShouldHave
         };
 
         return app(Actions::class);
+    }
+
+    public function yourRequestShouldBeValid($rules)
+    {
+        $this->chain->predicate = function () use ($rules) {
+            $validator = Validator::make(request()->all(), $rules);
+            $validator->validate();
+        };
+
+        app(Chain::class)->submitChainConfig();
     }
 
     /**
