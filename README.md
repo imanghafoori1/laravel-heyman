@@ -60,7 +60,7 @@ And you write code like this in a Service Provider `boot` method to implement wh
 
 ### Structural Benefits:
 
-This way you can fully decouple authorization and a lot of guarding code from the rest of your application code and put it in an other place. So your Controllers and Routes become less crowded. and you will have a central place where you limit the access of users to your application.
+This way you can fully decouple authorization and a lot of guarding code from the rest of your application code and put it in an other place. So your Controllers and Routes become less crowded. and you will have a central place where you limit the access of users to your application or perform validation.
 
 
 #### Should You Remember and Type in All The Methods? 
