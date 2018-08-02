@@ -54,9 +54,13 @@ class RouteAuthorizer
      * @param $method
      * @param $key
      */
-    private function setGuardFor($method, $key)
+
+    private function setGuardFor(string $method, $key)
     {
         $method = 'get'.$method;
-        app(RouterEventManager::class)->{$method}($key)();
+        $closures = app(RouterEventManager::class)->{$method}($key);
+        foreach ($closures as $cb) {
+            $cb();
+        }
     }
 }

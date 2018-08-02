@@ -34,17 +34,17 @@ class RouterEventManager
 
     public function getUrls($url)
     {
-        return $this->resolveCallback($url, 'urls');
+        return $this->resolveCallbacks($url, 'urls');
     }
 
     public function getRouteNames($routeName)
     {
-        return $this->resolveCallback($routeName, 'routeNames');
+        return $this->resolveCallbacks($routeName, 'routeNames');
     }
 
     public function getActions($action)
     {
-        return $this->resolveCallback($action, 'actions');
+        return $this->resolveCallbacks($action, 'actions');
     }
 
     /**
@@ -53,7 +53,7 @@ class RouterEventManager
     public function startGuarding(callable $callback)
     {
         foreach ($this->value as $value) {
-            $this->{$this->target}[$value] = $callback;
+            $this->{$this->target}[$value][] = $callback;
         }
     }
 
@@ -61,37 +61,40 @@ class RouterEventManager
      * @param $action
      * @param $type
      *
-     * @return \Closure
+     * @return array
      */
-    private function resolveCallback($action, $type): \Closure
+    private function resolveCallbacks($action, $type): array
     {
         if (array_key_exists($action, $this->{$type})) {
-            $callback = $this->{$type}[$action];
+            $callbacks = $this->{$type}[$action];
 
-            return $this->wrapCallbackForIgnore($callback);
+            return $this->wrapCallbacksForIgnore($callbacks);
         }
 
-        foreach ($this->{$type} as $pattern => $callback) {
+        foreach ($this->{$type} as $pattern => $callbacks) {
             if (Str::is($pattern, $action)) {
-                return $this->wrapCallbackForIgnore($callback);
+                return $this->wrapCallbacksForIgnore($callbacks);
             }
         }
 
-        return function () {
-        };
+        return [function () {
+        }];
     }
 
     /**
-     * @param $callback
+     * @param $callbacks
      *
-     * @return \Closure
+     * @return array
      */
-    private function wrapCallbackForIgnore($callback): \Closure
+    private function wrapCallbacksForIgnore($callbacks): array
     {
-        return function () use ($callback) {
-            if (!config('heyman_ignore_route', false)) {
-                $callback();
-            }
-        };
+        return array_map(function ($callback) {
+            return function () use ($callback)
+            {
+                if (! config('heyman_ignore_route', false)) {
+                    $callback();
+                }
+            };
+        }, $callbacks);
     }
 }
