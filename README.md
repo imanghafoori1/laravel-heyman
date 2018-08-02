@@ -77,16 +77,20 @@ This way you can fully decouple authorization and a lot of guarding code from th
 
 ```php
 HeyMan::whenYouVisitUrl(['/welcome', '/home'])->...   // you can pass an Array
-HeyMan::whenYouVisitUrl( '/welcome', '/home' )->...   // variable number of args
 HeyMan::whenYouVisitUrl('/admin/articles/*')->...     // or match by wildcard
 ```
-
+```php
+HeyMan::whenYouSendPost($url)->   ...   
+HeyMan::whenYouSendPatch($url)->  ...  
+HeyMan::whenYouSendPut($url)->    ...     
+HeyMan::whenYouSendDelete($url)-> ...
+```
 
 ## Watching Route Names
 
 ```php
-HeyMan::whenYouVisitRoute('welcome.name')->...
-HeyMan::whenYouVisitRoute('welcome.*')->...                 // or match by wildcard
+HeyMan::whenYouReachRoute('welcome.name')->...
+HeyMan::whenYouReachRoute('welcome.*')->...                 // or match by wildcard
 ```
 
 
@@ -160,12 +164,20 @@ HeyMan::whenYouVisitUrl('home')->thisClosureShouldAllow(ّ function($a) { ... },
 HeyMan::whenYouVisitUrl('home')->thisValueShouldAllow(ّ $someValue )->otherwise()->...;
 ```
 
+### 4- Validate Requests:
+```php
+HeyMan::whenYouSendPost('articles.store')->yourRequestShouldBeValid([
+    'title' => 'required', 'body' => 'required',
+]);
+```
+
+That way you do not need to validate requests in your controllers or create dedicated FormRequest classes for validate input.
+
 ### Other
 You can also use one of these:
 ```
 HeyMan::whenYouVisitUrl('home')->youShouldAlways()-> ...
 HeyMan::whenYouVisitUrl('home')->sessionShouldHave('key1')->...
-
 ```
 
 --------------------
@@ -226,7 +238,19 @@ HeyMan::whenYouVisitUrl('/login')-> ... ->otherwise()->afterFiringEvent('explode
 HeyMan::whenYouVisitUrl('/login')-> ... ->otherwise()->afterCalling('someclass@method1')->response()->json(...);
 ```
 
+### Disabling Heyman:
+You can disable HeyMan chacks like this (useful while testing): 
 
+![untitled](https://user-images.githubusercontent.com/6961695/43585840-53aae034-967b-11e8-8503-2c1de7a35e9f.png)
+
+```php
+HeyMan::turnOff()->allChecks();
+...
+/// some code here
+...
+HeyMan::turnOn()->allChecks();
+
+```
 --------------------
 
 ### :raising_hand: Contributing 
