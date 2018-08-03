@@ -70,6 +70,7 @@ class RouterEventManager
     {
         return array_map(function ($callback) {
             $c = $callback[1];
+
             return function () use ($c) {
                 if (!config('heyman_ignore_route', false)) {
                     $c();
