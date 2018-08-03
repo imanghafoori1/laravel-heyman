@@ -11,21 +11,18 @@ class RouteAuthorizer
     public function authorizeMatchedRoutes()
     {
         Route::matched(function (RouteMatched $eventObj) {
-            $route = $eventObj->route;
-            $this->setGuardFor($eventObj->request->method().$route->uri);
-            $this->setGuardFor($route->getName());
-            $this->setGuardFor($route->getActionName());
-        });
-    }
+            $matchedRoute = [
+                $eventObj->route->getName(),
+                $eventObj->route->getActionName(),
+                $eventObj->request->method().$eventObj->route->uri
+            ];
 
-    /**
-     * @param $url
-     */
-    private function setGuardFor($url)
-    {
-        $closures = app(RouterEventManager::class)->resolveCallbacks($url);
-        foreach ($closures as $cb) {
-            $cb();
-        }
+            $closures = app(RouterEventManager::class)->start($matchedRoute);
+            foreach ($closures as $cb) {
+                foreach ($cb as $c) {
+                    $c();
+                }
+            }
+        });
     }
 }

@@ -8,22 +8,35 @@ class RouterEventManager
 {
     private $target;
 
-    private $value;
+    private $routeInfo;
 
     private $all = [];
+
+    public function start($matchedRoute)
+    {
+        $output = [];
+        foreach ($this->all as $routeInfo => $callBacks) {
+            foreach ($matchedRoute as $info) {
+                if (Str::is($routeInfo, $info)) {
+                    $output[] = $this->wrapCallbacksForIgnore($callBacks);
+                }
+            }
+        }
+        return $output;
+    }
 
     /**
      * RouterEventManager constructor.
      *
      * @param $target
-     * @param $value
+     * @param $routeInfo
      *
      * @return \Imanghafoori\HeyMan\WatchingStrategies\RouterEventManager
      */
-    public function init($target, $value)
+    public function init($target, $routeInfo)
     {
         $this->target = $target;
-        $this->value = $value;
+        $this->routeInfo = $routeInfo;
 
         return $this;
     }
@@ -33,32 +46,9 @@ class RouterEventManager
      */
     public function startGuarding(callable $callback)
     {
-        foreach ($this->value as $value) {
-            $this->all[$value][] = [$this->target, $callback];
+        foreach ($this->routeInfo as $routeInfo) {
+            $this->all[$routeInfo][] = [$this->target, $callback];
         }
-    }
-
-    /**
-     * @param $action
-     *
-     * @return array
-     */
-    public function resolveCallbacks($action): array
-    {
-        if (array_key_exists($action, $this->all)) {
-            $callbacks = $this->all[$action];
-
-            return $this->wrapCallbacksForIgnore($callbacks);
-        }
-
-        foreach ($this->all as $pattern => $callbacks) {
-            if (Str::is($pattern, $action)) {
-                return $this->wrapCallbacksForIgnore($callbacks);
-            }
-        }
-
-        return [function () {
-        }];
     }
 
     /**
