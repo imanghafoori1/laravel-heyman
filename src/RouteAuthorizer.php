@@ -17,12 +17,20 @@ class RouteAuthorizer
                 $eventObj->request->method().$eventObj->route->uri,
             ];
 
-            $closures = app(RouterEventManager::class)->start($matchedRoute);
-            foreach ($closures as $cb) {
-                foreach ($cb as $c) {
-                    $c();
-                }
-            }
+            $closures = app(RouterEventManager::class)->findMatchingCallbacks($matchedRoute);
+            $this->performClosures($closures);
         });
+    }
+
+    /**
+     * @param $closures
+     */
+    private function performClosures($closures)
+    {
+        foreach ($closures as $closure) {
+            foreach ($closure as $c) {
+                $c();
+            }
+        }
     }
 }

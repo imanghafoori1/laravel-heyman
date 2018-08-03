@@ -64,7 +64,7 @@ trait RouteHooks
      */
     public function whenYouReachRoute(...$routeName)
     {
-        return $this->authorizeRoute('routeNames', $this->normalizeInput($routeName));
+        return $this->authorizeRoute($this->normalizeInput($routeName));
     }
 
     /**
@@ -84,7 +84,7 @@ trait RouteHooks
 
         $action = array_map($addNamespace, $this->normalizeInput($action));
 
-        return $this->authorizeRoute('actions', $action);
+        return $this->authorizeRoute($action);
     }
 
     /**
@@ -93,9 +93,9 @@ trait RouteHooks
      *
      * @return YouShouldHave
      */
-    private function authorizeRoute($target, $value)
+    private function authorizeRoute($value)
     {
-        $this->chain->eventManager = app(RouterEventManager::class)->init($target, $value);
+        $this->chain->eventManager = app(RouterEventManager::class)->init($value);
 
         return app(YouShouldHave::class);
     }
@@ -114,6 +114,6 @@ trait RouteHooks
 
         $url = array_map($removeSlash, $this->normalizeInput($url));
 
-        return $this->authorizeRoute('urls', $url);
+        return $this->authorizeRoute($url);
     }
 }

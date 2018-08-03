@@ -6,13 +6,11 @@ use Illuminate\Support\Str;
 
 class RouterEventManager
 {
-    private $target;
-
     private $routeInfo;
 
     private $all = [];
 
-    public function start($matchedRoute)
+    public function findMatchingCallbacks($matchedRoute)
     {
         $output = [];
         foreach ($this->all as $routeInfo => $callBacks) {
@@ -34,9 +32,8 @@ class RouterEventManager
      *
      * @return \Imanghafoori\HeyMan\WatchingStrategies\RouterEventManager
      */
-    public function init($target, $routeInfo)
+    public function init($routeInfo)
     {
-        $this->target = $target;
         $this->routeInfo = $routeInfo;
 
         return $this;
@@ -48,7 +45,7 @@ class RouterEventManager
     public function startGuarding(callable $callback)
     {
         foreach ($this->routeInfo as $routeInfo) {
-            $this->all[$routeInfo][] = [$this->target, $callback];
+            $this->all[$routeInfo][] = $callback;
         }
     }
 
@@ -60,11 +57,9 @@ class RouterEventManager
     private function wrapCallbacksForIgnore($callbacks): array
     {
         return array_map(function ($callback) {
-            $c = $callback[1];
-
-            return function () use ($c) {
+            return function () use ($callback) {
                 if (!config('heyman_ignore_route', false)) {
-                    $c();
+                    $callback();
                 }
             };
         }, $callbacks);
