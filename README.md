@@ -42,6 +42,7 @@ Laravel > v5.4
 ## Sample Application : 
 
 https://github.com/imanghafoori1/council
+
 https://github.com/imanghafoori1/council
 
 This is fork from result of laracasts.com toturial series refactored to use the Heyman package.
