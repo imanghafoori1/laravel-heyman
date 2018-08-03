@@ -14,7 +14,7 @@ class RouteAuthorizer
             $matchedRoute = [
                 $eventObj->route->getName(),
                 $eventObj->route->getActionName(),
-                $eventObj->request->method().$eventObj->route->uri
+                $eventObj->request->method().$eventObj->route->uri,
             ];
 
             $closures = app(RouterEventManager::class)->start($matchedRoute);

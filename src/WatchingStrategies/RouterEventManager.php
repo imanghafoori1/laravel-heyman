@@ -22,6 +22,7 @@ class RouterEventManager
                 }
             }
         }
+
         return $output;
     }
 
