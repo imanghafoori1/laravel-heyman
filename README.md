@@ -47,6 +47,9 @@ https://github.com/imanghafoori1/council
 
 This is fork from result of laracasts.com toturial series refactored to use the Heyman package.
 
+
+### A story :
+
 Imagine your boss comes to you and says :
 
 > Hey man,
