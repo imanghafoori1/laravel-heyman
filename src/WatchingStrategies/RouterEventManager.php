@@ -10,11 +10,7 @@ class RouterEventManager
 
     private $value;
 
-    private $routeNames = [];
-
-    private $actions = [];
-
-    private $urls = [];
+    private $all = [];
 
     /**
      * RouterEventManager constructor.
@@ -32,46 +28,30 @@ class RouterEventManager
         return $this;
     }
 
-    public function getUrls($url)
-    {
-        return $this->resolveCallbacks($url, 'urls');
-    }
-
-    public function getRouteNames($routeName)
-    {
-        return $this->resolveCallbacks($routeName, 'routeNames');
-    }
-
-    public function getActions($action)
-    {
-        return $this->resolveCallbacks($action, 'actions');
-    }
-
     /**
      * @param $callback
      */
     public function startGuarding(callable $callback)
     {
         foreach ($this->value as $value) {
-            $this->{$this->target}[$value][] = $callback;
+            $this->all[$value][] = [$this->target, $callback];
         }
     }
 
     /**
      * @param $action
-     * @param $type
      *
      * @return array
      */
-    private function resolveCallbacks($action, $type): array
+    public function resolveCallbacks($action): array
     {
-        if (array_key_exists($action, $this->{$type})) {
-            $callbacks = $this->{$type}[$action];
+        if (array_key_exists($action, $this->all)) {
+            $callbacks = $this->all[$action];
 
             return $this->wrapCallbacksForIgnore($callbacks);
         }
 
-        foreach ($this->{$type} as $pattern => $callbacks) {
+        foreach ($this->all as $pattern => $callbacks) {
             if (Str::is($pattern, $action)) {
                 return $this->wrapCallbacksForIgnore($callbacks);
             }
@@ -89,9 +69,10 @@ class RouterEventManager
     private function wrapCallbacksForIgnore($callbacks): array
     {
         return array_map(function ($callback) {
-            return function () use ($callback) {
+            $c = $callback[1];
+            return function () use ($c) {
                 if (!config('heyman_ignore_route', false)) {
-                    $callback();
+                    $c();
                 }
             };
         }, $callbacks);

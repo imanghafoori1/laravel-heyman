@@ -12,54 +12,18 @@ class RouteAuthorizer
     {
         Route::matched(function (RouteMatched $eventObj) {
             $route = $eventObj->route;
-            foreach (['GET', 'POST', 'PUT', 'PATCH', 'DELETE'] as $verb) {
-                if ($eventObj->request->method() === $verb) {
-                    $this->authorizeUrls($verb.$route->uri);
-                }
-            }
-            $this->authorizeRouteNames($route->getName());
-            $this->authorizeRouteActions($route->getActionName());
+            $this->setGuardFor($eventObj->request->method().$route->uri);
+            $this->setGuardFor($route->getName());
+            $this->setGuardFor($route->getActionName());
         });
     }
 
     /**
-     * @param $actionName
-     *
-     * @throws \Illuminate\Auth\Access\AuthorizationException
-     */
-    private function authorizeRouteActions($actionName)
-    {
-        $this->setGuardFor('Actions', $actionName);
-    }
-
-    /**
-     * @param $routeName
-     *
-     * @throws \Illuminate\Auth\Access\AuthorizationException
-     */
-    private function authorizeRouteNames($routeName)
-    {
-        $this->setGuardFor('RouteNames', $routeName);
-    }
-
-    /**
      * @param $url
-     *
-     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function authorizeUrls($url)
+    private function setGuardFor($url)
     {
-        $this->setGuardFor('Urls', $url);
-    }
-
-    /**
-     * @param $method
-     * @param $key
-     */
-    private function setGuardFor(string $method, $key)
-    {
-        $method = 'get'.$method;
-        $closures = app(RouterEventManager::class)->{$method}($key);
+        $closures = app(RouterEventManager::class)->resolveCallbacks($url);
         foreach ($closures as $cb) {
             $cb();
         }
