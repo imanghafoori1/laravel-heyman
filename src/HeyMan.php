@@ -6,7 +6,6 @@ use Imanghafoori\HeyMan\Hooks\EloquentHooks;
 use Imanghafoori\HeyMan\Hooks\EventHooks;
 use Imanghafoori\HeyMan\Hooks\RouteHooks;
 use Imanghafoori\HeyMan\Hooks\ViewHooks;
-use Imanghafoori\HeyMan\WatchingStrategies\BasicEventManager;
 
 class HeyMan
 {
@@ -32,18 +31,6 @@ class HeyMan
     private function normalizeInput(array $url): array
     {
         return is_array($url[0]) ? $url[0] : $url;
-    }
-
-    /**
-     * @param $eventName
-     *
-     * @return YouShouldHave
-     */
-    private function holdWhen($eventName): YouShouldHave
-    {
-        $this->chain->eventManager = app(BasicEventManager::class)->init($eventName);
-
-        return app(YouShouldHave::class);
     }
 
     public function turnOff(): Consider
