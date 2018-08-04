@@ -98,6 +98,7 @@ class YouShouldHave
 
         return app(Actions::class);
     }
+
     /**
      * @param $rules
      *
