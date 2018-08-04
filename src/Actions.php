@@ -21,12 +21,12 @@ class Actions
         $this->chain = $chain;
     }
 
-    public function response()
+    public function response(): Responder
     {
         return new Responder($this->chain, $this);
     }
 
-    public function redirect()
+    public function redirect(): Redirector
     {
         return new Redirector($this->chain, $this);
     }

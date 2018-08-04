@@ -12,16 +12,16 @@ class RouterEventManager
 
     public function findMatchingCallbacks($matchedRoute)
     {
-        $output = [];
+        $matchedCallbacks = [];
         foreach ($this->all as $routeInfo => $callBacks) {
             foreach ($matchedRoute as $info) {
                 if (Str::is($routeInfo, $info)) {
-                    $output[] = $this->wrapCallbacksForIgnore($callBacks);
+                    $matchedCallbacks[] = $this->wrapCallbacksForIgnore($callBacks);
                 }
             }
         }
 
-        return $output;
+        return $matchedCallbacks;
     }
 
     /**

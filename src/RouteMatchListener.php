@@ -6,7 +6,7 @@ use Illuminate\Routing\Events\RouteMatched;
 use Illuminate\Support\Facades\Route;
 use Imanghafoori\HeyMan\WatchingStrategies\RouterEventManager;
 
-class RouteAuthorizer
+class RouteMatchListener
 {
     public function authorizeMatchedRoutes()
     {

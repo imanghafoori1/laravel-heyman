@@ -106,7 +106,7 @@ trait RouteHooks
      *
      * @return \Imanghafoori\HeyMan\YouShouldHave
      */
-    private function authorizeURL($url, $verb): \Imanghafoori\HeyMan\YouShouldHave
+    private function authorizeURL($url, $verb): YouShouldHave
     {
         $removeSlash = function ($url) use ($verb) {
             return $verb.ltrim($url, '/');

@@ -14,7 +14,7 @@ class HeyManServiceProvider extends ServiceProvider
         $this->defineGates();
 
         $this->loadMigrationsFrom(__DIR__.'/migrations');
-        (new RouteAuthorizer())->authorizeMatchedRoutes($this->app);
+        (new RouteMatchListener())->authorizeMatchedRoutes($this->app);
     }
 
     public function register()
