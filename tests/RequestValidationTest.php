@@ -23,4 +23,15 @@ class RequestValidationTest extends TestCase
 
         $this->get('welcome')->assertStatus(403);
     }
+
+    public function testUrlIs()
+    {
+        setUp::run();
+        Auth::shouldReceive('check')->andReturn(false);
+        HeyMan::whenYouVisitUrl('welcome')->yourRequestShouldBeValid(function () {
+            return ['name' => 'required'];
+        });
+
+        $this->get('welcome')->assertStatus(302);
+    }
 }
