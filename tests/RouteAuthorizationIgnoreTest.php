@@ -121,6 +121,18 @@ class RouteAuthorizationIgnoreTest extends TestCase
         event('eloquent.retrieved: App\User');
     }
 
+    public function testEventAuthorized_Ignorance()
+    {
+        setUp::run();
+
+        HeyMan::whenEventHappens('hey')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
+
+
+        Heyman::turnOff()->eventChecks();
+
+        event('hey');
+    }
+
     public function testFetchingModelsIsAuthorized_closure_Ignorance()
     {
         setUp::run();
@@ -146,6 +158,20 @@ class RouteAuthorizationIgnoreTest extends TestCase
             ->weDenyAccess();
 
         Heyman::turnOff()->viewChecks();
+
+        view('welcome');
+    }
+
+    public function testViewIsAuthorized2134()
+    {
+        setUp::run();
+
+        HeyMan::whenYouMakeView(['welcome', 'errors.503'])
+            ->youShouldHaveRole('reader')
+            ->otherwise()
+            ->weDenyAccess();
+
+        Heyman::turnOff()->allChecks();
 
         view('welcome');
     }
