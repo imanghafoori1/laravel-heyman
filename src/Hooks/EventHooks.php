@@ -10,7 +10,7 @@ trait EventHooks
     /**
      * @param mixed ...$event
      *
-     * @return \Imanghafoori\HeyMan\YouShouldHave
+     * @return YouShouldHave
      */
     public function whenEventHappens(...$event)
     {

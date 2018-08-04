@@ -27,7 +27,12 @@ class BasicEventManager
      */
     public function startGuarding(callable $callback)
     {
-        Event::listen($this->events, $callback);
+        $listener = function () use ($callback) {
+            if (!config('heyman_ignore_event', false)) {
+                $callback();
+            }
+        };
+        Event::listen($this->events, $listener);
         $this->events = [];
     }
 }
