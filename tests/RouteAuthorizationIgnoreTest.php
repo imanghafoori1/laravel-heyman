@@ -127,7 +127,6 @@ class RouteAuthorizationIgnoreTest extends TestCase
 
         HeyMan::whenEventHappens('hey')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
 
-
         Heyman::turnOff()->eventChecks();
 
         event('hey');
