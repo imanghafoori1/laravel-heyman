@@ -90,7 +90,7 @@ class YouShouldHave
         return app(Otherwise::class);
     }
 
-    public function youShouldAlways()
+    public function youShouldAlways(): Actions
     {
         $this->chain->predicate = function () {
             return false;
@@ -98,7 +98,11 @@ class YouShouldHave
 
         return app(Actions::class);
     }
-
+    /**
+     * @param $rules
+     *
+     * @return null
+     */
     public function yourRequestShouldBeValid($rules)
     {
         $this->chain->predicate = function () use ($rules) {
