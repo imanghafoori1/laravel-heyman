@@ -8,12 +8,12 @@ class RouterEventManager
 {
     private $routeInfo;
 
-    private $all = [];
+    private $routeChains = [];
 
     public function findMatchingCallbacks($matchedRoute)
     {
         $matchedCallbacks = [];
-        foreach ($this->all as $routeInfo => $callBacks) {
+        foreach ($this->routeChains as $routeInfo => $callBacks) {
             foreach ($matchedRoute as $info) {
                 if (Str::is($routeInfo, $info)) {
                     $matchedCallbacks[] = $this->wrapCallbacksForIgnore($callBacks);
@@ -27,10 +27,9 @@ class RouterEventManager
     /**
      * RouterEventManager constructor.
      *
-     * @param $target
      * @param $routeInfo
      *
-     * @return \Imanghafoori\HeyMan\WatchingStrategies\RouterEventManager
+     * @return RouterEventManager
      */
     public function init($routeInfo)
     {
@@ -45,7 +44,7 @@ class RouterEventManager
     public function startGuarding(callable $callback)
     {
         foreach ($this->routeInfo as $routeInfo) {
-            $this->all[$routeInfo][] = $callback;
+            $this->routeChains[$routeInfo][] = $callback;
         }
     }
 
