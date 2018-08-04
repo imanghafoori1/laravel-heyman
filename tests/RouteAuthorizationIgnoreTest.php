@@ -174,4 +174,15 @@ class RouteAuthorizationIgnoreTest extends TestCase
 
         view('welcome');
     }
+
+    public function testTurnOnChecks()
+    {
+        setUp::run();
+        HeyMan::whenYouSendPut('put')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
+
+        Heyman::turnOff()->allChecks();
+        Heyman::turnOn()->allChecks();
+
+        $this->put('put')->assertStatus(404);
+    }
 }
