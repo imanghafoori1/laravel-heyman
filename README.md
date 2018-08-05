@@ -74,6 +74,9 @@ This way you can fully decouple authorization and a lot of guarding code from th
 
 
 #### Should You Remember and Type in All The Methods? 
+
+You do not need any cheat sheet.
+
 > IDE `Auto-completion` is fully supported.
 
 ![untitled](https://user-images.githubusercontent.com/6961695/43330799-7d02cc54-91d9-11e8-845b-946077033ec6.png)
@@ -102,7 +105,7 @@ HeyMan::whenYouSendDelete($url)-> ...
 ## Watching Route Names
 
 ```php
-HeyMan::whenYouReachRoute('welcome.name')->...
+HeyMan::whenYouReachRoute('welcome.name')->...              // For route names
 HeyMan::whenYouReachRoute('welcome.*')->...                 // or match by wildcard
 ```
 
@@ -222,7 +225,7 @@ $msg = 'My Message';
 HeyMan::whenYouVisitUrl('/login')
     ->youShouldBeGuest()
     ->otherwise()
-    ->throwNew(AuthorizationException::class, $msg);
+    ->weThrowNew(AuthorizationException::class, $msg);
 ```
 
 ### 4- Abort:
