@@ -217,6 +217,7 @@ HeyMan::whenYouVisitUrl('/login')-> ... ->otherwise()->redirect()->action(...) -
 HeyMan::whenYouVisitUrl('/login')-> ... ->otherwise()->redirect()->intended(...);
 HeyMan::whenYouVisitUrl('/login')-> ... ->otherwise()->redirect()->guest(...);
 ```
+In fact the redirect method here is very much like the laravel's `redirect()` helper function.
 
 ### 3- Throw Exception:
 ```php
