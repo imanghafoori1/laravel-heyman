@@ -14,7 +14,7 @@ class Redirector
      * @param \Imanghafoori\HeyMan\Chain $chain
      * @param $action
      */
-    public function __construct(Chain $chain, Actions $action)
+    public function __construct(Chain $chain, Reactions $action)
     {
         $this->chain = $chain;
         $this->action = $action;

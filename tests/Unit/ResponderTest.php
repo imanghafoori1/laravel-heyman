@@ -17,7 +17,7 @@ class ResponderTest extends TestCase
         ];
         foreach ($methods as $method) {
             $param = str_random(3);
-            $reaction = app(\Imanghafoori\HeyMan\Actions::class);
+            $reaction = app(\Imanghafoori\HeyMan\Reactions::class);
             \Facades\Imanghafoori\HeyMan\Chain::shouldReceive('submitChainConfig')->once();
             \Facades\Imanghafoori\HeyMan\Chain::shouldReceive('addResponse');
             $reaction->response()->{$method}($param);
@@ -39,7 +39,7 @@ class ResponderTest extends TestCase
             \Facades\Imanghafoori\HeyMan\Chain::shouldReceive('submitChainConfig')->once();
             \Facades\Imanghafoori\HeyMan\Chain::shouldReceive('addRedirect')->with($method, [$param]);
 
-            $reaction = app(\Imanghafoori\HeyMan\Actions::class);
+            $reaction = app(\Imanghafoori\HeyMan\Reactions::class);
             $reaction->redirect()->{$method}($param);
         }
     }

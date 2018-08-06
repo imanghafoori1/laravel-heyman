@@ -90,13 +90,13 @@ class YouShouldHave
         return app(Otherwise::class);
     }
 
-    public function youShouldAlways(): Actions
+    public function youShouldAlways(): Reactions
     {
         $this->chain->predicate = function () {
             return false;
         };
 
-        return app(Actions::class);
+        return app(Reactions::class);
     }
 
     /**
