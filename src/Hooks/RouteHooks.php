@@ -88,7 +88,6 @@ trait RouteHooks
     }
 
     /**
-     * @param $target
      * @param $value
      *
      * @return YouShouldHave

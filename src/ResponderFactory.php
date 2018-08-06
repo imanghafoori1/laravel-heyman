@@ -60,7 +60,6 @@ class ResponderFactory
 
     /**
      * @param $resp
-     * @param $cb
      *
      * @return \Closure
      */

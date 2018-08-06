@@ -3,14 +3,13 @@
 namespace Imanghafoori\HeyMan;
 
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Validator;
 
 class YouShouldHave
 {
     public $predicate;
 
     /**
-     * @var \Imanghafoori\HeyMan\Chain
+     * @var Chain
      */
     private $chain;
 
@@ -110,7 +109,7 @@ class YouShouldHave
             if (is_callable($rules)) {
                 $rules = $rules();
             }
-            $validator = Validator::make(request()->all(), $rules);
+            $validator = \Illuminate\Support\Facades\Validator::make(request()->all(), $rules);
             $validator->validate();
         };
 

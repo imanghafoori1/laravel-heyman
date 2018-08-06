@@ -23,7 +23,7 @@ class RouteMatchListener
     }
 
     /**
-     * @param $closures
+     * @param array $closures
      */
     private function performClosures(array $closures)
     {
