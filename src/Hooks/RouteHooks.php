@@ -12,7 +12,7 @@ trait RouteHooks
      *
      * @return YouShouldHave
      */
-    public function whenYouVisitUrl(...$url)
+    public function whenYouVisitUrl(...$url): YouShouldHave
     {
         return $this->authorizeURL($url, 'GET');
     }
@@ -22,7 +22,7 @@ trait RouteHooks
      *
      * @return YouShouldHave
      */
-    public function whenYouSendPost(...$url)
+    public function whenYouSendPost(...$url): YouShouldHave
     {
         return $this->authorizeURL($url, 'POST');
     }
@@ -32,7 +32,7 @@ trait RouteHooks
      *
      * @return YouShouldHave
      */
-    public function whenYouSendPatch(...$url)
+    public function whenYouSendPatch(...$url): YouShouldHave
     {
         return $this->authorizeURL($url, 'PATCH');
     }
@@ -42,7 +42,7 @@ trait RouteHooks
      *
      * @return YouShouldHave
      */
-    public function whenYouSendPut(...$url)
+    public function whenYouSendPut(...$url): YouShouldHave
     {
         return $this->authorizeURL($url, 'PUT');
     }
@@ -52,7 +52,7 @@ trait RouteHooks
      *
      * @return YouShouldHave
      */
-    public function whenYouSendDelete(...$url)
+    public function whenYouSendDelete(...$url): YouShouldHave
     {
         return $this->authorizeURL($url, 'DELETE');
     }
@@ -62,7 +62,7 @@ trait RouteHooks
      *
      * @return YouShouldHave
      */
-    public function whenYouReachRoute(...$routeName)
+    public function whenYouReachRoute(...$routeName): YouShouldHave
     {
         return $this->authorizeRoute($this->normalizeInput($routeName));
     }
@@ -72,7 +72,7 @@ trait RouteHooks
      *
      * @return YouShouldHave
      */
-    public function whenYouCallAction(...$action)
+    public function whenYouCallAction(...$action): YouShouldHave
     {
         $addNamespace = function ($action) {
             if ($action = ltrim($action, '\\')) {
@@ -92,7 +92,7 @@ trait RouteHooks
      *
      * @return YouShouldHave
      */
-    private function authorizeRoute($value)
+    private function authorizeRoute($value): YouShouldHave
     {
         $this->chain->eventManager = app(RouterEventManager::class)->init($value);
 
@@ -103,7 +103,7 @@ trait RouteHooks
      * @param $url
      * @param $verb
      *
-     * @return \Imanghafoori\HeyMan\YouShouldHave
+     * @return YouShouldHave
      */
     private function authorizeURL($url, $verb): YouShouldHave
     {
