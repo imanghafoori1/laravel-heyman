@@ -1,12 +1,14 @@
 <?php
 
+use Illuminate\Support\Facades\Gate;
 use Imanghafoori\HeyMan\Facades\HeyMan;
 
-class MethodCallTest extends TestCase
+class MethodCallReactionTest extends TestCase
 {
     public function testCallingMethodsOnClasses()
     {
-        setUp::run();
+        Route::get('/welcome', 'HomeController@index')->name('welcome.name');
+        Gate::shouldReceive('allows')->with('heyman.youShouldHaveRole', ['reader'])->andReturn(false);
 
         \Facades\Logger::shouldReceive('info')->once()->with('sss');
 
@@ -21,7 +23,8 @@ class MethodCallTest extends TestCase
 
     public function testCallingClosures()
     {
-        setUp::run();
+        Route::get('/welcome', 'HomeController@index')->name('welcome.name');
+        Gate::shouldReceive('allows')->with('heyman.youShouldHaveRole', ['reader'])->andReturn(false);
 
         $this->withoutExceptionHandling();
         $this->expectException(\Exception::class);

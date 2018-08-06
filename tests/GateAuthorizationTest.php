@@ -8,13 +8,11 @@ class GateAuthorizationTest extends TestCase
 {
     public function testGate()
     {
-        setUp::run();
-
-        Gate::define('helloGate', function ($user, $bool, $yool) {
-            return $yool;
+        Gate::define('helloGate', function ($user, $param1, $false) {
+            return $false;
         });
 
-        HeyMan::whenEventHappens('myEvent')->thisGateShouldAllow('helloGate', false, false)->otherwise()->weDenyAccess();
+        HeyMan::whenEventHappens('myEvent')->thisGateShouldAllow('helloGate', 'param1', false)->otherwise()->weDenyAccess();
 
         $this->expectException(AuthorizationException::class);
 
@@ -23,8 +21,6 @@ class GateAuthorizationTest extends TestCase
 
     public function testGateAsMethod()
     {
-        setUp::run();
-
         HeyMan::whenEventHappens('myEvent')->thisGateShouldAllow('Gates@helloGate', false)->otherwise()->weDenyAccess();
 
         $this->expectException(AuthorizationException::class);
@@ -34,11 +30,10 @@ class GateAuthorizationTest extends TestCase
 
     public function testInlineGate()
     {
-        setUp::run();
-
         $gate = function ($user, $booleanFlag) {
             return $booleanFlag;
         };
+
         HeyMan::whenEventHappens('myEvent')->thisGateShouldAllow($gate, false)->otherwise()->weDenyAccess();
 
         $this->expectException(AuthorizationException::class);
