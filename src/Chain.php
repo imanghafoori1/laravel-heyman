@@ -30,7 +30,6 @@ class Chain
         $this->response = [];
         $this->predicate = null;
         $this->abort = null;
-        //$this->eventManager = null;
     }
 
     public function addRedirect($method, $params)
@@ -43,12 +42,11 @@ class Chain
         $this->response[] = [$method, $params];
     }
 
-    public function addException($className, $message)
+    public function addException(string $className, string $message)
     {
         $this->exception = ['class' => $className, 'message' => $message];
     }
-
-    public function addAbort($code, $message, $headers)
+    public function addAbort($code, string $message, array $headers)
     {
         $this->abort = [$code, $message, $headers];
     }
@@ -58,7 +56,7 @@ class Chain
         $this->calls[] = [$callback, $parameters];
     }
 
-    public function eventFire($event, $payload, $halt)
+    public function eventFire($event, $payload, bool $halt)
     {
         $this->events[] = [$event, $payload, $halt];
     }

@@ -38,17 +38,17 @@ class Reactions
         return $this;
     }
 
-    public function weThrowNew($exception, $message = '')
+    public function weThrowNew(string $exception, string $message = '')
     {
         $this->chain->addException($exception, $message);
     }
 
-    public function abort($code, $message = '', array $headers = [])
+    public function abort($code, string $message = '', array $headers = [])
     {
         $this->chain->addAbort($code, $message, $headers);
     }
 
-    public function weDenyAccess($message = '')
+    public function weDenyAccess(string $message = '')
     {
         $this->chain->addException(AuthorizationException::class, $message);
     }
