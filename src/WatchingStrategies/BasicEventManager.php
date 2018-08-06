@@ -11,28 +11,35 @@ class BasicEventManager
     /**
      * BasicEventManager constructor.
      *
-     * @param $event
+     * @param $events
      *
-     * @return \Imanghafoori\HeyMan\WatchingStrategies\BasicEventManager
+     * @return BasicEventManager
      */
-    public function init($event)
+    public function init(array $events): BasicEventManager
     {
-        $this->events = $event;
+        $this->events = $events;
 
         return $this;
     }
 
     /**
-     * @param $callback
+     * @param $listener
      */
-    public function startGuarding(callable $callback)
+    public function startGuarding(callable $listener)
     {
-        $listener = function () use ($callback) {
-            if (!config('heyman_ignore_event', false)) {
+        Event::listen($this->events, $this->wrapForIgnorance($listener));
+    }
+
+    /**
+     * @param callable $callback
+     * @return \Closure
+     */
+    private function wrapForIgnorance(callable $callback): \Closure
+    {
+        return function () use ($callback) {
+            if (! config('heyman_ignore_event', false)) {
                 $callback();
             }
         };
-        Event::listen($this->events, $listener);
-        $this->events = [];
     }
 }
