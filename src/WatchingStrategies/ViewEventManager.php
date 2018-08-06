@@ -13,7 +13,7 @@ class ViewEventManager
      *
      * @return ViewEventManager
      */
-    public function init(array $views): ViewEventManager
+    public function init(array $views): self
     {
         $this->views = $views;
 
@@ -33,7 +33,7 @@ class ViewEventManager
     private function wrapForIgnorance(callable $callback): callable
     {
         return function (...$args) use ($callback) {
-            if (! config('heyman_ignore_view', false)) {
+            if (!config('heyman_ignore_view', false)) {
                 $callback(...$args);
             }
         };
