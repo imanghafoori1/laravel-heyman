@@ -34,7 +34,7 @@ class ListenerFactory
      *
      * @return \Closure
      */
-    private function callBack($responder): \Closure
+    private function callBack(callable $responder): \Closure
     {
         $dispatcher = $this->dispatcher();
         $calls = $this->calls();

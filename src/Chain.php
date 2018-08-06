@@ -56,7 +56,7 @@ class Chain
         $this->calls[] = [$callback, $parameters];
     }
 
-    public function eventFire($event, $payload, bool $halt)
+    public function eventFire($event, array $payload, bool $halt)
     {
         $this->events[] = [$event, $payload, $halt];
     }
