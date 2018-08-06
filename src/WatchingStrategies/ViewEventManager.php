@@ -21,12 +21,12 @@ class ViewEventManager
     }
 
     /**
-     * @param $listner
+     * @param $listener
      */
-    public function startGuarding(callable $listner)
+    public function startGuarding(callable $listener)
     {
         foreach ($this->views as $view) {
-            view()->creator($view, $this->wrapForIgnorance($listner));
+            view()->creator($view, $this->wrapForIgnorance($listener));
         }
     }
 

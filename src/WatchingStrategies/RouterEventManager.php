@@ -43,7 +43,7 @@ class RouterEventManager
      *
      * @return RouterEventManager
      */
-    public function init($routeInfo): RouterEventManager
+    public function init(array $routeInfo): RouterEventManager
     {
         $this->routeInfo = $routeInfo;
 
