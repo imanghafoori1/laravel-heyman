@@ -6,7 +6,7 @@ class GuestAuthorizationTest extends TestCase
 {
     public function testUrlIsNotAccessedByGuests3()
     {
-        Route::get('/welcome', 'HomeController@index')->name('welcome.name');
+        $this->defineWelcomeRoute();
         $this->userIsNotGuest();
 
         HeyMan::whenYouVisitUrl('welcome')->youShouldBeGuest()->otherwise()->weDenyAccess();
@@ -17,7 +17,7 @@ class GuestAuthorizationTest extends TestCase
 
     public function testUrlIsNotAccessedByGuests2()
     {
-        Route::get('/welcome', 'HomeController@index')->name('welcome.name');
+        $this->defineWelcomeRoute();
         $this->userIsNotGuest();
 
         HeyMan::whenYouReachRoute('welcome.name')->youShouldBeGuest()->otherwise()->weDenyAccess();
@@ -28,7 +28,7 @@ class GuestAuthorizationTest extends TestCase
 
     public function testUrlIsNotAccessedByGuests7()
     {
-        Route::get('/welcome', 'HomeController@index')->name('welcome.name');
+        $this->defineWelcomeRoute();
         $this->userIsNotGuest();
 
         HeyMan::whenYouVisitUrl('welcome')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
@@ -39,7 +39,7 @@ class GuestAuthorizationTest extends TestCase
 
     public function testUrlIsNotAccessedByGuests4()
     {
-        Route::get('/welcome', 'HomeController@index')->name('welcome.name');
+        $this->defineWelcomeRoute();
         $this->userIsGuest();
 
         HeyMan::whenYouVisitUrl('welcome')->youShouldBeGuest()->otherwise()->weDenyAccess();
@@ -49,7 +49,7 @@ class GuestAuthorizationTest extends TestCase
 
     public function testUrlIsNotAccessedByGuests1()
     {
-        Route::get('/welcome', 'HomeController@index')->name('welcome.name');
+        $this->defineWelcomeRoute();
         $this->userIsNotGuest();
 
         HeyMan::whenYouVisitUrl(['welcome', 'welcome_'])->youShouldBeGuest()->otherwise()->weDenyAccess();
@@ -60,7 +60,7 @@ class GuestAuthorizationTest extends TestCase
 
     public function test_the_order_of_urls_does_not_matter()
     {
-        Route::get('/welcome', 'HomeController@index')->name('welcome.name');
+        $this->defineWelcomeRoute();
         $this->userIsNotGuest();
 
         HeyMan::whenYouVisitUrl(['welcome_', 'welcome'])->youShouldBeGuest()->otherwise()->weDenyAccess();
@@ -77,5 +77,10 @@ class GuestAuthorizationTest extends TestCase
     private function userIsGuest(): void
     {
         Auth::shouldReceive('guest')->andReturn(true);
+    }
+
+    private function defineWelcomeRoute()
+    {
+        Route::get('/welcome', 'HomeController@index')->name('welcome.name');
     }
 }
