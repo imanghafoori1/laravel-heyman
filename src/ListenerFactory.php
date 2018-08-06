@@ -53,11 +53,11 @@ class ListenerFactory
         };
     }
 
-    private function dispatcher()
+    private function dispatcher(): \Closure
     {
         $events = $this->chain->events;
 
-        if (!$events) {
+        if (! $events) {
             return function () {
             };
         }
@@ -69,7 +69,7 @@ class ListenerFactory
         };
     }
 
-    private function calls()
+    private function calls(): \Closure
     {
         $calls = $this->chain->calls;
 
