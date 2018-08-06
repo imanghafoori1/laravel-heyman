@@ -57,7 +57,7 @@ class ListenerFactory
     {
         $events = $this->chain->events;
 
-        if (! $events) {
+        if (!$events) {
             return function () {
             };
         }
