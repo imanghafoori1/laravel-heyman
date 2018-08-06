@@ -6,7 +6,8 @@ class GuestAuthorizationTest extends TestCase
 {
     public function testUrlIsNotAccessedByGuests3()
     {
-        setUp::run();
+        Route::get('/welcome', 'HomeController@index')->name('welcome.name');
+        $this->userIsNotGuest();
 
         HeyMan::whenYouVisitUrl('welcome')->youShouldBeGuest()->otherwise()->weDenyAccess();
         HeyMan::whenYouVisitUrl('welcome1')->youShouldBeGuest()->otherwise()->weDenyAccess();
@@ -17,6 +18,7 @@ class GuestAuthorizationTest extends TestCase
     public function testUrlIsNotAccessedByGuests4()
     {
         Route::get('/welcome', 'HomeController@index')->name('welcome.name');
+        $this->userIsGuest();
 
         HeyMan::whenYouVisitUrl('welcome')->youShouldBeGuest()->otherwise()->weDenyAccess();
 
@@ -25,7 +27,8 @@ class GuestAuthorizationTest extends TestCase
 
     public function testUrlIsNotAccessedByGuests1()
     {
-        setUp::run();
+        Route::get('/welcome', 'HomeController@index')->name('welcome.name');
+        $this->userIsNotGuest();
 
         HeyMan::whenYouVisitUrl(['welcome', 'welcome_'])->youShouldBeGuest()->otherwise()->weDenyAccess();
         HeyMan::whenYouVisitUrl('welcome1')->youShouldBeGuest()->otherwise()->weDenyAccess();
@@ -33,13 +36,24 @@ class GuestAuthorizationTest extends TestCase
         $this->get('welcome')->assertStatus(403);
     }
 
-    public function testUrlIsNotAccessedByGuests()
+    public function test_the_order_of_urls_does_not_matter()
     {
-        setUp::run();
+        Route::get('/welcome', 'HomeController@index')->name('welcome.name');
+        $this->userIsNotGuest();
 
         HeyMan::whenYouVisitUrl(['welcome_', 'welcome'])->youShouldBeGuest()->otherwise()->weDenyAccess();
         HeyMan::whenYouVisitUrl('welcome1')->youShouldBeGuest()->otherwise()->weDenyAccess();
 
         $this->get('welcome')->assertStatus(403);
+    }
+
+    private function userIsNotGuest()
+    {
+        Auth::shouldReceive('guest')->andReturn(false);
+    }
+
+    private function userIsGuest(): void
+    {
+        Auth::shouldReceive('guest')->andReturn(true);
     }
 }
