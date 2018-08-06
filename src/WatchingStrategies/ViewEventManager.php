@@ -4,16 +4,16 @@ namespace Imanghafoori\HeyMan\WatchingStrategies;
 
 class ViewEventManager
 {
-    private $views;
+    private $views = [];
 
     /**
      * ViewEventManager constructor.
      *
      * @param $views
      *
-     * @return \Imanghafoori\HeyMan\WatchingStrategies\ViewEventManager
+     * @return ViewEventManager
      */
-    public function init($views)
+    public function init(array $views): ViewEventManager
     {
         $this->views = $views;
 
@@ -21,18 +21,21 @@ class ViewEventManager
     }
 
     /**
-     * @param $callback
+     * @param $listner
      */
-    public function startGuarding(callable $callback)
+    public function startGuarding(callable $listner)
     {
-        $callback = function (...$args) use ($callback) {
-            if (!config('heyman_ignore_view', false)) {
+        foreach ($this->views as $view) {
+            view()->creator($view, $this->wrapForIgnorance($listner));
+        }
+    }
+
+    private function wrapForIgnorance(callable $callback): callable
+    {
+        return function (...$args) use ($callback) {
+            if (! config('heyman_ignore_view', false)) {
                 $callback(...$args);
             }
         };
-
-        foreach ($this->views as $view) {
-            view()->creator($view, $callback);
-        }
     }
 }
