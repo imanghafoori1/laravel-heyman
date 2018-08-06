@@ -31,7 +31,7 @@ class Reactions
         return new Redirector($this->chain, $this);
     }
 
-    public function afterCalling($callback, array $parameters = []): Reactions
+    public function afterCalling($callback, array $parameters = []): self
     {
         $this->chain->addAfterCall($callback, $parameters);
 
@@ -53,7 +53,7 @@ class Reactions
         $this->chain->addException(AuthorizationException::class, $message);
     }
 
-    public function afterFiringEvent($event, $payload = [], $halt = false): Reactions
+    public function afterFiringEvent($event, $payload = [], $halt = false): self
     {
         $this->chain->eventFire($event, $payload, $halt);
 

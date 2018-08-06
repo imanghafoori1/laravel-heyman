@@ -46,6 +46,7 @@ class Chain
     {
         $this->exception = ['class' => $className, 'message' => $message];
     }
+
     public function addAbort($code, string $message, array $headers)
     {
         $this->abort = [$code, $message, $headers];
