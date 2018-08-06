@@ -11,7 +11,7 @@ class RedirectionMsg
     /**
      * Redirector constructor.
      *
-     * @param Chain $chain
+     * @param Chain      $chain
      * @param Redirector $redirect
      */
     public function __construct(Chain $chain, Redirector $redirect)
@@ -80,7 +80,7 @@ class RedirectionMsg
      *
      * @return RedirectionMsg
      */
-    public function exceptInput(): RedirectionMsg
+    public function exceptInput(): self
     {
         $this->chain->addRedirect('exceptInput', func_get_args());
 

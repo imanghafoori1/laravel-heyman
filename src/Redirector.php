@@ -11,7 +11,7 @@ class Redirector
     /**
      * Responder constructor.
      *
-     * @param Chain $chain
+     * @param Chain     $chain
      * @param Reactions $reaction
      */
     public function __construct(Chain $chain, Reactions $reaction)
