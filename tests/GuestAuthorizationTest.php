@@ -23,7 +23,6 @@ class GuestAuthorizationTest extends TestCase
         HeyMan::whenYouReachRoute('welcome.name')->youShouldBeGuest()->otherwise()->weDenyAccess();
         HeyMan::whenYouVisitUrl('welcome')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
 
-
         $this->get('welcome')->assertStatus(403);
     }
 
@@ -34,7 +33,6 @@ class GuestAuthorizationTest extends TestCase
 
         HeyMan::whenYouVisitUrl('welcome')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
         HeyMan::whenYouReachRoute('welcome.*')->youShouldBeGuest()->otherwise()->weDenyAccess();
-
 
         $this->get('welcome')->assertStatus(403);
     }
