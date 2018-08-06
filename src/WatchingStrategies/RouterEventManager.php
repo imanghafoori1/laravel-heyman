@@ -43,7 +43,7 @@ class RouterEventManager
      *
      * @return RouterEventManager
      */
-    public function init(array $routeInfo): RouterEventManager
+    public function init(array $routeInfo): self
     {
         $this->routeInfo = $routeInfo;
 
@@ -63,7 +63,7 @@ class RouterEventManager
     private function wrapForIgnorance(callable $callback): callable
     {
         return function () use ($callback) {
-            if (! config('heyman_ignore_route', false)) {
+            if (!config('heyman_ignore_route', false)) {
                 $callback();
             }
         };
