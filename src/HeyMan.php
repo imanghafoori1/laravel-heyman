@@ -16,7 +16,7 @@ class HeyMan
     /**
      * HeyMan constructor.
      *
-     * @param \Imanghafoori\HeyMan\Chain $chain
+     * @param Chain $chain
      */
     public function __construct(Chain $chain)
     {

@@ -74,7 +74,7 @@ class GuestAuthorizationTest extends TestCase
         Auth::shouldReceive('guest')->andReturn(false);
     }
 
-    private function userIsGuest(): void
+    private function userIsGuest()
     {
         Auth::shouldReceive('guest')->andReturn(true);
     }
