@@ -17,7 +17,7 @@ class YouShouldHave
     /**
      * YouShouldHave constructor.
      *
-     * @param \Imanghafoori\HeyMan\Chain $chain
+     * @param Chain $chain
      */
     public function __construct(Chain $chain)
     {
@@ -40,7 +40,7 @@ class YouShouldHave
         return app(Otherwise::class);
     }
 
-    public function thisClosureShouldAllow($callback, array $parameters = []): Otherwise
+    public function thisClosureShouldAllow(callable $callback, array $parameters = []): Otherwise
     {
         return $this->thisMethodShouldAllow($callback, $parameters);
     }
