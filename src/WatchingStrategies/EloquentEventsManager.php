@@ -14,9 +14,9 @@ class EloquentEventsManager
      * @param $event
      * @param $modelClass
      *
-     * @return \Imanghafoori\HeyMan\WatchingStrategies\EloquentEventsManager
+     * @return EloquentEventsManager
      */
-    public function init($event, $modelClass)
+    public function init(string $event, array $modelClass) : EloquentEventsManager
     {
         $this->event = $event;
         $this->modelClass = $modelClass;
@@ -29,14 +29,23 @@ class EloquentEventsManager
      */
     public function startGuarding(callable $callback)
     {
-        $c = function (...$args) use ($callback) {
-            if (!config('heyman_ignore_eloquent', false)) {
+        $callback = $this->wrapForIgnorance($callback);
+
+        foreach ($this->modelClass as $model) {
+            $model::{$this->event}($callback);
+        }
+    }
+
+    /**
+     * @param callable $callback
+     * @return \Closure
+     */
+    private function wrapForIgnorance(callable $callback): \Closure
+    {
+        return function (...$args) use ($callback) {
+            if (! config('heyman_ignore_eloquent', false)) {
                 $callback(...$args);
             }
         };
-
-        foreach ($this->modelClass as $model) {
-            $model::{$this->event}($c);
-        }
     }
 }
