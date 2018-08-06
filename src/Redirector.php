@@ -11,13 +11,13 @@ class Redirector
     /**
      * Responder constructor.
      *
-     * @param \Imanghafoori\HeyMan\Chain $chain
-     * @param $action
+     * @param Chain $chain
+     * @param Reactions $reaction
      */
-    public function __construct(Chain $chain, Reactions $action)
+    public function __construct(Chain $chain, Reactions $reaction)
     {
         $this->chain = $chain;
-        $this->action = $action;
+        $this->action = $reaction;
     }
 
     /**
@@ -28,9 +28,9 @@ class Redirector
      * @param array     $headers
      * @param bool|null $secure
      *
-     * @return \Imanghafoori\HeyMan\RedirectionMsg
+     * @return RedirectionMsg
      */
-    public function to($path, $status = 302, $headers = [], $secure = null): RedirectionMsg
+    public function to(string $path, int $status = 302, array $headers = [], $secure = null): RedirectionMsg
     {
         $this->chain->addRedirect(__FUNCTION__, func_get_args());
 
@@ -47,7 +47,7 @@ class Redirector
      *
      * @return \Imanghafoori\HeyMan\RedirectionMsg
      */
-    public function route($route, $parameters = [], $status = 302, $headers = []): RedirectionMsg
+    public function route(string $route, array $parameters = [], int $status = 302, array $headers = []): RedirectionMsg
     {
         $this->chain->addRedirect(__FUNCTION__, func_get_args());
 
@@ -64,7 +64,7 @@ class Redirector
      *
      * @return \Imanghafoori\HeyMan\RedirectionMsg
      */
-    public function action($action, $parameters = [], $status = 302, $headers = []): RedirectionMsg
+    public function action($action, array $parameters = [], int $status = 302, array $headers = []): RedirectionMsg
     {
         $this->chain->addRedirect(__FUNCTION__, func_get_args());
 
@@ -81,7 +81,7 @@ class Redirector
      *
      * @return \Imanghafoori\HeyMan\RedirectionMsg
      */
-    public function guest($path, $status = 302, $headers = [], $secure = null): RedirectionMsg
+    public function guest($path, int $status = 302, array $headers = [], $secure = null): RedirectionMsg
     {
         $this->chain->addRedirect(__FUNCTION__, func_get_args());
 
@@ -98,7 +98,7 @@ class Redirector
      *
      * @return \Imanghafoori\HeyMan\RedirectionMsg
      */
-    public function intended($default = '/', $status = 302, $headers = [], $secure = null): RedirectionMsg
+    public function intended(string $default = '/', int $status = 302, array $headers = [], $secure = null): RedirectionMsg
     {
         $this->chain->addRedirect(__FUNCTION__, func_get_args());
 

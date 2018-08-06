@@ -11,10 +11,10 @@ class RedirectionMsg
     /**
      * Redirector constructor.
      *
-     * @param \Imanghafoori\HeyMan\Chain $chain
-     * @param $redirect
+     * @param Chain $chain
+     * @param Redirector $redirect
      */
-    public function __construct(Chain $chain, $redirect)
+    public function __construct(Chain $chain, Redirector $redirect)
     {
         $this->chain = $chain;
         $this->redirect = $redirect;
@@ -78,9 +78,9 @@ class RedirectionMsg
     /**
      * Flash an array of input to the session.
      *
-     * @return \Imanghafoori\HeyMan\RedirectionMsg
+     * @return RedirectionMsg
      */
-    public function exceptInput()
+    public function exceptInput(): RedirectionMsg
     {
         $this->chain->addRedirect('exceptInput', func_get_args());
 

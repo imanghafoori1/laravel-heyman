@@ -27,7 +27,7 @@ class Responder
      * @param int    $status
      * @param array  $headers
      */
-    public function make($content = '', $status = 200, array $headers = [])
+    public function make(string $content = '', int $status = 200, array $headers = [])
     {
         $this->chain->addResponse('make', func_get_args());
     }
@@ -40,7 +40,7 @@ class Responder
      * @param int    $status
      * @param array  $headers
      */
-    public function view($view, $data = [], $status = 200, array $headers = [])
+    public function view(string $view, array $data = [], int $status = 200, array $headers = [])
     {
         $this->chain->addResponse('view', func_get_args());
     }
