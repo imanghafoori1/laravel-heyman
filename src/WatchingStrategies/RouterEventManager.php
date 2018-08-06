@@ -10,7 +10,7 @@ class RouterEventManager
 
     private $routeChains = [];
 
-    public function findMatchingCallbacks($matchedRoute)
+    public function findMatchingCallbacks(array $matchedRoute): array
     {
         $matchedCallbacks = [];
         foreach ($this->routeChains as $routeInfo => $callBacks) {
@@ -25,13 +25,25 @@ class RouterEventManager
     }
 
     /**
+     * @param $callbacks
+     *
+     * @return array
+     */
+    private function wrapCallbacksForIgnore(array $callbacks): array
+    {
+        return array_map(function ($callback) {
+            return $this->wrapForIgnorance($callback);
+        }, $callbacks);
+    }
+
+    /**
      * RouterEventManager constructor.
      *
      * @param $routeInfo
      *
      * @return RouterEventManager
      */
-    public function init($routeInfo)
+    public function init($routeInfo): RouterEventManager
     {
         $this->routeInfo = $routeInfo;
 
@@ -48,19 +60,12 @@ class RouterEventManager
         }
     }
 
-    /**
-     * @param $callbacks
-     *
-     * @return array
-     */
-    private function wrapCallbacksForIgnore($callbacks): array
+    private function wrapForIgnorance(callable $callback): callable
     {
-        return array_map(function ($callback) {
-            return function () use ($callback) {
-                if (!config('heyman_ignore_route', false)) {
-                    $callback();
-                }
-            };
-        }, $callbacks);
+        return function () use ($callback) {
+            if (! config('heyman_ignore_route', false)) {
+                $callback();
+            }
+        };
     }
 }
