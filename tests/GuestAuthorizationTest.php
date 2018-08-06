@@ -15,6 +15,30 @@ class GuestAuthorizationTest extends TestCase
         $this->get('welcome')->assertStatus(403);
     }
 
+    public function testUrlIsNotAccessedByGuests2()
+    {
+        Route::get('/welcome', 'HomeController@index')->name('welcome.name');
+        $this->userIsNotGuest();
+
+        HeyMan::whenYouReachRoute('welcome.name')->youShouldBeGuest()->otherwise()->weDenyAccess();
+        HeyMan::whenYouVisitUrl('welcome')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
+
+
+        $this->get('welcome')->assertStatus(403);
+    }
+
+    public function testUrlIsNotAccessedByGuests7()
+    {
+        Route::get('/welcome', 'HomeController@index')->name('welcome.name');
+        $this->userIsNotGuest();
+
+        HeyMan::whenYouVisitUrl('welcome')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
+        HeyMan::whenYouReachRoute('welcome.*')->youShouldBeGuest()->otherwise()->weDenyAccess();
+
+
+        $this->get('welcome')->assertStatus(403);
+    }
+
     public function testUrlIsNotAccessedByGuests4()
     {
         Route::get('/welcome', 'HomeController@index')->name('welcome.name');
