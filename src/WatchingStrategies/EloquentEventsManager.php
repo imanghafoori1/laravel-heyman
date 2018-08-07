@@ -2,6 +2,8 @@
 
 namespace Imanghafoori\HeyMan\WatchingStrategies;
 
+use Imanghafoori\HeyMan\HeyManSwitcher;
+
 class EloquentEventsManager
 {
     private $event;
@@ -29,24 +31,9 @@ class EloquentEventsManager
      */
     public function startGuarding(callable $callback)
     {
-        $callback = $this->wrapForIgnorance($callback);
-
+        $callback = app(HeyManSwitcher::class)->wrapForIgnorance($callback, 'eloquent');
         foreach ($this->modelClass as $model) {
             $model::{$this->event}($callback);
         }
-    }
-
-    /**
-     * @param callable $callback
-     *
-     * @return \Closure
-     */
-    private function wrapForIgnorance(callable $callback): \Closure
-    {
-        return function (...$args) use ($callback) {
-            if (!config('heyman_ignore_eloquent', false)) {
-                $callback(...$args);
-            }
-        };
     }
 }

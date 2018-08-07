@@ -2,6 +2,8 @@
 
 namespace Imanghafoori\HeyMan\WatchingStrategies;
 
+use Imanghafoori\HeyMan\HeyManSwitcher;
+
 class ViewEventManager
 {
     private $views = [];
@@ -26,16 +28,7 @@ class ViewEventManager
     public function startGuarding(callable $listener)
     {
         foreach ($this->views as $view) {
-            view()->creator($view, $this->wrapForIgnorance($listener));
+            view()->creator($view, app(HeyManSwitcher::class)->wrapForIgnorance($listener, 'view'));
         }
-    }
-
-    private function wrapForIgnorance(callable $callback): callable
-    {
-        return function (...$args) use ($callback) {
-            if (!config('heyman_ignore_view', false)) {
-                $callback(...$args);
-            }
-        };
     }
 }

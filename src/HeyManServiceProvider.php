@@ -36,6 +36,7 @@ class HeyManServiceProvider extends ServiceProvider
 
     private function registerSingletons()
     {
+        $this->app->singleton(HeyManSwitcher::class, HeyManSwitcher::class);
         $this->app->singleton(Chain::class, Chain::class);
         $this->app->singleton(HeyMan::class, HeyMan::class);
         $this->app->singleton(YouShouldHave::class, YouShouldHave::class);

@@ -3,6 +3,7 @@
 namespace Imanghafoori\HeyMan\WatchingStrategies;
 
 use Illuminate\Support\Str;
+use Imanghafoori\HeyMan\HeyManSwitcher;
 
 class RouterEventManager
 {
@@ -32,7 +33,7 @@ class RouterEventManager
     private function wrapCallbacksForIgnore(array $callbacks): array
     {
         return array_map(function ($callback) {
-            return $this->wrapForIgnorance($callback);
+            return app(HeyManSwitcher::class)->wrapForIgnorance($callback, 'route');
         }, $callbacks);
     }
 
@@ -58,14 +59,5 @@ class RouterEventManager
         foreach ($this->routeInfo as $routeInfo) {
             $this->routeChains[$routeInfo][] = $callback;
         }
-    }
-
-    private function wrapForIgnorance(callable $callback): callable
-    {
-        return function () use ($callback) {
-            if (!config('heyman_ignore_route', false)) {
-                $callback();
-            }
-        };
     }
 }
