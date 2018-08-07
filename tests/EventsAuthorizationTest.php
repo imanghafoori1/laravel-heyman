@@ -37,17 +37,23 @@ class EventsAuthorizationTest extends TestCase
         event('myEvent1');
     }
 
-    public function _testAlways()
+    public function testAlways()
     {
-        setUp::run();
+        Route::get('/event/{event}', function ($event) {
+            event($event);
+        });
+
         HeyMan::whenEventHappens(['my-event', 'myEvent1'])->youShouldAlways()->abort(402);
 
         $this->get('event/my-event')->assertStatus(402);
     }
 
-    public function _testAlways1()
+    public function testAlways1()
     {
-        setUp::run();
+        Route::get('/event/{event}', function ($event) {
+            event($event);
+        });
+
         HeyMan::whenEventHappens(['my-event', 'myEvent1'])->youShouldAlways()->redirect()->to('welcome');
 
         $this->get('event/my-event')->assertStatus(302)->assertRedirect('welcome');
