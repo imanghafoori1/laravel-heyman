@@ -35,8 +35,8 @@ composer require imanghafoori/laravel-heyman
 ### Requirements:
 
 ```
-PHP > v7.0
-Laravel > v5.4
+PHP v7.0 and above
+Laravel v5.1 and above
 ```
 
 ## Sample Application : 
@@ -52,7 +52,7 @@ This is fork from result of laracasts.com toturial series refactored to use the 
 
 Imagine your boss comes to you and says :
 
-> Hey man,
+> Hey man,(pardon me if you are a woman)
 > When you go to login form, You should be guest,
 > Otherwise you must get redirected to '/panel',
 > Write the code for me, just now... But KEEP IN MIND you are not allowed to touch the current code. it is very sensitive and we do not want you to tamper with it. You may break it.
