@@ -6,208 +6,217 @@ class RouteAuthorizationTest extends TestCase
 {
     public function testUrlIsAuthorized()
     {
-        setUp::run();
+        Route::get('/welcome', 'HomeController@index');
 
-        HeyMan::whenYouVisitUrl('/welco*')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
-        HeyMan::whenYouVisitUrl('welcome1')->youShouldHaveRole('writer')->otherwise()->weDenyAccess();
+        HeyMan::whenYouVisitUrl('/welco*')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
+        HeyMan::whenYouVisitUrl('welcome1')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
 
         $this->get('welcome')->assertStatus(403);
     }
 
     public function testPostUrls()
     {
-        setUp::run();
+        Route::post('/post', function () {
+        });
+
         HeyMan::whenYouSendPost('post')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
         $this->post('post')->assertStatus(403);
     }
 
     public function testPutUrls()
     {
-        setUp::run();
+        Route::put('put', function () {
+        });
+
         HeyMan::whenYouSendPut('put')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
-        $this->put('put')->assertStatus(404);
+        $this->put('put')->assertStatus(403);
     }
 
     public function testPatchUrls()
     {
-        setUp::run();
+        Route::patch('patch', function () {
+        });
+
         HeyMan::whenYouSendPatch('patch')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
         $this->patch('patch')->assertStatus(403);
     }
 
     public function testDeleteUrls()
     {
-        setUp::run();
+        Route::patch('/delete', function () {
+        });
+
         HeyMan::whenYouSendDelete('delete')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
         $this->delete('delete')->assertStatus(405);
     }
 
     public function testwhenYouVisitUrlCanAcceptArray()
     {
-        setUp::run();
+        Route::get('/welcome', 'HomeController@index')->name('welcome.name');
 
-        HeyMan::whenYouVisitUrl(['welcome', 'welcome_'])->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
-        HeyMan::whenYouVisitUrl('welcome1')->youShouldHaveRole('writer')->otherwise()->weDenyAccess();
+        HeyMan::whenYouVisitUrl(['welcome', 'welcome_'])->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
+        HeyMan::whenYouVisitUrl('welcome1')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
 
         $this->get('welcome')->assertStatus(403);
     }
 
     public function testUrlIsAuthorized657()
     {
-        setUp::run();
+        Route::get('/welcome', 'HomeController@index')->name('welcome.name');
 
-        HeyMan::whenYouVisitUrl(['welcome_', 'welcome'])->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
-        HeyMan::whenYouVisitUrl('welcome1')->youShouldHaveRole('writer')->otherwise()->weDenyAccess();
+        HeyMan::whenYouVisitUrl(['welcome_', 'welcome'])->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
+        HeyMan::whenYouVisitUrl('welcome1')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
 
         $this->get('welcome')->assertStatus(403);
     }
 
     public function testUrlIsAuthorized4563()
     {
-        setUp::run();
+        Route::get('/welcome', 'HomeController@index')->name('welcome.name');
 
-        HeyMan::whenYouVisitUrl('welcome', 'welcome_')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
-        HeyMan::whenYouVisitUrl('welcome1')->youShouldHaveRole('writer')->otherwise()->weDenyAccess();
+        HeyMan::whenYouVisitUrl('welcome', 'welcome_')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
+        HeyMan::whenYouVisitUrl('welcome1')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
 
         $this->get('welcome')->assertStatus(403);
     }
 
     public function testUrlIsAuthorized563()
     {
-        setUp::run();
+        Route::get('/welcome', 'HomeController@index')->name('welcome.name');
 
-        HeyMan::whenYouVisitUrl('welcome_', 'welcome')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
-        HeyMan::whenYouVisitUrl('welcome1')->youShouldHaveRole('writer')->otherwise()->weDenyAccess();
+        HeyMan::whenYouVisitUrl('welcome_', 'welcome')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
+        HeyMan::whenYouVisitUrl('welcome1')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
 
         $this->get('welcome')->assertStatus(403);
     }
 
     public function testUrlIsAuthorized4()
     {
-        setUp::run();
+        Route::get('/welcome', 'HomeController@index')->name('welcome.name');
 
-        HeyMan::whenYouVisitUrl('/welcome', 'ewrf')->youShouldHaveRole('writer')->otherwise()->weDenyAccess();
-        HeyMan::whenYouVisitUrl('welcome1')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+        HeyMan::whenYouVisitUrl('/welcome', 'ewrf')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
+        HeyMan::whenYouVisitUrl('welcome1')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
 
         $this->get('/welcome')->assertSuccessful();
     }
 
     public function testUrlIsAuthorized1()
     {
-        setUp::run();
+        Route::get('/welcome1', 'HomeController@index')->name('welcome.name');
 
-        HeyMan::whenYouVisitUrl('welcome')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
-        HeyMan::whenYouVisitUrl('welcome2')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+        HeyMan::whenYouVisitUrl('welcome')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
+        HeyMan::whenYouVisitUrl('welcome2')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
 
         $this->get('/welcome1')->assertSuccessful();
     }
 
     public function testUrlIsAuthorized2()
     {
-        setUp::run();
+        Route::get('/welcome', 'HomeController@index')->name('welcome.name');
 
-        HeyMan::whenYouVisitUrl('/welcome')->youShouldHaveRole('writer')->otherwise()->weDenyAccess();
-        HeyMan::whenYouVisitUrl('welcome1')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+        HeyMan::whenYouVisitUrl('/welcome')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
+        HeyMan::whenYouVisitUrl('welcome1')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
 
         $this->get('/welcome')->assertSuccessful();
     }
 
     public function testRouteNameIsAuthorized()
     {
-        setUp::run();
+        Route::get('/welcome', 'HomeController@index')->name('welcome.name');
 
-        HeyMan::whenYouReachRoute('welcome.name')->youShouldHaveRole('writer')->otherwise()->weDenyAccess();
-        HeyMan::whenYouReachRoute('welcome1.name')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+        HeyMan::whenYouReachRoute('welcome.name')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
+        HeyMan::whenYouReachRoute('welcome1.name')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
         $this->get('welcome')->assertSuccessful();
     }
 
     public function testRouteNameIsAuthorized1()
     {
-        setUp::run();
+        Route::get('/welcome', 'HomeController@index')->name('welcome.name');
 
-        HeyMan::whenYouReachRoute('welcome.name')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+        HeyMan::whenYouReachRoute('welcome.name')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
         $this->get('welcome')->assertStatus(403);
     }
 
     public function testRouteNameIsMatchWithPattern()
     {
-        setUp::run();
+        Route::get('/welcome', 'HomeController@index')->name('welcome.name');
 
-        HeyMan::whenYouReachRoute('welcome.*')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+        HeyMan::whenYouReachRoute('welcome.*')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
         $this->get('welcome')->assertStatus(403);
     }
 
     public function testControllerActionIsAuthorized()
     {
-        setUp::run();
+        Route::get('/welcome', 'HomeController@index')->name('welcome.name');
 
-        HeyMan::whenYouCallAction('\HomeController@index')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+        HeyMan::whenYouCallAction('\HomeController@index')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
 
         $this->get('welcome')->assertStatus(403);
     }
 
     public function testControllerActionIsAuthorized1()
     {
-        setUp::run();
+        Route::get('/welcome', 'HomeController@index')->name('welcome.name');
 
-        HeyMan::whenYouCallAction('\HomeController@index')->youShouldHaveRole('writer')->otherwise()->weDenyAccess();
+        HeyMan::whenYouCallAction('\HomeController@index')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
 
         $this->get('welcome')->assertStatus(200);
     }
 
     public function testRouteNameIsAuthorized34()
     {
-        setUp::run();
+        Route::get('/welcome', 'HomeController@index')->name('welcome.name');
 
-        HeyMan::whenYouReachRoute(['welcome.name'])->youShouldHaveRole('writer')->otherwise()->weDenyAccess();
-        HeyMan::whenYouReachRoute('welcome1.name')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+        HeyMan::whenYouReachRoute(['welcome.name'])->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
+        HeyMan::whenYouReachRoute('welcome1.name')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
+
         $this->get('welcome')->assertSuccessful();
     }
 
     public function testControllerActionIsAuthorized878()
     {
-        setUp::run();
+        Route::get('/welcome', 'HomeController@index')->name('welcome.name');
 
-        HeyMan::whenYouReachRoute('welcome.Oname')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
-        HeyMan::whenYouCallAction('\HomeController@index')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+        HeyMan::whenYouReachRoute('welcome.Oname')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
+        HeyMan::whenYouCallAction('\HomeController@index')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
 
         $this->get('welcome')->assertStatus(403);
     }
 
     public function testControllerActionIsAuthorized14()
     {
-        setUp::run();
+        Route::get('/welcome', 'HomeController@index')->name('welcome.name');
 
-        HeyMan::whenYouVisitUrl(['welcom2', 'ewrf'])->youShouldHaveRole('writer')->otherwise()->weDenyAccess();
-        HeyMan::whenYouCallAction('\\HomeController@index')->youShouldHaveRole('writer')->otherwise()->weDenyAccess();
+        HeyMan::whenYouVisitUrl(['welcom2', 'ewrf'])->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
+        HeyMan::whenYouCallAction('\\HomeController@index')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
 
         $this->get('welcome')->assertStatus(200);
     }
 
     public function testControllerActionIsAuthorizedWithPattern()
     {
-        setUp::run();
+        Route::get('/welcome', 'HomeController@index')->name('welcome.name');
 
-        HeyMan::whenYouCallAction('\\HomeController@*')->youShouldHaveRole('writer')->otherwise()->weDenyAccess();
+        HeyMan::whenYouCallAction('\\HomeController@*')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
 
         $this->get('welcome')->assertStatus(200);
     }
 
     public function testControllerActionIsAuthorized134()
     {
-        setUp::run();
+        Route::get('/welcome', 'HomeController@index')->name('welcome.name');
 
-        HeyMan::whenYouVisitUrl(['welcom2', 'ewrf'])->youShouldHaveRole('writer')->otherwise()->weDenyAccess();
-        HeyMan::whenYouCallAction('MyController@index')->youShouldHaveRole('writer')->otherwise()->weDenyAccess();
+        HeyMan::whenYouVisitUrl(['welcom2', 'ewrf'])->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
+        HeyMan::whenYouCallAction('MyController@index')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
 
         $this->get('welcome')->assertStatus(200);
     }
 
     public function testControllerActionIsAuthorized154()
     {
-        setUp::run();
+        Route::get('/welcome', 'HomeController@index')->name('welcome.name');
 
-        HeyMan::whenYouCallAction('MyController@*')->youShouldHaveRole('writer')->otherwise()->weDenyAccess();
+        HeyMan::whenYouCallAction('MyController@*')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
 
         $this->get('welcome')->assertStatus(200);
     }
