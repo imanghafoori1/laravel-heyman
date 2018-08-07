@@ -7,8 +7,6 @@ class MethodShouldAllowTest extends TestCase
 {
     public function testMethodShouldAllow()
     {
-        setUp::run();
-
         HeyMan::whenYouMakeView('welcome')->thisMethodShouldAllow('SomeClass@someMethod')->otherwise()->weDenyAccess();
 
         $this->expectException(AuthorizationException::class);
@@ -18,8 +16,6 @@ class MethodShouldAllowTest extends TestCase
 
     public function testClosureShouldAllow()
     {
-        setUp::run();
-
         $cb = function () {
             return false;
         };
@@ -33,7 +29,6 @@ class MethodShouldAllowTest extends TestCase
 
     public function testValueShouldAllow()
     {
-        setUp::run();
         HeyMan::whenYouMakeView('welcome')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
         $this->expectException(AuthorizationException::class);
 

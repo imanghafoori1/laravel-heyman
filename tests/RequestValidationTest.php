@@ -6,7 +6,7 @@ class RequestValidationTest extends TestCase
 {
     public function testUrlIsNotAccessedWithInValidRequest()
     {
-        setUp::run();
+        Route::get('/welcome', 'HomeController@index')->name('welcome.name');
         Auth::shouldReceive('check')->andReturn(false);
         HeyMan::whenYouVisitUrl('welcome')->yourRequestShouldBeValid(['name' => 'required']);
         HeyMan::whenYouVisitUrl('welcome')->youShouldBeLoggedIn()->otherwise()->weDenyAccess();
@@ -16,7 +16,7 @@ class RequestValidationTest extends TestCase
 
     public function testUrlIsNotAccessedWithInValidRequestInOrder()
     {
-        setUp::run();
+        Route::get('/welcome', 'HomeController@index')->name('welcome.name');
         Auth::shouldReceive('check')->andReturn(false);
         HeyMan::whenYouVisitUrl('welcome')->youShouldBeLoggedIn()->otherwise()->weDenyAccess();
         HeyMan::whenYouVisitUrl('welcome')->yourRequestShouldBeValid(['name' => 'required']);
@@ -26,7 +26,7 @@ class RequestValidationTest extends TestCase
 
     public function testUrlIs()
     {
-        setUp::run();
+        Route::get('/welcome', 'HomeController@index')->name('welcome.name');
         Auth::shouldReceive('check')->andReturn(false);
         HeyMan::whenYouVisitUrl('welcome')->yourRequestShouldBeValid(function () {
             return ['name' => 'required'];
