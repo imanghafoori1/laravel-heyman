@@ -5,7 +5,7 @@ namespace Imanghafoori\HeyMan\WatchingStrategies;
 use Illuminate\Support\Facades\Event;
 use Imanghafoori\HeyMan\HeyManSwitcher;
 
-class BasicEventManager
+class EventManager
 {
     private $events;
 
@@ -14,7 +14,7 @@ class BasicEventManager
      *
      * @param $events
      *
-     * @return BasicEventManager
+     * @return EventManager
      */
     public function init(array $events): self
     {

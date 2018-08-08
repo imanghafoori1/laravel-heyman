@@ -2,7 +2,7 @@
 
 namespace Imanghafoori\HeyMan\Hooks;
 
-use Imanghafoori\HeyMan\WatchingStrategies\BasicEventManager;
+use Imanghafoori\HeyMan\WatchingStrategies\EventManager;
 use Imanghafoori\HeyMan\YouShouldHave;
 
 trait EventHooks
@@ -12,7 +12,7 @@ trait EventHooks
      *
      * @return YouShouldHave
      */
-    public function whenEventHappens(...$event)
+    public function whenEventHappens(...$event): YouShouldHave
     {
         return $this->holdWhen($this->normalizeInput($event));
     }
@@ -24,7 +24,7 @@ trait EventHooks
      */
     private function holdWhen($eventName): YouShouldHave
     {
-        $this->chain->eventManager = app(BasicEventManager::class)->init($eventName);
+        $this->chain->eventManager = app(EventManager::class)->init($eventName);
 
         return app(YouShouldHave::class);
     }

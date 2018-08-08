@@ -4,7 +4,7 @@ namespace Imanghafoori\HeyMan;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
-use Imanghafoori\HeyMan\WatchingStrategies\BasicEventManager;
+use Imanghafoori\HeyMan\WatchingStrategies\EventManager;
 use Imanghafoori\HeyMan\WatchingStrategies\RouterEventManager;
 
 class HeyManServiceProvider extends ServiceProvider
@@ -41,7 +41,7 @@ class HeyManServiceProvider extends ServiceProvider
         $this->app->singleton(HeyMan::class, HeyMan::class);
         $this->app->singleton(YouShouldHave::class, YouShouldHave::class);
         $this->app->singleton(ListenerFactory::class, ListenerFactory::class);
-        $this->app->singleton(BasicEventManager::class, BasicEventManager::class);
+        $this->app->singleton(EventManager::class, EventManager::class);
         $this->app->singleton(RouterEventManager::class, RouterEventManager::class);
     }
 }
