@@ -1,8 +1,9 @@
 <?php
 
-namespace Imanghafoori\HeyMan;
+namespace Imanghafoori\HeyMan\Reactions;
 
 use Illuminate\Auth\Access\AuthorizationException;
+use Imanghafoori\HeyMan\Chain;
 
 class Reactions
 {

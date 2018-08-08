@@ -3,6 +3,7 @@
 namespace Imanghafoori\HeyMan;
 
 use Illuminate\Support\Facades\Gate;
+use Imanghafoori\HeyMan\Reactions\Reactions;
 
 class YouShouldHave
 {

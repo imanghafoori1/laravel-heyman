@@ -17,7 +17,7 @@ class ResponderTest extends TestCase
         ];
         foreach ($methods as $method) {
             $param = str_random(3);
-            $reaction = app(\Imanghafoori\HeyMan\Reactions::class);
+            $reaction = app(\Imanghafoori\HeyMan\Reactions\Reactions::class);
             \Facades\Imanghafoori\HeyMan\Chain::shouldReceive('submitChainConfig')->once();
             \Facades\Imanghafoori\HeyMan\Chain::shouldReceive('addResponse');
             $reaction->response()->{$method}($param);
@@ -39,7 +39,7 @@ class ResponderTest extends TestCase
             \Facades\Imanghafoori\HeyMan\Chain::shouldReceive('submitChainConfig')->once();
             \Facades\Imanghafoori\HeyMan\Chain::shouldReceive('addRedirect')->with($method, [$param]);
 
-            $reaction = app(\Imanghafoori\HeyMan\Reactions::class);
+            $reaction = app(\Imanghafoori\HeyMan\Reactions\Reactions::class);
             $reaction->redirect()->{$method}($param);
         }
     }
@@ -59,9 +59,9 @@ class ResponderTest extends TestCase
         foreach ($methods as $method) {
             $param = str_random(2);
             $chain = Mockery::mock(Chain::class);
-            $Redirector = Mockery::mock(\Imanghafoori\HeyMan\Redirector::class);
+            $Redirector = Mockery::mock(\Imanghafoori\HeyMan\Reactions\Redirector::class);
             $chain->shouldReceive('addRedirect')->once()->with($method, [[$param]]);
-            $redirectionMsg = new \Imanghafoori\HeyMan\RedirectionMsg($chain, $Redirector);
+            $redirectionMsg = new \Imanghafoori\HeyMan\Reactions\RedirectionMsg($chain, $Redirector);
             $redirectionMsg->{$method}([$param]);
         }
     }
