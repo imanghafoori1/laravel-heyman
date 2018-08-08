@@ -13,7 +13,7 @@ class Chain
 
     public $events = [];
 
-    public $calls;
+    public $afterCalls;
 
     public $methodName = 'nothing';
 
@@ -55,7 +55,7 @@ class Chain
 
     public function addAfterCall($callback, $parameters)
     {
-        $this->calls[] = [$callback, $parameters];
+        $this->afterCalls[] = [$callback, $parameters];
     }
 
     public function eventFire($event, array $payload, bool $halt)
@@ -71,7 +71,7 @@ class Chain
 
     public function submitChainConfig()
     {
-        $callbackListener = app(ListenerFactory::class)->make();
+        $callbackListener = app(ReactionFactory::class)->make();
         $this->eventManager->startGuarding($callbackListener);
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Imanghafoori\HeyMan;
 
-class ListenerFactory
+class ReactionFactory
 {
     /**
      * @var \Imanghafoori\HeyMan\Chain
@@ -26,7 +26,7 @@ class ListenerFactory
     {
         $responder = app(ResponderFactory::class)->make();
 
-        return $this->callBack($responder);
+        return $this->makeReaction($responder);
     }
 
     /**
@@ -34,7 +34,7 @@ class ListenerFactory
      *
      * @return \Closure
      */
-    private function callBack(callable $responder): \Closure
+    private function makeReaction(callable $responder): \Closure
     {
         $dispatcher = $this->eventsToDispatch();
         $calls = $this->methodsToCall();
@@ -71,7 +71,7 @@ class ListenerFactory
 
     private function methodsToCall(): \Closure
     {
-        $calls = $this->chain->calls;
+        $calls = $this->chain->afterCalls;
 
         if (!$calls) {
             return function () {
