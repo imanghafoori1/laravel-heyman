@@ -90,5 +90,4 @@ class reactionsTest extends TestCase
 
         $this->get('welcome')->assertStatus(566)->assertJson(['Wow'=> 'Man']);
     }
-
 }

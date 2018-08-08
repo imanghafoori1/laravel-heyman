@@ -64,7 +64,7 @@ class Chain
         $this->events[] = [$event, $payload, $halt];
     }
 
-    public function addRespondFrom($callback,array $parameters)
+    public function addRespondFrom($callback, array $parameters)
     {
         $this->respondFrom = [$callback, $parameters];
     }
