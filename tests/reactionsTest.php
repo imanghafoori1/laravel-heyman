@@ -75,4 +75,20 @@ class reactionsTest extends TestCase
         $this->get('welcome')->assertStatus(405);
         $this->get('welcome1')->assertStatus(200);
     }
+
+    public function test_respond_from()
+    {
+        Route::get('/welcome', 'HomeController@index');
+
+        $resp = response()->json(['Wow'=> 'Man'], 566);
+        \Facades\SomeClass::shouldReceive('someMethod')->once()->andReturn($resp);
+
+        HeyMan::whenYouVisitUrl('welcome')
+            ->thisValueShouldAllow(false)
+            ->otherwise()
+            ->weRespondFrom('SomeClass@someMethod');
+
+        $this->get('welcome')->assertStatus(566)->assertJson(['Wow'=> 'Man']);
+    }
+
 }
