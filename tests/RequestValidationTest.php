@@ -21,7 +21,7 @@ class RequestValidationTest extends TestCase
         HeyMan::whenYouVisitUrl('welcome')->youShouldBeLoggedIn()->otherwise()->weDenyAccess();
         HeyMan::whenYouVisitUrl('welcome')->yourRequestShouldBeValid(['name' => 'required']);
 
-        $this->get('welcome')->assertStatus(403)->assertSessionHasNoErrors();
+        $this->get('welcome')->assertStatus(403)->assertSessionMissing('errors');
     }
 
     public function testUrlIs()
