@@ -9,7 +9,7 @@ class ResponderFactory
     /**
      * ResponderFactory constructor.
      *
-     * @param \Imanghafoori\HeyMan\Chain $chain
+     * @param Chain $chain
      */
     public function __construct(Chain $chain)
     {

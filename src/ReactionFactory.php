@@ -36,42 +36,24 @@ class ReactionFactory
      */
     private function makeReaction(callable $responder): \Closure
     {
-        $dispatcher = $this->eventsToDispatch();
-        $calls = $this->methodsToCall();
+        $beforeResponse = $this->methodsToCall();
 
         $cb = $this->chain->predicate;
         $this->chain->reset();
 
-        return function (...$f) use ($responder, $cb, $dispatcher, $calls) {
+        return function (...$f) use ($responder, $cb, $beforeResponse) {
             if ($cb($f)) {
                 return true;
             }
 
-            $calls();
-            $dispatcher();
+            $beforeResponse();
             $responder();
-        };
-    }
-
-    private function eventsToDispatch(): \Closure
-    {
-        $events = $this->chain->events;
-
-        if (!$events) {
-            return function () {
-            };
-        }
-
-        return function () use ($events) {
-            foreach ($events as $event) {
-                app('events')->dispatch(...$event);
-            }
         };
     }
 
     private function methodsToCall(): \Closure
     {
-        $calls = $this->chain->afterCalls;
+        $calls = $this->chain->beforeResponse;
 
         if (!$calls) {
             return function () {
@@ -80,7 +62,7 @@ class ReactionFactory
 
         return function () use ($calls) {
             foreach ($calls as $call) {
-                app()->call(...$call);
+                $call();
             }
         };
     }

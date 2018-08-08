@@ -11,22 +11,20 @@ class Chain
 
     public $predicate;
 
-    public $events = [];
-
-    public $afterCalls;
-
     public $methodName = 'nothing';
 
     public $nothing = null;
 
     public $data = [];
 
+    public $beforeResponse = [];
+
     public function reset()
     {
-        $this->events = [];
         $this->data = [];
         $this->predicate = null;
         $this->methodName = 'nothing';
+        $this->beforeResponse = [];
     }
 
     public function addRedirect($method, $params)
@@ -55,12 +53,16 @@ class Chain
 
     public function addAfterCall($callback, $parameters)
     {
-        $this->afterCalls[] = [$callback, $parameters];
+        $this->beforeResponse[] = function () use ($callback, $parameters) {
+            app()->call($callback, $parameters);
+        };
     }
 
     public function eventFire($event, array $payload, bool $halt)
     {
-        $this->events[] = [$event, $payload, $halt];
+        $this->beforeResponse[] = function () use ($event, $payload, $halt) {
+            app('events')->dispatch($event, $payload, $halt);
+        };
     }
 
     public function addRespondFrom($callback, array $parameters)
