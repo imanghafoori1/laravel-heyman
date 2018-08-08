@@ -1,6 +1,9 @@
 <?php
 
-namespace Imanghafoori\HeyMan;
+namespace Imanghafoori\HeyMan\Reactions;
+
+use Imanghafoori\HeyMan\Chain;
+use Imanghafoori\HeyMan\HeyManSwitcher;
 
 class ResponderFactory
 {

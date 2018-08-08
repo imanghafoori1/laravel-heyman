@@ -4,6 +4,7 @@ namespace Imanghafoori\HeyMan;
 
 use Illuminate\Support\Facades\Gate;
 use Imanghafoori\HeyMan\Reactions\Reactions;
+use Imanghafoori\HeyMan\Reactions\ResponderFactory;
 
 class YouShouldHave
 {

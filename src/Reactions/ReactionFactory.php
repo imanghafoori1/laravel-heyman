@@ -3,7 +3,6 @@
 namespace Imanghafoori\HeyMan\Reactions;
 
 use Imanghafoori\HeyMan\Chain;
-use Imanghafoori\HeyMan\ResponderFactory;
 
 class ReactionFactory
 {
