@@ -1,6 +1,6 @@
 # Laravel Hey Man
 
-## A package to help you write expressive code in a functional manner
+## Write code as easy as you speak.
 
 ![image](https://user-images.githubusercontent.com/6961695/43285148-4d86673e-9133-11e8-9415-2df017906762.png)
 
@@ -21,7 +21,7 @@
 
 ### Built with :heart: for every smart laravel developer
 
-and it is very well tested !
+and it is very well tested and production ready !
 
 
 ## Installation
@@ -39,11 +39,12 @@ PHP v7.0 and above
 Laravel v5.1 and above
 ```
 
-## Sample Application : 
+## Example : 
+
+Here you can see a good example :
 
 https://github.com/imanghafoori1/council
 
-https://github.com/imanghafoori1/council
 
 This is fork from result of laracasts.com toturial series refactored to use the Heyman package.
 
