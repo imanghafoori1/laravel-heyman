@@ -32,6 +32,8 @@ class Chain
         $this->response = [];
         $this->predicate = null;
         $this->abort = null;
+        $this->events = [];
+        $this->respondFrom = null;
     }
 
     public function addRedirect($method, $params)
