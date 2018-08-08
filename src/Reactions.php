@@ -48,6 +48,11 @@ class Reactions
         $this->chain->addAbort($code, $message, $headers);
     }
 
+    public function weRespondFrom($callback, array $parameters = [])
+    {
+        $this->chain->addRespondFrom($callback, $parameters);
+    }
+
     public function weDenyAccess(string $message = '')
     {
         $this->chain->addException(AuthorizationException::class, $message);

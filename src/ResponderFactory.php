@@ -26,6 +26,8 @@ class ResponderFactory
             return $this->responseCallback($this->chain->response);
         } elseif ($this->chain->redirect) {
             return $this->redirectCallback($this->chain->redirect);
+        } elseif ($this->chain->respondFrom) {
+            return $this->respondFrom($this->chain->respondFrom);
         } else {
             return function () {
             };
@@ -89,5 +91,12 @@ class ResponderFactory
         };
 
         return $responder;
+    }
+
+    public function respondFrom($method)
+    {
+        return function () use ($method) {
+            respondWith(app()->call(...$method));
+        };
     }
 }

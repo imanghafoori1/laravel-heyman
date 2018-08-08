@@ -23,6 +23,8 @@ class Chain
 
     public $calls;
 
+    public $respondFrom;
+
     public function reset()
     {
         $this->redirect = [];
@@ -60,6 +62,11 @@ class Chain
     public function eventFire($event, array $payload, bool $halt)
     {
         $this->events[] = [$event, $payload, $halt];
+    }
+
+    public function addRespondFrom($callback,array $parameters)
+    {
+        $this->respondFrom = [$callback, $parameters];
     }
 
     public function submitChainConfig()
