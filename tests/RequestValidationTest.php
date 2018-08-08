@@ -11,7 +11,7 @@ class RequestValidationTest extends TestCase
         HeyMan::whenYouVisitUrl('welcome')->yourRequestShouldBeValid(['name' => 'required']);
         HeyMan::whenYouVisitUrl('welcome')->youShouldBeLoggedIn()->otherwise()->weDenyAccess();
 
-        $this->get('welcome')->assertStatus(302);
+        $this->get('welcome')->assertStatus(302)->assertSessionHasErrors('name');
     }
 
     public function testUrlIsNotAccessedWithInValidRequestInOrder()
@@ -21,7 +21,7 @@ class RequestValidationTest extends TestCase
         HeyMan::whenYouVisitUrl('welcome')->youShouldBeLoggedIn()->otherwise()->weDenyAccess();
         HeyMan::whenYouVisitUrl('welcome')->yourRequestShouldBeValid(['name' => 'required']);
 
-        $this->get('welcome')->assertStatus(403);
+        $this->get('welcome')->assertStatus(403)->assertSessionHasNoErrors();
     }
 
     public function testUrlIs()
@@ -32,6 +32,6 @@ class RequestValidationTest extends TestCase
             return ['name' => 'required'];
         });
 
-        $this->get('welcome')->assertStatus(302);
+        $this->get('welcome')->assertStatus(302)->assertSessionHasErrors('name');
     }
 }
