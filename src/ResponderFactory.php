@@ -99,4 +99,17 @@ class ResponderFactory
             respondWith(app()->call(...$method));
         };
     }
+
+    public function validatorCallback($rules): \Closure
+    {
+        $validator = function () use ($rules) {
+            if (is_callable($rules)) {
+                $rules = $rules();
+            }
+            $validator = \Illuminate\Support\Facades\Validator::make(request()->all(), $rules);
+            $validator->validate();
+        };
+
+        return app(HeyManSwitcher::class)->wrapForIgnorance($validator, 'validation');
+    }
 }

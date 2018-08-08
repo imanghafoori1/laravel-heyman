@@ -105,15 +105,7 @@ class YouShouldHave
      */
     public function yourRequestShouldBeValid($rules)
     {
-        $validator = function () use ($rules) {
-            if (is_callable($rules)) {
-                $rules = $rules();
-            }
-            $validator = \Illuminate\Support\Facades\Validator::make(request()->all(), $rules);
-            $validator->validate();
-        };
-
-        $this->chain->predicate = app(HeyManSwitcher::class)->wrapForIgnorance($validator, 'validation');
+        $this->chain->predicate = app(ResponderFactory::class)->validatorCallback($rules);
         app(Chain::class)->submitChainConfig();
     }
 
