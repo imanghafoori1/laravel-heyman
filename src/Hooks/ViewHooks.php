@@ -28,11 +28,9 @@ trait ViewHooks
     {
         $views = $this->normalizeInput($views);
 
-        $mapper = function ($view) {
+        array_walk($views, function ($view) {
             $this->checkViewExists($view);
-        };
-
-        array_walk($views, $mapper);
+        });
 
         return $views;
     }

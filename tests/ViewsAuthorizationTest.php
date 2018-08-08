@@ -7,9 +7,7 @@ class ViewsAuthorizationTest extends TestCase
 {
     public function testViewIsAuthorized()
     {
-        setUp::run();
-
-        HeyMan::whenYouMakeView('welcome')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+        HeyMan::whenYouMakeView('welcome')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
 
         $this->expectException(AuthorizationException::class);
 
@@ -18,10 +16,8 @@ class ViewsAuthorizationTest extends TestCase
 
     public function testViewIsAuthorized2134()
     {
-        setUp::run();
-
-        HeyMan::whenYouMakeView(['welcome'])->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
-        HeyMan::whenYouMakeView(['errors.503'])->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+        HeyMan::whenYouMakeView(['welcome'])->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
+        HeyMan::whenYouMakeView(['errors.503'])->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
 
         $this->expectException(AuthorizationException::class);
 
@@ -30,20 +26,14 @@ class ViewsAuthorizationTest extends TestCase
 
     public function testViewIsAuthorized34()
     {
-        setUp::run();
-
-        HeyMan::whenYouMakeView('welcome')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
-
-        $this->expectException(AuthorizationException::class);
-
+        HeyMan::whenYouMakeView('welcome')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
         view('welcome');
+        $this->assertTrue(true);
     }
 
     public function testViewIsAuthorized21134()
     {
-        setUp::run();
-
-        HeyMan::whenYouMakeView(['welcome', 'errors.503'])->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+        HeyMan::whenYouMakeView(['welcome', 'errors.503'])->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
 
         $this->expectException(AuthorizationException::class);
 
@@ -52,31 +42,25 @@ class ViewsAuthorizationTest extends TestCase
 
     public function testViewIsAuthorized2174()
     {
-        setUp::run();
-
-        HeyMan::whenYouMakeView('welcome', 'errors.503')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+        HeyMan::whenYouMakeView('welcome', 'errors/503')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
 
         $this->expectException(AuthorizationException::class);
 
         view('errors.503');
     }
 
-    public function testViewIsAuthorized2674()
+    public function test_views_are_normalized()
     {
-        setUp::run();
-
-        HeyMan::whenYouMakeView('errors/503')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+        HeyMan::whenYouMakeView('errors/503')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
 
         $this->expectException(AuthorizationException::class);
 
-        view('errors/503');
+        view('errors.503');
     }
 
     public function testViewIsAuthorized274()
     {
-        setUp::run();
-
-        HeyMan::whenYouMakeView('errors.*')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+        HeyMan::whenYouMakeView('errors.*')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
 
         $this->expectException(AuthorizationException::class);
 
@@ -85,22 +69,18 @@ class ViewsAuthorizationTest extends TestCase
 
     public function testViewIsAuthorized24()
     {
-        setUp::run();
-
-        HeyMan::whenYouMakeView('*.503')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+        HeyMan::whenYouMakeView('*.503')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
 
         $this->expectException(AuthorizationException::class);
 
         view('errors.503');
     }
 
-    public function testViewIsAuthorized2130()
+    public function test_view_is_checked_for_existence()
     {
-        setUp::run();
-
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('View [nonExistingView] not found.');
 
-        HeyMan::whenYouMakeView(['nonExistingView'])->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+        HeyMan::whenYouMakeView(['nonExistingView'])->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
     }
 }

@@ -7,6 +7,7 @@ class MethodShouldAllowTest extends TestCase
 {
     public function testMethodShouldAllow()
     {
+        \Facades\SomeClass::shouldReceive('someMethod')->once()->andReturn(false);
         HeyMan::whenYouMakeView('welcome')->thisMethodShouldAllow('SomeClass@someMethod')->otherwise()->weDenyAccess();
 
         $this->expectException(AuthorizationException::class);
