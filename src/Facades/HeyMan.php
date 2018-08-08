@@ -23,7 +23,6 @@ use Imanghafoori\HeyMan\YouShouldHave;
  * @method static YouShouldHave whenYouSendDelete(array|sting $url)
  * @method static YouShouldHave whenYouReachRoute(array|sting $routeName)
  * @method static YouShouldHave whenYouCallAction(array|sting $action)
- * @method static YouShouldHave whenYouViewBlade(array|sting $view)
  * @method static YouShouldHave whenYouMakeView(array|sting $view)
  * @method static YouShouldHave whenEventHappens(array|sting $event)
  * @method static Consider turnOff()

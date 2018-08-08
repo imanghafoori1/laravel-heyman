@@ -10,23 +10,13 @@ trait ViewHooks
     /**
      * @param array|string $views
      *
-     * @return \Imanghafoori\HeyMan\YouShouldHave
+     * @return YouShouldHave
      */
-    public function whenYouSeeViewFile(...$views)
+    public function whenYouMakeView(...$views): YouShouldHave
     {
         $views = $this->normalizeView($views);
 
         return $this->watchView($views);
-    }
-
-    /**
-     * @param array|string $views
-     *
-     * @return \Imanghafoori\HeyMan\YouShouldHave
-     */
-    public function whenYouMakeView(...$views)
-    {
-        return $this->whenYouSeeViewFile(...$views);
     }
 
     /**
