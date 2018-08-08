@@ -43,7 +43,6 @@ class reactionsTest extends TestCase
         $this->expectException(\Illuminate\Auth\Access\AuthorizationException::class);
         $this->expectExceptionMessage('abc');
 
-
         $this->get('welcome');
     }
 
@@ -54,7 +53,6 @@ class reactionsTest extends TestCase
         Route::get('/welcome1', function () {
             return view('welcome');
         })->name('welcome1.name');
-
 
         HeyMan::whenYouVisitUrl(['welcome', 'welcome_'])->thisValueShouldAllow(false)->otherwise()->response()->json(['m'=> 'm'], 403);
         HeyMan::whenYouVisitUrl('welcome1')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
