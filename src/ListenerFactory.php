@@ -36,8 +36,8 @@ class ListenerFactory
      */
     private function callBack(callable $responder): \Closure
     {
-        $dispatcher = $this->dispatcher();
-        $calls = $this->calls();
+        $dispatcher = $this->eventsToDispatch();
+        $calls = $this->methodsToCall();
 
         $cb = $this->chain->predicate;
         $this->chain->reset();
@@ -53,7 +53,7 @@ class ListenerFactory
         };
     }
 
-    private function dispatcher(): \Closure
+    private function eventsToDispatch(): \Closure
     {
         $events = $this->chain->events;
 
@@ -69,7 +69,7 @@ class ListenerFactory
         };
     }
 
-    private function calls(): \Closure
+    private function methodsToCall(): \Closure
     {
         $calls = $this->chain->calls;
 

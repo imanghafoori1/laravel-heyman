@@ -18,29 +18,24 @@ class ResponderFactory
 
     public function make()
     {
-        if ($this->chain->abort) {
-            return $this->abortCallback($this->chain->abort);
-        } elseif ($this->chain->exception) {
-            return $this->exceptionCallback($this->chain->exception);
-        } elseif ($this->chain->response) {
-            return $this->responseCallback($this->chain->response);
-        } elseif ($this->chain->redirect) {
-            return $this->redirectCallback($this->chain->redirect);
-        } elseif ($this->chain->respondFrom) {
-            return $this->respondFrom($this->chain->respondFrom);
-        } else {
-            return function () {
-            };
+        $props = ['abort', 'exception', 'response', 'redirect', 'respondFrom',];
+
+        foreach ($props as $p) {
+            $value = $this->chain->$p;
+            if ($value) {
+                return $this->$p($value);
+            }
         }
+
+        return function () {
+        };
     }
 
-    public function abortCallback($abort)
+    public function abort($abort)
     {
-        $responder = function () use ($abort) {
+        return function () use ($abort) {
             abort(...$abort);
         };
-
-        return $responder;
     }
 
     /**
@@ -49,15 +44,13 @@ class ResponderFactory
      *
      * @return \Closure
      */
-    public function exceptionCallback($e): \Closure
+    public function exception($e): \Closure
     {
-        $responder = function () use ($e) {
+        return function () use ($e) {
             $exClass = $e['class'];
 
             throw new $exClass($e['message']);
         };
-
-        return $responder;
     }
 
     /**
@@ -65,7 +58,7 @@ class ResponderFactory
      *
      * @return \Closure
      */
-    public function responseCallback($resp): \Closure
+    public function response($resp): \Closure
     {
         $responder = function () use ($resp) {
             $respObj = response();
@@ -79,9 +72,9 @@ class ResponderFactory
         return $responder;
     }
 
-    public function redirectCallback($resp): \Closure
+    public function redirect($resp): \Closure
     {
-        $responder = function () use ($resp) {
+        return function () use ($resp) {
             $respObj = redirect();
             foreach ($resp as $call) {
                 list($method, $args) = $call;
@@ -89,8 +82,6 @@ class ResponderFactory
             }
             respondWith($respObj);
         };
-
-        return $responder;
     }
 
     public function respondFrom($method)
