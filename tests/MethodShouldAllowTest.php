@@ -5,7 +5,7 @@ use Imanghafoori\HeyMan\Facades\HeyMan;
 
 class MethodShouldAllowTest extends TestCase
 {
-    public function testMethodShouldAllow()
+    public function test_Method_Should_Allow()
     {
         \Facades\SomeClass::shouldReceive('someMethod')->once()->andReturn(false);
         HeyMan::whenYouMakeView('welcome')->thisMethodShouldAllow('SomeClass@someMethod')->otherwise()->weDenyAccess();
@@ -15,7 +15,7 @@ class MethodShouldAllowTest extends TestCase
         view('welcome');
     }
 
-    public function testClosureShouldAllow()
+    public function test_Closure_Should_Allow()
     {
         $cb = function () {
             return false;
@@ -28,7 +28,7 @@ class MethodShouldAllowTest extends TestCase
         view('welcome');
     }
 
-    public function testValueShouldAllow()
+    public function test_Value_Should_Allow()
     {
         HeyMan::whenYouMakeView('welcome')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
         $this->expectException(AuthorizationException::class);
