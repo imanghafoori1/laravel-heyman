@@ -20,6 +20,7 @@ class ResponderFactory
     {
         $m = $this->chain->methodName;
         $parameters = $this->chain->data;
+
         return $this->$m($parameters);
     }
 
@@ -32,7 +33,7 @@ class ResponderFactory
 
     public function nothing()
     {
-        return function() {
+        return function () {
         };
     }
 
