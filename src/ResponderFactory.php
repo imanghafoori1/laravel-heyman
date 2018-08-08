@@ -18,38 +18,35 @@ class ResponderFactory
 
     public function make()
     {
-        $props = ['abort', 'exception', 'response', 'redirect', 'respondFrom',];
-
-        foreach ($props as $p) {
-            $value = $this->chain->$p;
-            if ($value) {
-                return $this->$p($value);
-            }
-        }
-
-        return function () {
-        };
+        $m = $this->chain->methodName;
+        $parameters = $this->chain->data;
+        return $this->$m($parameters);
     }
 
     public function abort($abort)
     {
         return function () use ($abort) {
-            abort(...$abort);
+            abort(...$abort[0]);
+        };
+    }
+
+    public function nothing()
+    {
+        return function() {
         };
     }
 
     /**
      * @param $e
-     * @param $cb
      *
      * @return \Closure
      */
     public function exception($e): \Closure
     {
         return function () use ($e) {
-            $exClass = $e['class'];
+            $exClass = $e[0]['class'];
 
-            throw new $exClass($e['message']);
+            throw new $exClass($e[0]['message']);
         };
     }
 
@@ -60,7 +57,7 @@ class ResponderFactory
      */
     public function response($resp): \Closure
     {
-        $responder = function () use ($resp) {
+        return function () use ($resp) {
             $respObj = response();
             foreach ($resp as $call) {
                 list($method, $args) = $call;
@@ -68,8 +65,6 @@ class ResponderFactory
             }
             respondWith($respObj);
         };
-
-        return $responder;
     }
 
     public function redirect($resp): \Closure
@@ -87,7 +82,7 @@ class ResponderFactory
     public function respondFrom($method)
     {
         return function () use ($method) {
-            respondWith(app()->call(...$method));
+            respondWith(app()->call(...$method[0]));
         };
     }
 

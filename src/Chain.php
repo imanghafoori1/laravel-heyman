@@ -11,49 +11,46 @@ class Chain
 
     public $predicate;
 
-    public $response = [];
-
-    public $redirect = [];
-
-    public $exception = [];
-
     public $events = [];
-
-    public $abort;
 
     public $calls;
 
-    public $respondFrom;
+    public $methodName = 'nothing';
+
+    public $nothing = null;
+
+    public $data = [];
 
     public function reset()
     {
-        $this->redirect = [];
-        $this->exception = [];
-        $this->response = [];
-        $this->predicate = null;
-        $this->abort = null;
         $this->events = [];
-        $this->respondFrom = null;
+        $this->data = [];
+        $this->predicate = null;
+        $this->methodName = 'nothing';
     }
 
     public function addRedirect($method, $params)
     {
-        $this->redirect[] = [$method, $params];
+        $this->data[] = [$method, $params];
+        $this->methodName = 'redirect';
     }
 
     public function addResponse($method, $params)
     {
-        $this->response[] = [$method, $params];
+        $this->data[] = [$method, $params];
+        $this->methodName = 'response';
     }
 
     public function addException(string $className, string $message)
     {
-        $this->exception = ['class' => $className, 'message' => $message];
+        $this->data[] = ['class' => $className, 'message' => $message];
+        $this->methodName = 'exception';
     }
 
     public function addAbort($code, string $message, array $headers)
     {
-        $this->abort = [$code, $message, $headers];
+        $this->data[] = [$code, $message, $headers];
+        $this->methodName = 'abort';
     }
 
     public function addAfterCall($callback, $parameters)
@@ -68,7 +65,8 @@ class Chain
 
     public function addRespondFrom($callback, array $parameters)
     {
-        $this->respondFrom = [$callback, $parameters];
+        $this->data[] = [$callback, $parameters];
+        $this->methodName = 'respondFrom';
     }
 
     public function submitChainConfig()
