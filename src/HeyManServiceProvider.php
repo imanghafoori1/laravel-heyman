@@ -4,6 +4,7 @@ namespace Imanghafoori\HeyMan;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use Imanghafoori\HeyMan\Reactions\ReactionFactory;
 use Imanghafoori\HeyMan\WatchingStrategies\EventManager;
 use Imanghafoori\HeyMan\WatchingStrategies\RouterEventManager;
 

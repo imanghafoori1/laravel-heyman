@@ -2,6 +2,8 @@
 
 namespace Imanghafoori\HeyMan;
 
+use Imanghafoori\HeyMan\Reactions\ReactionFactory;
+
 class Chain
 {
     /**

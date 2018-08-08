@@ -1,6 +1,9 @@
 <?php
 
-namespace Imanghafoori\HeyMan;
+namespace Imanghafoori\HeyMan\Reactions;
+
+use Imanghafoori\HeyMan\Chain;
+use Imanghafoori\HeyMan\ResponderFactory;
 
 class ReactionFactory
 {
@@ -12,7 +15,7 @@ class ReactionFactory
     /**
      * ListenerFactory constructor.
      *
-     * @param \Imanghafoori\HeyMan\Chain $chain
+     * @param Chain $chain
      */
     public function __construct(Chain $chain)
     {
