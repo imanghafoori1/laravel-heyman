@@ -31,8 +31,14 @@ class Consider
         return $this->turn('heyman_ignore_event', $closure);
     }
 
+    public function validationChecks(callable $closure = null)
+    {
+        return $this->turn('heyman_ignore_validation', $closure);
+    }
+
     public function allChecks()
     {
+        $this->validationChecks();
         $this->eventChecks();
         $this->eloquentChecks();
         $this->routeChecks();

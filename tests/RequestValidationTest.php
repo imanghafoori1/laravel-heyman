@@ -27,7 +27,7 @@ class RequestValidationTest extends TestCase
     public function testUrlIs()
     {
         Route::get('/welcome', 'HomeController@index')->name('welcome.name');
-        Auth::shouldReceive('check')->andReturn(false);
+
         HeyMan::whenYouVisitUrl('welcome')->yourRequestShouldBeValid(function () {
             return ['name' => 'required'];
         });

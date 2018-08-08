@@ -155,4 +155,26 @@ class IgnoreTest extends TestCase
 
         $this->put('put')->assertStatus(403);
     }
+
+    public function test_it_ignores_validation()
+    {
+        Route::get('/welcome', 'HomeController@index')->name('welcome.name');
+
+        HeyMan::whenYouVisitUrl('welcome')->yourRequestShouldBeValid(['name' => 'required']);
+
+        HeyMan::turnOff()->validationChecks();
+
+        $this->get('welcome')->assertStatus(200)->assertSessionMissing('name');
+    }
+
+    public function test_it_ignores_validation2()
+    {
+        Route::get('/welcome', 'HomeController@index')->name('welcome.name');
+
+        HeyMan::whenYouVisitUrl('welcome')->yourRequestShouldBeValid(['name' => 'required']);
+
+        HeyMan::turnOff()->allChecks();
+
+        $this->get('welcome')->assertStatus(200)->assertSessionMissing('name');
+    }
 }
