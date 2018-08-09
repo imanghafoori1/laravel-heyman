@@ -17,7 +17,7 @@
 
 
 
-## :ribbon::ribbon::ribbon: HeyMan bring "Tell don't ask" priciple in your laravel app :ribbon::ribbon::ribbon:
+## :ribbon::ribbon: Hey Man conform to "Tell don't ask" priciple in your laravel app :ribbon::ribbon:
 
 ### Built with :heart: for every smart laravel developer
 
@@ -79,9 +79,18 @@ And you write code like this in a Service Provider `boot` method to implement wh
 You are telling the framework what to do in certain situations rather than getting information and decide what to do then.
 
 
-> ` Procedural code gets information then makes decisions. Object-oriented code tells objects to do things. `
+> ` Procedural code gets information then makes decisions.
 
-> — Alec Sharp
+>   Object-oriented code tells objects to do things.
+
+> — Alec Sharp `
+
+
+```php
+
+HeyMan::  (situation) ->   (condition)   -> otherwise() -> (reaction) ;
+
+```
 
 
 #### Hey Man, Should I Momorize all the Methods ?! 
@@ -100,21 +109,40 @@ You do not need any cheat sheet.
 ![image](https://user-images.githubusercontent.com/6961695/43330086-66d0b9a2-91d7-11e8-84fb-fa4ff90821a3.png)
 
 
+## Usage:
 
-## Watching Urls
+You should call the following method of the HeyMan Facade class.
+
+```php
+
+use Imanghafoori\HeyMan\Facades\HeyMan;
+
+```
+
+
+
+## Situations :
+
+```php
+HeyMan::  (situation) ->   (condition)   -> otherwise() -> (reaction) ;
+```
+
+
+### Url is matched
 
 ```php
 HeyMan::whenYouVisitUrl(['/welcome', '/home'])->...   // you can pass an Array
 HeyMan::whenYouVisitUrl('/admin/*')->...     // or match by wildcard
 ```
+
 ```php
-HeyMan::whenYouSendPost($url)->   ...   
-HeyMan::whenYouSendPatch($url)->  ...  
-HeyMan::whenYouSendPut($url)->    ...     
-HeyMan::whenYouSendDelete($url)-> ...
+HeyMan::whenYouSendPost('/article/store')->   ...   
+HeyMan::whenYouSendPatch('/article/edit')->  ...  
+HeyMan::whenYouSendPut('/article/edit')->    ...     
+HeyMan::whenYouSendDelete('/article/delete')-> ...
 ```
 
-## Watching Route Names
+### Route Name is matched
 
 ```php
 HeyMan::whenYouReachRoute('welcome.name')->...              // For route names
@@ -122,20 +150,20 @@ HeyMan::whenYouReachRoute('welcome.*')->...                 // or match by wildc
 ```
 
 
-## Watching Controller Actions
+### Controller Action is about to Call
 
 ```php
 HeyMan::whenYouCallAction('HomeController@index')->...
 HeyMan::whenYouCallAction('HomeController@*')->...          // or match by wildcard
 ```
 
-## Watching View files
+### A View file is about to render
 ```php 
  HeyMan::whenYouMakeView('article.editForm')->...     // also accepts an array
  HeyMan::whenYouMakeView('article.*')->...            // You can watch a group of views
  ```
  
- ## Watching Custom Events
+ ### Custom Event is Fired
 ```php
 HeyMan::whenEventHappens('myEvent')->...
 ```
@@ -143,7 +171,7 @@ HeyMan::whenEventHappens('myEvent')->...
 This way gate is checked after `event('myEvent')` is fired any where in the app
 
 
-## Watching Eloquent Model Events
+### An Eloquent Model is about to save
 ```php
 HeyMan::whenYouSave(\App\User::class)->...
 HeyMan::whenYouFetch(\App\User::class)->...
@@ -157,7 +185,13 @@ HeyMan::whenYouDelete(\App\User::class)->...
 
 
 
-## What can be checked:
+## Conditions:
+
+```php
+HeyMan::  (situation) ->   (condition)   -> otherwise() -> (reaction) ;
+```
+
+After considering situations it is time to check some conditions
 
 ### 1 - Gates
 
@@ -210,6 +244,11 @@ HeyMan::whenYouVisitUrl('home')->sessionShouldHave('key1')->...
 
 
 ## Reactions:
+
+
+```php
+HeyMan::  (situation) ->   (condition)   -> otherwise() -> (reaction) ;
+```
 
 ### 1 - Deny Access
 ```php
@@ -281,12 +320,12 @@ class Authentication
 
 ```
 
-Hey man, You see ? we have just a Http response here. So our controllers are free to handle the right situaltions and do not worry about exceptional ones.
+Hey man, You see ? we have just an Http response here. So our controllers are free to handle the right situaltions and do not worry about exceptional ones.
 
 
-## Advanced Usage:
+## More Advanced Reactions:
 
-You may want to call some method or fire an event right before you send the response back.
+Hey man, You may want to call some method or fire an event right before you send the response back.
 You can do so by `afterCalling()` and `afterFiringEvent()` methods.
 
 ```php
@@ -295,16 +334,21 @@ HeyMan::whenYouVisitUrl('/login')-> ... ->otherwise()->afterCalling('someclass@m
 ```
 
 ### Disabling Heyman:
+
 You can disable HeyMan chacks like this (useful while testing): 
 
 ![untitled](https://user-images.githubusercontent.com/6961695/43585840-53aae034-967b-11e8-8503-2c1de7a35e9f.png)
 
 ```php
-HeyMan::turnOff()->allChecks();
+
+HeyMan::turnOff()->eloquentChecks();
+
 ...
-/// some code here
+/// You may save some eloquent models here...
+/// without limitations from HeyMan rules.
 ...
-HeyMan::turnOn()->allChecks();
+
+HeyMan::turnOn()->eloquentChecks();
 
 ```
 --------------------
@@ -323,7 +367,7 @@ As always if you found this package useful and you want to encourage us to maint
 
 
 
-### More from the authors:
+### More packages from the author of heyman:
 
 
 ### Laravel Widgetize
