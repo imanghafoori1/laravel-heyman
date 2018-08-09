@@ -128,7 +128,7 @@ HeyMan::  (situation) ->   (condition)   -> otherwise() -> (reaction) ;
 ```
 
 
-### Url is matched
+#### 1 - Url is matched
 
 ```php
 HeyMan::whenYouVisitUrl(['/welcome', '/home'])->...   // you can pass an Array
@@ -142,7 +142,7 @@ HeyMan::whenYouSendPut('/article/edit')->    ...
 HeyMan::whenYouSendDelete('/article/delete')-> ...
 ```
 
-### Route Name is matched
+#### 2 - Route Name is matched
 
 ```php
 HeyMan::whenYouReachRoute('welcome.name')->...              // For route names
@@ -150,28 +150,32 @@ HeyMan::whenYouReachRoute('welcome.*')->...                 // or match by wildc
 ```
 
 
-### Controller Action is about to Call
+#### 3 - Controller Action is about to Call
 
 ```php
 HeyMan::whenYouCallAction('HomeController@index')->...
 HeyMan::whenYouCallAction('HomeController@*')->...          // or match by wildcard
 ```
 
-### A View file is about to render
+#### 4 - A View file is about to render
+
 ```php 
  HeyMan::whenYouMakeView('article.editForm')->...     // also accepts an array
  HeyMan::whenYouMakeView('article.*')->...            // You can watch a group of views
  ```
  
- ### Custom Event is Fired
+ Actually it refers to the moment when `view('article.editForm')` is executed.
+ 
+ #### 5 - Custom Event is Fired
+
 ```php
 HeyMan::whenEventHappens('myEvent')->...
 ```
 
-This way gate is checked after `event('myEvent')` is fired any where in the app
+Actually it refers to the moment when `event('myEvent')` is executed.
 
 
-### An Eloquent Model is about to save
+#### 6 - An Eloquent Model is about to save
 ```php
 HeyMan::whenYouSave(\App\User::class)->...
 HeyMan::whenYouFetch(\App\User::class)->...
@@ -179,6 +183,8 @@ HeyMan::whenYouCreate(\App\User::class)->...
 HeyMan::whenYouUpdate(\App\User::class)->...
 HeyMan::whenYouDelete(\App\User::class)->...
 ```
+ 
+ Actually it refers to the moment when eloquent fires it's internal events like: (saving, deleting, creating, ...)
  
  #### Note that the saving model is passed to the Gate of callback in the next chain call. so for example you can check the ID of the model which is saving.
 
@@ -193,7 +199,7 @@ HeyMan::  (situation) ->   (condition)   -> otherwise() -> (reaction) ;
 
 After considering situations it is time to check some conditions
 
-### 1 - Gates
+#### 1 - Gates
 
 ```php
 HeyMan::whenYouVisitUrl('/home')->thisGateShouldAllow('hasRole', 'param1')->otherwise()->...;
@@ -210,20 +216,20 @@ $gate = function($user, $role){
 HeyMan::whenYouVisitUrl('/home')->thisGateShouldAllow($gate, 'editor')->otherwise()->...;
 ```
 
-### 2 - Authentication stuff:
+#### 2 - Authentication stuff:
 ```php
 HeyMan::whenYouVisitUrl('/home')->  youShouldBeGuest()    ->otherwise()->...;
 HeyMan::whenYouVisitUrl('/home')->  youShouldBeLoggedIn() ->otherwise()->...;
 ```
 
-### 3 - Checking A `Closure` or `Method` or `Value`:
+#### 3 - Checking A `Closure` or `Method` or `Value`:
 ```php
 HeyMan::whenYouVisitUrl('home')->thisMethodShouldAllow('someClass@someMethod', ['param1'])->otherwise()->...;
 HeyMan::whenYouVisitUrl('home')->thisClosureShouldAllow(ّ function($a) { ... }, ['param1'])  ->otherwise()->...;
 HeyMan::whenYouVisitUrl('home')->thisValueShouldAllow(ّ $someValue )->otherwise()->...;
 ```
 
-### 4- Validate Requests:
+#### 4- Validate Requests:
 ```php
 HeyMan::whenYouSendPost('articles.store')->yourRequestShouldBeValid([
     'title' => 'required', 'body' => 'required',
@@ -232,7 +238,7 @@ HeyMan::whenYouSendPost('articles.store')->yourRequestShouldBeValid([
 
 That way you do not need to validate requests in your controllers or create dedicated FormRequest classes to validate input.
 
-### Other things:
+#### Other things:
 
 You can also use one of these:
 ```
