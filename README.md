@@ -1,6 +1,6 @@
 # Laravel Hey Man
 
-## Write code as easy as you speak.
+### Write code as easy as you speak.
 
 ![image](https://user-images.githubusercontent.com/6961695/43285148-4d86673e-9133-11e8-9415-2df017906762.png)
 
@@ -17,11 +17,12 @@
 
 
 
-## :ribbon::ribbon::ribbon: HeyMan : "_cleaner code_" :heavy_plus_sign: "_easy authorization_" :ribbon::ribbon::ribbon:
+## :ribbon::ribbon::ribbon: HeyMan bring "Tell don't ask" priciple in your laravel app :ribbon::ribbon::ribbon:
 
 ### Built with :heart: for every smart laravel developer
 
 and it is very well tested and production ready !
+
 
 
 ## Installation
@@ -71,7 +72,16 @@ And you write code like this in a Service Provider `boot` method to implement wh
 
 ### Structural Benefits:
 
-This way you can fully decouple authorization and a lot of guarding code from the rest of your application code and put it in an other place. So your Controllers and Routes become less crowded. and you will have a central place where you limit the access of users to your application or perform validation.
+1- This way you can fully `decouple` authorization and a lot of guarding code from the rest of your application code and put it in an other place. So your Controllers and Routes become less crowded and you will have a central place where you limit the access of users to your application or perform validation.
+
+2- In fact, when you write your code in the way, you are conforming to the famous "`Tell don't ask principle.`"
+
+You are telling the framework what to do in certain situations rather than getting information and decide what to do then.
+
+
+> ` Procedural code gets information then makes decisions. Object-oriented code tells objects to do things. `
+
+> — Alec Sharp
 
 
 #### Should You Remember and Type in All The Methods? 
