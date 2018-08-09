@@ -261,7 +261,10 @@ HeyMan::whenYouVisitUrl('/login')-> ... ->otherwise()->response()->download(...)
 ### 6- Send custom response:
 
 ```php
-HeyMan::whenYouVisitUrl('/login')-> ... ->otherwise()->weRespondFrom('\App\Http\Responses\Authentication@guestsOnly');
+HeyMan::whenYouVisitUrl('/login')-> 
+       ...
+      ->otherwise()
+      ->weRespondFrom('\App\Http\Responses\Authentication@guestsOnly');
 ```
 
 ```php
