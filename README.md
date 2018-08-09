@@ -72,7 +72,7 @@ And you write code like this in a Service Provider `boot` method to implement wh
 
 ### Structural Benefits:
 
-1- This way you can fully `decouple` authorization and a lot of guarding code from the rest of your application code and put it in an other place. So your Controllers and Routes become less crowded and you will have a central place where you limit the access of users to your application or perform validation.
+1- This way you can fully `decouple` authorization and a lot of guarding code from the rest of your application code and put it in an other place. So your Controllers and Routes become less crowded and you will have a central place where you limit the access of users to your application or perform Request validation.
 
 2- In fact, when you write your code in the way, you are conforming to the famous "`Tell don't ask principle.`"
 
@@ -90,7 +90,7 @@ You do not need any cheat sheet.
 
 > IDE `Auto-completion` is fully supported.
 
-![refactor2](https://user-images.githubusercontent.com/6961695/43902343-1682e894-9bff-11e8-8401-54385e6c66e3.gif)
+![refactor5](https://user-images.githubusercontent.com/6961695/43903677-320db906-9c02-11e8-9f2a-ca5a85f6839d.gif)
 
 #### Hey Man, Where do I put these `Heyman::` calls ?
 
