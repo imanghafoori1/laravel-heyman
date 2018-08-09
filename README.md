@@ -4,7 +4,7 @@
 
 ![image](https://user-images.githubusercontent.com/6961695/43285148-4d86673e-9133-11e8-9415-2df017906762.png)
 
-## And it works !!!
+### And it works !!!
 
 <a href="https://scrutinizer-ci.com/g/imanghafoori1/laravel-heyman"><img src="https://img.shields.io/scrutinizer/g/imanghafoori1/laravel-heyman.svg?style=round-square" alt="Quality Score"></img></a>
 [![code coverage](https://codecov.io/gh/imanghafoori1/laravel-heyman/branch/master/graph/badge.svg)](https://codecov.io/gh/imanghafoori1/laravel-heyman)
@@ -84,7 +84,7 @@ You are telling the framework what to do in certain situations rather than getti
 > — Alec Sharp
 
 
-#### Should You Remember and Type in All The Methods? 
+#### Hey Man, Should I Momorize all the Methods ?! 
 
 You do not need any cheat sheet.
 
@@ -92,8 +92,9 @@ You do not need any cheat sheet.
 
 ![untitled](https://user-images.githubusercontent.com/6961695/43330799-7d02cc54-91d9-11e8-845b-946077033ec6.png)
 
-#### Where do I put these codes ?
-> You can put these codes in `AuthServiceProvider.php` (or any other service provider) `boot` method to take effect.
+#### Hey Man, Where do I put these `Heyman::` calls ?
+
+> You may put them in `AuthServiceProvider.php` (or any other service provider) `boot` method.
 
 
 ![image](https://user-images.githubusercontent.com/6961695/43330086-66d0b9a2-91d7-11e8-84fb-fa4ff90821a3.png)
@@ -104,7 +105,7 @@ You do not need any cheat sheet.
 
 ```php
 HeyMan::whenYouVisitUrl(['/welcome', '/home'])->...   // you can pass an Array
-HeyMan::whenYouVisitUrl('/admin/articles/*')->...     // or match by wildcard
+HeyMan::whenYouVisitUrl('/admin/*')->...     // or match by wildcard
 ```
 ```php
 HeyMan::whenYouSendPost($url)->   ...   
@@ -128,7 +129,7 @@ HeyMan::whenYouCallAction('HomeController@index')->...
 HeyMan::whenYouCallAction('HomeController@*')->...          // or match by wildcard
 ```
 
-## Watching Blade files
+## Watching View files
 ```php 
  HeyMan::whenYouMakeView('article.editForm')->...     // also accepts an array
  HeyMan::whenYouMakeView('article.*')->...            // You can watch a group of views
@@ -256,6 +257,32 @@ HeyMan::whenYouVisitUrl('/login')-> ... ->otherwise()->response()->jsonp(...);
 HeyMan::whenYouVisitUrl('/login')-> ... ->otherwise()->response()->make(...);
 HeyMan::whenYouVisitUrl('/login')-> ... ->otherwise()->response()->download(...);
 ```
+
+### 6- Send custom response:
+
+```php
+HeyMan::whenYouVisitUrl('/login')-> ... ->otherwise()->weRespondFrom('\App\Http\Responses\Authentication@guestsOnly');
+```
+
+```php
+namespace App\Http\Responses;
+
+class Authentication
+{
+    public function guestsOnly()
+    {
+        if (request()->expectsJson()) {
+            return response()->json(['error' => 'Unauthenticated.'], 401);
+        }
+
+        return redirect()->guest(route('login'));
+    }
+}
+
+```
+
+Hey man, You see ? we have just a Http response here. So our controllers are free to handle the right situaltions and do not worry about exceptional ones.
+
 
 ## Advanced Usage:
 
