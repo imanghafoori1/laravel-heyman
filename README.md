@@ -17,15 +17,14 @@
 
 
 
-## :ribbon::ribbon: Hey Man conform to "Tell don't ask" priciple in your laravel app :ribbon::ribbon:
+## :ribbon::ribbon: Hey Man, just tell me what you want, don't ask me for information :ribbon::ribbon:
 
 ### Built with :heart: for every smart laravel developer
 
 and it is very well tested and production ready !
 
 
-
-## Installation
+### Installation
 
 ```
 
@@ -36,8 +35,8 @@ composer require imanghafoori/laravel-heyman
 ### Requirements:
 
 ```
-PHP v7.0 and above
-Laravel v5.1 and above
+PHP v7.0 or above
+Laravel v5.1 or above
 ```
 
 ## Example : 
@@ -47,7 +46,7 @@ Here you can see a good example :
 https://github.com/imanghafoori1/council
 
 
-This is fork from result of laracasts.com toturial series refactored to use the Heyman package.
+This is fork from result of laracasts.com tutorial series refactored to use the Heyman package.
 
 
 ### A story :
