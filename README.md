@@ -140,6 +140,9 @@ HeyMan::whenYouCallAction('HomeController@*')->...          // or match by wildc
 HeyMan::whenEventHappens('myEvent')->...
 ```
 
+This way gate is checked after `event('myEvent')` is fired any where in the app
+
+
 ## Watching Eloquent Model Events
 ```php
 HeyMan::whenYouSave(\App\User::class)->...
@@ -150,12 +153,6 @@ HeyMan::whenYouDelete(\App\User::class)->...
 ```
  
  #### Note that the saving model is passed to the Gate of callback in the next chain call. so for example you can check the ID of the model which is saving.
- 
-*In case the gate returns `false` an `AuthorizationException` will be thrown.
-*(If it is not the thing you want, do not worry you can customize the action very easily, we will discuss shortly.)
-
-
-This way gate is checked after `event('myEvent')` is executed any where in our app
 
 
 
@@ -314,7 +311,7 @@ HeyMan::turnOn()->allChecks();
 
 ### :raising_hand: Contributing 
 If you find an issue, or have a better way to do something, feel free to open an issue or a pull request.
-If you use laravel-widgetize in your open source project, create a pull request to provide it's url as a sample application in the README.md file. 
+If you use laravel-heyman in your open source project, create a pull request to provide it's url as a sample application in the README.md file. 
 
 
 ### :exclamation: Security
