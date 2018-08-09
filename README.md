@@ -90,7 +90,7 @@ You do not need any cheat sheet.
 
 > IDE `Auto-completion` is fully supported.
 
-![untitled](https://user-images.githubusercontent.com/6961695/43330799-7d02cc54-91d9-11e8-845b-946077033ec6.png)
+![refactor2](https://user-images.githubusercontent.com/6961695/43902343-1682e894-9bff-11e8-8401-54385e6c66e3.gif)
 
 #### Hey Man, Where do I put these `Heyman::` calls ?
 
