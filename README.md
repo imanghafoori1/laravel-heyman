@@ -4,7 +4,7 @@
 
 ![image](https://user-images.githubusercontent.com/6961695/43285148-4d86673e-9133-11e8-9415-2df017906762.png)
 
-### And it works !!!
+### Readability Counts. In face, Readability is the primary value of your code !!!
 
 <a href="https://scrutinizer-ci.com/g/imanghafoori1/laravel-heyman"><img src="https://img.shields.io/scrutinizer/g/imanghafoori1/laravel-heyman.svg?style=round-square" alt="Quality Score"></img></a>
 [![code coverage](https://codecov.io/gh/imanghafoori1/laravel-heyman/branch/master/graph/badge.svg)](https://codecov.io/gh/imanghafoori1/laravel-heyman)
@@ -54,9 +54,16 @@ This is fork from result of laracasts.com toturial series refactored to use the 
 
 Imagine your boss comes to you and says :
 
-> Hey man,(pardon me if you are a woman)
-> When you go to login form, You should be guest,
-> Otherwise you must get redirected to '/panel',
+```
+ Hey man !!!
+ 
+ When you visit the login form,
+ 
+ You should be guest,
+ 
+ Otherwise you get redirected to '/panel',
+```
+
 > Write the code for me, just now... But KEEP IN MIND you are not allowed to touch the current code. it is very sensitive and we do not want you to tamper with it. You may break it.
 
 
