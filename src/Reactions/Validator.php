@@ -10,8 +10,12 @@ class Validator
      * @var Chain
      */
     private $chain;
-
+    /**
+     * @var array
+     */
     private $validationData;
+
+    private $modifier;
 
     /**
      * YouShouldHave constructor.
@@ -19,7 +23,7 @@ class Validator
      * @param Chain $chain
      * @param $validationData
      */
-    public function __construct(Chain $chain, $validationData)
+    public function __construct(Chain $chain, array $validationData)
     {
         $this->chain = $chain;
         $this->validationData = $validationData;
@@ -27,13 +31,16 @@ class Validator
 
     public function beforeValidationModifyData($callable)
     {
-        $this->validationData[0] = app()->call($callable, [$this->validationData[0]]);
+        $this->modifier = $callable;
     }
 
     public function __destruct()
     {
         $data = $this->validationData;
-        $this->chain->predicate = app(ResponderFactory::class)->validatorCallback(...$data);
+        $modifier = $this->modifier ?: function($d){
+            return $d;
+        };
+        $this->chain->predicate = app(ResponderFactory::class)->validatorCallback($modifier, ...$data);
         app(Chain::class)->submitChainConfig();
     }
 }

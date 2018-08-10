@@ -94,19 +94,21 @@ class ResponderFactory
     /**
      * Validate the given request with the given rules.
      *
-     * @param $data
-     * @param array $rules
-     * @param array $messages
-     * @param array $customAttributes
+     * @param $modifier
+     * @param  array $rules
+     * @param  array $messages
+     * @param  array $customAttributes
      *
      * @return \Closure
      */
-    public function validatorCallback($data, $rules, array $messages = [], array $customAttributes = []): \Closure
+    public function validatorCallback($modifier, $rules, array $messages = [], array $customAttributes = []): \Closure
     {
-        $validator = function () use ($data, $rules, $messages, $customAttributes) {
+        $validator = function () use ($modifier, $rules, $messages, $customAttributes) {
             if (is_callable($rules)) {
                 $rules = $rules();
             }
+
+            $data = app()->call($modifier, [request()->all()]);
             $validator = app(Factory::class)->make($data, $rules, $messages, $customAttributes);
             $validator->validate();
         };
