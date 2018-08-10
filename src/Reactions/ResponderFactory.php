@@ -2,6 +2,7 @@
 
 namespace Imanghafoori\HeyMan\Reactions;
 
+use Illuminate\Contracts\Validation\Factory;
 use Imanghafoori\HeyMan\Chain;
 use Imanghafoori\HeyMan\HeyManSwitcher;
 
@@ -90,13 +91,22 @@ class ResponderFactory
         };
     }
 
-    public function validatorCallback($rules): \Closure
+    /**
+     * Validate the given request with the given rules.
+     *
+     * @param $data
+     * @param  array $rules
+     * @param  array $messages
+     * @param  array $customAttributes
+     * @return \Closure
+     */
+    public function validatorCallback($data, $rules, array $messages = [], array $customAttributes = []): \Closure
     {
-        $validator = function () use ($rules) {
+        $validator = function () use ($data, $rules, $messages, $customAttributes) {
             if (is_callable($rules)) {
                 $rules = $rules();
             }
-            $validator = \Illuminate\Support\Facades\Validator::make(request()->all(), $rules);
+            $validator = app(Factory::class)->make($data, $rules, $messages, $customAttributes);
             $validator->validate();
         };
 

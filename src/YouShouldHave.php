@@ -4,7 +4,7 @@ namespace Imanghafoori\HeyMan;
 
 use Illuminate\Support\Facades\Gate;
 use Imanghafoori\HeyMan\Reactions\Reactions;
-use Imanghafoori\HeyMan\Reactions\ResponderFactory;
+use Imanghafoori\HeyMan\Reactions\Validator;
 
 class YouShouldHave
 {
@@ -101,14 +101,15 @@ class YouShouldHave
     }
 
     /**
-     * @param $rules
+     * Validate the given request with the given rules.
      *
-     * @return null
+     * @param  array  $rules
+     * @param  array  $messages
+     * @param  array  $customAttributes
      */
-    public function yourRequestShouldBeValid($rules)
+    public function yourRequestShouldBeValid($rules, array $messages = [], array $customAttributes = [])
     {
-        $this->chain->predicate = app(ResponderFactory::class)->validatorCallback($rules);
-        app(Chain::class)->submitChainConfig();
+        return new Validator($this->chain, [request()->all(), $rules, $messages, $customAttributes]);
     }
 
     /**
