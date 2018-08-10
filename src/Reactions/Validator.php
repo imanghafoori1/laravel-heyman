@@ -37,7 +37,7 @@ class Validator
     public function __destruct()
     {
         $data = $this->validationData;
-        $modifier = $this->modifier ?: function($d){
+        $modifier = $this->modifier ?: function ($d) {
             return $d;
         };
         $this->chain->predicate = app(ResponderFactory::class)->validatorCallback($modifier, ...$data);

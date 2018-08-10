@@ -95,9 +95,9 @@ class ResponderFactory
      * Validate the given request with the given rules.
      *
      * @param $modifier
-     * @param  array $rules
-     * @param  array $messages
-     * @param  array $customAttributes
+     * @param array $rules
+     * @param array $messages
+     * @param array $customAttributes
      *
      * @return \Closure
      */
