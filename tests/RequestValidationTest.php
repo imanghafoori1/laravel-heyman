@@ -24,14 +24,29 @@ class RequestValidationTest extends TestCase
         $this->get('welcome')->assertStatus(403)->assertSessionMissing('errors');
     }
 
-    public function testUrlIs()
+    public function test_request_is_validated_and_errors_are_set()
     {
-        Route::get('/welcome', 'HomeController@index')->name('welcome.name');
+        Route::post('/welcome', 'HomeController@index')->name('welcome.name');
 
-        HeyMan::whenYouVisitUrl('welcome')->yourRequestShouldBeValid(function () {
+        HeyMan::whenYouReachRoute('welcome.name')->yourRequestShouldBeValid(function () {
             return ['name' => 'required'];
         });
 
-        $this->get('welcome')->assertStatus(302)->assertSessionHasErrors('name');
+        $this->post('welcome', ['f' => 'f'])->assertStatus(302)->assertSessionHasErrors('name');
+    }
+
+
+    public function test_request_data_is_modified_before_validation()
+    {
+        Route::post('/welcome', 'HomeController@index')->name('welcome.name');
+
+        HeyMan::whenYouReachRoute('welcome.name')->yourRequestShouldBeValid(function () {
+            return ['name' => 'required'];
+        })->beforeValidationModifyData(function ($requestData){
+            $requestData['name'] = 'John Doe';
+            return $requestData;
+        });
+
+        $this->post('welcome', ['f' => 'f'])->assertStatus(200)->assertSessionMissing('errors');
     }
 }
