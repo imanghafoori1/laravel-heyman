@@ -39,7 +39,6 @@ class RequestValidationTest extends TestCase
     {
         Route::post('/welcome', 'HomeController@index')->name('welcome.name');
 
-
         HeyMan::whenYouReachRoute('welcome.name')->yourRequestShouldBeValid(function () {
             return ['name' => 'required'];
         });
@@ -47,14 +46,11 @@ class RequestValidationTest extends TestCase
             return ['fname' => 'required'];
         });
 
-
         $this->post('welcome', ['name' => 'required'])->assertStatus(302)
-            ->assertSessionHasErrors('fname')
-        ;
+            ->assertSessionHasErrors('fname');
 
         $errors = session()->get('errors')->getBag('default');
         $this->assertFalse($errors->has('name'));
-
     }
 
     public function test_request_data_is_modified_before_validation()
