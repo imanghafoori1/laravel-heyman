@@ -9,6 +9,8 @@ class EventManager
 {
     private $events;
 
+    private $data = [];
+
     /**
      * BasicEventManager constructor.
      *
@@ -28,6 +30,16 @@ class EventManager
      */
     public function startGuarding(callable $listener)
     {
-        Event::listen($this->events, app(HeyManSwitcher::class)->wrapForIgnorance($listener, 'event'));
+        $r = $this->events;
+        $t = app(HeyManSwitcher::class)->wrapForIgnorance($listener, 'event');
+
+        $this->data[] = [$r, $t];
+    }
+
+    public function start()
+    {
+        foreach ($this->data as $data) {
+            Event::listen(...$data);
+        }
     }
 }

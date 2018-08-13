@@ -1,6 +1,7 @@
 <?php
 
 use Imanghafoori\HeyMan\Facades\HeyMan;
+use Imanghafoori\HeyMan\WatchingStrategies\EventManager;
 
 class IgnoreTest extends TestCase
 {
@@ -97,7 +98,7 @@ class IgnoreTest extends TestCase
     public function testEventAuthorized_Ignorance()
     {
         HeyMan::whenEventHappens('hey')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
-
+        app(EventManager::class)->start();
         Heyman::turnOff()->eventChecks();
 
         event('hey');

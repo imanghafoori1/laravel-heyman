@@ -2,6 +2,7 @@
 
 use Illuminate\Auth\Access\AuthorizationException;
 use Imanghafoori\HeyMan\Facades\HeyMan;
+use Imanghafoori\HeyMan\WatchingStrategies\EventManager;
 
 class EventsAuthorizationTest extends TestCase
 {
@@ -9,7 +10,7 @@ class EventsAuthorizationTest extends TestCase
     {
         HeyMan::whenEventHappens(['myEvent', 'myEvent1'])->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
         HeyMan::whenEventHappens('myEvent4')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
-
+        app(EventManager::class)->start();
         $this->expectException(AuthorizationException::class);
 
         event('myEvent1');
@@ -19,7 +20,7 @@ class EventsAuthorizationTest extends TestCase
     {
         HeyMan::whenEventHappens(['myEvent', 'myEvent1'])->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
         HeyMan::whenEventHappens('myEvent4')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
-
+        app(EventManager::class)->start();
         $this->expectException(AuthorizationException::class);
 
         event('myEvent1');
@@ -32,7 +33,7 @@ class EventsAuthorizationTest extends TestCase
         });
 
         HeyMan::whenEventHappens(['my-event', 'myEvent1'])->youShouldAlways()->abort(402);
-
+        app(EventManager::class)->start();
         $this->get('event/my-event')->assertStatus(402);
     }
 
@@ -43,7 +44,7 @@ class EventsAuthorizationTest extends TestCase
         });
 
         HeyMan::whenEventHappens(['my-event', 'myEvent1'])->youShouldAlways()->redirect()->to('welcome');
-
+        app(EventManager::class)->start();
         $this->get('event/my-event')->assertStatus(302)->assertRedirect('welcome');
     }
 }

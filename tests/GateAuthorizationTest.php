@@ -3,6 +3,7 @@
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Facades\Gate;
 use Imanghafoori\HeyMan\Facades\HeyMan;
+use Imanghafoori\HeyMan\WatchingStrategies\EventManager;
 
 class GateAuthorizationTest extends TestCase
 {
@@ -13,6 +14,7 @@ class GateAuthorizationTest extends TestCase
         });
 
         HeyMan::whenEventHappens('myEvent')->thisGateShouldAllow('helloGate', 'param1', false)->otherwise()->weDenyAccess();
+        app(EventManager::class)->start();
 
         $this->expectException(AuthorizationException::class);
 
@@ -22,6 +24,7 @@ class GateAuthorizationTest extends TestCase
     public function testGateAsMethod()
     {
         HeyMan::whenEventHappens('myEvent')->thisGateShouldAllow('Gates@helloGate', false)->otherwise()->weDenyAccess();
+        app(EventManager::class)->start();
 
         $this->expectException(AuthorizationException::class);
 
@@ -35,6 +38,7 @@ class GateAuthorizationTest extends TestCase
         };
 
         HeyMan::whenEventHappens('myEvent')->thisGateShouldAllow($gate, false)->otherwise()->weDenyAccess();
+        app(EventManager::class)->start();
 
         $this->expectException(AuthorizationException::class);
 
