@@ -8,10 +8,8 @@ class EloquentAuthorizationTest extends TestCase
 {
     public function testCreatingModelsIsAuthorized()
     {
-        setUp::run();
-
-        HeyMan::whenYouCreate('\App\User')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
-        HeyMan::whenYouCreate('\App\User2')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+        HeyMan::whenYouCreate('\App\User')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
+        HeyMan::whenYouCreate('\App\User2')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
         app(EloquentEventsManager::class)->start();
 
         $this->expectException(AuthorizationException::class);
@@ -21,10 +19,10 @@ class EloquentAuthorizationTest extends TestCase
 
     public function testUpdatingModelsIsAuthorized()
     {
-        setUp::run();
+        Gate::shouldReceive('allows')->with('heyman.youShouldHaveRole', ['writer', 'payload'])->andReturn(true);
 
         HeyMan::whenYouUpdate('\App\User')->youShouldHaveRole('writer')->otherwise()->weDenyAccess();
-        HeyMan::whenYouCreate('\App\User2')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+        HeyMan::whenYouCreate('\App\User2')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
         app(EloquentEventsManager::class)->start();
 
         event('eloquent.updating: App\User', 'payload');
@@ -33,8 +31,6 @@ class EloquentAuthorizationTest extends TestCase
 
     public function testUpdatingModelsIsAuthorized2()
     {
-        setUp::run();
-
         HeyMan::whenYouUpdate('\App\User')->thisClosureShouldAllow(function ($param, $param2, $user) {
             return !($param === 1 and $param2 === 2 and (is_a($user, \App\User::class)));
         }, [1, 2])->otherwise()->weDenyAccess();
@@ -46,9 +42,7 @@ class EloquentAuthorizationTest extends TestCase
 
     public function testSavingModelsIsAuthorized2()
     {
-        setUp::run();
-
-        HeyMan::whenYouSave('\App\User')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+        HeyMan::whenYouSave('\App\User')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
         app(EloquentEventsManager::class)->start();
         $this->expectException(AuthorizationException::class);
 
@@ -57,9 +51,7 @@ class EloquentAuthorizationTest extends TestCase
 
     public function testSavingModelsIsAuthorized3()
     {
-        setUp::run();
-
-        HeyMan::whenYouSave('\App\User')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+        HeyMan::whenYouSave('\App\User')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
         app(EloquentEventsManager::class)->start();
         $this->expectException(AuthorizationException::class);
 
@@ -68,9 +60,7 @@ class EloquentAuthorizationTest extends TestCase
 
     public function testSavingModelsIsAuthorized1()
     {
-        setUp::run();
-
-        HeyMan::whenYouSave('\App\User')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+        HeyMan::whenYouSave('\App\User')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
         app(EloquentEventsManager::class)->start();
         $this->expectException(AuthorizationException::class);
 
@@ -79,9 +69,7 @@ class EloquentAuthorizationTest extends TestCase
 
     public function testDeletingModelsIsAuthorized1()
     {
-        setUp::run();
-
-        HeyMan::whenYouDelete('\App\User')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+        HeyMan::whenYouDelete('\App\User')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
         app(EloquentEventsManager::class)->start();
         $this->expectException(AuthorizationException::class);
 
@@ -90,9 +78,7 @@ class EloquentAuthorizationTest extends TestCase
 
     public function testDeletingModelsIsAuthorized2()
     {
-        setUp::run();
-
-        HeyMan::whenYouDelete(['\App\User'])->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
+        HeyMan::whenYouDelete(['\App\User'])->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
         app(EloquentEventsManager::class)->start();
         $this->expectException(AuthorizationException::class);
         event('eloquent.deleting: App\User');
@@ -100,8 +86,6 @@ class EloquentAuthorizationTest extends TestCase
 
     public function testFetchingModelsIsAuthorized()
     {
-        //     setUp::run();
-
         HeyMan::whenYouFetch('\App\User')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
         HeyMan::whenYouCreate('\App\User2')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
         app(EloquentEventsManager::class)->start();
