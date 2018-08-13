@@ -9,6 +9,7 @@ class EloquentEventsManager
     private $event;
 
     private $modelClass;
+    private $data = [];
 
     /**
      * EloquentEventsManager constructor.
@@ -32,8 +33,15 @@ class EloquentEventsManager
     public function startGuarding(callable $callback)
     {
         $callback = app(HeyManSwitcher::class)->wrapForIgnorance($callback, 'eloquent');
-        foreach ($this->modelClass as $model) {
-            $model::{$this->event}($callback);
+        $this->data[] = [$this->modelClass, $this->event, $callback];
+    }
+
+    public function start()
+    {
+        foreach ($this->data as $data) {
+            foreach ($data[0] as $model) {
+                $model::{$data[1]}($data[2]);
+            }
         }
     }
 }

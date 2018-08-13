@@ -5,6 +5,7 @@ namespace Imanghafoori\HeyMan;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Imanghafoori\HeyMan\Reactions\ReactionFactory;
+use Imanghafoori\HeyMan\WatchingStrategies\EloquentEventsManager;
 use Imanghafoori\HeyMan\WatchingStrategies\EventManager;
 use Imanghafoori\HeyMan\WatchingStrategies\RouterEventManager;
 use Imanghafoori\HeyMan\WatchingStrategies\ViewEventManager;
@@ -21,6 +22,7 @@ class HeyManServiceProvider extends ServiceProvider
             (new RouteMatchListener())->authorizeMatchedRoutes();
             app(EventManager::class)->start();
             app(ViewEventManager::class)->start();
+            app(EloquentEventsManager::class)->start();
         });
     }
 
@@ -51,5 +53,6 @@ class HeyManServiceProvider extends ServiceProvider
         $this->app->singleton(EventManager::class, EventManager::class);
         $this->app->singleton(RouterEventManager::class, RouterEventManager::class);
         $this->app->singleton(ViewEventManager::class, ViewEventManager::class);
+        $this->app->singleton(EloquentEventsManager::class, EloquentEventsManager::class);
     }
 }
