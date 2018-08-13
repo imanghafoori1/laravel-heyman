@@ -5,6 +5,7 @@ namespace Imanghafoori\HeyMan\Facades;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Facade;
 use Imanghafoori\HeyMan\Consider;
+use Imanghafoori\HeyMan\Forget;
 use Imanghafoori\HeyMan\YouShouldHave;
 
 /**
@@ -27,6 +28,7 @@ use Imanghafoori\HeyMan\YouShouldHave;
  * @method static YouShouldHave whenEventHappens(array|sting $event)
  * @method static Consider turnOff()
  * @method static Consider turnOn()
+ * @method static Forget forget()
  *
  * @see \Imanghafoori\HeyMan\HeyMan
  */

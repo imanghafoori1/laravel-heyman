@@ -74,15 +74,7 @@ trait RouteHooks
      */
     public function whenYouCallAction(...$action): YouShouldHave
     {
-        $addNamespace = function ($action) {
-            if ($action = ltrim($action, '\\')) {
-                return $action;
-            }
-
-            return app()->getNamespace().'\\Http\\Controllers\\'.$action;
-        };
-
-        $action = array_map($addNamespace, $this->normalizeInput($action));
+        $action = $this->normalizeAction($action);
 
         return $this->authorizeRoute($action);
     }
@@ -107,12 +99,37 @@ trait RouteHooks
      */
     private function authorizeURL($url, $verb): YouShouldHave
     {
+        return $this->authorizeRoute($this->normalizeUrl($url, $verb));
+    }
+
+    /**
+     * @param $url
+     * @param $verb
+     * @return array
+     */
+    private function normalizeUrl($url, $verb): array
+    {
         $removeSlash = function ($url) use ($verb) {
             return $verb.ltrim($url, '/');
         };
 
-        $url = array_map($removeSlash, $this->normalizeInput($url));
+        return array_map($removeSlash, $this->normalizeInput($url));
+    }
 
-        return $this->authorizeRoute($url);
+    /**
+     * @param $action
+     * @return array
+     */
+    private function normalizeAction($action): array
+    {
+        $addNamespace = function ($action) {
+            if ($action = ltrim($action, '\\')) {
+                return $action;
+            }
+
+            return app()->getNamespace().'\\Http\\Controllers\\'.$action;
+        };
+
+        return array_map($addNamespace, $this->normalizeInput($action));
     }
 }

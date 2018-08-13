@@ -30,16 +30,26 @@ class EventManager
      */
     public function commitChain(callable $listener)
     {
-        $r = $this->events;
         $t = app(HeyManSwitcher::class)->wrapForIgnorance($listener, 'event');
 
-        $this->data[] = [$r, $t];
+        $this->data[] = [$this->events, $t];
     }
 
     public function start()
     {
         foreach ($this->data as $data) {
             Event::listen(...$data);
+        }
+    }
+
+    public function forgetAbout($events)
+    {
+        foreach ($events as $event) {
+            foreach ($this->data as $i => $data) {
+                if (($key = array_search($event, $data[0])) !== false) {
+                    unset($this->data[$i][0][$key]);
+                }
+            }
         }
     }
 }
