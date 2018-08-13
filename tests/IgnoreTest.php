@@ -2,6 +2,7 @@
 
 use Imanghafoori\HeyMan\Facades\HeyMan;
 use Imanghafoori\HeyMan\WatchingStrategies\EventManager;
+use Imanghafoori\HeyMan\WatchingStrategies\ViewEventManager;
 
 class IgnoreTest extends TestCase
 {
@@ -125,7 +126,7 @@ class IgnoreTest extends TestCase
             ->thisValueShouldAllow(false)
             ->otherwise()
             ->weDenyAccess();
-
+        app(ViewEventManager::class)->start();
         Heyman::turnOff()->viewChecks();
 
         view('welcome');
@@ -138,7 +139,7 @@ class IgnoreTest extends TestCase
             ->thisValueShouldAllow(false)
             ->otherwise()
             ->weDenyAccess();
-
+        app(ViewEventManager::class)->start();
         Heyman::turnOff()->allChecks();
 
         view('welcome');

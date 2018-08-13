@@ -1,6 +1,7 @@
 <?php
 
 use Imanghafoori\HeyMan\Facades\HeyMan;
+use Imanghafoori\HeyMan\WatchingStrategies\ViewEventManager;
 
 class reactionsTest extends TestCase
 {
@@ -29,7 +30,7 @@ class reactionsTest extends TestCase
         Auth::shouldReceive('guest')->andReturn(false);
 
         HeyMan::whenYouMakeView('welcome')->youShouldBeGuest()->otherwise()->redirect()->to('home')->withErrors('key_1', 'value_1');
-
+        app(ViewEventManager::class)->start();
         $this->get('welcome')->assertRedirect('home')->assertSessionHas('errors');
     }
 

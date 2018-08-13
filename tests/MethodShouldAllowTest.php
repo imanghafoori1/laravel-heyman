@@ -2,6 +2,7 @@
 
 use Illuminate\Auth\Access\AuthorizationException;
 use Imanghafoori\HeyMan\Facades\HeyMan;
+use Imanghafoori\HeyMan\WatchingStrategies\ViewEventManager;
 
 class MethodShouldAllowTest extends TestCase
 {
@@ -9,7 +10,7 @@ class MethodShouldAllowTest extends TestCase
     {
         \Facades\SomeClass::shouldReceive('someMethod')->once()->andReturn(false);
         HeyMan::whenYouMakeView('welcome')->thisMethodShouldAllow('SomeClass@someMethod')->otherwise()->weDenyAccess();
-
+        app(ViewEventManager::class)->start();
         $this->expectException(AuthorizationException::class);
 
         view('welcome');
@@ -22,7 +23,7 @@ class MethodShouldAllowTest extends TestCase
         };
 
         HeyMan::whenYouMakeView('welcome')->thisClosureShouldAllow($cb)->otherwise()->weDenyAccess();
-
+        app(ViewEventManager::class)->start();
         $this->expectException(AuthorizationException::class);
 
         view('welcome');
@@ -31,6 +32,7 @@ class MethodShouldAllowTest extends TestCase
     public function test_Value_Should_Allow()
     {
         HeyMan::whenYouMakeView('welcome')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
+        app(ViewEventManager::class)->start();
         $this->expectException(AuthorizationException::class);
 
         view('welcome');

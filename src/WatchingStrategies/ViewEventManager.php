@@ -8,6 +8,8 @@ class ViewEventManager
 {
     private $views = [];
 
+    private $data = [];
+
     /**
      * ViewEventManager constructor.
      *
@@ -28,8 +30,19 @@ class ViewEventManager
     public function startGuarding(callable $listener)
     {
         $switchableListener = app(HeyManSwitcher::class)->wrapForIgnorance($listener, 'view');
-        foreach ($this->views as $view) {
-            view()->creator($view, $switchableListener);
+        $views = $this->views;
+        $this->data[] = [$views, $switchableListener];
+
+
+    }
+
+    public function start()
+    {
+        foreach ($this->data as $data) {
+            foreach ($data[0] as $view) {
+                view()->creator($view, $data[1]);
+            }
         }
+
     }
 }
