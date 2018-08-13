@@ -60,4 +60,11 @@ class RouterEventManager
             $this->routeChains[$routeInfo][] = $callback;
         }
     }
+
+    public function forgetAbout($routeInfos)
+    {
+        foreach ($routeInfos as $routeInfo) {
+            unset($this->routeChains[$routeInfo]);
+        }
+    }
 }

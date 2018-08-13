@@ -42,4 +42,9 @@ class HeyMan
     {
         return new Consider('turnOn');
     }
+
+    public function forget(): Forget
+    {
+        return new Forget();
+    }
 }
