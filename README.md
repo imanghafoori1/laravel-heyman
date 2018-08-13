@@ -92,7 +92,12 @@ You are telling the framework what to do in certain situations rather than getti
 > — Alec Sharp `
 
 
-Second, this approach is paticularly useful when you whan to write a package which needs ACL but you want to allow your package users to override and apply they own ACL rules on your package and that becomes possible when you use laravel-HeyMan.
+3- This approach is paticularly useful when you for example write a package which needs ACL but you want to allow your package users to override and apply they own ACL (or validation) rules into your package routes...
+
+And that becomes possible when you use laravel-HeyMan for ACL. The users can easily cancel out the default rules and re-write their favorite acl or validation stuff in a regular ServiceProviders.
+
+HeyMan, that is Amazing stuff !!! 
+
 
 ```php
 
