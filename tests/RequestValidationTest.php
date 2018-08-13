@@ -35,6 +35,28 @@ class RequestValidationTest extends TestCase
         $this->post('welcome', ['f' => 'f'])->assertStatus(302)->assertSessionHasErrors('name');
     }
 
+    public function test_multiple_rules_on_single_route()
+    {
+        Route::post('/welcome', 'HomeController@index')->name('welcome.name');
+
+
+        HeyMan::whenYouReachRoute('welcome.name')->yourRequestShouldBeValid(function () {
+            return ['name' => 'required'];
+        });
+        HeyMan::whenYouReachRoute('welcome.name')->yourRequestShouldBeValid(function () {
+            return ['fname' => 'required'];
+        });
+
+
+        $this->post('welcome', ['name' => 'required'])->assertStatus(302)
+            ->assertSessionHasErrors('fname')
+        ;
+
+        $errors = session()->get('errors')->getBag('default');
+        $this->assertFalse($errors->has('name'));
+
+    }
+
     public function test_request_data_is_modified_before_validation()
     {
         Route::post('/welcome', 'HomeController@index')->name('welcome.name');
