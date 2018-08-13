@@ -100,7 +100,7 @@ class EloquentAuthorizationTest extends TestCase
 
     public function testFetchingModelsIsAuthorized()
     {
-   //     setUp::run();
+        //     setUp::run();
 
         HeyMan::whenYouFetch('\App\User')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
         HeyMan::whenYouCreate('\App\User2')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
