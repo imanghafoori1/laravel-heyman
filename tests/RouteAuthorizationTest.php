@@ -220,4 +220,32 @@ class RouteAuthorizationTest extends TestCase
 
         $this->get('welcome')->assertStatus(200);
     }
+
+    public function test_urls_are_forgotten()
+    {
+        Route::get('/welcome', 'HomeController@index')->name('welcome.name');
+
+        HeyMan::whenYouVisitUrl(['welcome', 'welcome_'])->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
+        HeyMan::whenYouVisitUrl('welcome1')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
+        HeyMan::forget()->aboutUrl(['welcome', 'welcome_']);
+        $this->get('welcome')->assertStatus(200);
+    }
+
+    public function testRouteNameIsAuthorizeda()
+    {
+        Route::get('/welcome', 'HomeController@index')->name('welcome.name');
+
+        HeyMan::whenYouReachRoute('welcome.name')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
+        HeyMan::forget()->aboutRoute('welcome.name');
+        $this->get('welcome')->assertStatus(200);
+    }
+
+    public function testControllerActionIsAuthorized2()
+    {
+        Route::get('/welcome', 'HomeController@index')->name('welcome.name');
+
+        HeyMan::whenYouCallAction('\HomeController@index')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
+        HeyMan::forget()->aboutAction('\HomeController@index');
+        $this->get('welcome')->assertStatus(200);
+    }
 }

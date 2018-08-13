@@ -26,6 +26,33 @@ class EventsAuthorizationTest extends TestCase
         event('myEvent1');
     }
 
+    public function test_Event_Is_forgotten()
+    {
+        HeyMan::whenEventHappens(['myEvent', 'myEvent1'])->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
+        HeyMan::whenEventHappens('myEvent4')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
+        HeyMan::whenEventHappens('myEvent4')->thisValueShouldAllow(true)->otherwise()->weThrowNew(\Illuminate\Validation\UnauthorizedException::class);
+        HeyMan::forget()->aboutEvent(['myEvent', 'myEvent1', 'myEvent4']);
+        app(EventManager::class)->start();
+
+        event('myEvent');
+        event('myEvent1');
+        event('myEvent4');
+        $this->assertTrue(true);
+    }
+
+    public function test_Event_Is_forgotten2()
+    {
+        HeyMan::whenEventHappens(['myEvent', 'myEvent1'])->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
+        HeyMan::whenEventHappens('myEvent4')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
+        HeyMan::whenEventHappens('myEvent4')->thisValueShouldAllow(true)->otherwise()->weThrowNew(\Illuminate\Validation\UnauthorizedException::class);
+        HeyMan::forget()->aboutEvent('myEvent4');
+        app(EventManager::class)->start();
+
+        event('myEvent4');
+
+        $this->assertTrue(true);
+    }
+
     public function testAlways()
     {
         Route::get('/event/{event}', function ($event) {

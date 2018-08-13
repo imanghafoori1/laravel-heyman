@@ -85,4 +85,50 @@ class ViewsAuthorizationTest extends TestCase
 
         HeyMan::whenYouMakeView(['nonExistingView'])->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
     }
+
+    public function test_View_Is_Forgotten_To_Be_Authorized()
+    {
+        HeyMan::whenYouMakeView('welcome', 'errors/503')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
+        HeyMan::forget()->aboutView('welcome', 'errors/503');
+
+        app(ViewEventManager::class)->start();
+
+        view('errors.503');
+        $this->assertTrue(true);
+    }
+
+    public function test_View_Is_Forgotten_To_Be_Authorized2()
+    {
+        HeyMan::whenYouMakeView('welcome')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
+        HeyMan::forget()->aboutView('welcome', 'errors/503');
+
+        app(ViewEventManager::class)->start();
+
+        view('welcome');
+        $this->assertTrue(true);
+    }
+
+    public function test_View_Is_Forgotten_To_Be_Authorized3()
+    {
+        HeyMan::whenYouMakeView('welcome', 'errors/503')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
+        HeyMan::whenYouMakeView('welcome', 'errors/503')->thisValueShouldAllow(false)->otherwise()->weThrowNew(AuthorizationException::class);
+        HeyMan::forget()->aboutView(['welcome', 'errors/503']);
+
+        app(ViewEventManager::class)->start();
+
+        view('errors.503');
+        view('welcome');
+        $this->assertTrue(true);
+    }
+
+    public function test_View_Is_Forgotten_To_Be_Authorized4()
+    {
+        HeyMan::whenYouMakeView('welcome', 'errors/503')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
+        HeyMan::forget()->aboutView('welcome1');
+
+        app(ViewEventManager::class)->start();
+        $this->expectException(AuthorizationException::class);
+
+        view('errors.503');
+    }
 }
