@@ -32,8 +32,6 @@ class ViewEventManager
         $switchableListener = app(HeyManSwitcher::class)->wrapForIgnorance($listener, 'view');
         $views = $this->views;
         $this->data[] = [$views, $switchableListener];
-
-
     }
 
     public function start()
@@ -43,6 +41,5 @@ class ViewEventManager
                 view()->creator($view, $data[1]);
             }
         }
-
     }
 }
