@@ -54,7 +54,7 @@ class RouterEventManager
     /**
      * @param $callback
      */
-    public function startGuarding(callable $callback)
+    public function commitChain(callable $callback)
     {
         foreach ($this->routeInfo as $routeInfo) {
             $this->routeChains[$routeInfo][] = $callback;

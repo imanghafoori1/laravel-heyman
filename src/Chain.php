@@ -76,6 +76,6 @@ class Chain
     public function submitChainConfig()
     {
         $callbackListener = app(ReactionFactory::class)->make();
-        $this->eventManager->startGuarding($callbackListener);
+        $this->eventManager->commitChain($callbackListener);
     }
 }

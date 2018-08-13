@@ -30,7 +30,7 @@ class EloquentEventsManager
     /**
      * @param $callback
      */
-    public function startGuarding(callable $callback)
+    public function commitChain(callable $callback)
     {
         $callback = app(HeyManSwitcher::class)->wrapForIgnorance($callback, 'eloquent');
         $this->data[] = [$this->modelClass, $this->event, $callback];

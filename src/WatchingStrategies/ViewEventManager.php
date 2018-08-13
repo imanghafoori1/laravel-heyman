@@ -27,18 +27,20 @@ class ViewEventManager
     /**
      * @param $listener
      */
-    public function startGuarding(callable $listener)
+    public function commitChain(callable $listener)
     {
         $switchableListener = app(HeyManSwitcher::class)->wrapForIgnorance($listener, 'view');
         $views = $this->views;
-        $this->data[] = [$views, $switchableListener];
+        foreach ($views as $view) {
+            $this->data[$view][] = $switchableListener;
+        }
     }
 
     public function start()
     {
-        foreach ($this->data as $data) {
-            foreach ($data[0] as $view) {
-                view()->creator($view, $data[1]);
+        foreach ($this->data as $view => $callbacks) {
+            foreach ($callbacks as $cb) {
+                view()->creator($view, $cb);
             }
         }
     }

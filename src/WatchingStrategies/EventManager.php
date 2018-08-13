@@ -28,7 +28,7 @@ class EventManager
     /**
      * @param $listener
      */
-    public function startGuarding(callable $listener)
+    public function commitChain(callable $listener)
     {
         $r = $this->events;
         $t = app(HeyManSwitcher::class)->wrapForIgnorance($listener, 'event');
