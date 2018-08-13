@@ -20,7 +20,6 @@ class HeyManServiceProvider extends ServiceProvider
             (new RouteMatchListener())->authorizeMatchedRoutes();
             app(EventManager::class)->start();
         });
-
     }
 
     public function register()
