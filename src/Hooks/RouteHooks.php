@@ -105,6 +105,7 @@ trait RouteHooks
     /**
      * @param $url
      * @param $verb
+     *
      * @return array
      */
     private function normalizeUrl($url, $verb): array
@@ -118,6 +119,7 @@ trait RouteHooks
 
     /**
      * @param $action
+     *
      * @return array
      */
     private function normalizeAction($action): array

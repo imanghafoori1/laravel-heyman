@@ -17,6 +17,7 @@ class Forget
     {
         return is_array($url[0]) ? $url[0] : $url;
     }
+
     /**
      * Forget constructor.
      */
@@ -31,29 +32,23 @@ class Forget
 
     public function aboutSaving()
     {
-
     }
 
     public function aboutDeleting()
     {
-
     }
 
     public function aboutCreating()
     {
-
     }
 
     public function aboutUpdating()
     {
-
     }
 
     public function aboutModel()
     {
-
     }
-
 
     public function aboutEvent(...$events)
     {
@@ -78,6 +73,7 @@ class Forget
     /**
      * @param $url
      * @param $verb
+     *
      * @return array
      */
     private function normalizeUrl($url, $verb): array
@@ -91,6 +87,7 @@ class Forget
 
     /**
      * @param $action
+     *
      * @return array
      */
     private function normalizeAction($action): array
@@ -107,5 +104,4 @@ class Forget
 
         return $action;
     }
-
 }
