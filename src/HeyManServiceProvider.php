@@ -30,6 +30,7 @@ class HeyManServiceProvider extends ServiceProvider
     {
         $this->registerSingletons();
 
+        //$this->app->alias(\Imanghafoori\HeyMan\Facades\HeyMan::class, 'HeyMan');
         $this->mergeConfigFrom(
             __DIR__.'/../config/heyMan.php',
             'heyMan'

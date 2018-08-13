@@ -44,4 +44,16 @@ class ViewEventManager
             }
         }
     }
+
+    public function forgetAbout($views)
+    {
+        foreach ($views as $view) {
+            unset($this->data[$view]);
+        }
+    }
+
+    public function forgetAboutAll()
+    {
+        $this->data = [];
+    }
 }
