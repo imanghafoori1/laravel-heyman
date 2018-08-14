@@ -49,14 +49,12 @@ class EloquentEventsManager
     public function forgetAbout($models, $event = null)
     {
         foreach ($models as $model) {
-
             foreach ($this->data as $i => $data) {
-
                 if (($key = array_search($model, $data[0])) === false) {
                     continue;
                 }
 
-                if (! is_null($event) && $event !== $data[1]) {
+                if (!is_null($event) && $event !== $data[1]) {
                     continue;
                 }
 
