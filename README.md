@@ -34,14 +34,14 @@ composer require imanghafoori/laravel-heyman
 
 ### Requirements:
 
-```
-PHP v7.0 or above
-Laravel v5.1 or above
-```
+
+- PHP v7.0 or above
+- Laravel v5.1 or above
+
 
 ## Example : 
 
-Here you can see a good example :
+Here you can see a good example at :
 
 https://github.com/imanghafoori1/council
 
@@ -79,6 +79,7 @@ And you write code like this in a Service Provider `boot` method to implement wh
 ### Structural Benefits:
 
 1- This way you can fully `decouple` authorization and a lot of guarding code from the rest of your application code and put it in an other place. So your Controllers and Routes become less crowded and you will have a central place where you limit the access of users to your application or perform Request validation.
+
 
 2- In fact, when you write your code in the way, you are conforming to the famous "`Tell don't ask principle.`"
 
