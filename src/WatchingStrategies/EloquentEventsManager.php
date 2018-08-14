@@ -9,6 +9,7 @@ class EloquentEventsManager
     private $event;
 
     private $modelClass;
+
     private $data = [];
 
     /**
@@ -41,6 +42,25 @@ class EloquentEventsManager
         foreach ($this->data as $data) {
             foreach ($data[0] as $model) {
                 $model::{$data[1]}($data[2]);
+            }
+        }
+    }
+
+    public function forgetAbout($models, $event = null)
+    {
+        foreach ($models as $model) {
+
+            foreach ($this->data as $i => $data) {
+
+                if (($key = array_search($model, $data[0])) === false) {
+                    continue;
+                }
+
+                if (! is_null($event) && $event !== $data[1]) {
+                    continue;
+                }
+
+                unset($this->data[$i][0][$key]);
             }
         }
     }

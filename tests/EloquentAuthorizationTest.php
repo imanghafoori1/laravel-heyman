@@ -67,6 +67,16 @@ class EloquentAuthorizationTest extends TestCase
         event('eloquent.saving: App\User');
     }
 
+    public function testSavingModelsIsAuthorized36()
+    {
+        HeyMan::whenYouSave('\App\User')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
+        HeyMan::forget()->aboutSaving(['\App\User']);
+        app(EloquentEventsManager::class)->start();
+
+        event('eloquent.saving: App\User');
+        $this->assertTrue(true);
+    }
+
     public function testDeletingModelsIsAuthorized1()
     {
         HeyMan::whenYouDelete('\App\User')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
@@ -74,6 +84,15 @@ class EloquentAuthorizationTest extends TestCase
         $this->expectException(AuthorizationException::class);
 
         event('eloquent.deleting: App\User');
+    }
+
+    public function testDeletingModelsIsAuthorized4()
+    {
+        HeyMan::whenYouDelete('\App\User')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
+        HeyMan::forget()->aboutDeleting(['\App\User']);
+        app(EloquentEventsManager::class)->start();
+        event('eloquent.deleting: App\User');
+        $this->assertTrue(true);
     }
 
     public function testDeletingModelsIsAuthorized2()
@@ -93,6 +112,28 @@ class EloquentAuthorizationTest extends TestCase
         $this->expectException(AuthorizationException::class);
 
         event('eloquent.retrieved: App\User');
+    }
+
+    public function testFetchingModelsIgnored()
+    {
+        HeyMan::whenYouFetch(\App\User::class)->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
+        HeyMan::whenYouCreate('\App\User2')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
+        HeyMan::forget()->aboutModel(\App\User::class);
+        app(EloquentEventsManager::class)->start();
+
+        event('eloquent.retrieved: App\User');
+        $this->assertTrue(true);
+    }
+
+    public function testFetchingModelsIgnored2()
+    {
+        HeyMan::whenYouFetch(\App\User::class)->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
+        HeyMan::whenYouCreate('\App\User2')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
+        HeyMan::forget()->aboutFetching(\App\User::class);
+        app(EloquentEventsManager::class)->start();
+
+        event('eloquent.retrieved: App\User');
+        $this->assertTrue(true);
     }
 
     public function _testHeyWait()

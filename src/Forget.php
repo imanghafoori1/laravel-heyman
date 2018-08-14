@@ -2,6 +2,7 @@
 
 namespace Imanghafoori\HeyMan;
 
+use Imanghafoori\HeyMan\WatchingStrategies\EloquentEventsManager;
 use Imanghafoori\HeyMan\WatchingStrategies\EventManager;
 use Imanghafoori\HeyMan\WatchingStrategies\RouterEventManager;
 use Imanghafoori\HeyMan\WatchingStrategies\ViewEventManager;
@@ -30,24 +31,34 @@ class Forget
         resolve(ViewEventManager::class)->forgetAbout($this->normalizeInput($view));
     }
 
-    public function aboutSaving()
+    public function aboutSaving(...$model)
     {
+        resolve(EloquentEventsManager::class)->forgetAbout($this->normalizeInput($model), 'saving');
     }
 
-    public function aboutDeleting()
+    public function aboutDeleting(...$model)
     {
+        resolve(EloquentEventsManager::class)->forgetAbout($this->normalizeInput($model), 'deleting');
     }
 
-    public function aboutCreating()
+    public function aboutFetching(...$model)
     {
+        resolve(EloquentEventsManager::class)->forgetAbout($this->normalizeInput($model), 'retrieved');
     }
 
-    public function aboutUpdating()
+    public function aboutCreating(...$model)
     {
+        resolve(EloquentEventsManager::class)->forgetAbout($this->normalizeInput($model), 'creating');
     }
 
-    public function aboutModel()
+    public function aboutUpdating(...$model)
     {
+        resolve(EloquentEventsManager::class)->forgetAbout($this->normalizeInput($model), 'updating');
+    }
+
+    public function aboutModel(...$model)
+    {
+        resolve(EloquentEventsManager::class)->forgetAbout($this->normalizeInput($model));
     }
 
     public function aboutEvent(...$events)
