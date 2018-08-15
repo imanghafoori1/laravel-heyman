@@ -8,7 +8,7 @@ class BaseManager
 {
     protected $initial = [];
 
-    protected $event = 'a';
+    protected $event;
 
     protected $data = [];
 
@@ -37,11 +37,13 @@ class BaseManager
      *
      * @param $value
      *
+     * @param string $param
      * @return ViewEventManager
      */
-    public function init($value, $param = [])
+    public function init(array $value, string $param = 'a')
     {
         $this->initial = $value;
+        $this->event = $param;
 
         return $this;
     }

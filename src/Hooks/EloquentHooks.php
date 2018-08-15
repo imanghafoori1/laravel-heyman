@@ -69,7 +69,7 @@ trait EloquentHooks
 
     private function authorizeModel($event, $modelClass)
     {
-        $this->chain->eventManager = app(EloquentEventsManager::class)->init($event, $modelClass);
+        $this->chain->eventManager = app(EloquentEventsManager::class)->init($modelClass, $event);
 
         return app(YouShouldHave::class);
     }
