@@ -36,8 +36,8 @@ class BaseManager
      * ViewEventManager constructor.
      *
      * @param $value
-     *
      * @param string $param
+     *
      * @return ViewEventManager
      */
     public function init(array $value, string $param = 'a')
@@ -47,7 +47,6 @@ class BaseManager
 
         return $this;
     }
-
 
     /**
      * @param callable $callback
