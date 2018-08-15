@@ -21,7 +21,7 @@ class BaseManager
         }
     }
 
-    public function forgetAbout($models, $event = 'a')
+    public function forgetAbout($models, $event = 'default')
     {
         foreach ($models as $model) {
             if (is_null($event)) {
@@ -40,7 +40,7 @@ class BaseManager
      *
      * @return ViewEventManager
      */
-    public function init(array $value, string $param = 'a')
+    public function init(array $value, string $param = 'default')
     {
         $this->initial = $value;
         $this->event = $param;
