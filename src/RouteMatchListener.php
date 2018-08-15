@@ -28,7 +28,7 @@ class RouteMatchListener
     private function performClosures(array $closures)
     {
         foreach ($closures as $closure) {
-            foreach ($closure as $c) {
+            foreach ($closure as $a => $c) {
                 $c();
             }
         }

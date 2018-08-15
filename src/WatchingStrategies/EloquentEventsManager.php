@@ -2,15 +2,13 @@
 
 namespace Imanghafoori\HeyMan\WatchingStrategies;
 
-use Imanghafoori\HeyMan\HeyManSwitcher;
-
-class EloquentEventsManager
+class EloquentEventsManager extends BaseManager
 {
-    private $event;
+    protected $event;
 
-    private $modelClass;
+    protected $initial;
 
-    private $data = [];
+    protected $type = 'eloquent';
 
     /**
      * EloquentEventsManager constructor.
@@ -20,44 +18,23 @@ class EloquentEventsManager
      *
      * @return EloquentEventsManager
      */
-    public function init(string $event, array $modelClass) : self
+    public function init($event, $modelClass = [])
     {
         $this->event = $event;
-        $this->modelClass = $modelClass;
+        $this->initial = $modelClass;
 
         return $this;
     }
 
     /**
-     * @param $callback
+     * @param $cb
+     * @param $event
+     * @param $model
      */
-    public function commitChain(callable $callback)
+    protected function register($model, $cb, $event)
     {
-        $callback = app(HeyManSwitcher::class)->wrapForIgnorance($callback, 'eloquent');
-        foreach ($this->modelClass as $model) {
-            $this->data[$model][$this->event][] = $callback;
-        }
-    }
-
-    public function start()
-    {
-        foreach ($this->data as $model => $data) {
-            foreach ($data as $event => $cb) {
-                foreach ($cb as $c) {
-                    $model::{$event}($c);
-                }
-            }
-        }
-    }
-
-    public function forgetAbout($models, $event = null)
-    {
-        foreach ($models as $model) {
-            if (is_null($event)) {
-                unset($this->data[$model]);
-            } else {
-                unset($this->data[$model][$event]);
-            }
+        foreach ($cb as $c) {
+            $model::{$event}($c);
         }
     }
 }

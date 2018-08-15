@@ -3,13 +3,12 @@
 namespace Imanghafoori\HeyMan\WatchingStrategies;
 
 use Illuminate\Support\Str;
-use Imanghafoori\HeyMan\HeyManSwitcher;
 
-class RouterEventManager
+class RouterEventManager extends BaseManager
 {
-    private $routeInfo;
+    public $data = [];
 
-    private $data = [];
+    protected $type = 'route';
 
     public function findMatchingCallbacks(array $matchedRoute): array
     {
@@ -17,54 +16,11 @@ class RouterEventManager
         foreach ($this->data as $routeInfo => $callBacks) {
             foreach ($matchedRoute as $info) {
                 if (Str::is($routeInfo, $info)) {
-                    $matchedCallbacks[] = $this->wrapCallbacksForIgnore($callBacks);
+                    $matchedCallbacks[] = $callBacks['a'] ?? [];
                 }
             }
         }
 
         return $matchedCallbacks;
-    }
-
-    /**
-     * @param $callbacks
-     *
-     * @return array
-     */
-    private function wrapCallbacksForIgnore(array $callbacks): array
-    {
-        return array_map(function ($callback) {
-            return app(HeyManSwitcher::class)->wrapForIgnorance($callback, 'route');
-        }, $callbacks);
-    }
-
-    /**
-     * RouterEventManager constructor.
-     *
-     * @param $routeInfo
-     *
-     * @return RouterEventManager
-     */
-    public function init(array $routeInfo): self
-    {
-        $this->routeInfo = $routeInfo;
-
-        return $this;
-    }
-
-    /**
-     * @param $callback
-     */
-    public function commitChain(callable $callback)
-    {
-        foreach ($this->routeInfo as $routeInfo) {
-            $this->data[$routeInfo][] = $callback;
-        }
-    }
-
-    public function forgetAbout($routeInfos)
-    {
-        foreach ($routeInfos as $routeInfo) {
-            unset($this->data[$routeInfo]);
-        }
     }
 }
