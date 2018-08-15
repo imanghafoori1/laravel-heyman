@@ -36,14 +36,4 @@ trait ActionNormalizer
 
         return array_map($removeSlash, $this->normalizeInput($url));
     }
-
-    /**
-     * @param $url
-     *
-     * @return array
-     */
-    private function normalizeInput(array $url): array
-    {
-        return is_array($url[0]) ? $url[0] : $url;
-    }
 }

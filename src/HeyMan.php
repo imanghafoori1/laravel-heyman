@@ -6,10 +6,11 @@ use Imanghafoori\HeyMan\Hooks\EloquentHooks;
 use Imanghafoori\HeyMan\Hooks\EventHooks;
 use Imanghafoori\HeyMan\Hooks\RouteHooks;
 use Imanghafoori\HeyMan\Hooks\ViewHooks;
+use Imanghafoori\HeyMan\Normilizers\InputNormalizer;
 
 class HeyMan
 {
-    use EloquentHooks, RouteHooks, ViewHooks, EventHooks;
+    use EloquentHooks, RouteHooks, ViewHooks, EventHooks, InputNormalizer;
 
     private $chain;
 
@@ -21,16 +22,6 @@ class HeyMan
     public function __construct(Chain $chain)
     {
         $this->chain = $chain;
-    }
-
-    /**
-     * @param $url
-     *
-     * @return array
-     */
-    private function normalizeInput(array $url): array
-    {
-        return is_array($url[0]) ? $url[0] : $url;
     }
 
     public function turnOff(): Consider

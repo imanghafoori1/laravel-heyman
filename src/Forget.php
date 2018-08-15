@@ -3,14 +3,14 @@
 namespace Imanghafoori\HeyMan;
 
 use Imanghafoori\HeyMan\Normilizers\ActionNormalizer;
+use Imanghafoori\HeyMan\Normilizers\InputNormalizer;
 use Imanghafoori\HeyMan\WatchingStrategies\{
     EloquentEventsManager, EventManager, RouterEventManager, ViewEventManager
 };
 
 class Forget
 {
-
-    use ActionNormalizer;
+    use ActionNormalizer, InputNormalizer;
 
     /**
      * Forget constructor.
