@@ -55,6 +55,6 @@ class EventManager
 
     public function register($event, $callback)
     {
-        Event::listen($event,$callback);
+        Event::listen($event, $callback);
     }
 }
