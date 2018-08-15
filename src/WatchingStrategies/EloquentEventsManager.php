@@ -37,8 +37,6 @@ class EloquentEventsManager
         foreach ($this->modelClass as $model) {
             $this->data[$model][$this->event][] = $callback;
         }
-
-
     }
 
     public function start()
