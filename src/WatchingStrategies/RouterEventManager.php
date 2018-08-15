@@ -9,12 +9,12 @@ class RouterEventManager
 {
     private $routeInfo;
 
-    private $routeChains = [];
+    private $data = [];
 
     public function findMatchingCallbacks(array $matchedRoute): array
     {
         $matchedCallbacks = [];
-        foreach ($this->routeChains as $routeInfo => $callBacks) {
+        foreach ($this->data as $routeInfo => $callBacks) {
             foreach ($matchedRoute as $info) {
                 if (Str::is($routeInfo, $info)) {
                     $matchedCallbacks[] = $this->wrapCallbacksForIgnore($callBacks);
@@ -57,14 +57,14 @@ class RouterEventManager
     public function commitChain(callable $callback)
     {
         foreach ($this->routeInfo as $routeInfo) {
-            $this->routeChains[$routeInfo][] = $callback;
+            $this->data[$routeInfo][] = $callback;
         }
     }
 
     public function forgetAbout($routeInfos)
     {
         foreach ($routeInfos as $routeInfo) {
-            unset($this->routeChains[$routeInfo]);
+            unset($this->data[$routeInfo]);
         }
     }
 }

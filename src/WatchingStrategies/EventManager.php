@@ -7,7 +7,7 @@ use Imanghafoori\HeyMan\HeyManSwitcher;
 
 class EventManager
 {
-    private $events;
+    private $initial;
 
     private $data = [];
 
@@ -20,19 +20,19 @@ class EventManager
      */
     public function init(array $events): self
     {
-        $this->events = $events;
+        $this->initial = $events;
 
         return $this;
     }
 
     /**
-     * @param $listener
+     * @param callable $callback
      */
-    public function commitChain(callable $listener)
+    public function commitChain(callable $callback)
     {
-        $t = app(HeyManSwitcher::class)->wrapForIgnorance($listener, 'event');
+        $t = app(HeyManSwitcher::class)->wrapForIgnorance($callback, 'event');
 
-        foreach ($this->events as $event) {
+        foreach ($this->initial as $event) {
             $this->data[$event][] = $t;
         }
     }
@@ -40,7 +40,7 @@ class EventManager
     public function start()
     {
         foreach ($this->data as $value => $callbacks) {
-            foreach ($callbacks as $cb) {
+            foreach ($callbacks as $key => $cb) {
                 $this->register($value, $cb);
             }
         }

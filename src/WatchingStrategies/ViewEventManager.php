@@ -39,7 +39,7 @@ class ViewEventManager
     public function start()
     {
         foreach ($this->data as $value => $callbacks) {
-            foreach ($callbacks as $cb) {
+            foreach ($callbacks as $key => $cb) {
                 $this->register($value, $cb);
             }
         }
