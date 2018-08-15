@@ -9,15 +9,8 @@ use Imanghafoori\HeyMan\WatchingStrategies\ViewEventManager;
 
 class Forget
 {
-    /**
-     * @param $url
-     *
-     * @return array
-     */
-    private function normalizeInput(array $url): array
-    {
-        return is_array($url[0]) ? $url[0] : $url;
-    }
+
+    use ActionNormalizer;
 
     /**
      * Forget constructor.
@@ -78,42 +71,7 @@ class Forget
 
     public function aboutAction(...$actions)
     {
-        resolve(RouterEventManager::class)->forgetAbout($this->normalizeAction($actions));
-    }
-
-    /**
-     * @param $url
-     * @param $verb
-     *
-     * @return array
-     */
-    private function normalizeUrl($url, $verb): array
-    {
-        $removeSlash = function ($url) use ($verb) {
-            return $verb.ltrim($url, '/');
-        };
-
-        return array_map($removeSlash, $this->normalizeInput($url));
-    }
-
-    /**
-     * @param $action
-     *
-     * @return array
-     */
-    private function normalizeAction($action): array
-    {
-        $addNamespace = function ($action) {
-            if ($action = ltrim($action, '\\')) {
-                return $action;
-            }
-
-            return app()->getNamespace().'\\Http\\Controllers\\'.$action;
-        };
-
-        $action = array_map($addNamespace, $this->normalizeInput($action));
-
-        return $action;
+        $this->forgetAboutRoute($this->normalizeAction($actions));
     }
 
     /**
