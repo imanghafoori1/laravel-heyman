@@ -33,27 +33,27 @@ class Forget
 
     public function aboutSaving(...$model)
     {
-        resolve(EloquentEventsManager::class)->forgetAbout($this->normalizeInput($model), 'saving');
+        $this->forgetForModel($model, 'saving');
     }
 
     public function aboutDeleting(...$model)
     {
-        resolve(EloquentEventsManager::class)->forgetAbout($this->normalizeInput($model), 'deleting');
+        $this->forgetForModel($model, 'deleting');
     }
 
     public function aboutFetching(...$model)
     {
-        resolve(EloquentEventsManager::class)->forgetAbout($this->normalizeInput($model), 'retrieved');
+        $this->forgetForModel($model, 'retrieved');
     }
 
     public function aboutCreating(...$model)
     {
-        resolve(EloquentEventsManager::class)->forgetAbout($this->normalizeInput($model), 'creating');
+        $this->forgetForModel($model, 'creating');
     }
 
     public function aboutUpdating(...$model)
     {
-        resolve(EloquentEventsManager::class)->forgetAbout($this->normalizeInput($model), 'updating');
+        $this->forgetForModel($model, 'updating');
     }
 
     public function aboutModel(...$model)
@@ -114,5 +114,14 @@ class Forget
         $action = array_map($addNamespace, $this->normalizeInput($action));
 
         return $action;
+    }
+
+    /**
+     * @param $model
+     * @param $event
+     */
+    private function forgetForModel($model, $event)
+    {
+        resolve(EloquentEventsManager::class)->forgetAbout($this->normalizeInput($model), $event);
     }
 }
