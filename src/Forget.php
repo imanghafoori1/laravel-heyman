@@ -52,7 +52,7 @@ class Forget
 
     public function aboutModel(...$model)
     {
-        resolve(EloquentEventsManager::class)->forgetAbout($this->normalizeInput($model));
+        resolve(EloquentEventsManager::class)->forgetAbout($this->normalizeInput($model), null);
     }
 
     public function aboutEvent(...$events)
