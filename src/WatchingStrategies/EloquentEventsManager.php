@@ -34,14 +34,20 @@ class EloquentEventsManager
     public function commitChain(callable $callback)
     {
         $callback = app(HeyManSwitcher::class)->wrapForIgnorance($callback, 'eloquent');
-        $this->data[] = [$this->modelClass, $this->event, $callback];
+        foreach ($this->modelClass as $model) {
+            $this->data[$model][$this->event][] = $callback;
+        }
+
+
     }
 
     public function start()
     {
-        foreach ($this->data as $data) {
-            foreach ($data[0] as $model) {
-                $model::{$data[1]}($data[2]);
+        foreach ($this->data as $model => $data) {
+            foreach ($data as $event => $cb) {
+                foreach ($cb as $c) {
+                    $model::{$event}($c);
+                }
             }
         }
     }
@@ -49,16 +55,10 @@ class EloquentEventsManager
     public function forgetAbout($models, $event = null)
     {
         foreach ($models as $model) {
-            foreach ($this->data as $i => $data) {
-                if (($key = array_search($model, $data[0])) === false) {
-                    continue;
-                }
-
-                if (!is_null($event) && $event !== $data[1]) {
-                    continue;
-                }
-
-                unset($this->data[$i][0][$key]);
+            if (is_null($event)) {
+                unset($this->data[$model]);
+            } else {
+                unset($this->data[$model][$event]);
             }
         }
     }

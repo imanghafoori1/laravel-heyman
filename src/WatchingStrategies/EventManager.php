@@ -32,24 +32,29 @@ class EventManager
     {
         $t = app(HeyManSwitcher::class)->wrapForIgnorance($listener, 'event');
 
-        $this->data[] = [$this->events, $t];
+        foreach ($this->events as $event) {
+            $this->data[$event][] = $t;
+        }
     }
 
     public function start()
     {
-        foreach ($this->data as $data) {
-            Event::listen(...$data);
+        foreach ($this->data as $value => $callbacks) {
+            foreach ($callbacks as $cb) {
+                $this->register($value, $cb);
+            }
         }
     }
 
     public function forgetAbout($events)
     {
         foreach ($events as $event) {
-            foreach ($this->data as $i => $data) {
-                if (($key = array_search($event, $data[0])) !== false) {
-                    unset($this->data[$i][0][$key]);
-                }
-            }
+            unset($this->data[$event]);
         }
+    }
+
+    public function register($event, $callback)
+    {
+        Event::listen($event,$callback);
     }
 }

@@ -38,9 +38,9 @@ class ViewEventManager
 
     public function start()
     {
-        foreach ($this->data as $view => $callbacks) {
+        foreach ($this->data as $value => $callbacks) {
             foreach ($callbacks as $cb) {
-                view()->creator($view, $cb);
+                $this->register($value, $cb);
             }
         }
     }
@@ -55,5 +55,10 @@ class ViewEventManager
     public function forgetAboutAll()
     {
         $this->data = [];
+    }
+
+    public function register($view, $callback)
+    {
+        view()->creator($view, $callback);
     }
 }
