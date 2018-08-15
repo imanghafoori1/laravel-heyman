@@ -14,7 +14,7 @@ class RouterEventManager extends BaseManager
         foreach ($this->data as $routeInfo => $callBacks) {
             foreach ($matchedRoute as $info) {
                 if (Str::is($routeInfo, $info)) {
-                    $matchedCallbacks[] = $callBacks['default'] ?? [];
+                    $matchedCallbacks[] = $callBacks['default'];
                 }
             }
         }

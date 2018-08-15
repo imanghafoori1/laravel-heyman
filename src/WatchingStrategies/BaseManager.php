@@ -4,7 +4,7 @@ namespace Imanghafoori\HeyMan\WatchingStrategies;
 
 use Imanghafoori\HeyMan\HeyManSwitcher;
 
-class BaseManager
+abstract class BaseManager
 {
     protected $initial = [];
 
@@ -21,14 +21,10 @@ class BaseManager
         }
     }
 
-    public function forgetAbout($models, $event = 'default')
+    public function forgetAbout($models)
     {
         foreach ($models as $model) {
-            if (is_null($event)) {
-                unset($this->data[$model]);
-            } else {
-                unset($this->data[$model][$event]);
-            }
+            unset($this->data[$model]);
         }
     }
 
