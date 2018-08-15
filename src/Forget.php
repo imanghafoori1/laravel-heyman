@@ -4,9 +4,10 @@ namespace Imanghafoori\HeyMan;
 
 use Imanghafoori\HeyMan\Normilizers\ActionNormalizer;
 use Imanghafoori\HeyMan\Normilizers\InputNormalizer;
-use Imanghafoori\HeyMan\WatchingStrategies\{
-    EloquentEventsManager, EventManager, RouterEventManager, ViewEventManager
-};
+use Imanghafoori\HeyMan\WatchingStrategies\EloquentEventsManager;
+use Imanghafoori\HeyMan\WatchingStrategies\EventManager;
+use Imanghafoori\HeyMan\WatchingStrategies\RouterEventManager;
+use Imanghafoori\HeyMan\WatchingStrategies\ViewEventManager;
 
 class Forget
 {
