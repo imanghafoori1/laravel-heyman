@@ -2,10 +2,10 @@
 
 namespace Imanghafoori\HeyMan;
 
-use Imanghafoori\HeyMan\WatchingStrategies\EloquentEventsManager;
-use Imanghafoori\HeyMan\WatchingStrategies\EventManager;
-use Imanghafoori\HeyMan\WatchingStrategies\RouterEventManager;
-use Imanghafoori\HeyMan\WatchingStrategies\ViewEventManager;
+use Imanghafoori\HeyMan\Normilizers\ActionNormalizer;
+use Imanghafoori\HeyMan\WatchingStrategies\{
+    EloquentEventsManager, EventManager, RouterEventManager, ViewEventManager
+};
 
 class Forget
 {
@@ -26,27 +26,27 @@ class Forget
 
     public function aboutSaving(...$model)
     {
-        $this->forgetForModel($model, 'saving');
+        $this->forgetAboutModel($model, 'saving');
     }
 
     public function aboutDeleting(...$model)
     {
-        $this->forgetForModel($model, 'deleting');
+        $this->forgetAboutModel($model, 'deleting');
     }
 
     public function aboutFetching(...$model)
     {
-        $this->forgetForModel($model, 'retrieved');
+        $this->forgetAboutModel($model, 'retrieved');
     }
 
     public function aboutCreating(...$model)
     {
-        $this->forgetForModel($model, 'creating');
+        $this->forgetAboutModel($model, 'creating');
     }
 
     public function aboutUpdating(...$model)
     {
-        $this->forgetForModel($model, 'updating');
+        $this->forgetAboutModel($model, 'updating');
     }
 
     public function aboutModel(...$model)
@@ -61,12 +61,12 @@ class Forget
 
     public function aboutUrl(...$urls)
     {
-        resolve(RouterEventManager::class)->forgetAbout($this->normalizeUrl($urls, 'GET'));
+        $this->forgetAboutRoute($this->normalizeUrl($urls, 'GET'));
     }
 
     public function aboutRoute(...$route)
     {
-        resolve(RouterEventManager::class)->forgetAbout($this->normalizeInput($route));
+        $this->forgetAboutRoute($this->normalizeInput($route));
     }
 
     public function aboutAction(...$actions)
@@ -78,8 +78,16 @@ class Forget
      * @param $model
      * @param $event
      */
-    private function forgetForModel($model, $event)
+    private function forgetAboutModel($model, $event)
     {
         resolve(EloquentEventsManager::class)->forgetAbout($this->normalizeInput($model), $event);
+    }
+
+    /**
+     * @param $normalizeUrl
+     */
+    private function forgetAboutRoute($normalizeUrl)
+    {
+        resolve(RouterEventManager::class)->forgetAbout($normalizeUrl);
     }
 }

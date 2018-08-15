@@ -2,11 +2,13 @@
 
 namespace Imanghafoori\HeyMan\Hooks;
 
-use Imanghafoori\HeyMan\WatchingStrategies\RouterEventManager;
-use Imanghafoori\HeyMan\YouShouldHave;
+use Imanghafoori\HeyMan\{
+    Normilizers\ActionNormalizer, WatchingStrategies\RouterEventManager, YouShouldHave
+};
 
 trait RouteHooks
 {
+    use ActionNormalizer;
     /**
      * @param mixed ...$url
      *
