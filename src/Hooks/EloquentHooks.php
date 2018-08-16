@@ -14,9 +14,7 @@ trait EloquentHooks
      */
     public function whenYouFetch(...$model)
     {
-        $model = $this->normalizeInput($model);
-
-        return $this->authorizeModel('retrieved', $model);
+        return $this->watchModel('retrieved', $this->normalizeInput($model));
     }
 
     /**
@@ -26,9 +24,7 @@ trait EloquentHooks
      */
     public function whenYouCreate(...$model)
     {
-        $model = $this->normalizeInput($model);
-
-        return $this->authorizeModel('creating', $model);
+        return $this->watchModel('creating', $this->normalizeInput($model));
     }
 
     /**
@@ -38,9 +34,7 @@ trait EloquentHooks
      */
     public function whenYouUpdate(...$model)
     {
-        $model = $this->normalizeInput($model);
-
-        return $this->authorizeModel('updating', $model);
+        return $this->watchModel('updating', $this->normalizeInput($model));
     }
 
     /**
@@ -50,9 +44,7 @@ trait EloquentHooks
      */
     public function whenYouSave(...$model)
     {
-        $model = $this->normalizeInput($model);
-
-        return $this->authorizeModel('saving', $model);
+        return $this->watchModel('saving', $this->normalizeInput($model));
     }
 
     /**
@@ -62,12 +54,10 @@ trait EloquentHooks
      */
     public function whenYouDelete(...$model)
     {
-        $model = $this->normalizeInput($model);
-
-        return $this->authorizeModel('deleting', $model);
+        return $this->watchModel('deleting', $this->normalizeInput($model));
     }
 
-    private function authorizeModel($event, $modelClass)
+    private function watchModel($event, $modelClass)
     {
         $this->chain->eventManager = app(EloquentEventsManager::class)->init($modelClass, $event);
 

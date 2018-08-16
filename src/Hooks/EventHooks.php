@@ -14,7 +14,7 @@ trait EventHooks
      */
     public function whenEventHappens(...$event): YouShouldHave
     {
-        return $this->holdWhen($this->normalizeInput($event));
+        return $this->watchEvents($this->normalizeInput($event));
     }
 
     /**
@@ -22,7 +22,7 @@ trait EventHooks
      *
      * @return YouShouldHave
      */
-    private function holdWhen($eventName): YouShouldHave
+    private function watchEvents($eventName): YouShouldHave
     {
         $this->chain->eventManager = app(EventManager::class)->init($eventName);
 
