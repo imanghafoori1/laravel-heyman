@@ -65,9 +65,20 @@ trait RouteHooks
      *
      * @return YouShouldHave
      */
-    public function whenYouReachRoute(...$routeName): YouShouldHave
+    public function whenYouHitRouteName(...$routeName): YouShouldHave
     {
         return $this->authorizeRoute($this->normalizeInput($routeName));
+    }
+
+    /**
+     * @deprecated
+     * @param mixed ...$routeName
+     *
+     * @return YouShouldHave
+     */
+    public function whenYouReachRoute(...$routeName): YouShouldHave
+    {
+        return $this->whenYouHitRouteName(...$routeName);
     }
 
     /**

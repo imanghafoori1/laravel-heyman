@@ -22,7 +22,7 @@ use Imanghafoori\HeyMan\YouShouldHave;
  * @method static YouShouldHave whenYouSendPut(array|sting $url)
  * @method static YouShouldHave whenYouSendPatch(array|sting $url)
  * @method static YouShouldHave whenYouSendDelete(array|sting $url)
- * @method static YouShouldHave whenYouReachRoute(array|sting $routeName)
+ * @method static YouShouldHave whenHitRouteName(array|sting $routeName)
  * @method static YouShouldHave whenYouCallAction(array|sting $action)
  * @method static YouShouldHave whenYouMakeView(array|sting $view)
  * @method static YouShouldHave whenEventHappens(array|sting $event)
