@@ -83,6 +83,7 @@ class ResponderFactory
     /**
      * @param array $resp
      * @param $respObj
+     *
      * @throws \ImanGhafoori\Terminator\TerminateException
      */
     private function sendResponse(array $resp, $respObj)
