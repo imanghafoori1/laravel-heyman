@@ -73,11 +73,11 @@ class Chain
     {
         $calls = $this->beforeResponse;
         $this->beforeResponse = [];
+
         return function () use ($calls) {
             foreach ($calls as $call) {
                 $call();
             }
         };
     }
-
 }

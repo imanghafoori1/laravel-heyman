@@ -72,6 +72,7 @@ trait RouteHooks
 
     /**
      * @deprecated
+     *
      * @param mixed ...$routeName
      *
      * @return YouShouldHave

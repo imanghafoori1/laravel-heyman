@@ -41,7 +41,7 @@ class ReactionFactory
         $responder = app(ResponderFactory::class)->make();
         $beforeResponse = $this->chain->beforeResponse();
 
-        return function() use($beforeResponse, $responder){
+        return function () use ($beforeResponse, $responder) {
             $beforeResponse();
             $responder();
         };
