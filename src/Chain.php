@@ -11,7 +11,7 @@ class Chain
      */
     public $eventManager;
 
-    public $predicate;
+    public $condition;
 
     public $responseType = 'nothing';
 

@@ -8,7 +8,7 @@ use Imanghafoori\HeyMan\Reactions\Validator;
 
 class YouShouldHave
 {
-    public $predicate;
+    public $condition;
 
     /**
      * @var Chain
@@ -34,7 +34,7 @@ class YouShouldHave
     {
         $gate = $this->defineNewGate($gate);
 
-        $this->chain->predicate = function (...$payload) use ($gate, $parameters) {
+        $this->chain->condition = function (...$payload) use ($gate, $parameters) {
             return Gate::allows($gate, (array_merge($parameters, ...$payload)));
         };
 
@@ -48,7 +48,7 @@ class YouShouldHave
 
     public function thisMethodShouldAllow($callback, array $parameters = []): Otherwise
     {
-        $this->chain->predicate = function (...$payload) use ($callback, $parameters) {
+        $this->chain->condition = function (...$payload) use ($callback, $parameters) {
             return (bool) app()->call($callback, array_merge($parameters, ...$payload));
         };
 
@@ -57,7 +57,7 @@ class YouShouldHave
 
     public function thisValueShouldAllow($value): Otherwise
     {
-        $this->chain->predicate = function () use ($value) {
+        $this->chain->condition = function () use ($value) {
             return (bool) $value;
         };
 
@@ -66,7 +66,7 @@ class YouShouldHave
 
     public function youShouldBeGuest($guard = null): Otherwise
     {
-        $this->chain->predicate = function () use ($guard) {
+        $this->chain->condition = function () use ($guard) {
             return auth($guard)->guest();
         };
 
@@ -75,7 +75,7 @@ class YouShouldHave
 
     public function sessionShouldHave($key): Otherwise
     {
-        $this->chain->predicate = function () use ($key) {
+        $this->chain->condition = function () use ($key) {
             return session()->has($key);
         };
 
@@ -84,7 +84,7 @@ class YouShouldHave
 
     public function youShouldBeLoggedIn($guard = null): Otherwise
     {
-        $this->chain->predicate = function () use ($guard) {
+        $this->chain->condition = function () use ($guard) {
             return auth($guard)->check();
         };
 
@@ -93,7 +93,7 @@ class YouShouldHave
 
     public function youShouldAlways(): Reactions
     {
-        $this->chain->predicate = function () {
+        $this->chain->condition = function () {
             return false;
         };
 

@@ -27,10 +27,10 @@ class ReactionFactory
     public function make(): \Closure
     {
         $reaction = $this->makeReaction();
-        $cb = $this->chain->predicate;
+        $condition = $this->chain->condition;
 
-        return function (...$f) use ($cb, $reaction) {
-            if (!$cb($f)) {
+        return function (...$f) use ($condition, $reaction) {
+            if (!$condition($f)) {
                 $reaction();
             }
         };

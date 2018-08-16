@@ -40,7 +40,7 @@ class Validator
         $modifier = $this->modifier ?: function ($d) {
             return $d;
         };
-        $this->chain->predicate = app(ResponderFactory::class)->validatorCallback($modifier, ...$data);
+        $this->chain->condition = app(ResponderFactory::class)->validatorCallback($modifier, ...$data);
         app(Chain::class)->submitChainConfig();
     }
 }

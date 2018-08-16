@@ -9,9 +9,9 @@ class YouShouldHaveTest extends TestCase
     {
         $r = HeyMan::whenYouVisitUrl('sdf')->youShouldAlways();
 
-        $predicate = app(\Imanghafoori\HeyMan\Chain::class)->predicate;
+        $condition = app(\Imanghafoori\HeyMan\Chain::class)->condition;
 
-        $this->assertFalse($predicate());
+        $this->assertFalse($condition());
         $r;
     }
 
@@ -20,9 +20,9 @@ class YouShouldHaveTest extends TestCase
         HeyMan::whenYouVisitUrl('sdf')->youShouldBeLoggedIn();
         Auth::shouldReceive('check')->once()->andReturn('I do not know');
 
-        $predicate = app(\Imanghafoori\HeyMan\Chain::class)->predicate;
+        $condition = app(\Imanghafoori\HeyMan\Chain::class)->condition;
 
-        $this->assertEquals($predicate(), 'I do not know');
+        $this->assertEquals($condition(), 'I do not know');
     }
 
     public function testYouShouldBeGuest()
@@ -30,25 +30,25 @@ class YouShouldHaveTest extends TestCase
         HeyMan::whenYouVisitUrl('sdf')->youShouldBeGuest();
         Auth::shouldReceive('guest')->once()->andReturn('I do not know');
 
-        $predicate = app(\Imanghafoori\HeyMan\Chain::class)->predicate;
+        $condition = app(\Imanghafoori\HeyMan\Chain::class)->condition;
 
-        $this->assertEquals($predicate(), 'I do not know');
+        $this->assertEquals($condition(), 'I do not know');
     }
 
     public function testThisValueShouldAllow()
     {
         HeyMan::whenYouVisitUrl('sdf')->thisValueShouldAllow('');
 
-        $predicate = app(\Imanghafoori\HeyMan\Chain::class)->predicate;
-        $this->assertTrue($predicate() === false);
+        $condition = app(\Imanghafoori\HeyMan\Chain::class)->condition;
+        $this->assertTrue($condition() === false);
     }
 
     public function testThisValueShouldAllow2()
     {
         HeyMan::whenYouVisitUrl('sdf')->thisValueShouldAllow('sss');
 
-        $predicate = app(\Imanghafoori\HeyMan\Chain::class)->predicate;
-        $this->assertTrue($predicate() === true);
+        $condition = app(\Imanghafoori\HeyMan\Chain::class)->condition;
+        $this->assertTrue($condition() === true);
     }
 
     public function testThisClosureShouldAllow()
@@ -59,9 +59,9 @@ class YouShouldHaveTest extends TestCase
 
         HeyMan::whenYouVisitUrl('sdf')->thisClosureShouldAllow($cb, ['ggg']);
 
-        $predicate = app(\Imanghafoori\HeyMan\Chain::class)->predicate;
+        $condition = app(\Imanghafoori\HeyMan\Chain::class)->condition;
 
-        $this->assertTrue($predicate() === true);
+        $this->assertTrue($condition() === true);
     }
 
     public function testThisClosureShouldAllow2()
@@ -72,9 +72,9 @@ class YouShouldHaveTest extends TestCase
 
         HeyMan::whenYouVisitUrl('sdf')->thisClosureShouldAllow($cb, ['']);
 
-        $predicate = app(\Imanghafoori\HeyMan\Chain::class)->predicate;
+        $condition = app(\Imanghafoori\HeyMan\Chain::class)->condition;
 
-        $this->assertTrue($predicate() === false);
+        $this->assertTrue($condition() === false);
     }
 
     public function testThisMethodShouldAllow()
@@ -82,9 +82,9 @@ class YouShouldHaveTest extends TestCase
         HeyMan::whenYouVisitUrl('sdf')->thisMethodShouldAllow('SomeClass@someMethod', ['aaa']);
 
         \Facades\SomeClass::shouldReceive('someMethod')->once()->with('aaa')->andReturn(false);
-        $predicate = app(\Imanghafoori\HeyMan\Chain::class)->predicate;
+        $condition = app(\Imanghafoori\HeyMan\Chain::class)->condition;
 
-        $this->assertTrue($predicate() === false);
+        $this->assertTrue($condition() === false);
     }
 
     public function testSessionShouldHave()
@@ -92,8 +92,8 @@ class YouShouldHaveTest extends TestCase
         HeyMan::whenYouVisitUrl('sdf')->sessionShouldHave('some_key');
         $val = str_random(2);
         \Illuminate\Support\Facades\Session::shouldReceive('has')->once()->with('some_key')->andReturn($val);
-        $predicate = app(\Imanghafoori\HeyMan\Chain::class)->predicate;
+        $condition = app(\Imanghafoori\HeyMan\Chain::class)->condition;
 
-        $this->assertTrue($predicate() === $val);
+        $this->assertTrue($condition() === $val);
     }
 }
