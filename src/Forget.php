@@ -2,8 +2,8 @@
 
 namespace Imanghafoori\HeyMan;
 
-use Imanghafoori\HeyMan\Normilizers\RouteNormalizer;
 use Imanghafoori\HeyMan\Normilizers\InputNormalizer;
+use Imanghafoori\HeyMan\Normilizers\RouteNormalizer;
 use Imanghafoori\HeyMan\WatchingStrategies\EloquentEventsManager;
 use Imanghafoori\HeyMan\WatchingStrategies\EventManager;
 use Imanghafoori\HeyMan\WatchingStrategies\RouterEventManager;
