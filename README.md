@@ -106,7 +106,7 @@ HeyMan::whenYouReachRoute('someRouteName')-> ....;
 ```
 
 
- This is written by the user in the `app/Providers` folder : 
+ To override that, we write this in `app/Providers` folder : 
 ```php
 
 public function boot() {
