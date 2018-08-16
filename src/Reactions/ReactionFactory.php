@@ -57,11 +57,6 @@ class ReactionFactory
     {
         $calls = $this->chain->beforeResponse;
 
-        if (!$calls) {
-            return function () {
-            };
-        }
-
         return function () use ($calls) {
             foreach ($calls as $call) {
                 $call();
