@@ -22,7 +22,7 @@ class ResponderFactory
 
     public function make()
     {
-        $m = $this->chain->methodName;
+        $m = $this->chain->responseType;
         $parameters = $this->chain->data;
 
         return $this->$m($parameters);

@@ -13,9 +13,7 @@ class Chain
 
     public $predicate;
 
-    public $methodName = 'nothing';
-
-    public $nothing = null;
+    public $responseType = 'nothing';
 
     public $data = [];
 
@@ -24,25 +22,25 @@ class Chain
     public function addRedirect($method, $params)
     {
         $this->data[] = [$method, $params];
-        $this->methodName = 'redirect';
+        $this->responseType = 'redirect';
     }
 
     public function addResponse($method, $params)
     {
         $this->data[] = [$method, $params];
-        $this->methodName = 'response';
+        $this->responseType = 'response';
     }
 
     public function addException(string $className, string $message)
     {
         $this->data[] = ['class' => $className, 'message' => $message];
-        $this->methodName = 'exception';
+        $this->responseType = 'exception';
     }
 
     public function addAbort($code, string $message, array $headers)
     {
         $this->data[] = [$code, $message, $headers];
-        $this->methodName = 'abort';
+        $this->responseType = 'abort';
     }
 
     public function addAfterCall($callback, $parameters)
@@ -62,7 +60,7 @@ class Chain
     public function addRespondFrom($callback, array $parameters)
     {
         $this->data[] = [$callback, $parameters];
-        $this->methodName = 'respondFrom';
+        $this->responseType = 'respondFrom';
     }
 
     public function submitChainConfig()
