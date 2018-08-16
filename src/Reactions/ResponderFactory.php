@@ -28,14 +28,14 @@ class ResponderFactory
         return $this->$m($parameters);
     }
 
-    public function abort($abort): \Closure
+    protected function abort($abort): \Closure
     {
         return function () use ($abort) {
             abort(...$abort[0]);
         };
     }
 
-    public function nothing(): \Closure
+    protected function nothing(): \Closure
     {
         return function () {
         };
@@ -46,7 +46,7 @@ class ResponderFactory
      *
      * @return \Closure
      */
-    public function exception($e): \Closure
+    protected function exception(array $e): \Closure
     {
         return function () use ($e) {
             $exClass = $e[0]['class'];
@@ -60,35 +60,38 @@ class ResponderFactory
      *
      * @return \Closure
      */
-    public function response($resp): \Closure
+    protected function response(array $resp): \Closure
     {
         return function () use ($resp) {
-            $respObj = response();
-            foreach ($resp as $call) {
-                list($method, $args) = $call;
-                $respObj = $respObj->{$method}(...$args);
-            }
-            respondWith($respObj);
+            $this->sendResponse($resp, response());
         };
     }
 
-    public function redirect($resp): \Closure
+    protected function redirect(array $resp): \Closure
     {
         return function () use ($resp) {
-            $respObj = redirect();
-            foreach ($resp as $call) {
-                list($method, $args) = $call;
-                $respObj = $respObj->{$method}(...$args);
-            }
-            respondWith($respObj);
+            $this->sendResponse($resp, redirect());
         };
     }
 
-    public function respondFrom($method): \Closure
+    protected function respondFrom($method): \Closure
     {
         return function () use ($method) {
             respondWith(app()->call(...$method[0]));
         };
+    }
+
+    /**
+     * @param array $resp
+     * @param $respObj
+     */
+    private function sendResponse(array $resp, $respObj)
+    {
+        foreach ($resp as $call) {
+            list($method, $args) = $call;
+            $respObj = $respObj->{$method}(...$args);
+        }
+        respondWith($respObj);
     }
 
     /**
