@@ -28,14 +28,14 @@ class ResponderFactory
         return $this->$m($parameters);
     }
 
-    public function abort($abort)
+    public function abort($abort): \Closure
     {
         return function () use ($abort) {
             abort(...$abort[0]);
         };
     }
 
-    public function nothing()
+    public function nothing(): \Closure
     {
         return function () {
         };
@@ -84,7 +84,7 @@ class ResponderFactory
         };
     }
 
-    public function respondFrom($method)
+    public function respondFrom($method): \Closure
     {
         return function () use ($method) {
             respondWith(app()->call(...$method[0]));
@@ -94,8 +94,8 @@ class ResponderFactory
     /**
      * Validate the given request with the given rules.
      *
-     * @param $modifier
-     * @param array $rules
+     * @param string|\Closure $modifier
+     * @param array|\Closure $rules
      * @param array $messages
      * @param array $customAttributes
      *
