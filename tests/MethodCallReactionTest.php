@@ -8,6 +8,7 @@ class Logger
     public function info()
     {
     }
+
     public function error()
     {
     }

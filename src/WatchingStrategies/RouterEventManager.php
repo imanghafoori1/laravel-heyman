@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 class RouterEventManager extends BaseManager
 {
     protected $type = 'route';
-    
+
     private $matchedCallbacks = [];
 
     public function findMatchingCallbacks(array $matchedRoute): array
