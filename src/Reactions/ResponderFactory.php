@@ -50,6 +50,7 @@ class ResponderFactory
     {
         return function () use ($e) {
             $exClass = $e['class'];
+
             throw new $exClass($e['message']);
         };
     }
@@ -97,9 +98,9 @@ class ResponderFactory
      * Validate the given request with the given rules.
      *
      * @param string|\Closure $modifier
-     * @param array|\Closure $rules
-     * @param array $messages
-     * @param array $customAttributes
+     * @param array|\Closure  $rules
+     * @param array           $messages
+     * @param array           $customAttributes
      *
      * @return \Closure
      */
