@@ -31,7 +31,7 @@ class ResponderFactory
     protected function abort($abort): \Closure
     {
         return function () use ($abort) {
-            abort(...$abort[0]);
+            abort(...$abort);
         };
     }
 
@@ -49,9 +49,8 @@ class ResponderFactory
     protected function exception(array $e): \Closure
     {
         return function () use ($e) {
-            $exClass = $e[0]['class'];
-
-            throw new $exClass($e[0]['message']);
+            $exClass = $e['class'];
+            throw new $exClass($e['message']);
         };
     }
 
@@ -77,7 +76,7 @@ class ResponderFactory
     protected function respondFrom($method): \Closure
     {
         return function () use ($method) {
-            respondWith(app()->call(...$method[0]));
+            respondWith(app()->call(...$method));
         };
     }
 

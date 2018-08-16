@@ -33,13 +33,13 @@ class Chain
 
     public function addException(string $className, string $message)
     {
-        $this->data[] = ['class' => $className, 'message' => $message];
+        $this->data = ['class' => $className, 'message' => $message];
         $this->responseType = 'exception';
     }
 
     public function addAbort($code, string $message, array $headers)
     {
-        $this->data[] = [$code, $message, $headers];
+        $this->data = [$code, $message, $headers];
         $this->responseType = 'abort';
     }
 
@@ -59,7 +59,7 @@ class Chain
 
     public function addRespondFrom($callback, array $parameters)
     {
-        $this->data[] = [$callback, $parameters];
+        $this->data = [$callback, $parameters];
         $this->responseType = 'respondFrom';
     }
 
