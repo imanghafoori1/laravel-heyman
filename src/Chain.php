@@ -19,15 +19,7 @@ class Chain
 
     public $data = [];
 
-    public $beforeResponse = [];
-
-    public function reset()
-    {
-        $this->data = [];
-        $this->predicate = null;
-        $this->methodName = 'nothing';
-        $this->beforeResponse = [];
-    }
+    private $beforeResponse = [];
 
     public function addRedirect($method, $params)
     {
@@ -78,4 +70,16 @@ class Chain
         $callbackListener = app(ReactionFactory::class)->make();
         $this->eventManager->commitChain($callbackListener);
     }
+
+    public function beforeResponse(): \Closure
+    {
+        $calls = $this->beforeResponse;
+        $this->beforeResponse = [];
+        return function () use ($calls) {
+            foreach ($calls as $call) {
+                $call();
+            }
+        };
+    }
+
 }

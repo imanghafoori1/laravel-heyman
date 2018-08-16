@@ -26,41 +26,24 @@ class ReactionFactory
      */
     public function make(): \Closure
     {
-        $responder = app(ResponderFactory::class)->make();
-
-        return $this->makeReaction($responder);
-    }
-
-    /**
-     * @param $responder
-     *
-     * @return \Closure
-     */
-    private function makeReaction(callable $responder): \Closure
-    {
-        $beforeResponse = $this->methodsToCall();
-
+        $reaction = $this->makeReaction();
         $cb = $this->chain->predicate;
-        $this->chain->reset();
 
-        return function (...$f) use ($responder, $cb, $beforeResponse) {
-            if ($cb($f)) {
-                return true;
+        return function (...$f) use ($cb, $reaction) {
+            if (!$cb($f)) {
+                $reaction();
             }
-
-            $beforeResponse();
-            $responder();
         };
     }
 
-    private function methodsToCall(): \Closure
+    private function makeReaction(): \Closure
     {
-        $calls = $this->chain->beforeResponse;
+        $responder = app(ResponderFactory::class)->make();
+        $beforeResponse = $this->chain->beforeResponse();
 
-        return function () use ($calls) {
-            foreach ($calls as $call) {
-                $call();
-            }
+        return function() use($beforeResponse, $responder){
+            $beforeResponse();
+            $responder();
         };
     }
 }

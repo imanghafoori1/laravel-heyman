@@ -3,19 +3,34 @@
 use Illuminate\Support\Facades\Gate;
 use Imanghafoori\HeyMan\Facades\HeyMan;
 
+class Logger
+{
+    public function info()
+    {
+    }
+    public function error()
+    {
+    }
+}
 class MethodCallReactionTest extends TestCase
 {
     public function testCallingMethodsOnClasses()
     {
         Route::get('/welcome', 'HomeController@index')->name('welcome.name');
-        Gate::shouldReceive('allows')->with('heyman.youShouldHaveRole', ['reader'])->andReturn(false);
 
-        \Facades\Logger::shouldReceive('info')->once()->with('sss');
+        \Facades\Logger::shouldReceive('error')->once()->with('sss');
+        \Facades\Logger::shouldReceive('info')->times(0);
 
         HeyMan::whenYouVisitUrl(['welcome', 'welcome_'])
-            ->youShouldHaveRole('reader')
+            ->thisValueShouldAllow(true)
             ->otherwise()
             ->afterCalling('Logger@info', ['sss'])
+            ->weDenyAccess();
+
+        HeyMan::whenYouVisitUrl(['welcome', 'welcome_'])
+            ->thisValueShouldAllow(false)
+            ->otherwise()
+            ->afterCalling('Logger@error', ['sss'])
             ->weDenyAccess();
 
         $this->get('welcome');
