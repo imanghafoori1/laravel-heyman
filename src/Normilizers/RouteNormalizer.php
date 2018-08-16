@@ -2,7 +2,7 @@
 
 namespace Imanghafoori\HeyMan\Normilizers;
 
-trait ActionNormalizer
+trait RouteNormalizer
 {
     /**
      * @param $action

@@ -14,9 +14,7 @@ trait ViewHooks
      */
     public function whenYouMakeView(...$views): YouShouldHave
     {
-        $views = $this->normalizeView($views);
-
-        return $this->watchView($views);
+        return $this->watchView($this->normalizeView($views));
     }
 
     /**

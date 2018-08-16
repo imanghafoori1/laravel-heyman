@@ -23,9 +23,8 @@ class ResponderFactory
     public function make()
     {
         $m = $this->chain->responseType;
-        $parameters = $this->chain->data;
 
-        return $this->$m($parameters);
+        return $this->$m($this->chain->data);
     }
 
     protected function abort($abort): \Closure
@@ -84,6 +83,7 @@ class ResponderFactory
     /**
      * @param array $resp
      * @param $respObj
+     * @throws \ImanGhafoori\Terminator\TerminateException
      */
     private function sendResponse(array $resp, $respObj)
     {

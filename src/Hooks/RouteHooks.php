@@ -2,13 +2,13 @@
 
 namespace Imanghafoori\HeyMan\Hooks;
 
-use Imanghafoori\HeyMan\Normilizers\ActionNormalizer;
+use Imanghafoori\HeyMan\Normilizers\RouteNormalizer;
 use Imanghafoori\HeyMan\WatchingStrategies\RouterEventManager;
 use Imanghafoori\HeyMan\YouShouldHave;
 
 trait RouteHooks
 {
-    use ActionNormalizer;
+    use RouteNormalizer;
 
     /**
      * @param mixed ...$url
@@ -17,7 +17,7 @@ trait RouteHooks
      */
     public function whenYouVisitUrl(...$url): YouShouldHave
     {
-        return $this->authorizeURL($url, 'GET');
+        return $this->watchURL($url, 'GET');
     }
 
     /**
@@ -27,7 +27,7 @@ trait RouteHooks
      */
     public function whenYouSendPost(...$url): YouShouldHave
     {
-        return $this->authorizeURL($url, 'POST');
+        return $this->watchURL($url, 'POST');
     }
 
     /**
@@ -37,7 +37,7 @@ trait RouteHooks
      */
     public function whenYouSendPatch(...$url): YouShouldHave
     {
-        return $this->authorizeURL($url, 'PATCH');
+        return $this->watchURL($url, 'PATCH');
     }
 
     /**
@@ -47,7 +47,7 @@ trait RouteHooks
      */
     public function whenYouSendPut(...$url): YouShouldHave
     {
-        return $this->authorizeURL($url, 'PUT');
+        return $this->watchURL($url, 'PUT');
     }
 
     /**
@@ -57,7 +57,7 @@ trait RouteHooks
      */
     public function whenYouSendDelete(...$url): YouShouldHave
     {
-        return $this->authorizeURL($url, 'DELETE');
+        return $this->watchURL($url, 'DELETE');
     }
 
     /**
@@ -67,7 +67,7 @@ trait RouteHooks
      */
     public function whenYouHitRouteName(...$routeName): YouShouldHave
     {
-        return $this->authorizeRoute($this->normalizeInput($routeName));
+        return $this->watchRoute($this->normalizeInput($routeName));
     }
 
     /**
@@ -89,9 +89,7 @@ trait RouteHooks
      */
     public function whenYouCallAction(...$action): YouShouldHave
     {
-        $action = $this->normalizeAction($action);
-
-        return $this->authorizeRoute($action);
+        return $this->watchRoute($this->normalizeAction($action));
     }
 
     /**
@@ -99,7 +97,7 @@ trait RouteHooks
      *
      * @return YouShouldHave
      */
-    private function authorizeRoute($value): YouShouldHave
+    private function watchRoute($value): YouShouldHave
     {
         $this->chain->eventManager = app(RouterEventManager::class)->init($value);
 
@@ -112,8 +110,8 @@ trait RouteHooks
      *
      * @return YouShouldHave
      */
-    private function authorizeURL($url, $verb): YouShouldHave
+    private function watchURL($url, $verb): YouShouldHave
     {
-        return $this->authorizeRoute($this->normalizeUrl($url, $verb));
+        return $this->watchRoute($this->normalizeUrl($url, $verb));
     }
 }
