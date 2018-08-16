@@ -7,18 +7,28 @@ use Illuminate\Support\Str;
 class RouterEventManager extends BaseManager
 {
     protected $type = 'route';
+    
+    private $matchedCallbacks = [];
 
     public function findMatchingCallbacks(array $matchedRoute): array
     {
-        $matchedCallbacks = [];
-        foreach ($this->data as $routeInfo => $callBacks) {
-            foreach ($matchedRoute as $info) {
-                if (Str::is($routeInfo, $info)) {
-                    $matchedCallbacks[] = $callBacks['default'];
-                }
-            }
+        $this->matchedCallbacks = [];
+        foreach ($matchedRoute as $info) {
+            $this->getMatched($info);
         }
 
-        return $matchedCallbacks;
+        return $this->matchedCallbacks;
+    }
+
+    /**
+     * @param $info
+     */
+    private function getMatched($info)
+    {
+        foreach ($this->data as $routeInfo => $callBacks) {
+            if (Str::is($routeInfo, $info)) {
+                $this->matchedCallbacks[] = $callBacks['default'];
+            }
+        }
     }
 }
