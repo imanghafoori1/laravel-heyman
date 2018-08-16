@@ -21,8 +21,9 @@
 
 ### Built with :heart: for every smart laravel developer
 
-and it is very well tested and production ready !
+and it is very well tested, optimized and production ready !
 
+In fact, We have tackled a lot of `complexity` behind the scenes, to provide you with a lot of `simplicity`.
 
 ### Installation
 
@@ -78,32 +79,43 @@ And you write code like this in a Service Provider `boot` method to implement wh
 
 ### Structural Benefits:
 
-1- This way you can fully `decouple` authorization and a lot of guarding code from the rest of your application code and put it in an other place. So your Controllers and Routes become less crowded and you will have a central place where you limit the access of users to your application or perform Request validation.
+1 - This way you can fully `decouple` authorization and a lot of guarding code from the rest of your application code and put it in an other place. So your Controllers and Routes become less crowded and you will have a central place where you limit the access of users to your application or perform Request validation.
 
 
-2- In fact, when you write your code in the way, you are conforming to the famous "`Tell don't ask principle.`"
+2 - In fact, when you write your code in the way, you are conforming to the famous "`Tell don't ask principle.`"
 
 You are telling the framework what to do in certain situations rather than getting information and decide what to do then.
 
 
 > ` Procedural code gets information then makes decisions.
-
 >   Object-oriented code tells objects to do things.
-
 > — Alec Sharp `
 
 
-3- This approach is paticularly useful when you for example write a package which needs ACL but you want to allow your package users to override and apply they own ACL (or validation) rules into your package routes...
+3 - This approach is paticularly useful when you for example write a package which needs ACL but you want to allow your package users to override and apply they own ACL (or validation) rules into your package routes...
 
 And that becomes possible when you use laravel-HeyMan for ACL. The users can easily cancel out the default rules and re-write their favorite acl or validation stuff in a regular ServiceProviders.
 
 HeyMan, that is Amazing stuff !!! 
 
-
 ```php
 
-HeyMan::  (situation) ->   (condition)   -> otherwise() -> (reaction) ;
+// This is written in package and lives in vendor folder, So we can not touch it.
+HeyMan::whenYouReachRoute('someRouteName')-> ....; 
 
+```
+
+
+ This is written by the user in the `app/Providers` folder : 
+```php
+
+public function boot() {
+
+   HeyMan::forget()->aboutRoute('someRouteName'); // Cancels out the current rules
+
+   HeyMan::whenYouReachRoute('someRouteName')-> ... // Add new rules by package user.
+   
+}
 ```
 
 
