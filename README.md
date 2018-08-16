@@ -101,19 +101,23 @@ HeyMan, that is Amazing stuff !!!
 ```php
 
 // This is written in package and lives in vendor folder, So we can not touch it.
-HeyMan::whenYouReachRoute('someRouteName')-> ....; 
+HeyMan::whenYouHitRouteName('someRouteName')-> ....; 
 
 ```
 
 
- To override that, we write this in `app/Providers` folder : 
+ To override that we use the `forget` method, within `app/Providers/...` : 
+ 
 ```php
 
 public function boot() {
-
-   HeyMan::forget()->aboutRoute('someRouteName'); // Cancels out the current rules
-
-   HeyMan::whenYouReachRoute('someRouteName')-> ... // Add new rules by package user.
+  
+  // Cancels out the current rules
+   HeyMan::forget()->aboutRoute('someRouteName');
+  
+  
+   // Add new rules by package user.
+   HeyMan::whenYouHitRouteName('someRouteName')-> ... 
    
 }
 ```
@@ -171,8 +175,8 @@ HeyMan::whenYouSendDelete('/article/delete')-> ...
 #### 2 - Route Name is matched
 
 ```php
-HeyMan::whenYouReachRoute('welcome.name')->...              // For route names
-HeyMan::whenYouReachRoute('welcome.*')->...                 // or match by wildcard
+HeyMan::whenYouHitRouteName('welcome.name')->...              // For route names
+HeyMan::whenYouHitRouteName('welcome.*')->...                 // or match by wildcard
 ```
 
 
@@ -260,6 +264,20 @@ HeyMan::whenYouVisitUrl('home')->thisValueShouldAllow(ّ $someValue )->otherwise
 HeyMan::whenYouSendPost('articles.store')->yourRequestShouldBeValid([
     'title' => 'required', 'body' => 'required',
 ]);
+```
+
+You can also modify the data before validation by calling `beforeValidationModifyData()`.
+
+```php
+
+$modifier = function ($data) {
+  $data['name'] = str_replace('@', '', $data['name']);
+  return $data;
+}
+
+HeyMan::whenYouHitRouteName('welcome.name')
+        ->yourRequestShouldBeValid(['name' => 'required'])
+        ->beforeValidationModifyData($modifier);
 ```
 
 That way you do not need to validate requests in your controllers or create dedicated FormRequest classes to validate input.
