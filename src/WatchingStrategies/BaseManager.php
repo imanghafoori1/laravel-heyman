@@ -6,11 +6,13 @@ use Imanghafoori\HeyMan\HeyManSwitcher;
 
 abstract class BaseManager
 {
-    protected $initial = [];
+    protected $watchedEntities = [];
 
     protected $event;
 
     protected $data = [];
+
+    protected $type;
 
     public function start()
     {
@@ -31,14 +33,14 @@ abstract class BaseManager
     /**
      * ViewEventManager constructor.
      *
-     * @param $value
+     * @param $values
      * @param string $param
      *
-     * @return ViewEventManager
+     * @return self
      */
-    public function init(array $value, string $param = 'default')
+    public function init(array $values, string $param = 'default'): self
     {
-        $this->initial = $value;
+        $this->watchedEntities = $values;
         $this->event = $param;
 
         return $this;
@@ -51,7 +53,7 @@ abstract class BaseManager
     {
         $switchableListener = app(HeyManSwitcher::class)->wrapForIgnorance($callback, $this->type);
 
-        foreach ($this->initial as $value) {
+        foreach ($this->watchedEntities as $value) {
             $this->data[$value][$this->event][] = $switchableListener;
         }
     }

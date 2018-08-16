@@ -13,7 +13,7 @@ class RouterEventManager extends BaseManager
     public function findMatchingCallbacks(array $matchedRoute): array
     {
         $this->matchedCallbacks = [];
-        foreach ($matchedRoute as $info) {
+        foreach (array_filter($matchedRoute) as $info) {
             $this->getMatched($info);
         }
 
@@ -23,7 +23,7 @@ class RouterEventManager extends BaseManager
     /**
      * @param $info
      */
-    private function getMatched($info)
+    private function getMatched(string $info)
     {
         foreach ($this->data as $routeInfo => $callBacks) {
             if (Str::is($routeInfo, $info)) {
