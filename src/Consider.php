@@ -13,27 +13,27 @@ class Consider
 
     public function eloquentChecks(callable $closure = null)
     {
-        return $this->turn('heyman_ignore_eloquent', $closure);
+        return $this->turn('eloquent', $closure);
     }
 
     public function viewChecks(callable $closure = null)
     {
-        return $this->turn('heyman_ignore_view', $closure);
+        return $this->turn('view', $closure);
     }
 
     public function routeChecks(callable $closure = null)
     {
-        return $this->turn('heyman_ignore_route', $closure);
+        return $this->turn('route', $closure);
     }
 
     public function eventChecks(callable $closure = null)
     {
-        return $this->turn('heyman_ignore_event', $closure);
+        return $this->turn('event', $closure);
     }
 
     public function validationChecks(callable $closure = null)
     {
-        return $this->turn('heyman_ignore_validation', $closure);
+        return $this->turn('validation', $closure);
     }
 
     public function allChecks()
@@ -51,6 +51,8 @@ class Consider
      */
     private function turn($key, callable $closure = null)
     {
+        $key = 'heyman_ignore_'.$key;
+
         $current = config($key);
         config()->set($key, [
             'turnOff' => true,
