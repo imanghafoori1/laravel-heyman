@@ -4,7 +4,6 @@ namespace Imanghafoori\HeyMan;
 
 use Imanghafoori\HeyMan\Hooks\EloquentHooks;
 use Imanghafoori\HeyMan\Hooks\EventHooks;
-use Imanghafoori\HeyMan\Hooks\ViewHooks;
 use Imanghafoori\HeyMan\Normilizers\InputNormalizer;
 use Imanghafoori\HeyMan\Situations\RouteSituations;
 use Imanghafoori\HeyMan\Situations\ViewSituations;
@@ -56,7 +55,7 @@ class HeyMan
     {
         return [
             RouteSituations::class => ['Send', 'Url', 'Route', 'Action'],
-            ViewSituations::class => ['View'],
+            ViewSituations::class  => ['View'],
         ];
     }
 }
