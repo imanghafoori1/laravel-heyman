@@ -42,10 +42,21 @@ class HeyMan
 
     public function __call($method, $args)
     {
-        if (str_contains($method, ['Send', 'Url', 'Route', 'Action'])) {
-            return app(RouteSituations::class)->$method(...$args);
-        } elseif (str_contains($method, ['View'])) {
-            return app(ViewSituations::class)->$method(...$args);
+        foreach ($this->mapping() as $className => $methods) {
+            if (str_contains($method, $methods)) {
+                return app($className)->$method(...$args);
+            }
         }
+    }
+
+    /**
+     * @return array
+     */
+    private function mapping(): array
+    {
+        return [
+            RouteSituations::class => ['Send', 'Url', 'Route', 'Action'],
+            ViewSituations::class => ['View'],
+        ];
     }
 }
