@@ -4,15 +4,8 @@ namespace Imanghafoori\HeyMan\WatchingStrategies;
 
 class ViewEventManager extends BaseManager
 {
-    protected $type = 'view';
-
-    public function forgetAboutAll()
+    public function register(string $view, array $callback, string $event)
     {
-        $this->data = [];
-    }
-
-    public function register($view, $callback)
-    {
-        view()->creator($view, $callback[0]);
+        view()->$event($view, $callback[0]);
     }
 }

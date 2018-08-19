@@ -2,6 +2,11 @@
 
 namespace Imanghafoori\HeyMan;
 
+use Imanghafoori\HeyMan\WatchingStrategies\EloquentEventsManager;
+use Imanghafoori\HeyMan\WatchingStrategies\EventManager;
+use Imanghafoori\HeyMan\WatchingStrategies\RouterEventManager;
+use Imanghafoori\HeyMan\WatchingStrategies\ViewEventManager;
+
 class Consider
 {
     private $mode;
@@ -13,22 +18,22 @@ class Consider
 
     public function eloquentChecks(callable $closure = null)
     {
-        return $this->turn('eloquent', $closure);
+        return $this->turn(EloquentEventsManager::class, $closure);
     }
 
     public function viewChecks(callable $closure = null)
     {
-        return $this->turn('view', $closure);
+        return $this->turn(ViewEventManager::class, $closure);
     }
 
     public function routeChecks(callable $closure = null)
     {
-        return $this->turn('route', $closure);
+        return $this->turn(RouterEventManager::class, $closure);
     }
 
     public function eventChecks(callable $closure = null)
     {
-        return $this->turn('event', $closure);
+        return $this->turn(EventManager::class, $closure);
     }
 
     public function validationChecks(callable $closure = null)

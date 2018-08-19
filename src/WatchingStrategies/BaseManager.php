@@ -12,8 +12,6 @@ abstract class BaseManager
 
     protected $data = [];
 
-    protected $type;
-
     public function start()
     {
         foreach ($this->data as $value => $callbacks) {
@@ -51,7 +49,7 @@ abstract class BaseManager
      */
     public function commitChain(callable $callback)
     {
-        $switchableListener = app(HeyManSwitcher::class)->wrapForIgnorance($callback, $this->type);
+        $switchableListener = app(HeyManSwitcher::class)->wrapForIgnorance($callback, get_class($this));
 
         foreach ($this->watchedEntities as $value) {
             $this->data[$value][$this->event][] = $switchableListener;

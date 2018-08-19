@@ -42,7 +42,7 @@ trait ViewHooks
 
     private function watchView($view): YouShouldHave
     {
-        $this->chain->eventManager = app(ViewEventManager::class)->init($view);
+        $this->chain->eventManager = app(ViewEventManager::class)->init($view, 'creator');
 
         return app(YouShouldHave::class);
     }

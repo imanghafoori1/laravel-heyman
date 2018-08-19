@@ -2,14 +2,10 @@
 
 namespace Imanghafoori\HeyMan\WatchingStrategies;
 
-use Illuminate\Support\Facades\Event;
-
 class EventManager extends BaseManager
 {
-    protected $type = 'event';
-
-    public function register($event, $callback)
+    public function register($event, array $callback, string $method)
     {
-        Event::listen($event, $callback[0]);
+        \Event::$method($event, $callback[0]);
     }
 }

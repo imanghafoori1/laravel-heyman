@@ -4,17 +4,15 @@ namespace Imanghafoori\HeyMan\WatchingStrategies;
 
 class EloquentEventsManager extends BaseManager
 {
-    protected $type = 'eloquent';
-
     /**
-     * @param $cb
+     * @param $callbacks
      * @param $event
      * @param $model
      */
-    protected function register($model, $cb, $event)
+    protected function register(string $model, array $callbacks, string $event)
     {
-        foreach ($cb as $c) {
-            $model::{$event}($c);
+        foreach ($callbacks as $cb) {
+            $model::{$event}($cb);
         }
     }
 }
