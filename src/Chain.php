@@ -11,6 +11,8 @@ class Chain
      */
     public $eventManager;
 
+    public $debugInfo;
+
     public $condition;
 
     public $responseType = 'nothing';
