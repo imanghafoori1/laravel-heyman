@@ -239,7 +239,7 @@ HeyMan::whenYouVisitUrl('/home')->thisGateShouldAllow('SomeClass@someMethod', 'p
 Passing a Closure as a Gate:
 
 ```php
-$gate = function($user, $role){
+$gate = function($user, $role) {
     /// some logic
     return true;
 }
@@ -261,7 +261,7 @@ HeyMan::whenYouVisitUrl('home')->thisValueShouldAllow(ّ $someValue )->otherwise
 
 #### 4- Validate Requests:
 ```php
-HeyMan::whenYouSendPost('articles.store')->yourRequestShouldBeValid([
+HeyMan::whenYouHitRouteName('articles.store')->yourRequestShouldBeValid([
     'title' => 'required', 'body' => 'required',
 ]);
 ```
@@ -271,6 +271,7 @@ You can also modify the data before validation by calling `beforeValidationModif
 ```php
 
 $modifier = function ($data) {
+  // removes "@" character from the "name" before validation.
   $data['name'] = str_replace('@', '', $data['name']);
   return $data;
 }
