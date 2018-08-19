@@ -22,6 +22,7 @@ class ViewSituations
     {
         $this->chain = $chain;
     }
+
     /**
      * @param array|string $views
      *
