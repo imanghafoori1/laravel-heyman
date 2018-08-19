@@ -46,7 +46,7 @@ class IgnoreTest extends TestCase
     {
         Route::get('/welcome', 'HomeController@index')->name('welcome.name');
 
-        HeyMan::whenYouReachRoute('welcome.name')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
+        HeyMan::whenYouHitRouteName('welcome.name')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
 
         Heyman::turnOff()->routeChecks();
 
@@ -57,7 +57,7 @@ class IgnoreTest extends TestCase
     {
         Route::get('/welcome', 'HomeController@index')->name('welcome.name');
 
-        HeyMan::whenYouReachRoute('welcome.*')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
+        HeyMan::whenYouHitRouteName('welcome.*')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
 
         Heyman::turnOff()->routeChecks();
 

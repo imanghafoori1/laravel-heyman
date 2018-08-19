@@ -28,7 +28,7 @@ class RequestValidationTest extends TestCase
     {
         Route::post('/welcome', 'HomeController@index')->name('welcome.name');
 
-        HeyMan::whenYouReachRoute('welcome.name')->yourRequestShouldBeValid(function () {
+        HeyMan::whenYouHitRouteName('welcome.name')->yourRequestShouldBeValid(function () {
             return ['name' => 'required'];
         });
 
@@ -39,10 +39,10 @@ class RequestValidationTest extends TestCase
     {
         Route::post('/welcome', 'HomeController@index')->name('welcome.name');
 
-        HeyMan::whenYouReachRoute('welcome.name')->yourRequestShouldBeValid(function () {
+        HeyMan::whenYouHitRouteName('welcome.name')->yourRequestShouldBeValid(function () {
             return ['name' => 'required'];
         });
-        HeyMan::whenYouReachRoute('welcome.name')->yourRequestShouldBeValid(function () {
+        HeyMan::whenYouHitRouteName('welcome.name')->yourRequestShouldBeValid(function () {
             return ['fname' => 'required'];
         });
 
@@ -57,7 +57,7 @@ class RequestValidationTest extends TestCase
     {
         Route::post('/welcome', 'HomeController@index')->name('welcome.name');
 
-        HeyMan::whenYouReachRoute('welcome.name')->yourRequestShouldBeValid(function () {
+        HeyMan::whenYouHitRouteName('welcome.name')->yourRequestShouldBeValid(function () {
             return ['name' => 'required'];
         })->beforeValidationModifyData(function ($requestData) {
             $requestData['name'] = 'John Doe';

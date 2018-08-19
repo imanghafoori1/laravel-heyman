@@ -124,8 +124,8 @@ class RouteAuthorizationTest extends TestCase
     {
         Route::get('/welcome', 'HomeController@index')->name('welcome.name');
 
-        HeyMan::whenYouReachRoute('welcome.name')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
-        HeyMan::whenYouReachRoute('welcome1.name')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
+        HeyMan::whenYouHitRouteName('welcome.name')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
+        HeyMan::whenYouHitRouteName('welcome1.name')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
         $this->get('welcome')->assertSuccessful();
     }
 
@@ -133,7 +133,7 @@ class RouteAuthorizationTest extends TestCase
     {
         Route::get('/welcome', 'HomeController@index')->name('welcome.name');
 
-        HeyMan::whenYouReachRoute('welcome.name')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
+        HeyMan::whenYouHitRouteName('welcome.name')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
         $this->get('welcome')->assertStatus(403);
     }
 
@@ -141,7 +141,7 @@ class RouteAuthorizationTest extends TestCase
     {
         Route::get('/welcome', 'HomeController@index')->name('welcome.name');
 
-        HeyMan::whenYouReachRoute('welcome.*')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
+        HeyMan::whenYouHitRouteName('welcome.*')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
         $this->get('welcome')->assertStatus(403);
     }
 
@@ -167,8 +167,8 @@ class RouteAuthorizationTest extends TestCase
     {
         Route::get('/welcome', 'HomeController@index')->name('welcome.name');
 
-        HeyMan::whenYouReachRoute(['welcome.name'])->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
-        HeyMan::whenYouReachRoute('welcome1.name')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
+        HeyMan::whenYouHitRouteName(['welcome.name'])->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
+        HeyMan::whenYouHitRouteName('welcome1.name')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
 
         $this->get('welcome')->assertSuccessful();
     }
@@ -177,7 +177,7 @@ class RouteAuthorizationTest extends TestCase
     {
         Route::get('/welcome', 'HomeController@index')->name('welcome.name');
 
-        HeyMan::whenYouReachRoute('welcome.Oname')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
+        HeyMan::whenYouHitRouteName('welcome.Oname')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
         HeyMan::whenYouCallAction('\HomeController@index')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
 
         $this->get('welcome')->assertStatus(403);
@@ -235,7 +235,7 @@ class RouteAuthorizationTest extends TestCase
     {
         Route::get('/welcome', 'HomeController@index')->name('welcome.name');
 
-        HeyMan::whenYouReachRoute('welcome.name')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
+        HeyMan::whenYouHitRouteName('welcome.name')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
         HeyMan::forget()->aboutRoute('welcome.name');
         $this->get('welcome')->assertStatus(200);
     }
