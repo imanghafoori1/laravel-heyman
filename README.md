@@ -255,8 +255,8 @@ HeyMan::whenYouVisitUrl('/home')->  youShouldBeLoggedIn() ->otherwise()->...;
 #### 3 - Checking A `Closure` or `Method` or `Value`:
 ```php
 HeyMan::whenYouVisitUrl('home')->thisMethodShouldAllow('someClass@someMethod', ['param1'])->otherwise()->...;
-HeyMan::whenYouVisitUrl('home')->thisClosureShouldAllow(ّ function($a) { ... }, ['param1'])  ->otherwise()->...;
-HeyMan::whenYouVisitUrl('home')->thisValueShouldAllow(ّ $someValue )->otherwise()->...;
+HeyMan::whenYouVisitUrl('home')->thisClosureShouldAllow( function($a) { ... }, ['param1'] )  ->otherwise()->...;
+HeyMan::whenYouVisitUrl('home')->thisValueShouldAllow( $someValue )->otherwise()->...;
 ```
 
 #### 4- Validate Requests:
@@ -281,7 +281,7 @@ HeyMan::whenYouHitRouteName('welcome.name')
         ->beforeValidationModifyData($modifier);
 ```
 
-That way you do not need to validate requests in your controllers or create dedicated FormRequest classes to validate input.
+This way, you do not need to validate requests in your controllers or create dedicated FormRequest classes to validate input.
 
 #### Other things:
 
