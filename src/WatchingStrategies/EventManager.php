@@ -4,8 +4,8 @@ namespace Imanghafoori\HeyMan\WatchingStrategies;
 
 class EventManager extends BaseManager
 {
-    public function register($event, array $callback, string $method)
+    public function register($event, array $callback)
     {
-        \Event::$method($event, $callback[0]);
+        \Event::listen($event, $callback[0]);
     }
 }

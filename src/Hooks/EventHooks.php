@@ -24,7 +24,7 @@ trait EventHooks
      */
     private function watchEvents($eventName): YouShouldHave
     {
-        $this->chain->eventManager = app(EventManager::class)->init($eventName, 'listen');
+        $this->chain->eventManager = app(EventManager::class)->init($eventName);
 
         return app(YouShouldHave::class);
     }

@@ -25,7 +25,7 @@ class RouterEventManager extends BaseManager
     {
         foreach ($this->data as $routeInfo => $callBacks) {
             if (Str::is($routeInfo, $info)) {
-                $this->matchedCallbacks[] = $callBacks['default'];
+                $this->matchedCallbacks[] = array_pop($callBacks);
             }
         }
     }
