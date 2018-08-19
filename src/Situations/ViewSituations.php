@@ -2,6 +2,7 @@
 
 namespace Imanghafoori\HeyMan\Situations;
 
+use Imanghafoori\HeyMan\Chain;
 use Imanghafoori\HeyMan\Normilizers\InputNormalizer;
 use Imanghafoori\HeyMan\WatchingStrategies\ViewEventManager;
 use Imanghafoori\HeyMan\YouShouldHave;
@@ -10,6 +11,17 @@ class ViewSituations
 {
     use InputNormalizer;
 
+    private $chain;
+
+    /**
+     * HeyMan constructor.
+     *
+     * @param Chain $chain
+     */
+    public function __construct(Chain $chain)
+    {
+        $this->chain = $chain;
+    }
     /**
      * @param array|string $views
      *

@@ -11,7 +11,7 @@ use Imanghafoori\HeyMan\Situations\ViewSituations;
 
 class HeyMan
 {
-    use EloquentHooks, ViewHooks, EventHooks, InputNormalizer;
+    use EloquentHooks, EventHooks, InputNormalizer;
 
     private $chain;
 
