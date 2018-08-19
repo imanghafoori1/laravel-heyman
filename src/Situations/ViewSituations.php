@@ -9,6 +9,7 @@ use Imanghafoori\HeyMan\YouShouldHave;
 class ViewSituations
 {
     use InputNormalizer;
+
     /**
      * @param array|string $views
      *
