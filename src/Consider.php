@@ -59,10 +59,7 @@ class Consider
         $key = 'heyman_ignore_'.$key;
 
         $current = config($key);
-        config()->set($key, [
-            'turnOff' => true,
-            'turnOn'  => false,
-        ][$this->mode]);
+        $this->changeMode($key);
 
         if (is_null($closure)) {
             return;
@@ -71,5 +68,16 @@ class Consider
         config()->set($key, $current);
 
         return $result;
+    }
+
+    /**
+     * @param $key
+     */
+    private function changeMode($key)
+    {
+        config()->set($key, [
+            'turnOff' => true,
+            'turnOn' => false,
+        ][$this->mode]);
     }
 }
