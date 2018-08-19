@@ -13,7 +13,6 @@ class RouteSituations
     private $chain;
 
     use InputNormalizer;
-
     use RouteNormalizer;
 
     /**
@@ -25,7 +24,6 @@ class RouteSituations
     {
         $this->chain = $chain;
     }
-
 
     /**
      * @param mixed ...$url
