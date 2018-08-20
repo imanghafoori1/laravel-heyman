@@ -2,28 +2,13 @@
 
 namespace Imanghafoori\HeyMan\Situations;
 
-use Imanghafoori\HeyMan\Chain;
-use Imanghafoori\HeyMan\Normilizers\InputNormalizer;
 use Imanghafoori\HeyMan\Normilizers\RouteNormalizer;
 use Imanghafoori\HeyMan\WatchingStrategies\RouterEventManager;
 use Imanghafoori\HeyMan\YouShouldHave;
 
-class RouteSituations
+class RouteSituations extends BaseSituation
 {
-    private $chain;
-
-    use InputNormalizer;
     use RouteNormalizer;
-
-    /**
-     * HeyMan constructor.
-     *
-     * @param Chain $chain
-     */
-    public function __construct(Chain $chain)
-    {
-        $this->chain = $chain;
-    }
 
     /**
      * @param mixed ...$url

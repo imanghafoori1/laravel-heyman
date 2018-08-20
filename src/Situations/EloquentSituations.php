@@ -1,11 +1,11 @@
 <?php
 
-namespace Imanghafoori\HeyMan\Hooks;
+namespace Imanghafoori\HeyMan\Situations;
 
 use Imanghafoori\HeyMan\WatchingStrategies\EloquentEventsManager;
 use Imanghafoori\HeyMan\YouShouldHave;
 
-trait EloquentHooks
+class EloquentSituations extends BaseSituation
 {
     /**
      * @param mixed ...$model

@@ -1,11 +1,11 @@
 <?php
 
-namespace Imanghafoori\HeyMan\Hooks;
+namespace Imanghafoori\HeyMan\Situations;
 
 use Imanghafoori\HeyMan\WatchingStrategies\EventManager;
 use Imanghafoori\HeyMan\YouShouldHave;
 
-trait EventHooks
+class EventSituations extends BaseSituation
 {
     /**
      * @param mixed ...$event

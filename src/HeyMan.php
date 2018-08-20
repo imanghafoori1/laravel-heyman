@@ -2,15 +2,16 @@
 
 namespace Imanghafoori\HeyMan;
 
-use Imanghafoori\HeyMan\Hooks\EloquentHooks;
 use Imanghafoori\HeyMan\Hooks\EventHooks;
 use Imanghafoori\HeyMan\Normilizers\InputNormalizer;
+use Imanghafoori\HeyMan\Situations\EloquentSituations;
+use Imanghafoori\HeyMan\Situations\EventSituations;
 use Imanghafoori\HeyMan\Situations\RouteSituations;
 use Imanghafoori\HeyMan\Situations\ViewSituations;
 
 class HeyMan
 {
-    use EloquentHooks, EventHooks, InputNormalizer;
+    use InputNormalizer;
 
     private $chain;
 
@@ -56,6 +57,8 @@ class HeyMan
         return [
             RouteSituations::class => ['Send', 'Url', 'Route', 'Action'],
             ViewSituations::class  => ['View'],
+            EloquentSituations::class  => ['Fetch', 'Create', 'Update', 'Save', 'Delete'],
+            EventSituations::class  => ['Event'],
         ];
     }
 }

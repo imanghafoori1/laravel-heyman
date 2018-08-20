@@ -2,26 +2,13 @@
 
 namespace Imanghafoori\HeyMan\Situations;
 
-use Imanghafoori\HeyMan\Chain;
-use Imanghafoori\HeyMan\Normilizers\InputNormalizer;
+use Imanghafoori\HeyMan\Normilizers\ViewNormalizer;
 use Imanghafoori\HeyMan\WatchingStrategies\ViewEventManager;
 use Imanghafoori\HeyMan\YouShouldHave;
 
-class ViewSituations
+class ViewSituations extends BaseSituation
 {
-    use InputNormalizer;
-
-    private $chain;
-
-    /**
-     * HeyMan constructor.
-     *
-     * @param Chain $chain
-     */
-    public function __construct(Chain $chain)
-    {
-        $this->chain = $chain;
-    }
+    use ViewNormalizer;
 
     /**
      * @param array|string $views
@@ -31,29 +18,6 @@ class ViewSituations
     public function whenYouMakeView(...$views): YouShouldHave
     {
         return $this->watchView($this->normalizeView($views));
-    }
-
-    /**
-     * @param $views
-     *
-     * @return array
-     */
-    private function normalizeView(array $views): array
-    {
-        $views = $this->normalizeInput($views);
-
-        array_walk($views, function ($view) {
-            $this->checkViewExists($view);
-        });
-
-        return $views;
-    }
-
-    private function checkViewExists($view)
-    {
-        if (strpos($view, '*') === false) {
-            view()->getFinder()->find($view);
-        }
     }
 
     private function watchView($view): YouShouldHave
