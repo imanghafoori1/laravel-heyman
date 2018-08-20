@@ -40,8 +40,10 @@ class ReactionFactory
     {
         $responder = app(ResponderFactory::class)->make();
         $beforeResponse = $this->chain->beforeResponse();
+        $debug = app(Chain::class)->debugInfo;
 
-        return function () use ($beforeResponse, $responder) {
+        return function () use ($beforeResponse, $responder, $debug) {
+            event('heyman_reaction_is_happening', $debug);
             $beforeResponse();
             $responder();
         };
