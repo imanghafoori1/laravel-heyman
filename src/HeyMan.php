@@ -23,8 +23,10 @@ class HeyMan
 
     public function __call($method, $args)
     {
-        foreach ($this->mapping() as $className => $methods) {
-            if (str_contains($method, $methods)) {
+        $this->writeDebugInfo(debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 2));
+
+        foreach ($this->situations() as $className) {
+            if (method_exists($className, $method)) {
                 return app($className)->$method(...$args);
             }
         }
@@ -33,13 +35,21 @@ class HeyMan
     /**
      * @return array
      */
-    private function mapping(): array
+    private function situations(): array
     {
         return [
-            RouteSituations::class     => ['Send', 'Url', 'Route', 'Action'],
-            ViewSituations::class      => ['View'],
-            EloquentSituations::class  => ['Fetch', 'Create', 'Update', 'Save', 'Delete'],
-            EventSituations::class     => ['Event'],
+            RouteSituations::class,
+            ViewSituations::class,
+            EloquentSituations::class,
+            EventSituations::class,
         ];
+    }
+
+    /**
+     * @param $d
+     */
+    private function writeDebugInfo($d)
+    {
+        app(Chain::class)->debugInfo = array_only($d[1], ['file', 'line', 'args']);
     }
 }
