@@ -6,7 +6,10 @@ use DebugBar\DataCollector\MessagesCollector;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Imanghafoori\HeyMan\Reactions\ReactionFactory;
-use Imanghafoori\HeyMan\WatchingStrategies\{EloquentEventsManager, EventManager, RouterEventManager, ViewEventManager};
+use Imanghafoori\HeyMan\WatchingStrategies\EloquentEventsManager;
+use Imanghafoori\HeyMan\WatchingStrategies\EventManager;
+use Imanghafoori\HeyMan\WatchingStrategies\RouterEventManager;
+use Imanghafoori\HeyMan\WatchingStrategies\ViewEventManager;
 
 class HeyManServiceProvider extends ServiceProvider
 {
@@ -27,7 +30,7 @@ class HeyManServiceProvider extends ServiceProvider
 
     private function _registerDebugbar()
     {
-        if (! $this->app->offsetExists('debugbar')) {
+        if (!$this->app->offsetExists('debugbar')) {
             return;
         }
 
@@ -38,10 +41,9 @@ class HeyManServiceProvider extends ServiceProvider
         $this->app->make('debugbar')->addCollector(app('heyman.debugger'));
 
         \Event::listen('heyman_reaction_is_happening', function (...$debug) {
-
-            app('heyman.debugger')->addMessage('HeyMan Rule Matched in file: ' .$debug[0]);
-            app('heyman.debugger')->addMessage('on line: ' . $debug[1]);
-            app('heyman.debugger')->addMessage( $debug[2]);
+            app('heyman.debugger')->addMessage('HeyMan Rule Matched in file: '.$debug[0]);
+            app('heyman.debugger')->addMessage('on line: '.$debug[1]);
+            app('heyman.debugger')->addMessage($debug[2]);
         });
     }
 
