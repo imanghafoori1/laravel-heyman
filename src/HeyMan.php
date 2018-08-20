@@ -2,28 +2,10 @@
 
 namespace Imanghafoori\HeyMan;
 
-use Imanghafoori\HeyMan\Normilizers\InputNormalizer;
-use Imanghafoori\HeyMan\Situations\EloquentSituations;
-use Imanghafoori\HeyMan\Situations\EventSituations;
-use Imanghafoori\HeyMan\Situations\RouteSituations;
-use Imanghafoori\HeyMan\Situations\ViewSituations;
+use Imanghafoori\HeyMan\Situations\{EloquentSituations, EventSituations, RouteSituations, ViewSituations};
 
 class HeyMan
 {
-    use InputNormalizer;
-
-    private $chain;
-
-    /**
-     * HeyMan constructor.
-     *
-     * @param Chain $chain
-     */
-    public function __construct(Chain $chain)
-    {
-        $this->chain = $chain;
-    }
-
     public function turnOff(): Consider
     {
         return new Consider('turnOff');
