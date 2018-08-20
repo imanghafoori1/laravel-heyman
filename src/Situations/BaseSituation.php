@@ -2,8 +2,8 @@
 
 namespace Imanghafoori\HeyMan\Situations;
 
-use Imanghafoori\HeyMan\Normilizers\InputNormalizer;
 use Imanghafoori\HeyMan\Chain;
+use Imanghafoori\HeyMan\Normilizers\InputNormalizer;
 
 abstract class BaseSituation
 {

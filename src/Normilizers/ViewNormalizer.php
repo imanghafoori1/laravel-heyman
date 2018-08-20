@@ -5,6 +5,7 @@ namespace Imanghafoori\HeyMan\Normilizers;
 trait ViewNormalizer
 {
     use InputNormalizer;
+
     /**
      * @param $views
      *
