@@ -47,7 +47,7 @@ class Redirector
      * @param int    $status
      * @param array  $headers
      *
-     * @return \Imanghafoori\HeyMan\RedirectionMsg
+     * @return RedirectionMsg
      */
     public function route(string $route, array $parameters = [], int $status = 302, array $headers = []): RedirectionMsg
     {
@@ -64,7 +64,7 @@ class Redirector
      * @param int    $status
      * @param array  $headers
      *
-     * @return \Imanghafoori\HeyMan\RedirectionMsg
+     * @return RedirectionMsg
      */
     public function action($action, array $parameters = [], int $status = 302, array $headers = []): RedirectionMsg
     {
@@ -81,7 +81,7 @@ class Redirector
      * @param array     $headers
      * @param bool|null $secure
      *
-     * @return \Imanghafoori\HeyMan\RedirectionMsg
+     * @return RedirectionMsg
      */
     public function guest($path, int $status = 302, array $headers = [], $secure = null): RedirectionMsg
     {
@@ -98,7 +98,7 @@ class Redirector
      * @param array     $headers
      * @param bool|null $secure
      *
-     * @return \Imanghafoori\HeyMan\RedirectionMsg
+     * @return RedirectionMsg
      */
     public function intended(string $default = '/', int $status = 302, array $headers = [], $secure = null): RedirectionMsg
     {

@@ -49,8 +49,9 @@ class ResponderFactory
     {
         return function () use ($e) {
             $exClass = $e['class'];
+            $message = $e['message'];
 
-            throw new $exClass($e['message']);
+            throw new $exClass($message);
         };
     }
 

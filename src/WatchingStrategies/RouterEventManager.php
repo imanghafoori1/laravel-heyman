@@ -8,6 +8,10 @@ class RouterEventManager extends BaseManager
 {
     private $matchedCallbacks = [];
 
+    /**
+     * @param array $matchedRoute Information about the currently matched route
+     * @return array
+     */
     public function findMatchingCallbacks(array $matchedRoute): array
     {
         $this->matchedCallbacks = [];
@@ -19,7 +23,7 @@ class RouterEventManager extends BaseManager
     }
 
     /**
-     * @param $info
+     * @param string $info RouteName or Url or Action Path
      */
     private function getMatched(string $info)
     {
