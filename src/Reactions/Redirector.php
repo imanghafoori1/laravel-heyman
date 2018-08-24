@@ -36,7 +36,7 @@ class Redirector
     {
         $this->chain->addRedirect(__FUNCTION__, func_get_args());
 
-        return new RedirectionMsg($this->chain, $this);
+        return $this->redirectMsgObj();
     }
 
     /**
@@ -53,7 +53,7 @@ class Redirector
     {
         $this->chain->addRedirect(__FUNCTION__, func_get_args());
 
-        return new RedirectionMsg($this->chain, $this);
+        return $this->redirectMsgObj();
     }
 
     /**
@@ -70,7 +70,7 @@ class Redirector
     {
         $this->chain->addRedirect(__FUNCTION__, func_get_args());
 
-        return new RedirectionMsg($this->chain, $this);
+        return $this->redirectMsgObj();
     }
 
     /**
@@ -87,7 +87,7 @@ class Redirector
     {
         $this->chain->addRedirect(__FUNCTION__, func_get_args());
 
-        return new RedirectionMsg($this->chain, $this);
+        return $this->redirectMsgObj();
     }
 
     /**
@@ -104,6 +104,14 @@ class Redirector
     {
         $this->chain->addRedirect(__FUNCTION__, func_get_args());
 
+        return $this->redirectMsgObj();
+    }
+
+    /**
+     * @return RedirectionMsg
+     */
+    private function redirectMsgObj(): RedirectionMsg
+    {
         return new RedirectionMsg($this->chain, $this);
     }
 }
