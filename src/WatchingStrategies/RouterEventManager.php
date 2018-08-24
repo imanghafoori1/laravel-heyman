@@ -10,6 +10,7 @@ class RouterEventManager extends BaseManager
 
     /**
      * @param array $matchedRoute Information about the currently matched route
+     *
      * @return array
      */
     public function findMatchingCallbacks(array $matchedRoute): array
