@@ -32,7 +32,7 @@ class RedirectionMsg
      */
     public function with($key, $value = null)
     {
-        $this->chain->addRedirect('with', func_get_args());
+        $this->chain->commitArray([__FUNCTION__, func_get_args()], 'redirect');
 
         return $this;
     }
@@ -46,7 +46,7 @@ class RedirectionMsg
      */
     public function withCookies(array $cookies)
     {
-        $this->chain->addRedirect('withCookies', func_get_args());
+        $this->chain->commitArray([__FUNCTION__, func_get_args()], 'redirect');
 
         return $this;
     }
@@ -60,7 +60,7 @@ class RedirectionMsg
      */
     public function withInput(array $input = null)
     {
-        $this->chain->addRedirect('withInput', func_get_args());
+        $this->chain->commitArray([__FUNCTION__, func_get_args()], 'redirect');
 
         return $this;
     }
@@ -72,7 +72,7 @@ class RedirectionMsg
      */
     public function onlyInput()
     {
-        $this->chain->addRedirect('onlyInput', func_get_args());
+        $this->chain->commitArray([__FUNCTION__, func_get_args()], 'redirect');
 
         return $this;
     }
@@ -84,7 +84,7 @@ class RedirectionMsg
      */
     public function exceptInput(): self
     {
-        $this->chain->addRedirect('exceptInput', func_get_args());
+        $this->chain->commitArray([__FUNCTION__, func_get_args()], 'redirect');
 
         return $this;
     }
@@ -99,7 +99,7 @@ class RedirectionMsg
      */
     public function withErrors($provider, $key = 'default')
     {
-        $this->chain->addRedirect('withErrors', func_get_args());
+        $this->chain->commitArray([__FUNCTION__, func_get_args()], 'redirect');
 
         return $this;
     }
@@ -116,7 +116,7 @@ class RedirectionMsg
      */
     public function __call($method, $parameters)
     {
-        $this->chain->addRedirect($method, $parameters);
+        $this->chain->commitArray([$method, $parameters], 'redirect');
 
         return $this;
     }

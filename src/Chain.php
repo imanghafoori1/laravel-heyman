@@ -21,30 +21,6 @@ class Chain
 
     private $beforeResponse = [];
 
-    public function addRedirect($method, $params)
-    {
-        $this->data[] = [$method, $params];
-        $this->responseType = 'redirect';
-    }
-
-    public function addResponse($method, $params)
-    {
-        $this->data[] = [$method, $params];
-        $this->responseType = 'response';
-    }
-
-    public function addException(string $className, string $message)
-    {
-        $this->data = ['class' => $className, 'message' => $message];
-        $this->responseType = 'exception';
-    }
-
-    public function addAbort($code, string $message, array $headers)
-    {
-        $this->data = [$code, $message, $headers];
-        $this->responseType = 'abort';
-    }
-
     public function addAfterCall($callback, $parameters)
     {
         $this->beforeResponse[] = function () use ($callback, $parameters) {
@@ -57,12 +33,6 @@ class Chain
         $this->beforeResponse[] = function () use ($event, $payload, $halt) {
             app('events')->dispatch($event, $payload, $halt);
         };
-    }
-
-    public function addRespondFrom($callback, array $parameters)
-    {
-        $this->data = [$callback, $parameters];
-        $this->responseType = 'respondFrom';
     }
 
     public function submitChainConfig()
@@ -81,5 +51,17 @@ class Chain
                 $call();
             }
         };
+    }
+
+    public function commit($args, $methodName)
+    {
+        $this->data = $args;
+        $this->responseType = $methodName;
+    }
+
+    public function commitArray($args, $methodName)
+    {
+        $this->data[] = $args;
+        $this->responseType = $methodName;
     }
 }

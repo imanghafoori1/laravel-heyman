@@ -34,7 +34,7 @@ class Redirector
      */
     public function to(string $path, int $status = 302, array $headers = [], $secure = null): RedirectionMsg
     {
-        $this->chain->addRedirect(__FUNCTION__, func_get_args());
+        $this->chain->commitArray([__FUNCTION__, func_get_args()], 'redirect');
 
         return $this->redirectMsgObj();
     }
@@ -51,7 +51,7 @@ class Redirector
      */
     public function route(string $route, array $parameters = [], int $status = 302, array $headers = []): RedirectionMsg
     {
-        $this->chain->addRedirect(__FUNCTION__, func_get_args());
+        $this->chain->commitArray([__FUNCTION__, func_get_args()], 'redirect');
 
         return $this->redirectMsgObj();
     }
@@ -68,7 +68,7 @@ class Redirector
      */
     public function action($action, array $parameters = [], int $status = 302, array $headers = []): RedirectionMsg
     {
-        $this->chain->addRedirect(__FUNCTION__, func_get_args());
+        $this->chain->commitArray([__FUNCTION__, func_get_args()], 'redirect');
 
         return $this->redirectMsgObj();
     }
@@ -85,7 +85,7 @@ class Redirector
      */
     public function guest($path, int $status = 302, array $headers = [], $secure = null): RedirectionMsg
     {
-        $this->chain->addRedirect(__FUNCTION__, func_get_args());
+        $this->chain->commitArray([__FUNCTION__, func_get_args()], 'redirect');
 
         return $this->redirectMsgObj();
     }
@@ -102,7 +102,7 @@ class Redirector
      */
     public function intended(string $default = '/', int $status = 302, array $headers = [], $secure = null): RedirectionMsg
     {
-        $this->chain->addRedirect(__FUNCTION__, func_get_args());
+        $this->chain->commitArray([__FUNCTION__, func_get_args()], 'redirect');
 
         return $this->redirectMsgObj();
     }

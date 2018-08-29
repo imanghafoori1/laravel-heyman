@@ -41,22 +41,22 @@ class Reactions
 
     public function weThrowNew(string $exception, string $message = '')
     {
-        $this->chain->addException($exception, $message);
+        $this->chain->commit(func_get_args(), 'exception');
     }
 
     public function abort($code, string $message = '', array $headers = [])
     {
-        $this->chain->addAbort($code, $message, $headers);
+        $this->chain->commit(func_get_args(), __FUNCTION__);
     }
 
     public function weRespondFrom($callback, array $parameters = [])
     {
-        $this->chain->addRespondFrom($callback, $parameters);
+        $this->chain->commit(func_get_args(), 'respondFrom');
     }
 
     public function weDenyAccess(string $message = '')
     {
-        $this->chain->addException(AuthorizationException::class, $message);
+        $this->chain->commit([AuthorizationException::class, $message], 'exception');
     }
 
     public function afterFiringEvent($event, $payload = [], $halt = false): self

@@ -31,7 +31,7 @@ class Responder
      */
     public function make(string $content = '', int $status = 200, array $headers = [])
     {
-        $this->chain->addResponse('make', func_get_args());
+        $this->chain->commitArray([__FUNCTION__, func_get_args()], 'response');
     }
 
     /**
@@ -44,7 +44,7 @@ class Responder
      */
     public function view(string $view, array $data = [], int $status = 200, array $headers = [])
     {
-        $this->chain->addResponse('view', func_get_args());
+        $this->chain->commitArray([__FUNCTION__, func_get_args()], 'response');
     }
 
     /**
@@ -57,7 +57,7 @@ class Responder
      */
     public function json($data = [], $status = 200, array $headers = [], $options = 0)
     {
-        $this->chain->addResponse('json', func_get_args());
+        $this->chain->commitArray([__FUNCTION__, func_get_args()], 'response');
     }
 
     /**
@@ -71,7 +71,7 @@ class Responder
      */
     public function jsonp($callback, $data = [], $status = 200, array $headers = [], $options = 0)
     {
-        $this->chain->addResponse('jsonp', func_get_args());
+        $this->chain->commitArray([__FUNCTION__, func_get_args()], 'response');
     }
 
     /**
@@ -83,7 +83,7 @@ class Responder
      */
     public function stream($callback, $status = 200, array $headers = [])
     {
-        $this->chain->addResponse('stream', func_get_args());
+        $this->chain->commitArray([__FUNCTION__, func_get_args()], 'response');
     }
 
     /**
@@ -96,7 +96,7 @@ class Responder
      */
     public function streamDownload($callback, $name = null, array $headers = [], $disposition = 'attachment')
     {
-        $this->chain->addResponse('streamDownload', func_get_args());
+        $this->chain->commitArray([__FUNCTION__, func_get_args()], 'response');
     }
 
     /**
@@ -109,6 +109,6 @@ class Responder
      */
     public function download($file, $name = null, array $headers = [], $disposition = 'attachment')
     {
-        $this->chain->addResponse('download', func_get_args());
+        $this->chain->commitArray([__FUNCTION__, func_get_args()], 'response');
     }
 }
