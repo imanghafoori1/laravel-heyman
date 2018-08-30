@@ -21,10 +21,14 @@ abstract class BaseManager
         }
     }
 
-    public function forgetAbout($models)
+    public function forgetAbout($models, $event = null)
     {
         foreach ($models as $model) {
-            unset($this->data[$model]);
+            if ($event) {
+                unset($this->data[$model][$event]);
+            } else {
+                unset($this->data[$model]);
+            }
         }
     }
 
