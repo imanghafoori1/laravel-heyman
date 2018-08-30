@@ -2,7 +2,6 @@
 
 namespace Imanghafoori\HeyMan\WatchingStrategies;
 
-
 class AllEventManagers
 {
     public static function start()

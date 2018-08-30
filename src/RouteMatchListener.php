@@ -18,8 +18,8 @@ class RouteMatchListener
 
     /**
      * @param array $matchedRoute Information about the currently matched route
-     *
      * @param $chainData
+     *
      * @return void
      */
     public function execMatchedCallbacks(array $matchedRoute, $chainData)
