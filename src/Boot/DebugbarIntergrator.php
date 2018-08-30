@@ -11,7 +11,7 @@ class DebugbarIntergrator
         }
 
         $app->singleton('heyman.debugger', function () {
-            return new MessagesCollector('HeyMan');
+            return new \DebugBar\DataCollector\MessagesCollector('HeyMan');
         });
 
         $app->make('debugbar')->addCollector(app('heyman.debugger'));

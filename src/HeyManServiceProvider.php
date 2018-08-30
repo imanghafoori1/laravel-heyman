@@ -2,7 +2,6 @@
 
 namespace Imanghafoori\HeyMan;
 
-use DebugBar\DataCollector\MessagesCollector;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\{Facades\Gate, ServiceProvider};
 use Imanghafoori\HeyMan\Boot\{DebugbarIntergrator, Singletons};
