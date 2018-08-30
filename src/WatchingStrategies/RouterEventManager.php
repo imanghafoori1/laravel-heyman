@@ -2,36 +2,22 @@
 
 namespace Imanghafoori\HeyMan\WatchingStrategies;
 
-use Illuminate\Support\Str;
+use Illuminate\Routing\Events\RouteMatched;
+use Illuminate\Support\Facades\Route;
+use Imanghafoori\HeyMan\RouteMatchListener;
 
 class RouterEventManager extends BaseManager
 {
-    private $matchedCallbacks = [];
-
-    /**
-     * @param array $matchedRoute Information about the currently matched route
-     *
-     * @return array
-     */
-    public function findMatchingCallbacks(array $matchedRoute): array
+    public function start()
     {
-        $this->matchedCallbacks = [];
-        foreach (array_filter($matchedRoute) as $info) {
-            $this->getMatched($info);
-        }
+        Route::matched(function (RouteMatched $eventObj) {
+            $matchedRoute = [
+                $eventObj->route->getName(),
+                $eventObj->route->getActionName(),
+                $eventObj->request->method().$eventObj->route->uri,
+            ];
 
-        return $this->matchedCallbacks;
-    }
-
-    /**
-     * @param string $info RouteName or Url or Action Path
-     */
-    private function getMatched(string $info)
-    {
-        foreach ($this->data as $routeInfo => $callBacks) {
-            if (Str::is($routeInfo, $info)) {
-                $this->matchedCallbacks[] = array_pop($callBacks);
-            }
-        }
+            app(RouteMatchListener::class)->execMatchedCallbacks($matchedRoute, $this->data);
+        });
     }
 }

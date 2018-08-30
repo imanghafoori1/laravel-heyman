@@ -6,7 +6,7 @@ use DebugBar\DataCollector\MessagesCollector;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\{Facades\Gate, ServiceProvider};
 use Imanghafoori\HeyMan\Boot\{DebugbarIntergrator, Singletons};
-use Imanghafoori\HeyMan\WatchingStrategies\{EloquentEventsManager, EventManager, ViewEventManager};
+use Imanghafoori\HeyMan\WatchingStrategies\{EloquentEventsManager, EventManager, RouterEventManager, ViewEventManager};
 
 class HeyManServiceProvider extends ServiceProvider
 {
@@ -17,7 +17,7 @@ class HeyManServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__.'/migrations');
 
         app()->booted(function () {
-            (new RouteMatchListener())->authorizeMatchedRoutes();
+            app(RouterEventManager::class)->start();
             app(EventManager::class)->start();
             app(ViewEventManager::class)->start();
             app(EloquentEventsManager::class)->start();
