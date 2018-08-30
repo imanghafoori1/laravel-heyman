@@ -4,14 +4,9 @@ namespace Imanghafoori\HeyMan;
 
 use DebugBar\DataCollector\MessagesCollector;
 use Illuminate\Foundation\AliasLoader;
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\ServiceProvider;
-use Imanghafoori\HeyMan\Boot\DebugbarIntergrator;
-use Imanghafoori\HeyMan\Reactions\ReactionFactory;
-use Imanghafoori\HeyMan\WatchingStrategies\EloquentEventsManager;
-use Imanghafoori\HeyMan\WatchingStrategies\EventManager;
-use Imanghafoori\HeyMan\WatchingStrategies\RouterEventManager;
-use Imanghafoori\HeyMan\WatchingStrategies\ViewEventManager;
+use Illuminate\Support\{Facades\Gate, ServiceProvider};
+use Imanghafoori\HeyMan\Boot\{DebugbarIntergrator, Singletons};
+use Imanghafoori\HeyMan\WatchingStrategies\{EloquentEventsManager, EventManager, ViewEventManager};
 
 class HeyManServiceProvider extends ServiceProvider
 {
