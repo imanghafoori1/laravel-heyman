@@ -64,4 +64,12 @@ class Chain
         $this->data[] = $args;
         $this->responseType = $methodName;
     }
+
+    /**
+     * @param $d
+     */
+    public function writeDebugInfo($d)
+    {
+        $this->debugInfo = array_only($d[1], ['file', 'line', 'args']);
+    }
 }
