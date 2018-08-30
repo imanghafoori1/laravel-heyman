@@ -32,7 +32,7 @@ class HeyManServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->registerSingletons();
+        Singletons::make($this->app);
         AliasLoader::getInstance()->alias('HeyMan',\Imanghafoori\HeyMan\Facades\HeyMan::class);
         $this->mergeConfigFrom(
             __DIR__.'/../config/heyMan.php',
@@ -44,25 +44,6 @@ class HeyManServiceProvider extends ServiceProvider
     {
         Gate::define('heyman.youShouldHaveRole', function ($user, $role) {
             return $user->role == $role;
-        });
-    }
-
-    private function registerSingletons()
-    {
-        $singletons = [
-            HeyManSwitcher::class,
-            Chain::class,
-            HeyMan::class,
-            YouShouldHave::class,
-            ReactionFactory::class,
-            EventManager::class,
-            RouterEventManager::class,
-            ViewEventManager::class,
-            EloquentEventsManager::class,
-        ];
-
-        array_walk($singletons, function ($class) {
-            $this->app->singleton($class, $class);
         });
     }
 }
