@@ -4,17 +4,17 @@ namespace Imanghafoori\HeyMan\Boot;
 
 class DebugbarIntergrator
 {
-    public static function register($app)
+    public static function register()
     {
-        if (!$app->offsetExists('debugbar')) {
+        if (!app()->offsetExists('debugbar')) {
             return;
         }
 
-        $app->singleton('heyman.debugger', function () {
+        app()->singleton('heyman.debugger', function () {
             return new \DebugBar\DataCollector\MessagesCollector('HeyMan');
         });
 
-        $app->make('debugbar')->addCollector(app('heyman.debugger'));
+        app()->make('debugbar')->addCollector(app('heyman.debugger'));
 
         \Event::listen('heyman_reaction_is_happening', function (...$debug) {
             app('heyman.debugger')->addMessage('HeyMan Rule Matched in file: '.$debug[0]);

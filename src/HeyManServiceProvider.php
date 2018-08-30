@@ -19,7 +19,7 @@ class HeyManServiceProvider extends ServiceProvider
 
         app()->booted([AllEventManagers::class, 'start']);
 
-        DebugbarIntergrator::register($this->app);
+        DebugbarIntergrator::register();
     }
 
     public function register()
