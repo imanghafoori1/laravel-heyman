@@ -5,6 +5,7 @@ namespace Imanghafoori\HeyMan;
 use DebugBar\DataCollector\MessagesCollector;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use Imanghafoori\HeyMan\Boot\DebugbarIntergrator;
 use Imanghafoori\HeyMan\Reactions\ReactionFactory;
 use Imanghafoori\HeyMan\WatchingStrategies\EloquentEventsManager;
 use Imanghafoori\HeyMan\WatchingStrategies\EventManager;
@@ -25,26 +26,7 @@ class HeyManServiceProvider extends ServiceProvider
             app(ViewEventManager::class)->start();
             app(EloquentEventsManager::class)->start();
         });
-        $this->_registerDebugbar();
-    }
-
-    private function _registerDebugbar()
-    {
-        if (!$this->app->offsetExists('debugbar')) {
-            return;
-        }
-
-        $this->app->singleton('heyman.debugger', function () {
-            return new MessagesCollector('HeyMan');
-        });
-
-        $this->app->make('debugbar')->addCollector(app('heyman.debugger'));
-
-        \Event::listen('heyman_reaction_is_happening', function (...$debug) {
-            app('heyman.debugger')->addMessage('HeyMan Rule Matched in file: '.$debug[0]);
-            app('heyman.debugger')->addMessage('on line: '.$debug[1]);
-            app('heyman.debugger')->addMessage($debug[2]);
-        });
+        DebugbarIntergrator::register($this->app);
     }
 
     public function register()
