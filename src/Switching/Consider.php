@@ -1,11 +1,8 @@
 <?php
 
-namespace Imanghafoori\HeyMan;
+namespace Imanghafoori\HeyMan\Switching;
 
-use Imanghafoori\HeyMan\WatchingStrategies\EloquentEventsManager;
-use Imanghafoori\HeyMan\WatchingStrategies\EventManager;
-use Imanghafoori\HeyMan\WatchingStrategies\RouterEventManager;
-use Imanghafoori\HeyMan\WatchingStrategies\ViewEventManager;
+use Imanghafoori\HeyMan\WatchingStrategies\{EloquentEventsManager, EventManager, RouterEventManager, ViewEventManager};
 
 class Consider
 {

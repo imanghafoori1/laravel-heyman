@@ -2,22 +2,12 @@
 
 namespace Imanghafoori\HeyMan;
 
-use Imanghafoori\HeyMan\Situations\EloquentSituations;
-use Imanghafoori\HeyMan\Situations\EventSituations;
-use Imanghafoori\HeyMan\Situations\RouteSituations;
-use Imanghafoori\HeyMan\Situations\ViewSituations;
+use Imanghafoori\HeyMan\Situations\{EloquentSituations, EventSituations, RouteSituations, ViewSituations};
+use Imanghafoori\HeyMan\Switching\Turn;
 
 class HeyMan
 {
-    public function turnOff(): Consider
-    {
-        return new Consider('turnOff');
-    }
-
-    public function turnOn(): Consider
-    {
-        return new Consider('turnOn');
-    }
+    use Turn;
 
     public function forget(): Forget
     {
