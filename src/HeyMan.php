@@ -2,7 +2,10 @@
 
 namespace Imanghafoori\HeyMan;
 
-use Imanghafoori\HeyMan\Situations\{EloquentSituations, EventSituations, RouteSituations, ViewSituations};
+use Imanghafoori\HeyMan\Situations\EloquentSituations;
+use Imanghafoori\HeyMan\Situations\EventSituations;
+use Imanghafoori\HeyMan\Situations\RouteSituations;
+use Imanghafoori\HeyMan\Situations\ViewSituations;
 use Imanghafoori\HeyMan\Switching\Turn;
 
 class HeyMan
@@ -45,6 +48,7 @@ class HeyMan
     /**
      * @param $method
      * @param $args
+     *
      * @return mixed
      */
     private function startChain($method, $args)

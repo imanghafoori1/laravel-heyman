@@ -22,5 +22,4 @@ class DebugbarIntergrator
             app('heyman.debugger')->addMessage($debug[2]);
         });
     }
-
 }

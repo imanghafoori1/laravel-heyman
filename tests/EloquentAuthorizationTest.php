@@ -106,7 +106,6 @@ class EloquentAuthorizationTest extends TestCase
         $this->expectException(AuthorizationException::class);
         event('eloquent.deleting: App\User');
         event('eloquent.saving: App\User');
-
     }
 
     public function testDeletingModelsIsAuthorized2()
