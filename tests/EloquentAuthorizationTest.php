@@ -8,8 +8,8 @@ class EloquentAuthorizationTest extends TestCase
 {
     public function testCreatingModelsIsAuthorized()
     {
-        HeyMan::whenYouCreate('\App\User')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
-        HeyMan::whenYouCreate('\App\User2')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
+        \HeyMan::whenYouCreate('\App\User')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
+        \HeyMan::whenYouCreate('\App\User2')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
         app(EloquentEventsManager::class)->start();
 
         $this->expectException(AuthorizationException::class);

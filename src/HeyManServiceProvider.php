@@ -3,6 +3,7 @@
 namespace Imanghafoori\HeyMan;
 
 use DebugBar\DataCollector\MessagesCollector;
+use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Imanghafoori\HeyMan\Boot\DebugbarIntergrator;
@@ -32,8 +33,7 @@ class HeyManServiceProvider extends ServiceProvider
     public function register()
     {
         $this->registerSingletons();
-
-        //$this->app->alias(\Imanghafoori\HeyMan\Facades\HeyMan::class, 'HeyMan');
+        AliasLoader::getInstance()->alias('HeyMan',\Imanghafoori\HeyMan\Facades\HeyMan::class);
         $this->mergeConfigFrom(
             __DIR__.'/../config/heyMan.php',
             'heyMan'
