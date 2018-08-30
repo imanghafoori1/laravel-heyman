@@ -28,11 +28,7 @@ class HeyMan
     {
         $this->writeDebugInfo(debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 2));
 
-        foreach ($this->situations() as $className) {
-            if (method_exists($className, $method)) {
-                return app($className)->$method(...$args);
-            }
-        }
+        return $this->startChain($method, $args);
     }
 
     /**
@@ -54,5 +50,19 @@ class HeyMan
     private function writeDebugInfo($d)
     {
         app(Chain::class)->debugInfo = array_only($d[1], ['file', 'line', 'args']);
+    }
+
+    /**
+     * @param $method
+     * @param $args
+     * @return mixed
+     */
+    private function startChain($method, $args)
+    {
+        foreach ($this->situations() as $className) {
+            if (method_exists($className, $method)) {
+                return app($className)->$method(...$args);
+            }
+        }
     }
 }
