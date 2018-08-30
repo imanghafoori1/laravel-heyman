@@ -49,14 +49,20 @@ class HeyManServiceProvider extends ServiceProvider
 
     private function registerSingletons()
     {
-        $this->app->singleton(HeyManSwitcher::class, HeyManSwitcher::class);
-        $this->app->singleton(Chain::class, Chain::class);
-        $this->app->singleton(HeyMan::class, HeyMan::class);
-        $this->app->singleton(YouShouldHave::class, YouShouldHave::class);
-        $this->app->singleton(ReactionFactory::class, ReactionFactory::class);
-        $this->app->singleton(EventManager::class, EventManager::class);
-        $this->app->singleton(RouterEventManager::class, RouterEventManager::class);
-        $this->app->singleton(ViewEventManager::class, ViewEventManager::class);
-        $this->app->singleton(EloquentEventsManager::class, EloquentEventsManager::class);
+        $singletons = [
+            HeyManSwitcher::class,
+            Chain::class,
+            HeyMan::class,
+            YouShouldHave::class,
+            ReactionFactory::class,
+            EventManager::class,
+            RouterEventManager::class,
+            ViewEventManager::class,
+            EloquentEventsManager::class,
+        ];
+
+        array_walk($singletons, function ($class) {
+            $this->app->singleton($class, $class);
+        });
     }
 }
