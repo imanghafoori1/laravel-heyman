@@ -20,6 +20,7 @@
     },
     "require-dev": {
         "orchestra/testbench": "~3.0",
+        "barryvdh/laravel-debugbar": "^2.3",
         "orchestra/database": "@dev",
         "mockery/mockery": "^0.9.9"
     },
