@@ -2,8 +2,8 @@
 
 namespace Imanghafoori\HeyMan\WatchingStrategies;
 
-use Imanghafoori\HeyMan\Switching\HeyManSwitcher;
 use Imanghafoori\HeyMan\Normilizers\InputNormalizer;
+use Imanghafoori\HeyMan\Switching\HeyManSwitcher;
 
 abstract class BaseManager
 {

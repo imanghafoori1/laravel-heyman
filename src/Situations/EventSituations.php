@@ -8,7 +8,6 @@ class EventSituations extends BaseSituation
 {
     /**
      * @param mixed ...$event
-     *
      */
     public function whenEventHappens(...$event)
     {

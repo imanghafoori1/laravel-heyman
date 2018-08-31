@@ -16,7 +16,7 @@ class RouteSituations extends BaseSituation
             'whenYouSendPut',
             'whenYouSendDelete',
             'whenYouCallAction',
-            'whenYouHitRouteName'
+            'whenYouHitRouteName',
         ]);
     }
 
@@ -30,6 +30,7 @@ class RouteSituations extends BaseSituation
     /**
      * @param $method
      * @param $args
+     *
      * @return array
      */
     private function getNormalizedArgs($method, $args): array
@@ -44,7 +45,7 @@ class RouteSituations extends BaseSituation
 
         $method = str_replace('VisitUrl', 'SendGet', $method);
         $method = str_replace('Send', '', $method);
-        return $normalizer->normalizeUrl($args, strtoupper($method));
 
+        return $normalizer->normalizeUrl($args, strtoupper($method));
     }
 }
