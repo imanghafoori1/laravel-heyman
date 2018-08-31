@@ -38,9 +38,9 @@ class ReactionFactory
 
     private function makeReaction(): \Closure
     {
-        $responder = app(ResponderFactory::class)->make();
+        $responder = resolve(ResponderFactory::class)->make();
         $beforeResponse = $this->chain->beforeResponse();
-        $debug = app(Chain::class)->debugInfo;
+        $debug = resolve(Chain::class)->debugInfo;
 
         return function () use ($beforeResponse, $responder, $debug) {
             event('heyman_reaction_is_happening', $debug);

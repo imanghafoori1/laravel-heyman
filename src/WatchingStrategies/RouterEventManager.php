@@ -17,7 +17,7 @@ class RouterEventManager extends BaseManager
                 $eventObj->request->method().$eventObj->route->uri,
             ];
 
-            app(RouteMatchListener::class)->execMatchedCallbacks($matchedRoute, $this->data);
+            resolve(RouteMatchListener::class)->execMatchedCallbacks($matchedRoute, $this->data);
         });
     }
 }

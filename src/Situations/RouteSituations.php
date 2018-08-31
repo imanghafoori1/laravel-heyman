@@ -24,7 +24,7 @@ class RouteSituations extends BaseSituation
     {
         $method = str_replace('whenYou', '', $method);
         $args = $this->getNormalizedArgs($method, $args);
-        $this->chain->eventManager = app(RouterEventManager::class)->init($args);
+        $this->chain->eventManager = resolve(RouterEventManager::class)->init($args);
     }
 
     /**
@@ -35,7 +35,7 @@ class RouteSituations extends BaseSituation
      */
     private function getNormalizedArgs($method, $args): array
     {
-        $normalizer = app(RouteNormalizer::class);
+        $normalizer = resolve(RouteNormalizer::class);
         if ($method == 'CallAction') {
             return $normalizer->normalizeAction($args);
         }

@@ -37,7 +37,7 @@ class Chain
 
     public function submitChainConfig()
     {
-        $callbackListener = app(ReactionFactory::class)->make();
+        $callbackListener = resolve(ReactionFactory::class)->make();
         $this->eventManager->commitChain($callbackListener);
     }
 

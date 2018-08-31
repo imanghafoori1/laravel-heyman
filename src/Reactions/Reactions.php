@@ -68,6 +68,6 @@ class Reactions
 
     public function __destruct()
     {
-        app(Chain::class)->submitChainConfig();
+        resolve(Chain::class)->submitChainConfig();
     }
 }

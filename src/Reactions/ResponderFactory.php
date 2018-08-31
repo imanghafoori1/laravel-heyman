@@ -114,10 +114,10 @@ class ResponderFactory
             }
 
             $data = app()->call($modifier, [request()->all()]);
-            $validator = app(Factory::class)->make($data, $rules, $messages, $customAttributes);
+            $validator = resolve(Factory::class)->make($data, $rules, $messages, $customAttributes);
             $validator->validate();
         };
 
-        return app(HeyManSwitcher::class)->wrapForIgnorance($validator, 'validation');
+        return resolve(HeyManSwitcher::class)->wrapForIgnorance($validator, 'validation');
     }
 }

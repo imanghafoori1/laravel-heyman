@@ -8,6 +8,6 @@ class Otherwise
 {
     public function otherwise(): Reactions
     {
-        return app(Reactions::class);
+        return resolve(Reactions::class);
     }
 }

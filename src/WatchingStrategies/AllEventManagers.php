@@ -6,9 +6,9 @@ class AllEventManagers
 {
     public static function start()
     {
-        app(RouterEventManager::class)->start();
-        app(EventManager::class)->start();
-        app(ViewEventManager::class)->start();
-        app(EloquentEventsManager::class)->start();
+        resolve(RouterEventManager::class)->start();
+        resolve(EventManager::class)->start();
+        resolve(ViewEventManager::class)->start();
+        resolve(EloquentEventsManager::class)->start();
     }
 }

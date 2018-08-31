@@ -38,7 +38,7 @@ class YouShouldHave
             return Gate::allows($gate, (array_merge($parameters, ...$payload)));
         };
 
-        return app(Otherwise::class);
+        return resolve(Otherwise::class);
     }
 
     public function thisClosureShouldAllow(callable $callback, array $parameters = []): Otherwise
@@ -52,7 +52,7 @@ class YouShouldHave
             return (bool) app()->call($callback, array_merge($parameters, ...$payload));
         };
 
-        return app(Otherwise::class);
+        return resolve(Otherwise::class);
     }
 
     public function thisValueShouldAllow($value): Otherwise
@@ -61,7 +61,7 @@ class YouShouldHave
             return (bool) $value;
         };
 
-        return app(Otherwise::class);
+        return resolve(Otherwise::class);
     }
 
     public function youShouldBeGuest($guard = null): Otherwise
@@ -70,7 +70,7 @@ class YouShouldHave
             return auth($guard)->guest();
         };
 
-        return app(Otherwise::class);
+        return resolve(Otherwise::class);
     }
 
     public function sessionShouldHave($key): Otherwise
@@ -79,7 +79,7 @@ class YouShouldHave
             return session()->has($key);
         };
 
-        return app(Otherwise::class);
+        return resolve(Otherwise::class);
     }
 
     public function youShouldBeLoggedIn($guard = null): Otherwise
@@ -88,7 +88,7 @@ class YouShouldHave
             return auth($guard)->check();
         };
 
-        return app(Otherwise::class);
+        return resolve(Otherwise::class);
     }
 
     public function youShouldAlways(): Reactions
@@ -97,7 +97,7 @@ class YouShouldHave
             return false;
         };
 
-        return app(Reactions::class);
+        return resolve(Reactions::class);
     }
 
     /**

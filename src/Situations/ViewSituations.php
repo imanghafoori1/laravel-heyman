@@ -12,7 +12,7 @@ class ViewSituations extends BaseSituation
      */
     public function whenYouMakeView(...$views)
     {
-        $view = app(ViewNormalizer::class)->normalizeView($views);
-        $this->chain->eventManager = app(ViewEventManager::class)->init($view);
+        $view = resolve(ViewNormalizer::class)->normalizeView($views);
+        $this->chain->eventManager = resolve(ViewEventManager::class)->init($view);
     }
 }

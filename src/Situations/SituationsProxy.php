@@ -8,8 +8,8 @@ class SituationsProxy
 {
     const situations = [
         RouteSituations::class,
-        ViewSituations::class,
         EloquentSituations::class,
+        ViewSituations::class,
         EventSituations::class,
     ];
 
@@ -18,9 +18,9 @@ class SituationsProxy
         $args = is_array($args[0]) ? $args[0] : $args;
         foreach (self::situations as $className) {
             if (method_exists($className, $method) || app($className)->hasMethod($method)) {
-                app($className)->$method(...$args);
+                resolve($className)->$method(...$args);
 
-                return app(YouShouldHave::class);
+                return resolve(YouShouldHave::class);
             }
         }
     }
