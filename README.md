@@ -13,11 +13,14 @@
 [![Code Coverage](https://scrutinizer-ci.com/g/imanghafoori1/laravel-heyman/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/imanghafoori1/laravel-heyman/?branch=master)
 [![StyleCI](https://github.styleci.io/repos/139709518/shield?branch=master)](https://github.styleci.io/repos/139709518)
 [![Latest Stable Version](https://poser.pugx.org/imanghafoori/laravel-heyman/v/stable)](https://packagist.org/packages/imanghafoori/laravel-heyman)
+[![Daily Downloads](https://poser.pugx.org/imanghafoori/laravel-heyman/d/daily)](https://packagist.org/packages/imanghafoori/laravel-heyman)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=round-square)](LICENSE.md)
 
 
 
-## :ribbon::ribbon: Hey Man, just tell me what you want, don't ask me for information :ribbon::ribbon:
+## :ribbon: Hey Man, just tell me what you want, don't ask me for information :ribbon:
+
+## We have used CDD (Creativity Driven Development) along side the TDD
 
 ### Built with :heart: for every smart laravel developer
 
