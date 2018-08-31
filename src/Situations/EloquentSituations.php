@@ -7,10 +7,10 @@ use Imanghafoori\HeyMan\WatchingStrategies\EloquentEventsManager;
 class EloquentSituations extends BaseSituation
 {
     const methods = [
-        'whenYouFetch' => 'retrieved',
+        'whenYouFetch'  => 'retrieved',
         'whenYouCreate' => 'creating',
         'whenYouUpdate' => 'updating',
-        'whenYouSave' => 'saving',
+        'whenYouSave'   => 'saving',
         'whenYouDelete' => 'deleting',
     ];
 

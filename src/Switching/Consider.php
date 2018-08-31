@@ -2,10 +2,13 @@
 
 namespace Imanghafoori\HeyMan\Switching;
 
-use Imanghafoori\HeyMan\WatchingStrategies\{EloquentEventsManager, EventManager, RouterEventManager, ViewEventManager};
+use Imanghafoori\HeyMan\WatchingStrategies\EloquentEventsManager;
+use Imanghafoori\HeyMan\WatchingStrategies\EventManager;
+use Imanghafoori\HeyMan\WatchingStrategies\RouterEventManager;
+use Imanghafoori\HeyMan\WatchingStrategies\ViewEventManager;
 
 /**
- * Class Consider
+ * Class Consider.
  *
  * @method null eventChecks(null|callable $closure = null)
  * @method null viewChecks(null|callable $closure = null)
@@ -31,7 +34,7 @@ class Consider
 
     public function allChecks()
     {
-        foreach($this->methods() as $method => $type){
+        foreach ($this->methods() as $method => $type) {
             $this->$method();
         }
     }
@@ -73,10 +76,10 @@ class Consider
     private function methods(): array
     {
         return [
-            'eventChecks' => EventManager::class,
-            'viewChecks' => ViewEventManager::class,
-            'routeChecks' => RouterEventManager::class,
-            'eloquentChecks' => EloquentEventsManager::class,
+            'eventChecks'      => EventManager::class,
+            'viewChecks'       => ViewEventManager::class,
+            'routeChecks'      => RouterEventManager::class,
+            'eloquentChecks'   => EloquentEventsManager::class,
             'validationChecks' => 'validation',
         ];
     }

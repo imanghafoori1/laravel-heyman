@@ -5,7 +5,7 @@ namespace Imanghafoori\HeyMan\Reactions;
 use Imanghafoori\HeyMan\Chain;
 
 /**
- * Class RedirectionMsg
+ * Class RedirectionMsg.
  *
  * @method with($key, $value = null)
  * @method withCookies(array $cookies)
@@ -13,8 +13,6 @@ use Imanghafoori\HeyMan\Chain;
  * @method onlyInput()
  * @method exceptInput(): self
  * @method withErrors($provider, $key = 'default')
- *
- * @package Imanghafoori\HeyMan\Reactions
  */
 class RedirectionMsg
 {

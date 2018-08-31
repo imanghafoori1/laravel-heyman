@@ -5,7 +5,7 @@ namespace Imanghafoori\HeyMan\Reactions;
 use Imanghafoori\HeyMan\Chain;
 
 /**
- * Class Responder
+ * Class Responder.
  *
  * @method null make(string $content = '', int $status = 200, array $headers = [])
  * @method null view(string $view, array $data = [], int $status = 200, array $headers = [])
@@ -14,8 +14,6 @@ use Imanghafoori\HeyMan\Chain;
  * @method null stream($callback, $status = 200, array $headers = [])
  * @method null streamDownload($callback, $name = null, array $headers = [], $disposition = 'attachment')
  * @method null download($file, $name = null, array $headers = [], $disposition = 'attachment')
- *
- * @package Imanghafoori\HeyMan\Reactions
  */
 class Responder
 {

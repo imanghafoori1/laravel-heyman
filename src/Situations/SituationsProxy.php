@@ -19,6 +19,7 @@ class SituationsProxy
         foreach (self::situations as $className) {
             if (method_exists($className, $method) || app($className)->hasMethod($method)) {
                 app($className)->$method(...$args);
+
                 return app(YouShouldHave::class);
             }
         }
