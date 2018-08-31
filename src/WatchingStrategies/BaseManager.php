@@ -2,10 +2,13 @@
 
 namespace Imanghafoori\HeyMan\WatchingStrategies;
 
-use Imanghafoori\HeyMan\HeyManSwitcher;
+use Imanghafoori\HeyMan\Switching\HeyManSwitcher;
+use Imanghafoori\HeyMan\Normilizers\InputNormalizer;
 
 abstract class BaseManager
 {
+    use InputNormalizer;
+
     protected $watchedEntities = [];
 
     protected $event;
@@ -23,6 +26,8 @@ abstract class BaseManager
 
     public function forgetAbout($models, $event = null)
     {
+        $models = $this->normalizeInput($models);
+
         foreach ($models as $model) {
             if ($event) {
                 unset($this->data[$model][$event]);

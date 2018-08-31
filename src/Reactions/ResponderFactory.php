@@ -4,7 +4,7 @@ namespace Imanghafoori\HeyMan\Reactions;
 
 use Illuminate\Contracts\Validation\Factory;
 use Imanghafoori\HeyMan\Chain;
-use Imanghafoori\HeyMan\HeyManSwitcher;
+use Imanghafoori\HeyMan\Switching\HeyManSwitcher;
 
 class ResponderFactory
 {

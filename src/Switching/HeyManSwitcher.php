@@ -1,6 +1,6 @@
 <?php
 
-namespace Imanghafoori\HeyMan;
+namespace Imanghafoori\HeyMan\Switching;
 
 class HeyManSwitcher
 {

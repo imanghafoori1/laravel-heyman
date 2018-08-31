@@ -3,64 +3,25 @@
 namespace Imanghafoori\HeyMan\Situations;
 
 use Imanghafoori\HeyMan\WatchingStrategies\EloquentEventsManager;
-use Imanghafoori\HeyMan\YouShouldHave;
 
 class EloquentSituations extends BaseSituation
 {
-    /**
-     * @param mixed ...$model
-     *
-     * @return YouShouldHave
-     */
-    public function whenYouFetch(...$model)
+    const methods = [
+        'whenYouFetch' => 'retrieved',
+        'whenYouCreate' => 'creating',
+        'whenYouUpdate' => 'updating',
+        'whenYouSave' => 'saving',
+        'whenYouDelete' => 'deleting',
+    ];
+
+    public function hasMethod($method)
     {
-        return $this->watchModel('retrieved', $this->normalizeInput($model));
+        return array_key_exists($method, self::methods);
     }
 
-    /**
-     * @param mixed ...$model
-     *
-     * @return YouShouldHave
-     */
-    public function whenYouCreate(...$model)
+    public function __call($method, $model)
     {
-        return $this->watchModel('creating', $this->normalizeInput($model));
-    }
-
-    /**
-     * @param mixed ...$model
-     *
-     * @return YouShouldHave
-     */
-    public function whenYouUpdate(...$model)
-    {
-        return $this->watchModel('updating', $this->normalizeInput($model));
-    }
-
-    /**
-     * @param mixed ...$model
-     *
-     * @return YouShouldHave
-     */
-    public function whenYouSave(...$model)
-    {
-        return $this->watchModel('saving', $this->normalizeInput($model));
-    }
-
-    /**
-     * @param mixed ...$model
-     *
-     * @return YouShouldHave
-     */
-    public function whenYouDelete(...$model)
-    {
-        return $this->watchModel('deleting', $this->normalizeInput($model));
-    }
-
-    private function watchModel($event, $modelClass)
-    {
-        $this->chain->eventManager = app(EloquentEventsManager::class)->init($modelClass, $event);
-
-        return app(YouShouldHave::class);
+        $event = self::methods[$method];
+        $this->chain->eventManager = app(EloquentEventsManager::class)->init($model, $event);
     }
 }

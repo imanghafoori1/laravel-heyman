@@ -3,13 +3,15 @@
 namespace Imanghafoori\HeyMan\Situations;
 
 use Imanghafoori\HeyMan\Chain;
-use Imanghafoori\HeyMan\Normilizers\InputNormalizer;
 
 abstract class BaseSituation
 {
-    use InputNormalizer;
-
     protected $chain;
+
+    public function hasMethod($method)
+    {
+        return false;
+    }
 
     /**
      * HeyMan constructor.

@@ -2,11 +2,17 @@
 
 namespace Imanghafoori\HeyMan\Switching;
 
-use Imanghafoori\HeyMan\WatchingStrategies\EloquentEventsManager;
-use Imanghafoori\HeyMan\WatchingStrategies\EventManager;
-use Imanghafoori\HeyMan\WatchingStrategies\RouterEventManager;
-use Imanghafoori\HeyMan\WatchingStrategies\ViewEventManager;
+use Imanghafoori\HeyMan\WatchingStrategies\{EloquentEventsManager, EventManager, RouterEventManager, ViewEventManager};
 
+/**
+ * Class Consider
+ *
+ * @method null eventChecks(null|callable $closure = null)
+ * @method null viewChecks(null|callable $closure = null)
+ * @method null routeChecks(null|callable $closure = null)
+ * @method null eloquentChecks(null|callable $closure = null)
+ * @method null validationChecks(null|callable $closure = null)
+ */
 class Consider
 {
     private $mode;
@@ -16,38 +22,18 @@ class Consider
         $this->mode = $mode;
     }
 
-    public function eloquentChecks(callable $closure = null)
+    public function __call($method, $args)
     {
-        return $this->turn(EloquentEventsManager::class, $closure);
-    }
+        $m = $this->methods();
 
-    public function viewChecks(callable $closure = null)
-    {
-        return $this->turn(ViewEventManager::class, $closure);
-    }
-
-    public function routeChecks(callable $closure = null)
-    {
-        return $this->turn(RouterEventManager::class, $closure);
-    }
-
-    public function eventChecks(callable $closure = null)
-    {
-        return $this->turn(EventManager::class, $closure);
-    }
-
-    public function validationChecks(callable $closure = null)
-    {
-        return $this->turn('validation', $closure);
+        return $this->turn($m[$method], ...$args);
     }
 
     public function allChecks()
     {
-        $this->validationChecks();
-        $this->eventChecks();
-        $this->eloquentChecks();
-        $this->routeChecks();
-        $this->viewChecks();
+        foreach($this->methods() as $method => $type){
+            $this->$method();
+        }
     }
 
     /**
@@ -79,5 +65,19 @@ class Consider
             'turnOff' => true,
             'turnOn'  => false,
         ][$this->mode]);
+    }
+
+    /**
+     * @return array
+     */
+    private function methods(): array
+    {
+        return [
+            'eventChecks' => EventManager::class,
+            'viewChecks' => ViewEventManager::class,
+            'routeChecks' => RouterEventManager::class,
+            'eloquentChecks' => EloquentEventsManager::class,
+            'validationChecks' => 'validation',
+        ];
     }
 }

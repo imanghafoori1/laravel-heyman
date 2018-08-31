@@ -2,19 +2,15 @@
 
 namespace Imanghafoori\HeyMan\Normilizers;
 
-trait ViewNormalizer
+class ViewNormalizer
 {
-    use InputNormalizer;
-
     /**
      * @param $views
      *
      * @return array
      */
-    private function normalizeView(array $views): array
+    public function normalizeView(array $views): array
     {
-        $views = $this->normalizeInput($views);
-
         array_walk($views, function ($view) {
             $this->checkViewExists($view);
         });

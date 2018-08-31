@@ -2,93 +2,51 @@
 
 namespace Imanghafoori\HeyMan;
 
-use Imanghafoori\HeyMan\Normilizers\InputNormalizer;
-use Imanghafoori\HeyMan\Normilizers\RouteNormalizer;
-use Imanghafoori\HeyMan\WatchingStrategies\EloquentEventsManager;
-use Imanghafoori\HeyMan\WatchingStrategies\EventManager;
-use Imanghafoori\HeyMan\WatchingStrategies\RouterEventManager;
-use Imanghafoori\HeyMan\WatchingStrategies\ViewEventManager;
+use Imanghafoori\HeyMan\Normilizers\{InputNormalizer, RouteNormalizer};
+use Imanghafoori\HeyMan\WatchingStrategies\{EloquentEventsManager, EventManager, RouterEventManager, ViewEventManager};
 
+/**
+ * Class Forget
+ *
+ * @method aboutRoute(array|string $routeName)
+ * @method aboutAction(array|string $action)
+ * @method aboutUrl(array|string $url)
+ * @method aboutModel(array|string $model)
+ * @method aboutDeleting(array|string $model)
+ * @method aboutSaving(array|string $model)
+ * @method aboutCreating(array|string $model)
+ * @method aboutUpdating(array|string $model)
+ * @method aboutFetching(array|string $model)
+ *
+ */
 class Forget
 {
-    use RouteNormalizer, InputNormalizer;
-
-    /**
-     * Forget constructor.
-     */
-    public function __construct()
-    {
-    }
+    use InputNormalizer;
 
     public function aboutView(...$view)
     {
-        resolve(ViewEventManager::class)->forgetAbout($this->normalizeInput($view));
-    }
-
-    public function aboutSaving(...$model)
-    {
-        $this->forgetAboutModel($model, 'saving');
-    }
-
-    public function aboutDeleting(...$model)
-    {
-        $this->forgetAboutModel($model, 'deleting');
-    }
-
-    public function aboutFetching(...$model)
-    {
-        $this->forgetAboutModel($model, 'retrieved');
-    }
-
-    public function aboutCreating(...$model)
-    {
-        $this->forgetAboutModel($model, 'creating');
-    }
-
-    public function aboutUpdating(...$model)
-    {
-        $this->forgetAboutModel($model, 'updating');
-    }
-
-    public function aboutModel(...$model)
-    {
-        resolve(EloquentEventsManager::class)->forgetAbout($this->normalizeInput($model), null);
+        resolve(ViewEventManager::class)->forgetAbout($view);
     }
 
     public function aboutEvent(...$events)
     {
-        resolve(EventManager::class)->forgetAbout($this->normalizeInput($events));
+        resolve(EventManager::class)->forgetAbout($events);
     }
 
-    public function aboutUrl(...$urls)
+    public function __call($method, $args)
     {
-        $this->forgetAboutRoute($this->normalizeUrl($urls, 'GET'));
-    }
+        $args = $this->normalizeInput($args);
 
-    public function aboutRoute(...$route)
-    {
-        $this->forgetAboutRoute($this->normalizeInput($route));
-    }
+        $method = ltrim($method, 'about');
 
-    public function aboutAction(...$actions)
-    {
-        $this->forgetAboutRoute($this->normalizeAction($actions));
-    }
+        if (in_array($method, ['Route', 'Action', 'Url'])) {
+            $args = resolve(RouteNormalizer::class)->{'normalize'.$method}($args);
+            return resolve(RouterEventManager::class)->forgetAbout($args);
+        }
 
-    /**
-     * @param $model
-     * @param $event
-     */
-    private function forgetAboutModel($model, $event)
-    {
-        resolve(EloquentEventsManager::class)->forgetAbout($this->normalizeInput($model), $event);
-    }
-
-    /**
-     * @param $normalizeUrl
-     */
-    private function forgetAboutRoute($normalizeUrl)
-    {
-        resolve(RouterEventManager::class)->forgetAbout($normalizeUrl);
+        $method = str_replace('Fetching', 'retrieved', $method);
+        $method = strtolower($method);
+        $method = $method == 'model' ? null : $method;
+        resolve(EloquentEventsManager::class)->forgetAbout($args, $method);
     }
 }

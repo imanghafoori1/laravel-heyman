@@ -4,114 +4,47 @@ namespace Imanghafoori\HeyMan\Situations;
 
 use Imanghafoori\HeyMan\Normilizers\RouteNormalizer;
 use Imanghafoori\HeyMan\WatchingStrategies\RouterEventManager;
-use Imanghafoori\HeyMan\YouShouldHave;
 
 class RouteSituations extends BaseSituation
 {
-    use RouteNormalizer;
-
-    /**
-     * @param mixed ...$url
-     *
-     * @return YouShouldHave
-     */
-    public function whenYouVisitUrl(...$url): YouShouldHave
+    public function hasMethod($method)
     {
-        return $this->watchURL($url, 'GET');
+        return in_array($method, [
+            'whenYouVisitUrl',
+            'whenYouSendPost',
+            'whenYouSendPatch',
+            'whenYouSendPut',
+            'whenYouSendDelete',
+            'whenYouCallAction',
+            'whenYouHitRouteName'
+        ]);
+    }
+
+    public function __call($method, $args)
+    {
+        $method = str_replace('whenYou', '', $method);
+        $args = $this->getNormalizedArgs($method, $args);
+        $this->chain->eventManager = app(RouterEventManager::class)->init($args);
     }
 
     /**
-     * @param mixed ...$url
-     *
-     * @return YouShouldHave
+     * @param $method
+     * @param $args
+     * @return array
      */
-    public function whenYouSendPost(...$url): YouShouldHave
+    private function getNormalizedArgs($method, $args): array
     {
-        return $this->watchURL($url, 'POST');
-    }
+        $normalizer = app(RouteNormalizer::class);
+        if ($method == 'CallAction') {
+            return $normalizer->normalizeAction($args);
+        }
+        if ($method == 'HitRouteName') {
+            return $args;
+        }
 
-    /**
-     * @param mixed ...$url
-     *
-     * @return YouShouldHave
-     */
-    public function whenYouSendPatch(...$url): YouShouldHave
-    {
-        return $this->watchURL($url, 'PATCH');
-    }
+        $method = str_replace('VisitUrl', 'SendGet', $method);
+        $method = str_replace('Send', '', $method);
+        return $normalizer->normalizeUrl($args, strtoupper($method));
 
-    /**
-     * @param mixed ...$url
-     *
-     * @return YouShouldHave
-     */
-    public function whenYouSendPut(...$url): YouShouldHave
-    {
-        return $this->watchURL($url, 'PUT');
-    }
-
-    /**
-     * @param mixed ...$url
-     *
-     * @return YouShouldHave
-     */
-    public function whenYouSendDelete(...$url): YouShouldHave
-    {
-        return $this->watchURL($url, 'DELETE');
-    }
-
-    /**
-     * @param mixed ...$routeName
-     *
-     * @return YouShouldHave
-     */
-    public function whenYouHitRouteName(...$routeName): YouShouldHave
-    {
-        return $this->watchRoute($this->normalizeInput($routeName));
-    }
-
-    /**
-     * @deprecated
-     *
-     * @param mixed ...$routeName
-     *
-     * @return YouShouldHave
-     */
-    public function whenYouReachRoute(...$routeName): YouShouldHave
-    {
-        return $this->whenYouHitRouteName(...$routeName);
-    }
-
-    /**
-     * @param mixed ...$action
-     *
-     * @return YouShouldHave
-     */
-    public function whenYouCallAction(...$action): YouShouldHave
-    {
-        return $this->watchRoute($this->normalizeAction($action));
-    }
-
-    /**
-     * @param $value
-     *
-     * @return YouShouldHave
-     */
-    private function watchRoute($value): YouShouldHave
-    {
-        $this->chain->eventManager = app(RouterEventManager::class)->init($value);
-
-        return app(YouShouldHave::class);
-    }
-
-    /**
-     * @param $url
-     * @param $verb
-     *
-     * @return YouShouldHave
-     */
-    private function watchURL($url, $verb): YouShouldHave
-    {
-        return $this->watchRoute($this->normalizeUrl($url, $verb));
     }
 }

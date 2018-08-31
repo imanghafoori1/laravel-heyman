@@ -2,14 +2,14 @@
 
 namespace Imanghafoori\HeyMan\Normilizers;
 
-trait RouteNormalizer
+class RouteNormalizer
 {
     /**
-     * @param $action
+     * @param $actions
      *
      * @return array
      */
-    private function normalizeAction($action): array
+    public function normalizeAction($actions): array
     {
         $addNamespace = function ($action) {
             if ($action = ltrim($action, '\\')) {
@@ -19,21 +19,26 @@ trait RouteNormalizer
             return app()->getNamespace().'\\Http\\Controllers\\'.$action;
         };
 
-        return array_map($addNamespace, $this->normalizeInput($action));
+        return array_map($addNamespace, $actions);
     }
 
     /**
-     * @param $url
+     * @param $urls
      * @param $verb
      *
      * @return array
      */
-    private function normalizeUrl($url, $verb): array
+    public function normalizeUrl($urls, $verb = 'GET'): array
     {
         $removeSlash = function ($url) use ($verb) {
             return $verb.ltrim($url, '/');
         };
 
-        return array_map($removeSlash, $this->normalizeInput($url));
+        return array_map($removeSlash, $urls);
+    }
+
+    public function normalizeRoute($r)
+    {
+        return $r;
     }
 }

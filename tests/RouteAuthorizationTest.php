@@ -25,7 +25,7 @@ class RouteAuthorizationTest extends TestCase
 
     public function testPutUrls()
     {
-        Route::put('put', function () {
+        Route::put('/put', function () {
         });
 
         HeyMan::whenYouSendPut('put')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
@@ -34,7 +34,7 @@ class RouteAuthorizationTest extends TestCase
 
     public function testPatchUrls()
     {
-        Route::patch('patch', function () {
+        Route::patch('/patch', function () {
         });
 
         HeyMan::whenYouSendPatch('patch')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
@@ -43,11 +43,11 @@ class RouteAuthorizationTest extends TestCase
 
     public function testDeleteUrls()
     {
-        Route::patch('/delete', function () {
+        Route::delete('/delete', function () {
         });
 
         HeyMan::whenYouSendDelete('delete')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
-        $this->delete('delete')->assertStatus(405);
+        $this->delete('delete')->assertStatus(403);
     }
 
     public function testwhenYouVisitUrlCanAcceptArray()
