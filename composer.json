@@ -1,7 +1,7 @@
 {
     "name": "imanghafoori/laravel-heyman",
     "description": "A package to help you write expressive defensive code in a functional manner",
-    "keywords": ["laravel", "laravel-authorazation", "laravel5-package", "PHP", "laravel5"],
+    "keywords": ["laravel", "laravel-authorization", "laravel5-package", "PHP", "laravel5", "laravel-acl", "laravel-validation", "eloquent-validation", "laravel-permission", "laravel-roles"],
     "license": "MIT",
     "homepage": "https://github.com/imanghafoori1/laravel-HeyMan",
     "authors": [
