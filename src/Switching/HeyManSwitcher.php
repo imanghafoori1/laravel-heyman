@@ -2,7 +2,7 @@
 
 namespace Imanghafoori\HeyMan\Switching;
 
-class HeyManSwitcher
+final class HeyManSwitcher
 {
     public function wrapForIgnorance(callable $callback, $key): \Closure
     {

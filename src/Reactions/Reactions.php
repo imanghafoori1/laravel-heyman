@@ -5,7 +5,7 @@ namespace Imanghafoori\HeyMan\Reactions;
 use Illuminate\Auth\Access\AuthorizationException;
 use Imanghafoori\HeyMan\Chain;
 
-class Reactions
+final class Reactions
 {
     /**
      * @var \Imanghafoori\HeyMan\Chain

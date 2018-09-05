@@ -4,7 +4,7 @@ namespace Imanghafoori\HeyMan\Reactions;
 
 use Imanghafoori\HeyMan\Chain;
 
-class ReactionFactory
+final class ReactionFactory
 {
     /**
      * @var \Imanghafoori\HeyMan\Chain

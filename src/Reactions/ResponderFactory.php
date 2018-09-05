@@ -6,7 +6,7 @@ use Illuminate\Contracts\Validation\Factory;
 use Imanghafoori\HeyMan\Chain;
 use Imanghafoori\HeyMan\Switching\HeyManSwitcher;
 
-class ResponderFactory
+final class ResponderFactory
 {
     private $chain;
 

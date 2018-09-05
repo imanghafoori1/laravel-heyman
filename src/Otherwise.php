@@ -4,7 +4,7 @@ namespace Imanghafoori\HeyMan;
 
 use Imanghafoori\HeyMan\Reactions\Reactions;
 
-class Otherwise
+final class Otherwise
 {
     public function otherwise(): Reactions
     {

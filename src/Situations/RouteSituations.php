@@ -5,7 +5,7 @@ namespace Imanghafoori\HeyMan\Situations;
 use Imanghafoori\HeyMan\Normilizers\RouteNormalizer;
 use Imanghafoori\HeyMan\WatchingStrategies\RouterEventManager;
 
-class RouteSituations extends BaseSituation
+final class RouteSituations extends BaseSituation
 {
     public function hasMethod($method)
     {

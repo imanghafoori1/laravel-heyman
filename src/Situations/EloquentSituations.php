@@ -4,7 +4,7 @@ namespace Imanghafoori\HeyMan\Situations;
 
 use Imanghafoori\HeyMan\WatchingStrategies\EloquentEventsManager;
 
-class EloquentSituations extends BaseSituation
+final class EloquentSituations extends BaseSituation
 {
     const methods = [
         'whenYouFetch'  => 'retrieved',

@@ -4,7 +4,7 @@ namespace Imanghafoori\HeyMan\Situations;
 
 use Imanghafoori\HeyMan\WatchingStrategies\EventManager;
 
-class EventSituations extends BaseSituation
+final class EventSituations extends BaseSituation
 {
     /**
      * @param mixed ...$event

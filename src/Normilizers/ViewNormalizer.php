@@ -2,7 +2,7 @@
 
 namespace Imanghafoori\HeyMan\Normilizers;
 
-class ViewNormalizer
+final class ViewNormalizer
 {
     /**
      * @param $views

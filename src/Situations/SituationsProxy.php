@@ -4,7 +4,7 @@ namespace Imanghafoori\HeyMan\Situations;
 
 use Imanghafoori\HeyMan\YouShouldHave;
 
-class SituationsProxy
+final class SituationsProxy
 {
     const situations = [
         RouteSituations::class,

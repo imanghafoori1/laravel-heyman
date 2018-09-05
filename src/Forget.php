@@ -22,7 +22,7 @@ use Imanghafoori\HeyMan\WatchingStrategies\ViewEventManager;
  * @method aboutUpdating(array|string $model)
  * @method aboutFetching(array|string $model)
  */
-class Forget
+final class Forget
 {
     use InputNormalizer;
 

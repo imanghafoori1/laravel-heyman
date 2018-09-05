@@ -14,7 +14,7 @@ use Imanghafoori\HeyMan\Chain;
  * @method exceptInput(): self
  * @method withErrors($provider, $key = 'default')
  */
-class RedirectionMsg
+final class RedirectionMsg
 {
     private $chain;
 

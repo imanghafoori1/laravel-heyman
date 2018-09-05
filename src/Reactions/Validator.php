@@ -4,7 +4,7 @@ namespace Imanghafoori\HeyMan\Reactions;
 
 use Imanghafoori\HeyMan\Chain;
 
-class Validator
+final class Validator
 {
     /**
      * @var Chain

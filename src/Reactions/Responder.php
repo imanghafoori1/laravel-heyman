@@ -15,7 +15,7 @@ use Imanghafoori\HeyMan\Chain;
  * @method null streamDownload($callback, $name = null, array $headers = [], $disposition = 'attachment')
  * @method null download($file, $name = null, array $headers = [], $disposition = 'attachment')
  */
-class Responder
+final class Responder
 {
     private $chain;
 

@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Gate;
 use Imanghafoori\HeyMan\Reactions\Reactions;
 use Imanghafoori\HeyMan\Reactions\Validator;
 
-class YouShouldHave
+final class YouShouldHave
 {
     public $condition;
 

@@ -9,7 +9,7 @@ use Imanghafoori\HeyMan\Boot\DebugbarIntergrator;
 use Imanghafoori\HeyMan\Boot\Singletons;
 use Imanghafoori\HeyMan\WatchingStrategies\AllEventManagers;
 
-class HeyManServiceProvider extends ServiceProvider
+final class HeyManServiceProvider extends ServiceProvider
 {
     public function boot()
     {

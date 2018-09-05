@@ -4,7 +4,7 @@ namespace Imanghafoori\HeyMan;
 
 use Illuminate\Support\Str;
 
-class RouteMatchListener
+final class RouteMatchListener
 {
     /**
      * @param array $closures
