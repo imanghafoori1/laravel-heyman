@@ -42,7 +42,7 @@ final class RedirectionMsg
      */
     public function __call($method, $parameters)
     {
-        $this->chain->commitArray([$method, $parameters], 'redirect');
+        $this->chain->commitCalledMethod([$method, $parameters], 'redirect');
 
         return $this;
     }

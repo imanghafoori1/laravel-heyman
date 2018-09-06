@@ -59,7 +59,7 @@ class Chain
         $this->responseType = $methodName;
     }
 
-    public function commitArray($args, $methodName)
+    public function commitCalledMethod($args, $methodName)
     {
         $this->data[] = $args;
         $this->responseType = $methodName;
