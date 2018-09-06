@@ -15,26 +15,23 @@ use Imanghafoori\HeyMan\Chain;
  */
 class Redirector
 {
-    private $chain;
-
     private $action;
 
     /**
      * Responder constructor.
      *
-     * @param Chain     $chain
      * @param Reactions $reaction
      */
-    public function __construct(Chain $chain, Reactions $reaction)
+    public function __construct(Reactions $reaction)
     {
-        $this->chain = $chain;
         $this->action = $reaction;
     }
 
     public function __call($method, $parameters)
     {
-        $this->chain->commitArray([$method, $parameters], 'redirect');
+        $chain = app(Chain::class);
+        $chain->commitCalledMethod([$method, $parameters], 'redirect');
 
-        return new RedirectionMsg($this->chain, $this);
+        return new RedirectionMsg($chain, $this);
     }
 }

@@ -24,12 +24,12 @@ final class Reactions
 
     public function response(): Responder
     {
-        return new Responder($this->chain, $this);
+        return new Responder($this);
     }
 
     public function redirect(): Redirector
     {
-        return new Redirector($this->chain, $this);
+        return new Redirector($this);
     }
 
     public function afterCalling($callback, array $parameters = []): self

@@ -17,24 +17,20 @@ use Imanghafoori\HeyMan\Chain;
  */
 final class Responder
 {
-    private $chain;
-
     private $action;
 
     /**
      * Responder constructor.
      *
-     * @param \Imanghafoori\HeyMan\Chain $chain
      * @param $action
      */
-    public function __construct(Chain $chain, $action)
+    public function __construct($action)
     {
-        $this->chain = $chain;
         $this->action = $action;
     }
 
     public function __call($method, $parameters)
     {
-        $this->chain->commitArray([$method, $parameters], 'response');
+        app(Chain::class)->commitCalledMethod([$method, $parameters], 'response');
     }
 }
