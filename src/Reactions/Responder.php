@@ -24,7 +24,7 @@ final class Responder
      *
      * @param $action
      */
-    public function __construct($action)
+    public function __construct(Reactions $action)
     {
         $this->action = $action;
     }
