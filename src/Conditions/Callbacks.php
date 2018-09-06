@@ -4,7 +4,6 @@ namespace Imanghafoori\HeyMan\Conditions;
 
 trait Callbacks
 {
-
     public function thisClosureShouldAllow(callable $callback, array $parameters = [])
     {
         return $this->thisMethodShouldAllow($callback, $parameters);

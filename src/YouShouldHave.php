@@ -28,6 +28,7 @@ final class YouShouldHave
     public function __call($method, $args)
     {
         resolve(Chain::class)->condition = (new ConditionsFacade($this->chain))->$method(...$args);
+
         return resolve(Otherwise::class);
     }
 
