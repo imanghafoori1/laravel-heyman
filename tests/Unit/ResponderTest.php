@@ -1,6 +1,5 @@
 <?php
 
-use Imanghafoori\HeyMan\Chain;
 
 class ResponderTest extends TestCase
 {
