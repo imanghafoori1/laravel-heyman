@@ -7,27 +7,12 @@ use Imanghafoori\HeyMan\Chain;
 final class ReactionFactory
 {
     /**
-     * @var \Imanghafoori\HeyMan\Chain
-     */
-    private $chain;
-
-    /**
-     * ListenerFactory constructor.
-     *
-     * @param Chain $chain
-     */
-    public function __construct(Chain $chain)
-    {
-        $this->chain = $chain;
-    }
-
-    /**
      * @return \Closure
      */
     public function make(): \Closure
     {
         $reaction = $this->makeReaction();
-        $condition = $this->chain->condition;
+        $condition = resolve(Chain::class)->condition;
 
         return function (...$f) use ($condition, $reaction) {
             if (!$condition($f)) {
@@ -38,9 +23,10 @@ final class ReactionFactory
 
     private function makeReaction(): \Closure
     {
+        $chain = resolve(Chain::class);
         $responder = resolve(ResponderFactory::class)->make();
-        $beforeResponse = $this->chain->beforeResponse();
-        $debug = resolve(Chain::class)->debugInfo;
+        $beforeResponse = $chain->beforeResponse();
+        $debug = $chain->debugInfo;
 
         return function () use ($beforeResponse, $responder, $debug) {
             event('heyman_reaction_is_happening', $debug);
