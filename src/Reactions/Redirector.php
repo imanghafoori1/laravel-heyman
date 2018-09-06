@@ -32,6 +32,6 @@ class Redirector
         $chain = app(Chain::class);
         $chain->commitCalledMethod([$method, $parameters], 'redirect');
 
-        return new RedirectionMsg($chain, $this);
+        return new RedirectionMsg($this);
     }
 }
