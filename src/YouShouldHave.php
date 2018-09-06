@@ -10,24 +10,9 @@ final class YouShouldHave
 
     public $condition;
 
-    /**
-     * @var Chain
-     */
-    private $chain;
-
-    /**
-     * YouShouldHave constructor.
-     *
-     * @param Chain $chain
-     */
-    public function __construct(Chain $chain)
-    {
-        $this->chain = $chain;
-    }
-
     public function __call($method, $args)
     {
-        resolve(Chain::class)->condition = (new ConditionsFacade($this->chain))->$method(...$args);
+        resolve(Chain::class)->condition = app(ConditionsFacade::class)->$method(...$args);
 
         return resolve(Otherwise::class);
     }

@@ -3,14 +3,12 @@
 namespace Imanghafoori\HeyMan\Boot;
 
 use Imanghafoori\HeyMan\Chain;
+use Imanghafoori\HeyMan\Conditions\ConditionsFacade;
 use Imanghafoori\HeyMan\HeyMan;
 use Imanghafoori\HeyMan\Normilizers\ViewNormalizer;
 use Imanghafoori\HeyMan\Reactions\ReactionFactory;
 use Imanghafoori\HeyMan\Switching\HeyManSwitcher;
-use Imanghafoori\HeyMan\WatchingStrategies\EloquentEventsManager;
-use Imanghafoori\HeyMan\WatchingStrategies\EventManager;
-use Imanghafoori\HeyMan\WatchingStrategies\RouterEventManager;
-use Imanghafoori\HeyMan\WatchingStrategies\ViewEventManager;
+use Imanghafoori\HeyMan\WatchingStrategies\{EloquentEventsManager, EventManager, RouterEventManager, ViewEventManager};
 use Imanghafoori\HeyMan\YouShouldHave;
 
 class Singletons
@@ -40,6 +38,7 @@ class Singletons
             ViewEventManager::class,
             EloquentEventsManager::class,
             ViewNormalizer::class,
+            ConditionsFacade::class,
         ];
     }
 }
