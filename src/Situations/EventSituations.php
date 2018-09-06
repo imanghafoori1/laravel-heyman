@@ -11,6 +11,6 @@ final class EventSituations extends BaseSituation
      */
     public function whenEventHappens(...$event)
     {
-        $this->chain->eventManager = resolve(EventManager::class)->init($event);
+        $this->setManager(EventManager::class, $event);
     }
 }

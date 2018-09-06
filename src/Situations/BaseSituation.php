@@ -6,20 +6,13 @@ use Imanghafoori\HeyMan\Chain;
 
 abstract class BaseSituation
 {
-    protected $chain;
-
     public function hasMethod($method)
     {
         return false;
     }
 
-    /**
-     * HeyMan constructor.
-     *
-     * @param Chain $chain
-     */
-    public function __construct(Chain $chain)
+    protected function setManager(string $class, ...$array)
     {
-        $this->chain = $chain;
+        resolve(Chain::class)->eventManager = resolve($class)->init(...$array);
     }
 }

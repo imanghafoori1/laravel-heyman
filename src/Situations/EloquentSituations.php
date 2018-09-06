@@ -21,7 +21,6 @@ final class EloquentSituations extends BaseSituation
 
     public function __call($method, $model)
     {
-        $event = self::methods[$method];
-        $this->chain->eventManager = resolve(EloquentEventsManager::class)->init($model, $event);
+        $this->setManager(EloquentEventsManager::class, $model, self::methods[$method]);
     }
 }
