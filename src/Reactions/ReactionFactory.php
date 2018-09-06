@@ -24,10 +24,10 @@ final class ReactionFactory
     private function makeReaction(): \Closure
     {
         $chain = resolve(Chain::class);
-        $responder = resolve(ResponderFactory::class)->make();
         $beforeResponse = $chain->beforeResponse();
         $debug = $chain->debugInfo;
 
+        $responder = resolve(ResponderFactory::class)->make();
         return function () use ($beforeResponse, $responder, $debug) {
             event('heyman_reaction_is_happening', $debug);
             $beforeResponse();
