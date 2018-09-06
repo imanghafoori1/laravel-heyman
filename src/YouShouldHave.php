@@ -111,7 +111,7 @@ final class YouShouldHave
      */
     public function yourRequestShouldBeValid($rules, array $messages = [], array $customAttributes = []): Validator
     {
-        return new Validator($this->chain, [$rules, $messages, $customAttributes]);
+        return new Validator([$rules, $messages, $customAttributes]);
     }
 
     /**

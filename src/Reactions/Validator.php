@@ -7,10 +7,6 @@ use Imanghafoori\HeyMan\Chain;
 final class Validator
 {
     /**
-     * @var Chain
-     */
-    private $chain;
-    /**
      * @var array
      */
     private $validationData;
@@ -20,12 +16,10 @@ final class Validator
     /**
      * YouShouldHave constructor.
      *
-     * @param Chain $chain
      * @param $validationData
      */
-    public function __construct(Chain $chain, array $validationData)
+    public function __construct(array $validationData)
     {
-        $this->chain = $chain;
         $this->validationData = $validationData;
     }
 
@@ -40,7 +34,8 @@ final class Validator
         $modifier = $this->modifier ?: function ($d) {
             return $d;
         };
-        $this->chain->condition = resolve(ResponderFactory::class)->validatorCallback($modifier, ...$data);
-        resolve(Chain::class)->submitChainConfig();
+        $chain = resolve(Chain::class);
+        $chain->condition = resolve(ResponderFactory::class)->validatorCallback($modifier, ...$data);
+        $chain->submitChainConfig();
     }
 }
