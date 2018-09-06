@@ -31,6 +31,6 @@ final class Responder
 
     public function __call($method, $parameters)
     {
-        app(Chain::class)->commitCalledMethod([$method, $parameters], 'response');
+        resolve(Chain::class)->commitCalledMethod([$method, $parameters], 'response');
     }
 }

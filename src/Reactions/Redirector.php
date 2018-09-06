@@ -29,7 +29,7 @@ class Redirector
 
     public function __call($method, $parameters)
     {
-        $chain = app(Chain::class);
+        $chain = resolve(Chain::class);
         $chain->commitCalledMethod([$method, $parameters], 'redirect');
 
         return new RedirectionMsg($this);

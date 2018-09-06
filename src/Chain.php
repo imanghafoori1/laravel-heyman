@@ -31,7 +31,7 @@ class Chain
     public function eventFire($event, array $payload, bool $halt)
     {
         $this->beforeResponse[] = function () use ($event, $payload, $halt) {
-            app('events')->dispatch($event, $payload, $halt);
+            resolve('events')->dispatch($event, $payload, $halt);
         };
     }
 
