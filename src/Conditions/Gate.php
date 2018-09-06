@@ -41,6 +41,4 @@ trait Gate
     {
         return $this->thisGateShouldAllow('heyman.youShouldHaveRole', $role);
     }
-
-
 }

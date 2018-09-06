@@ -28,6 +28,7 @@ final class ReactionFactory
         $debug = $chain->debugInfo;
 
         $responder = resolve(ResponderFactory::class)->make();
+
         return function () use ($beforeResponse, $responder, $debug) {
             event('heyman_reaction_is_happening', $debug);
             $beforeResponse();
