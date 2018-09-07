@@ -7,7 +7,7 @@ class YouShouldHaveTest extends TestCase
 {
     public function testImmediately()
     {
-        $r = HeyMan::whenYouVisitUrl('sdf')->youShouldAlways();
+        $r = HeyMan::whenYouVisitUrl('sdf')->always();
 
         $condition = app(\Imanghafoori\HeyMan\Chain::class)->condition;
 

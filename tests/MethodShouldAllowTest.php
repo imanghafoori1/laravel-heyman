@@ -31,7 +31,7 @@ class MethodShouldAllowTest extends TestCase
 
     public function test_Value_Should_Allow()
     {
-        HeyMan::whenYouMakeView('welcome')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
+        HeyMan::whenYouMakeView('welcome')->always()->weDenyAccess();
         app(ViewEventManager::class)->start();
         $this->expectException(AuthorizationException::class);
 

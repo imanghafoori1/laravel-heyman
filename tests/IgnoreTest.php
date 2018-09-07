@@ -10,7 +10,7 @@ class IgnoreTest extends TestCase
     {
         Route::get('/welcome', 'HomeController@index');
 
-        HeyMan::whenYouVisitUrl('/welco*')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
+        HeyMan::whenYouVisitUrl('/welco*')->always()->weDenyAccess();
         HeyMan::whenYouVisitUrl('welcome1')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
 
         Heyman::turnOff()->routeChecks();
@@ -22,7 +22,7 @@ class IgnoreTest extends TestCase
     {
         Route::get('/welcome', 'HomeController@index');
 
-        HeyMan::whenYouVisitUrl(['welcome_', 'welcome'])->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
+        HeyMan::whenYouVisitUrl(['welcome_', 'welcome'])->always()->weDenyAccess();
         HeyMan::whenYouVisitUrl('welcome1')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
 
         Heyman::turnOff()->routeChecks();
@@ -34,7 +34,7 @@ class IgnoreTest extends TestCase
     {
         Route::get('/welcome', 'HomeController@index');
 
-        HeyMan::whenYouVisitUrl('welcome_', 'welcome')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
+        HeyMan::whenYouVisitUrl('welcome_', 'welcome')->always()->weDenyAccess();
         HeyMan::whenYouVisitUrl('welcome1')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
 
         Heyman::turnOff()->routeChecks();
@@ -46,7 +46,7 @@ class IgnoreTest extends TestCase
     {
         Route::get('/welcome', 'HomeController@index')->name('welcome.name');
 
-        HeyMan::whenYouHitRouteName('welcome.name')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
+        HeyMan::whenYouHitRouteName('welcome.name')->always()->weDenyAccess();
 
         Heyman::turnOff()->routeChecks();
 
@@ -57,7 +57,7 @@ class IgnoreTest extends TestCase
     {
         Route::get('/welcome', 'HomeController@index')->name('welcome.name');
 
-        HeyMan::whenYouHitRouteName('welcome.*')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
+        HeyMan::whenYouHitRouteName('welcome.*')->always()->weDenyAccess();
 
         Heyman::turnOff()->routeChecks();
 
@@ -68,7 +68,7 @@ class IgnoreTest extends TestCase
     {
         Route::get('/welcome', 'HomeController@index');
 
-        HeyMan::whenYouCallAction('\HomeController@index')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
+        HeyMan::whenYouCallAction('\HomeController@index')->always()->weDenyAccess();
 
         Heyman::turnOff()->routeChecks();
 
@@ -79,7 +79,7 @@ class IgnoreTest extends TestCase
     {
         Route::get('/welcome', 'HomeController@index');
 
-        HeyMan::whenYouCallAction('\HomeController@index')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
+        HeyMan::whenYouCallAction('\HomeController@index')->always()->weDenyAccess();
 
         Heyman::turnOff()->routeChecks();
 
@@ -88,7 +88,7 @@ class IgnoreTest extends TestCase
 
     public function testFetchingModelsIsAuthorized_Ignorance()
     {
-        HeyMan::whenYouFetch('\App\User')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
+        HeyMan::whenYouFetch('\App\User')->always()->weDenyAccess();
 
         Heyman::turnOff()->eloquentChecks();
 
@@ -98,7 +98,7 @@ class IgnoreTest extends TestCase
 
     public function testEventAuthorized_Ignorance()
     {
-        HeyMan::whenEventHappens('hey')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
+        HeyMan::whenEventHappens('hey')->always()->weDenyAccess();
         app(EventManager::class)->start();
         Heyman::turnOff()->eventChecks();
 
@@ -108,8 +108,8 @@ class IgnoreTest extends TestCase
 
     public function testFetchingModelsIsAuthorized_closure_Ignorance()
     {
-        HeyMan::whenYouFetch('\App\User')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
-        HeyMan::whenYouCreate('\App\User2')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
+        HeyMan::whenYouFetch('\App\User')->always()->weDenyAccess();
+        HeyMan::whenYouCreate('\App\User2')->always()->weDenyAccess();
 
         config()->set('heyman_ignore_eloquent', '2222');
 
@@ -150,7 +150,7 @@ class IgnoreTest extends TestCase
     {
         Route::put('put', function () {
         });
-        HeyMan::whenYouSendPut('put')->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
+        HeyMan::whenYouSendPut('put')->always()->weDenyAccess();
 
         Heyman::turnOff()->allChecks();
         Heyman::turnOn()->allChecks();

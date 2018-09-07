@@ -9,7 +9,7 @@ class reactionsTest extends TestCase
     {
         Route::get('/welcome', 'HomeController@index')->name('welcome.name');
 
-        HeyMan::whenYouVisitUrl('welcome')->thisValueShouldAllow(false)->otherwise()->redirect()->to('home')->with('hi', 'jpp');
+        HeyMan::whenYouVisitUrl('welcome')->always()->redirect()->to('home')->with('hi', 'jpp');
 
         $this->get('welcome')->assertRedirect('home')->assertSessionHas('hi');
     }
@@ -18,7 +18,7 @@ class reactionsTest extends TestCase
     {
         Route::get('/welcome', 'HomeController@index')->name('welcome.name');
 
-        HeyMan::whenYouVisitUrl('welcome')->thisValueShouldAllow(false)->otherwise()->afterFiringEvent('explode')->redirect()->to('home')->with('key1', 'jpp');
+        HeyMan::whenYouVisitUrl('welcome')->always()->afterFiringEvent('explode')->redirect()->to('home')->with('key1', 'jpp');
 
         $this->expectsEvents('explode');
         $this->get('welcome')->assertRedirect('home')->assertSessionHas('key1');
@@ -38,7 +38,7 @@ class reactionsTest extends TestCase
     {
         Route::get('/welcome', 'HomeController@index')->name('welcome.name');
 
-        HeyMan::whenYouVisitUrl('welcome')->thisValueShouldAllow(false)->otherwise()->weThrowNew(\Illuminate\Auth\Access\AuthorizationException::class, 'abc');
+        HeyMan::whenYouVisitUrl('welcome')->always()->weThrowNew(\Illuminate\Auth\Access\AuthorizationException::class, 'abc');
 
         $this->withoutExceptionHandling();
         $this->expectException(\Illuminate\Auth\Access\AuthorizationException::class);
@@ -55,7 +55,7 @@ class reactionsTest extends TestCase
             return view('welcome');
         })->name('welcome1.name');
 
-        HeyMan::whenYouVisitUrl(['welcome', 'welcome_'])->thisValueShouldAllow(false)->otherwise()->response()->json(['m'=> 'm'], 403);
+        HeyMan::whenYouVisitUrl(['welcome', 'welcome_'])->always()->response()->json(['m'=> 'm'], 403);
         HeyMan::whenYouVisitUrl('welcome1')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
 
         $this->get('welcome')->assertJson(['m'=>'m'])->assertStatus(403);
@@ -70,7 +70,7 @@ class reactionsTest extends TestCase
             return view('welcome');
         })->name('welcome1.name');
 
-        HeyMan::whenYouVisitUrl('welcome', 'asdfv')->thisValueShouldAllow(false)->otherwise()->abort(405);
+        HeyMan::whenYouVisitUrl('welcome', 'asdfv')->always()->abort(405);
         HeyMan::whenYouVisitUrl('welcome1')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
 
         $this->get('welcome')->assertStatus(405);

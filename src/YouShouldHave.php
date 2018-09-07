@@ -17,7 +17,7 @@ final class YouShouldHave
         return resolve(Otherwise::class);
     }
 
-    public function youShouldAlways()
+    public function always()
     {
         return $this->thisValueShouldAllow(false)->otherwise();
     }

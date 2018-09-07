@@ -18,7 +18,7 @@ class EventsAuthorizationTest extends TestCase
 
     public function testEventIsAuthorized2()
     {
-        HeyMan::whenEventHappens(['myEvent', 'myEvent1'])->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
+        HeyMan::whenEventHappens(['myEvent', 'myEvent1'])->always()->weDenyAccess();
         HeyMan::whenEventHappens('myEvent4')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
         app(EventManager::class)->start();
         $this->expectException(AuthorizationException::class);
@@ -28,7 +28,7 @@ class EventsAuthorizationTest extends TestCase
 
     public function test_Event_Is_forgotten()
     {
-        HeyMan::whenEventHappens(['myEvent', 'myEvent1'])->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
+        HeyMan::whenEventHappens(['myEvent', 'myEvent1'])->always()->weDenyAccess();
         HeyMan::whenEventHappens('myEvent4')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
         HeyMan::whenEventHappens('myEvent4')->thisValueShouldAllow(true)->otherwise()->weThrowNew(\Illuminate\Validation\UnauthorizedException::class);
         HeyMan::forget()->aboutEvent(['myEvent', 'myEvent1', 'myEvent4']);
@@ -42,7 +42,7 @@ class EventsAuthorizationTest extends TestCase
 
     public function test_Event_Is_forgotten2()
     {
-        HeyMan::whenEventHappens(['myEvent', 'myEvent1'])->thisValueShouldAllow(false)->otherwise()->weDenyAccess();
+        HeyMan::whenEventHappens(['myEvent', 'myEvent1'])->always()->weDenyAccess();
         HeyMan::whenEventHappens('myEvent4')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
         HeyMan::whenEventHappens('myEvent4')->thisValueShouldAllow(true)->otherwise()->weThrowNew(\Illuminate\Validation\UnauthorizedException::class);
         HeyMan::forget()->aboutEvent('myEvent4');
@@ -59,7 +59,7 @@ class EventsAuthorizationTest extends TestCase
             event($event);
         });
 
-        HeyMan::whenEventHappens(['my-event', 'myEvent1'])->youShouldAlways()->abort(402);
+        HeyMan::whenEventHappens(['my-event', 'myEvent1'])->always()->abort(402);
         app(EventManager::class)->start();
         $this->get('event/my-event')->assertStatus(402);
     }
@@ -70,7 +70,7 @@ class EventsAuthorizationTest extends TestCase
             event($event);
         });
 
-        HeyMan::whenEventHappens(['my-event', 'myEvent1'])->youShouldAlways()->redirect()->to('welcome');
+        HeyMan::whenEventHappens(['my-event', 'myEvent1'])->always()->redirect()->to('welcome');
         app(EventManager::class)->start();
         $this->get('event/my-event')->assertStatus(302)->assertRedirect('welcome');
     }
