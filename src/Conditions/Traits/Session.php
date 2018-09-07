@@ -1,6 +1,6 @@
 <?php
 
-namespace Imanghafoori\HeyMan\Conditions;
+namespace Imanghafoori\HeyMan\Conditions\Traits;
 
 trait Session
 {

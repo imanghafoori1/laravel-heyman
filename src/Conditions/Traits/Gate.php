@@ -1,6 +1,6 @@
 <?php
 
-namespace Imanghafoori\HeyMan\Conditions;
+namespace Imanghafoori\HeyMan\Conditions\Traits;
 
 use Illuminate\Support\Facades\Gate as GateFacade;
 
