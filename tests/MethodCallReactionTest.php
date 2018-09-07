@@ -29,8 +29,7 @@ class MethodCallReactionTest extends TestCase
             ->weDenyAccess();
 
         HeyMan::whenYouVisitUrl(['welcome', 'welcome_'])
-            ->thisValueShouldAllow(false)
-            ->otherwise()
+            ->always()
             ->afterCalling('Logger@error', ['sss'])
             ->weDenyAccess();
 

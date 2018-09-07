@@ -11,9 +11,8 @@ class EventsAuthorizationTest extends TestCase
         HeyMan::whenEventHappens(['myEvent', 'myEvent1'])->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
         HeyMan::whenEventHappens('myEvent4')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
         app(EventManager::class)->start();
-        $this->expectException(AuthorizationException::class);
 
-        event('myEvent1');
+        Heyman::makeSure($this)->whenEventHappens('myEvent1')->exceptionIsThrown(AuthorizationException::class);
     }
 
     public function testEventIsAuthorized2()
@@ -61,7 +60,11 @@ class EventsAuthorizationTest extends TestCase
 
         HeyMan::whenEventHappens(['my-event', 'myEvent1'])->always()->abort(402);
         app(EventManager::class)->start();
-        $this->get('event/my-event')->assertStatus(402);
+
+        Heyman::makeSure($this)
+            ->sendingGetRequest('event/my-event')
+            ->isRespondedWith()
+            ->statusCode(402);
     }
 
     public function testAlways1()
@@ -72,6 +75,10 @@ class EventsAuthorizationTest extends TestCase
 
         HeyMan::whenEventHappens(['my-event', 'myEvent1'])->always()->redirect()->to('welcome');
         app(EventManager::class)->start();
-        $this->get('event/my-event')->assertStatus(302)->assertRedirect('welcome');
+
+        Heyman::makeSure($this)
+            ->sendingGetRequest('event/my-event')
+            ->isRespondedWith()
+            ->redirect('/welcome', 302);
     }
 }

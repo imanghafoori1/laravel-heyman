@@ -32,7 +32,11 @@ class RequestValidationTest extends TestCase
             return ['name' => 'required'];
         });
 
-        $this->post('welcome', ['f' => 'f'])->assertStatus(302)->assertSessionHasErrors('name');
+        Heyman::makeSure($this)
+            ->sendingPostRequest('/welcome', ['f' => 'f'])
+            ->isRespondedWith()
+            ->statusCode(302)
+            ->withError('name');
     }
 
     public function test_multiple_rules_on_single_route()

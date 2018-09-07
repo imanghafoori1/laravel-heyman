@@ -20,4 +20,9 @@ class HeyMan
 
         return  SituationsProxy::call($method, $args);
     }
+
+    public function makeSure($app): HttpClient
+    {
+        return new HttpClient($app);
+    }
 }

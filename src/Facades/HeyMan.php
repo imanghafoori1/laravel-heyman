@@ -5,6 +5,7 @@ namespace Imanghafoori\HeyMan\Facades;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Facade;
 use Imanghafoori\HeyMan\Forget;
+use Imanghafoori\HeyMan\HttpClient;
 use Imanghafoori\HeyMan\Switching\Consider;
 use Imanghafoori\HeyMan\YouShouldHave;
 
@@ -29,6 +30,7 @@ use Imanghafoori\HeyMan\YouShouldHave;
  * @method static Consider turnOff()
  * @method static Consider turnOn()
  * @method static Forget forget()
+ * @method static HttpClient makeSure()
  *
  * @see \Imanghafoori\HeyMan\HeyMan
  */
