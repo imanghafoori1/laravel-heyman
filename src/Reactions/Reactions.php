@@ -8,6 +8,8 @@ use Imanghafoori\HeyMan\Reactions\Redirect\Redirector;
 
 final class Reactions
 {
+    use BeforeReaction;
+
     public function response(): Responder
     {
         return new Responder($this);
@@ -18,42 +20,33 @@ final class Reactions
         return new Redirector($this);
     }
 
-    public function afterCalling($callback, array $parameters = []): self
-    {
-        resolve(Chain::class)->addCallbackBeforeReaction($callback, $parameters);
-
-        return $this;
-    }
-
     public function weThrowNew(string $exception, string $message = '')
     {
-        resolve(Chain::class)->commitCalledMethod(func_get_args(), 'exception');
+        $this->commit(func_get_args(), 'exception');
     }
 
     public function abort($code, string $message = '', array $headers = [])
     {
-        resolve(Chain::class)->commitCalledMethod(func_get_args(), __FUNCTION__);
+        $this->commit(func_get_args(), __FUNCTION__);
     }
 
     public function weRespondFrom($callback, array $parameters = [])
     {
-        resolve(Chain::class)->commitCalledMethod(func_get_args(), 'respondFrom');
+        $this->commit(func_get_args(), 'respondFrom');
     }
 
     public function weDenyAccess(string $message = '')
     {
-        resolve(Chain::class)->commitCalledMethod([AuthorizationException::class, $message], 'exception');
-    }
-
-    public function afterFiringEvent($event, $payload = [], $halt = false): self
-    {
-        resolve(Chain::class)->addEventBeforeReaction($event, $payload, $halt);
-
-        return $this;
+        $this->commit([AuthorizationException::class, $message], 'exception');
     }
 
     public function __destruct()
     {
         resolve(Chain::class)->submitChainConfig();
+    }
+
+    private function commit($args, $methodName)
+    {
+        resolve(Chain::class)->commitCalledMethod($args, $methodName);
     }
 }
