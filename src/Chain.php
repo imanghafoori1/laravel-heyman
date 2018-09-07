@@ -19,18 +19,18 @@ class Chain
 
     public $data = [];
 
-    private $beforeResponse = [];
+    private $beforeReaction = [];
 
     public function addAfterCall($callback, $parameters)
     {
-        $this->beforeResponse[] = function () use ($callback, $parameters) {
+        $this->beforeReaction[] = function () use ($callback, $parameters) {
             app()->call($callback, $parameters);
         };
     }
 
     public function eventFire($event, array $payload, bool $halt)
     {
-        $this->beforeResponse[] = function () use ($event, $payload, $halt) {
+        $this->beforeReaction[] = function () use ($event, $payload, $halt) {
             resolve('events')->dispatch($event, $payload, $halt);
         };
     }
@@ -41,10 +41,10 @@ class Chain
         $this->eventManager->commitChain($callbackListener);
     }
 
-    public function beforeResponse(): \Closure
+    public function beforeReaction(): \Closure
     {
-        $calls = $this->beforeResponse;
-        $this->beforeResponse = [];
+        $calls = $this->beforeReaction;
+        $this->beforeReaction = [];
 
         return function () use ($calls) {
             foreach ($calls as $call) {
