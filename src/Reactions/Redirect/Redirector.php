@@ -1,8 +1,9 @@
 <?php
 
-namespace Imanghafoori\HeyMan\Reactions;
+namespace Imanghafoori\HeyMan\Reactions\Redirect;
 
 use Imanghafoori\HeyMan\Chain;
+use Imanghafoori\HeyMan\Reactions\Reactions;
 
 /**
  * Class Redirector.

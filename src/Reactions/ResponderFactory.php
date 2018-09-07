@@ -24,7 +24,7 @@ final class ResponderFactory
     {
         $m = $this->chain->responseType;
 
-        return $this->$m($this->chain->data);
+        return $this->$m(...$this->chain->data);
     }
 
     protected function abort($abort): \Closure
@@ -60,14 +60,14 @@ final class ResponderFactory
      *
      * @return \Closure
      */
-    protected function response(array $resp): \Closure
+    protected function response(...$resp): \Closure
     {
         return function () use ($resp) {
             $this->sendResponse($resp, response());
         };
     }
 
-    protected function redirect(array $resp): \Closure
+    protected function redirect(...$resp): \Closure
     {
         return function () use ($resp) {
             $this->sendResponse($resp, redirect());

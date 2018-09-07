@@ -4,6 +4,7 @@ namespace Imanghafoori\HeyMan\Reactions;
 
 use Illuminate\Auth\Access\AuthorizationException;
 use Imanghafoori\HeyMan\Chain;
+use Imanghafoori\HeyMan\Reactions\Redirect\Redirector;
 
 final class Reactions
 {
@@ -26,22 +27,22 @@ final class Reactions
 
     public function weThrowNew(string $exception, string $message = '')
     {
-        resolve(Chain::class)->commit(func_get_args(), 'exception');
+        resolve(Chain::class)->commitCalledMethod(func_get_args(), 'exception');
     }
 
     public function abort($code, string $message = '', array $headers = [])
     {
-        resolve(Chain::class)->commit(func_get_args(), __FUNCTION__);
+        resolve(Chain::class)->commitCalledMethod(func_get_args(), __FUNCTION__);
     }
 
     public function weRespondFrom($callback, array $parameters = [])
     {
-        resolve(Chain::class)->commit(func_get_args(), 'respondFrom');
+        resolve(Chain::class)->commitCalledMethod(func_get_args(), 'respondFrom');
     }
 
     public function weDenyAccess(string $message = '')
     {
-        resolve(Chain::class)->commit([AuthorizationException::class, $message], 'exception');
+        resolve(Chain::class)->commitCalledMethod([AuthorizationException::class, $message], 'exception');
     }
 
     public function afterFiringEvent($event, $payload = [], $halt = false): self

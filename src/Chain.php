@@ -53,12 +53,6 @@ class Chain
         };
     }
 
-    public function commit($args, $methodName)
-    {
-        $this->data = $args;
-        $this->responseType = $methodName;
-    }
-
     public function commitCalledMethod($args, $methodName)
     {
         $this->data[] = $args;
