@@ -20,7 +20,7 @@ final class Reactions
 
     public function afterCalling($callback, array $parameters = []): self
     {
-        resolve(Chain::class)->addAfterCall($callback, $parameters);
+        resolve(Chain::class)->addCallbackBeforeReaction($callback, $parameters);
 
         return $this;
     }
@@ -47,7 +47,7 @@ final class Reactions
 
     public function afterFiringEvent($event, $payload = [], $halt = false): self
     {
-        resolve(Chain::class)->eventFire($event, $payload, $halt);
+        resolve(Chain::class)->addEventBeforeReaction($event, $payload, $halt);
 
         return $this;
     }

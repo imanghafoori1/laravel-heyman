@@ -21,14 +21,14 @@ class Chain
 
     private $beforeReaction = [];
 
-    public function addAfterCall($callback, $parameters)
+    public function addCallbackBeforeReaction($callback, $parameters)
     {
         $this->beforeReaction[] = function () use ($callback, $parameters) {
             app()->call($callback, $parameters);
         };
     }
 
-    public function eventFire($event, array $payload, bool $halt)
+    public function addEventBeforeReaction($event, array $payload, bool $halt)
     {
         $this->beforeReaction[] = function () use ($event, $payload, $halt) {
             resolve('events')->dispatch($event, $payload, $halt);
@@ -43,12 +43,12 @@ class Chain
 
     public function beforeReaction(): \Closure
     {
-        $calls = $this->beforeReaction;
+        $tasks = $this->beforeReaction;
         $this->beforeReaction = [];
 
-        return function () use ($calls) {
-            foreach ($calls as $call) {
-                $call();
+        return function () use ($tasks) {
+            foreach ($tasks as $task) {
+                $task();
             }
         };
     }
