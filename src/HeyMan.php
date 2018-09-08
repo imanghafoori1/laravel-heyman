@@ -2,6 +2,7 @@
 
 namespace Imanghafoori\HeyMan;
 
+use Imanghafoori\HeyMan\MakeSure\HttpClient;
 use Imanghafoori\HeyMan\Situations\SituationsProxy;
 use Imanghafoori\HeyMan\Switching\Turn;
 

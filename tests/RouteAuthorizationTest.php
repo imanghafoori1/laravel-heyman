@@ -185,7 +185,7 @@ class RouteAuthorizationTest extends TestCase
         HeyMan::whenYouHitRouteName('welcome.Oname')->always()->weDenyAccess();
         HeyMan::whenYouCallAction('\HomeController@index')->always()->weDenyAccess();
 
-        Heyman::makeSure($this)->sendingGetRequest('/welcome')->forbiddenStatus();
+        Heyman::makeSure($this)->sendingGetRequest('/welcome')->isRespondedWith()->forbiddenStatus();
     }
 
     public function testControllerActionIsAuthorized14()
