@@ -25,7 +25,7 @@ class CheckExpectations
 
     private function checkResponse()
     {
-        if (! $this->last->http) {
+        if (!$this->last->http) {
             return;
         }
         $method = $this->last->http['method'];

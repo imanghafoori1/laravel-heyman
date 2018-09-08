@@ -28,8 +28,8 @@ class HttpClient
     {
         $this->http = [
             'method' => 'post',
-            'url' => $url,
-            'data' => $data
+            'url'    => $url,
+            'data'   => $data,
         ];
 
         return new IsRespondedWith($this);
@@ -39,8 +39,8 @@ class HttpClient
     {
         $this->http = [
             'method' => 'get',
-            'url' => $url,
-            'data' => [],
+            'url'    => $url,
+            'data'   => [],
         ];
 
         return new IsRespondedWith($this);
@@ -54,6 +54,7 @@ class HttpClient
     public function whenEventHappens($event)
     {
         $this->event = $event;
+
         return $this;
     }
 
