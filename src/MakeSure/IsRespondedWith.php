@@ -25,5 +25,4 @@ class IsRespondedWith
     {
         $this->last->assertion[] = ['type' => 'assertSuccessful', 'value' => null];
     }
-
 }

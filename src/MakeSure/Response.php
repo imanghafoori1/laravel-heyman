@@ -23,12 +23,14 @@ class Response
         if (!is_null($status)) {
             $this->last->assertion[] = ['type' => 'assertStatus', 'value' => $status];
         }
+
         return $this;
     }
 
     public function statusCode($code)
     {
         $this->last->assertion[] = ['type' => 'assertStatus', 'value' => $code];
+
         return $this;
     }
 
@@ -40,13 +42,12 @@ class Response
     public function withError($value)
     {
         $this->last->assertion[] = ['type' => 'assertSessionHasErrors', 'value' => $value];
+
         return $this;
     }
-
 
     public function forbiddenStatus()
     {
         return $this->statusCode(403);
     }
-
 }
