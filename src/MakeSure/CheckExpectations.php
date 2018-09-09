@@ -18,7 +18,7 @@ class CheckExpectations
 
     public function check()
     {
-        $this->checkExceptions();
+        $this->expectExceptions();
         $this->fireEvents();
         $this->checkResponse();
     }
@@ -28,10 +28,26 @@ class CheckExpectations
         if (!$this->last->http) {
             return;
         }
+        $this->checkResponses($this->sendRequest());
+    }
+
+    /**
+     * @return mixed
+     */
+    private function sendRequest()
+    {
         $method = $this->last->http['method'];
 
         $response = $this->last->app->$method($this->last->http['url'], $this->last->http['data']);
 
+        return $response;
+    }
+
+    /**
+     * @param $response
+     */
+    private function checkResponses($response)
+    {
         foreach ($this->last->assertion as $assertion) {
             $type = $assertion['type'];
             $response->$type($assertion['value']);
@@ -45,7 +61,7 @@ class CheckExpectations
         }
     }
 
-    private function checkExceptions()
+    private function expectExceptions()
     {
         if ($this->last->exception) {
             $this->last->app->expectException($this->last->exception);

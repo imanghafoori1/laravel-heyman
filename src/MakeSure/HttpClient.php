@@ -24,12 +24,49 @@ class HttpClient
         $this->app = $app;
     }
 
-    public function sendingPostRequest($url, $data = []): IsRespondedWith
+    public function sendingPostRequest($uri, array $data = [], array $headers = []): IsRespondedWith
     {
         $this->http = [
             'method' => 'post',
-            'url'    => $url,
+            'url' => $uri,
+            'data' => $data,
+            'headers' => $headers
+        ];
+
+        return new IsRespondedWith($this);
+    }
+
+    public function sendingDeleteRequest($uri, array $data = [], array $headers = [])
+    {
+        $this->http = [
+            'method' => 'delete',
+            'url' => $uri,
             'data'   => $data,
+            'headers' => $headers
+        ];
+
+        return new IsRespondedWith($this);
+    }
+
+    public function sendingPutRequest($uri, array $data = [], array $headers = [])
+    {
+        $this->http = [
+            'method' => 'put',
+            'url' => $uri,
+            'data' => $data,
+            'headers' => $headers
+        ];
+
+        return new IsRespondedWith($this);
+    }
+
+    public function sendingPatchRequest($uri, array $data = [], array $headers = [])
+    {
+        $this->http = [
+            'method' => 'patch',
+            'url' => $uri,
+            'data' => $data,
+            'headers' => $headers
         ];
 
         return new IsRespondedWith($this);

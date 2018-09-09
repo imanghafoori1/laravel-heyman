@@ -1,6 +1,6 @@
 <?php
 
-namespace Imanghafoori\HeyMan\MakeSure;
+namespace Imanghafoori\HeyMan\MakeSure\Expectations;
 
 class Response
 {

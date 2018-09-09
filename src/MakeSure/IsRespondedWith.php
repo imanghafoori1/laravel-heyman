@@ -2,6 +2,8 @@
 
 namespace Imanghafoori\HeyMan\MakeSure;
 
+use Imanghafoori\HeyMan\MakeSure\Expectations\Response;
+
 class IsRespondedWith
 {
     private $last;
