@@ -27,10 +27,10 @@ class HttpClient
     public function sendingPostRequest($uri, array $data = [], array $headers = []): IsRespondedWith
     {
         $this->http = [
-            'method' => 'post',
-            'url' => $uri,
-            'data' => $data,
-            'headers' => $headers
+            'method'  => 'post',
+            'url'     => $uri,
+            'data'    => $data,
+            'headers' => $headers,
         ];
 
         return new IsRespondedWith($this);
@@ -39,10 +39,10 @@ class HttpClient
     public function sendingDeleteRequest($uri, array $data = [], array $headers = [])
     {
         $this->http = [
-            'method' => 'delete',
-            'url' => $uri,
-            'data'   => $data,
-            'headers' => $headers
+            'method'  => 'delete',
+            'url'     => $uri,
+            'data'    => $data,
+            'headers' => $headers,
         ];
 
         return new IsRespondedWith($this);
@@ -51,10 +51,10 @@ class HttpClient
     public function sendingPutRequest($uri, array $data = [], array $headers = [])
     {
         $this->http = [
-            'method' => 'put',
-            'url' => $uri,
-            'data' => $data,
-            'headers' => $headers
+            'method'  => 'put',
+            'url'     => $uri,
+            'data'    => $data,
+            'headers' => $headers,
         ];
 
         return new IsRespondedWith($this);
@@ -63,10 +63,10 @@ class HttpClient
     public function sendingPatchRequest($uri, array $data = [], array $headers = [])
     {
         $this->http = [
-            'method' => 'patch',
-            'url' => $uri,
-            'data' => $data,
-            'headers' => $headers
+            'method'  => 'patch',
+            'url'     => $uri,
+            'data'    => $data,
+            'headers' => $headers,
         ];
 
         return new IsRespondedWith($this);
