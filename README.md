@@ -266,8 +266,18 @@ After considering situations it is time to check some conditions
 #### 1 - Gates
 
 ```php
-HeyMan::whenYouVisitUrl('/home')->thisGateShouldAllow('hasRole', 'param1')->otherwise()->...;
-HeyMan::whenYouVisitUrl('/home')->thisGateShouldAllow('SomeClass@someMethod', 'param1')->otherwise()->...;
+
+// define Gate
+Gate::define('hasRole', function(){...});
+
+```
+
+Then you can use the gate:
+
+```php
+
+HeyMan::whenYouVisitUrl('/home')->thisGateShouldAllow('hasRole', 'editor')->otherwise()->...;
+
 ```
 
 Passing a Closure as a Gate:
