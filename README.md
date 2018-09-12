@@ -67,21 +67,19 @@ This is fork from result of laracasts.com tutorial series refactored to use the 
 
 #
 
-#
-
-#
-
-#
+<br>
 
 #### <= Heyman      
 
-# 
+<br>
 
-#
 
-#
+#### <= Heyman      
 
-#
+
+<br>
+
+<br>
 
 
 ### A story :
