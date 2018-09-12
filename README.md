@@ -1,6 +1,5 @@
 # Laravel Hey Man
 
-### Write code as easy as you speak.
 
 ![image](https://user-images.githubusercontent.com/6961695/43285148-4d86673e-9133-11e8-9415-2df017906762.png)
 
@@ -49,8 +48,40 @@ Here you can see a good example at :
 
 https://github.com/imanghafoori1/council
 
+Specially this file:
+
+https://github.com/imanghafoori1/council/blob/master/app/Providers/AuthServiceProvider.php
+
 
 This is fork from result of laracasts.com tutorial series refactored to use the Heyman package.
+
+
+## Heyman, let's fight off zombies
+
+<img align="right" src="https://user-images.githubusercontent.com/6961695/45443957-64cc3e00-b6db-11e8-9768-163e47f5a46c.jpg">
+
+#
+
+
+<img align="left" src="https://user-images.githubusercontent.com/6961695/45444536-f7b9a800-b6dc-11e8-84c2-2b0eb224afdb.jpg">
+
+#
+
+#
+
+#
+
+#
+
+#### <= Heyman      
+
+# 
+
+#
+
+#
+
+#
 
 
 ### A story :
@@ -284,7 +315,30 @@ HeyMan::whenYouHitRouteName('welcome.name')
         ->beforeValidationModifyData($modifier);
 ```
 
-This way, you do not need to validate requests in your controllers or create dedicated FormRequest classes to validate input.
+#### 5- Check points:
+
+You can also declare some check points some where, within your application code:
+
+```php
+
+HeyMan::checkPoint('MyLane');
+
+```
+
+And put some rules for it
+
+```php
+
+HeyMan::whenYouReachCheckPoint('MyLane')->youShouldHaveRole('Zombie')-> ...
+
+```
+
+
+```
+HeyMan::whenYouVisitUrl('home')->always()-> ...
+HeyMan::whenYouVisitUrl('home')->sessionShouldHave('key1')->...
+```
+
 
 #### Other things:
 
