@@ -26,4 +26,9 @@ class HeyMan
     {
         return new HttpClient($app);
     }
+
+    public function checkPoint($pointName)
+    {
+        event('heyman_checkpoint_'.$pointName);
+    }
 }

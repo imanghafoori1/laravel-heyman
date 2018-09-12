@@ -13,4 +13,9 @@ final class EventSituations extends BaseSituation
     {
         $this->setManager(EventManager::class, $event);
     }
+
+    public function whenYouReachCheckPoint($name)
+    {
+        $this->whenEventHappens('heyman_checkpoint_'.$name);
+    }
 }
