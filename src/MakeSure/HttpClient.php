@@ -95,6 +95,11 @@ class HttpClient
         return $this;
     }
 
+    public function whenYouReachCheckPoint($name)
+    {
+        return $this->whenEventHappens('heyman_checkpoint_'.$name);
+    }
+
     public function __destruct()
     {
         (new CheckExpectations($this))->check();
