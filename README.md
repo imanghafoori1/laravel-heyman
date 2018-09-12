@@ -62,6 +62,7 @@ This is fork from result of laracasts.com tutorial series refactored to use the 
 
 <br>
 
+<br>
 
 <img align="left" src="https://user-images.githubusercontent.com/6961695/45444536-f7b9a800-b6dc-11e8-84c2-2b0eb224afdb.jpg">
 
@@ -71,13 +72,17 @@ This is fork from result of laracasts.com tutorial series refactored to use the 
 
 #### <= Heyman      
 
-<br>
 
 
 <br>
 
 <br>
 
+<br>
+
+<br>
+
+<br>
 
 ### A story :
 
