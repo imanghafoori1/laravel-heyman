@@ -178,10 +178,14 @@ You do not need any cheat sheet.
 You should call the following method of the HeyMan Facade class.
 
 ```php
-
 use Imanghafoori\HeyMan\Facades\HeyMan;
-
+// or
+use HeyMan;  // <--- alias
 ```
+
+Again we recommend visiting this link for examples:
+
+https://github.com/imanghafoori1/council/blob/master/app/Providers/AuthServiceProvider.php
 
 
 
