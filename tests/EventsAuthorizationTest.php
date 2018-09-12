@@ -81,4 +81,19 @@ class EventsAuthorizationTest extends TestCase
             ->isRespondedWith()
             ->redirect('/welcome', 302);
     }
+
+    public function testCheckPoints()
+    {
+        Heyman::whenYouReachCheckPoint('*AreYou')->always()->redirect()->to('welcome');
+        app(EventManager::class)->start();
+
+        \Route::get('oh', function () {
+            Heyman::checkPoint('whoAreYou');
+        });
+
+        Heyman::makeSure($this)
+            ->sendingGetRequest('oh')
+            ->isRespondedWith()
+            ->redirect('/welcome', 302);
+    }
 }
