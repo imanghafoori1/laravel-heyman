@@ -73,7 +73,6 @@ class MakeSureTest extends TestCase
         $resp->forbiddenStatus();
     }
 
-
     public function test_success()
     {
         $chain = Mockery::mock();
@@ -86,7 +85,5 @@ class MakeSureTest extends TestCase
     {
         $this->expectsEvents('heyman_checkpoint_wow');
         Heyman::checkPoint('wow');
-
     }
-
 }
