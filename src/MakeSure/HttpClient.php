@@ -26,48 +26,28 @@ class HttpClient
 
     public function sendingPostRequest($uri, array $data = [], array $headers = []): IsRespondedWith
     {
-        $this->http = [
-            'method'  => 'post',
-            'url'     => $uri,
-            'data'    => $data,
-            'headers' => $headers,
-        ];
+        $this->http($uri, $data, $headers, 'post');
 
         return new IsRespondedWith($this);
     }
 
     public function sendingDeleteRequest($uri, array $data = [], array $headers = [])
     {
-        $this->http = [
-            'method'  => 'delete',
-            'url'     => $uri,
-            'data'    => $data,
-            'headers' => $headers,
-        ];
+        $this->http($uri, $data, $headers, 'delete');
 
         return new IsRespondedWith($this);
     }
 
     public function sendingPutRequest($uri, array $data = [], array $headers = [])
     {
-        $this->http = [
-            'method'  => 'put',
-            'url'     => $uri,
-            'data'    => $data,
-            'headers' => $headers,
-        ];
+        $this->http($uri, $data, $headers, 'put');
 
         return new IsRespondedWith($this);
     }
 
     public function sendingPatchRequest($uri, array $data = [], array $headers = [])
     {
-        $this->http = [
-            'method'  => 'patch',
-            'url'     => $uri,
-            'data'    => $data,
-            'headers' => $headers,
-        ];
+        $this->http($uri, $data, $headers, 'patch');
 
         return new IsRespondedWith($this);
     }
@@ -103,5 +83,21 @@ class HttpClient
     public function __destruct()
     {
         (new CheckExpectations($this))->check();
+    }
+
+    /**
+     * @param $uri
+     * @param array $data
+     * @param array $headers
+     * @param $str
+     */
+    private function http($uri, array $data, array $headers, $str)
+    {
+        $this->http = [
+            'method' => $str,
+            'url' => $uri,
+            'data' => $data,
+            'headers' => $headers,
+        ];
     }
 }
