@@ -56,4 +56,22 @@ class MakeSureTest extends TestCase
         $phpunit->shouldReceive('get')->once()->andReturn($response);
         Heyman::makeSure($phpunit)->sendingGetRequest('/welcome')->isOk();
     }
+
+    public function test_statusCode()
+    {
+        $chain = Mockery::mock();
+        $chain->shouldReceive('addAssertion')->once()->with('assertSuccessful', null);
+        $resp = new \Imanghafoori\HeyMan\MakeSure\Expectations\Response($chain);
+        $resp->success();
+
+    }
+
+    public function test_forbiddenCode()
+    {
+        $chain = Mockery::mock();
+        $chain->shouldReceive('addAssertion')->once()->with('assertStatus', 403);
+        $resp = new \Imanghafoori\HeyMan\MakeSure\Expectations\Response($chain);
+        $resp->forbiddenStatus();
+    }
+
 }

@@ -18,10 +18,10 @@ class Response
 
     public function redirect($url, $status = null)
     {
-        $this->assert($url, 'assertRedirect');
+        $this->assert('assertRedirect', $url);
 
         if (!is_null($status)) {
-            $this->assert($status, 'assertStatus');
+            $this->assert('assertStatus', $status);
         }
 
         return $this;
@@ -29,19 +29,19 @@ class Response
 
     public function statusCode($code)
     {
-        $this->assert($code, 'assertStatus');
+        $this->assert('assertStatus', $code);
 
         return $this;
     }
 
     public function success()
     {
-        $this->assert(null, 'assertSuccessful');
+        $this->assert('assertSuccessful', null);
     }
 
     public function withError($value)
     {
-        $this->assert($value, 'assertSessionHasErrors');
+        $this->assert('assertSessionHasErrors', $value);
 
         return $this;
     }
@@ -52,11 +52,11 @@ class Response
     }
 
     /**
-     * @param $url
-     * @param $str
+     * @param $value
+     * @param $assertion
      */
-    private function assert($url, $str)
+    private function assert($assertion, $value)
     {
-        $this->chain->addAssertion($url, $str);
+        $this->chain->addAssertion($assertion, $value);
     }
 }

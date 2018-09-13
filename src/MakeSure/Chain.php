@@ -44,7 +44,7 @@ class Chain
      * @param $url
      * @param $str
      */
-    public function addAssertion($url, $str)
+    public function addAssertion($str, $url = null)
     {
         $this->assertion[] = ['type' => $str, 'value' => $url];
     }
