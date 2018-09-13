@@ -13,7 +13,7 @@ class Chain
 
     public $http = [];
 
-    public $assertion;
+    public $assertion = [];
 
     public $event;
 
