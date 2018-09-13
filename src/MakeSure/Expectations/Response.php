@@ -57,6 +57,6 @@ class Response
      */
     private function assert($url, $str)
     {
-        $this->chain->assertion[] = ['type' => $str, 'value' => $url];
+        $this->chain->addAssertion($url, $str);
     }
 }

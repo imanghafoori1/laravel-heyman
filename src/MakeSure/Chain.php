@@ -39,4 +39,13 @@ class Chain
             'headers' => $headers,
         ];
     }
+
+    /**
+     * @param $url
+     * @param $str
+     */
+    public function addAssertion($url, $str)
+    {
+        $this->assertion[] = ['type' => $str, 'value' => $url];
+    }
 }
