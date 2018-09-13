@@ -4,24 +4,24 @@ namespace Imanghafoori\HeyMan\MakeSure\Expectations;
 
 class Response
 {
-    private $last;
+    private $chain;
 
     /**
      * Response constructor.
      *
-     * @param $last
+     * @param $chain
      */
-    public function __construct($last)
+    public function __construct($chain)
     {
-        $this->last = $last;
+        $this->chain = $chain;
     }
 
     public function redirect($url, $status = null)
     {
-        $this->last->assertion[] = ['type' => 'assertRedirect', 'value' => $url];
+        $this->chain->assertion[] = ['type' => 'assertRedirect', 'value' => $url];
 
         if (!is_null($status)) {
-            $this->last->assertion[] = ['type' => 'assertStatus', 'value' => $status];
+            $this->chain->assertion[] = ['type' => 'assertStatus', 'value' => $status];
         }
 
         return $this;
@@ -29,19 +29,19 @@ class Response
 
     public function statusCode($code)
     {
-        $this->last->assertion[] = ['type' => 'assertStatus', 'value' => $code];
+        $this->chain->assertion[] = ['type' => 'assertStatus', 'value' => $code];
 
         return $this;
     }
 
     public function success()
     {
-        $this->last->assertion[] = ['type' => 'assertSuccessful', 'value' => null];
+        $this->chain->assertion[] = ['type' => 'assertSuccessful', 'value' => null];
     }
 
     public function withError($value)
     {
-        $this->last->assertion[] = ['type' => 'assertSessionHasErrors', 'value' => $value];
+        $this->chain->assertion[] = ['type' => 'assertSessionHasErrors', 'value' => $value];
 
         return $this;
     }

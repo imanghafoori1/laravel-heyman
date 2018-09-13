@@ -4,15 +4,9 @@ namespace Imanghafoori\HeyMan\MakeSure;
 
 class HttpClient
 {
-    public $http = [];
-
-    public $assertion;
-
     public $app;
 
-    public $event;
-
-    public $exception;
+    private $chain;
 
     /**
      * HttpClient constructor.
@@ -21,56 +15,57 @@ class HttpClient
      */
     public function __construct($app)
     {
+        $this->chain = new Chain($app);
         $this->app = $app;
     }
 
     public function sendingPostRequest($uri, array $data = [], array $headers = []): IsRespondedWith
     {
-        $this->http($uri, $data, $headers, 'post');
+        $this->chain->http($uri, $data, $headers, 'post');
 
-        return new IsRespondedWith($this);
+        return new IsRespondedWith($this->chain);
     }
 
     public function sendingDeleteRequest($uri, array $data = [], array $headers = [])
     {
-        $this->http($uri, $data, $headers, 'delete');
+        $this->chain->http($uri, $data, $headers, 'delete');
 
-        return new IsRespondedWith($this);
+        return new IsRespondedWith($this->chain);
     }
 
     public function sendingPutRequest($uri, array $data = [], array $headers = [])
     {
-        $this->http($uri, $data, $headers, 'put');
+        $this->chain->http($uri, $data, $headers, 'put');
 
-        return new IsRespondedWith($this);
+        return new IsRespondedWith($this->chain);
     }
 
     public function sendingPatchRequest($uri, array $data = [], array $headers = [])
     {
-        $this->http($uri, $data, $headers, 'patch');
+        $this->chain->http($uri, $data, $headers, 'patch');
 
-        return new IsRespondedWith($this);
+        return new IsRespondedWith($this->chain);
     }
 
     public function sendingGetRequest($url): IsRespondedWith
     {
-        $this->http = [
+        $this->chain->http = [
             'method' => 'get',
             'url'    => $url,
             'data'   => [],
         ];
 
-        return new IsRespondedWith($this);
+        return new IsRespondedWith($this->chain);
     }
 
     public function exceptionIsThrown($type)
     {
-        $this->exception = $type;
+        $this->chain->exception = $type;
     }
 
     public function whenEventHappens($event)
     {
-        $this->event = $event;
+        $this->chain->event = $event;
 
         return $this;
     }
@@ -78,26 +73,5 @@ class HttpClient
     public function whenYouReachCheckPoint($name)
     {
         return $this->whenEventHappens('heyman_checkpoint_'.$name);
-    }
-
-    public function __destruct()
-    {
-        (new CheckExpectations($this, $this->app))->check();
-    }
-
-    /**
-     * @param $uri
-     * @param array $data
-     * @param array $headers
-     * @param $str
-     */
-    private function http($uri, array $data, array $headers, $str)
-    {
-        $this->http = [
-            'method'  => $str,
-            'url'     => $uri,
-            'data'    => $data,
-            'headers' => $headers,
-        ];
     }
 }
