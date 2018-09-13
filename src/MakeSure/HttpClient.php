@@ -94,9 +94,9 @@ class HttpClient
     private function http($uri, array $data, array $headers, $str)
     {
         $this->http = [
-            'method' => $str,
-            'url' => $uri,
-            'data' => $data,
+            'method'  => $str,
+            'url'     => $uri,
+            'data'    => $data,
             'headers' => $headers,
         ];
     }
