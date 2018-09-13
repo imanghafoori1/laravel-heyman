@@ -4,20 +4,20 @@ namespace Imanghafoori\HeyMan\MakeSure;
 
 class CheckExpectations
 {
-    private $last;
+    private $chain;
 
-    private $test;
+    private $phpunit;
 
     /**
      * CheckExpectations constructor.
      *
-     * @param $last
-     * @param $test
+     * @param $chain
+     * @param $phpunit
      */
-    public function __construct($last, $test)
+    public function __construct($chain, $phpunit)
     {
-        $this->last = $last;
-        $this->test = $test;
+        $this->chain = $chain;
+        $this->phpunit = $phpunit;
     }
 
     public function check()
@@ -29,7 +29,7 @@ class CheckExpectations
 
     private function checkResponse()
     {
-        if (!$this->last->http) {
+        if (!$this->chain->http) {
             return;
         }
         $this->checkResponses($this->sendRequest());
@@ -40,9 +40,9 @@ class CheckExpectations
      */
     private function sendRequest()
     {
-        $method = $this->last->http['method'];
+        $method = $this->chain->http['method'];
 
-        $response = $this->test->$method($this->last->http['url'], $this->last->http['data']);
+        $response = $this->phpunit->$method($this->chain->http['url'], $this->chain->http['data']);
 
         return $response;
     }
@@ -52,7 +52,7 @@ class CheckExpectations
      */
     private function checkResponses($response)
     {
-        foreach ($this->last->assertion as $assertion) {
+        foreach ($this->chain->assertion as $assertion) {
             $type = $assertion['type'];
             $response->$type($assertion['value']);
         }
@@ -60,15 +60,15 @@ class CheckExpectations
 
     private function fireEvents()
     {
-        if ($this->last->event) {
-            event($this->last->event);
+        if ($this->chain->event) {
+            event($this->chain->event);
         }
     }
 
     private function expectExceptions()
     {
-        if ($this->last->exception) {
-            $this->test->expectException($this->last->exception);
+        if ($this->chain->exception) {
+            $this->phpunit->expectException($this->chain->exception);
         }
     }
 }

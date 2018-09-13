@@ -4,11 +4,11 @@ namespace Imanghafoori\HeyMan\MakeSure;
 
 class Chain
 {
-    private $app;
+    private $phpunit;
 
-    public function __construct($app)
+    public function __construct($phpunit)
     {
-        $this->app = $app;
+        $this->phpunit = $phpunit;
     }
 
     public $http = [];
@@ -22,7 +22,7 @@ class Chain
 
     public function __destruct()
     {
-        (new CheckExpectations($this, $this->app))->check();
+        (new CheckExpectations($this, $this->phpunit))->check();
     }
 
 
