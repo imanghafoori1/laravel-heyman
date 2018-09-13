@@ -63,7 +63,6 @@ class MakeSureTest extends TestCase
         $chain->shouldReceive('addAssertion')->once()->with('assertSuccessful', null);
         $resp = new \Imanghafoori\HeyMan\MakeSure\Expectations\Response($chain);
         $resp->success();
-
     }
 
     public function test_forbiddenCode()
@@ -73,5 +72,4 @@ class MakeSureTest extends TestCase
         $resp = new \Imanghafoori\HeyMan\MakeSure\Expectations\Response($chain);
         $resp->forbiddenStatus();
     }
-
 }
