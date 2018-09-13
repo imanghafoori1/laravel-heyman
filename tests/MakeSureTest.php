@@ -46,4 +46,14 @@ class MakeSureTest extends TestCase
         $redirector->shouldReceive('delete')->with('welcome', $formData)->once();
         Heyman::makeSure($redirector)->sendingDeleteRequest('welcome', $formData);
     }
+
+    public function test_isOk()
+    {
+        $response = Mockery::mock();
+        $response->shouldReceive('assertSuccessful')->once()->with(null);
+
+        $phpunit = Mockery::mock();
+        $phpunit->shouldReceive('get')->once()->andReturn($response);
+        Heyman::makeSure($phpunit)->sendingGetRequest('/welcome')->isOk();
+    }
 }

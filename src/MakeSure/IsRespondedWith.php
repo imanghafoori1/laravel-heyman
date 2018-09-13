@@ -25,6 +25,6 @@ class IsRespondedWith
 
     public function isOk()
     {
-        $this->chain->assertion[] = ['type' => 'assertSuccessful', 'value' => null];
+        $this->chain->addAssertion(null, 'assertSuccessful');
     }
 }
