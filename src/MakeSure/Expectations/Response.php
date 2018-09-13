@@ -36,7 +36,7 @@ class Response
 
     public function success()
     {
-        $this->assert('assertSuccessful', null);
+        $this->assert('assertSuccessful');
     }
 
     public function withError($value)
@@ -55,7 +55,7 @@ class Response
      * @param $value
      * @param $assertion
      */
-    private function assert($assertion, $value)
+    private function assert($assertion, $value = null)
     {
         $this->chain->addAssertion($assertion, $value);
     }

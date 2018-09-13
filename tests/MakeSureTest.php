@@ -72,4 +72,21 @@ class MakeSureTest extends TestCase
         $resp = new \Imanghafoori\HeyMan\MakeSure\Expectations\Response($chain);
         $resp->forbiddenStatus();
     }
+
+
+    public function test_success()
+    {
+        $chain = Mockery::mock();
+        $chain->shouldReceive('addAssertion')->once()->with('assertSuccessful', null);
+        $resp = new \Imanghafoori\HeyMan\MakeSure\Expectations\Response($chain);
+        $resp->success();
+    }
+
+    public function test_checkPoint()
+    {
+        $this->expectsEvents('heyman_checkpoint_wow');
+        Heyman::checkPoint('wow');
+
+    }
+
 }
