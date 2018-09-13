@@ -6,14 +6,18 @@ class CheckExpectations
 {
     private $last;
 
+    private $test;
+
     /**
      * CheckExpectations constructor.
      *
      * @param $last
+     * @param $test
      */
-    public function __construct($last)
+    public function __construct($last, $test)
     {
         $this->last = $last;
+        $this->test = $test;
     }
 
     public function check()
@@ -38,7 +42,7 @@ class CheckExpectations
     {
         $method = $this->last->http['method'];
 
-        $response = $this->last->app->$method($this->last->http['url'], $this->last->http['data']);
+        $response = $this->test->$method($this->last->http['url'], $this->last->http['data']);
 
         return $response;
     }
@@ -64,7 +68,7 @@ class CheckExpectations
     private function expectExceptions()
     {
         if ($this->last->exception) {
-            $this->last->app->expectException($this->last->exception);
+            $this->test->expectException($this->last->exception);
         }
     }
 }

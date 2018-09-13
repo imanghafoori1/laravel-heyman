@@ -82,7 +82,7 @@ class HttpClient
 
     public function __destruct()
     {
-        (new CheckExpectations($this))->check();
+        (new CheckExpectations($this, $this->app))->check();
     }
 
     /**
