@@ -19,12 +19,10 @@ class Chain
 
     public $exception;
 
-
     public function __destruct()
     {
         (new CheckExpectations($this, $this->phpunit))->check();
     }
-
 
     /**
      * @param $uri
