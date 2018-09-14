@@ -31,8 +31,9 @@ final class ReactionFactory
         $responder = resolve(ResponderFactory::class)->make();
 
         return function () use ($beforeReaction, $responder, $debug, $termination) {
-            if($termination)
+            if ($termination) {
                 app()->terminating($termination);
+            }
             event('heyman_reaction_is_happening', $debug);
             $beforeReaction();
             $responder();

@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Auth\Access\AuthorizationException;
-use Illuminate\Auth\AuthenticationException;
 use Imanghafoori\HeyMan\Facades\HeyMan;
 use Imanghafoori\HeyMan\WatchingStrategies\EventManager;
 
