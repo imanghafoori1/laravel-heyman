@@ -44,6 +44,7 @@ class Response
     public function withError($value)
     {
         $this->chain->addAssertion('assertSessionHasErrors', $value);
+
         return $this;
     }
 
