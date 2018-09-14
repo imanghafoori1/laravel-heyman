@@ -43,9 +43,9 @@ class EventsAuthorizationTest extends TestCase
     {
         HeyMan::whenEventHappens(['myEvent', 'myEvent1'])->always()->weDenyAccess();
         HeyMan::whenEventHappens('myEvent4')->thisValueShouldAllow(true)->otherwise()->weDenyAccess()
-             ->then()->terminateWith(function (){
+             ->then()->terminateWith(function () {
                  event('terminated_well');
-            });
+             });
         HeyMan::whenEventHappens('myEvent4')->thisValueShouldAllow(true)->otherwise()->weThrowNew(\Illuminate\Validation\UnauthorizedException::class);
         HeyMan::forget()->aboutEvent('myEvent4');
         app(EventManager::class)->start();
