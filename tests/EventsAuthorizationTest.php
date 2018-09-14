@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Auth\AuthenticationException;
 use Imanghafoori\HeyMan\Facades\HeyMan;
 use Imanghafoori\HeyMan\WatchingStrategies\EventManager;
 
@@ -42,17 +43,15 @@ class EventsAuthorizationTest extends TestCase
     public function test_Event_Is_forgotten2()
     {
         HeyMan::whenEventHappens(['myEvent', 'myEvent1'])->always()->weDenyAccess();
-        HeyMan::whenEventHappens('myEvent4')->thisValueShouldAllow(true)->otherwise()->weDenyAccess()
-             ->then()->terminateWith(function () {
-                 event('terminated_well');
-             });
-        HeyMan::whenEventHappens('myEvent4')->thisValueShouldAllow(true)->otherwise()->weThrowNew(\Illuminate\Validation\UnauthorizedException::class);
+        HeyMan::whenEventHappens('myEvent4')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
+        HeyMan::whenEventHappens('myEvent4')->thisValueShouldAllow(true)->otherwise()
+            ->weThrowNew(\Illuminate\Validation\UnauthorizedException::class);
         HeyMan::forget()->aboutEvent('myEvent4');
         app(EventManager::class)->start();
 
-        $this->expectsEvents(['terminated_well']);
         event('myEvent4');
         app()->terminate();
+
         $this->assertTrue(true);
     }
 

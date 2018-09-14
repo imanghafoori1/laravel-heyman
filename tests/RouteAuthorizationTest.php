@@ -29,7 +29,11 @@ class RouteAuthorizationTest extends TestCase
         Route::put('/put', function () {
         });
 
-        HeyMan::whenYouSendPut('put')->always()->weDenyAccess();
+        HeyMan::whenYouSendPut('put')->always()->weDenyAccess()->then()
+            ->terminateWith(function () {
+                event('terminated_well');
+            });
+        $this->expectsEvents('terminated_well');
         $this->put('put')->assertStatus(403);
     }
 

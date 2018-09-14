@@ -21,6 +21,8 @@ class Chain
 
     private $beforeReaction = [];
 
+    private $termination;
+
     public function addCallbackBeforeReaction($callback, $parameters)
     {
         $this->beforeReaction[] = function () use ($callback, $parameters) {
@@ -33,6 +35,11 @@ class Chain
         $this->beforeReaction[] = function () use ($event, $payload, $halt) {
             resolve('events')->dispatch($event, $payload, $halt);
         };
+    }
+
+    public function addTerminationCallback($callback)
+    {
+        $this->termination = $callback;
     }
 
     public function submitChainConfig()
@@ -65,5 +72,13 @@ class Chain
     public function writeDebugInfo($d)
     {
         $this->debugInfo = array_only($d[1], ['file', 'line', 'args']);
+    }
+
+    public function getTermination()
+    {
+        $r = $this->termination;
+        $this->termination = null;
+
+        return $r;
     }
 }
