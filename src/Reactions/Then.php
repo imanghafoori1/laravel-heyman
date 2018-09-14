@@ -20,6 +20,4 @@ class Then
     {
         return new TerminateWith($this->reaction);
     }
-
-
 }
