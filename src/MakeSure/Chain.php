@@ -28,24 +28,19 @@ class Chain
      * @param $uri
      * @param array $data
      * @param array $headers
-     * @param $httpVerb
+     * @param $method
      */
-    public function http($uri, array $data, array $headers, $httpVerb)
+    public function http($uri, array $data, array $headers, $method)
     {
-        $this->http = [
-            'method'  => $httpVerb,
-            'url'     => $uri,
-            'data'    => $data,
-            'headers' => $headers,
-        ];
+        $this->http = get_defined_vars();
     }
 
     /**
-     * @param $url
-     * @param $str
+     * @param $value
+     * @param $type
      */
-    public function addAssertion($str, $url = null)
+    public function addAssertion($type, $value = null)
     {
-        $this->assertion[] = ['type' => $str, 'value' => $url];
+        $this->assertion[] = get_defined_vars();
     }
 }

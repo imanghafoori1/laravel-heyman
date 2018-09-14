@@ -43,9 +43,9 @@ class CheckExpectations
         $method = $this->chain->http['method'];
         $data = $this->chain->http;
         if ($method == 'get' or $method == 'getJson') {
-            $response = $this->phpunit->$method($data['url'], $data['headers']);
+            $response = $this->phpunit->$method($data['uri'], $data['headers']);
         } else {
-            $response = $this->phpunit->$method($data['url'], $data['data'], $data['headers']);
+            $response = $this->phpunit->$method($data['uri'], $data['data'], $data['headers']);
         }
 
         return $response;

@@ -3,6 +3,7 @@
 namespace Imanghafoori\HeyMan\Reactions\Redirect;
 
 use Imanghafoori\HeyMan\Chain;
+use Imanghafoori\HeyMan\Reactions\TerminateWith;
 
 /**
  * Class RedirectionMsg.
@@ -38,6 +39,10 @@ final class RedirectionMsg
      */
     public function __call($method, $parameters)
     {
+        if ($method == 'then') {
+            return new TerminateWith($this);
+        }
+
         resolve(Chain::class)->commitCalledMethod([$method, $parameters], 'redirect');
 
         return $this;
