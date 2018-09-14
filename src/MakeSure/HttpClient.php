@@ -11,12 +11,11 @@ class HttpClient
     /**
      * HttpClient constructor.
      *
-     * @param $app
+     * @param $phpunit
      */
-    public function __construct($app)
+    public function __construct($phpunit)
     {
-        $this->chain = new Chain($app);
-        $this->app = $app;
+        $this->chain = new Chain($phpunit);
     }
 
     public function sendingPostRequest($uri, array $data = [], array $headers = []): IsRespondedWith
@@ -26,33 +25,34 @@ class HttpClient
         return new IsRespondedWith($this->chain);
     }
 
-    public function sendingDeleteRequest($uri, array $data = [], array $headers = [])
+    public function sendingDeleteRequest($uri, array $data = [], array $headers = []) : IsRespondedWith
     {
         $this->chain->http($uri, $data, $headers, 'delete');
 
         return new IsRespondedWith($this->chain);
     }
 
-    public function sendingPutRequest($uri, array $data = [], array $headers = [])
+    public function sendingPutRequest($uri, array $data = [], array $headers = []) : IsRespondedWith
     {
         $this->chain->http($uri, $data, $headers, 'put');
 
         return new IsRespondedWith($this->chain);
     }
 
-    public function sendingPatchRequest($uri, array $data = [], array $headers = [])
+    public function sendingPatchRequest($uri, array $data = [], array $headers = []) : IsRespondedWith
     {
         $this->chain->http($uri, $data, $headers, 'patch');
 
         return new IsRespondedWith($this->chain);
     }
 
-    public function sendingGetRequest($url): IsRespondedWith
+    public function sendingGetRequest($url, array $headers = []): IsRespondedWith
     {
         $this->chain->http = [
             'method' => 'get',
             'url'    => $url,
             'data'   => [],
+            'headers' => $headers,
         ];
 
         return new IsRespondedWith($this->chain);

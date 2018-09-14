@@ -13,7 +13,7 @@ class IsRespondedWith
      *
      * @param $chain
      */
-    public function __construct($chain)
+    public function __construct(Chain $chain)
     {
         $this->chain = $chain;
     }

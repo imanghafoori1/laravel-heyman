@@ -14,7 +14,7 @@ class CheckExpectations
      * @param $chain
      * @param $phpunit
      */
-    public function __construct($chain, $phpunit)
+    public function __construct(Chain $chain, $phpunit)
     {
         $this->chain = $chain;
         $this->phpunit = $phpunit;

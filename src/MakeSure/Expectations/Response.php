@@ -2,6 +2,8 @@
 
 namespace Imanghafoori\HeyMan\MakeSure\Expectations;
 
+use Imanghafoori\HeyMan\MakeSure\Chain;
+
 class Response
 {
     private $chain;
@@ -11,7 +13,7 @@ class Response
      *
      * @param $chain
      */
-    public function __construct($chain)
+    public function __construct(Chain $chain)
     {
         $this->chain = $chain;
     }
