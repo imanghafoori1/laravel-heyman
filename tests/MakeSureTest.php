@@ -60,7 +60,7 @@ class MakeSureTest extends TestCase
     public function test_statusCode()
     {
         $chain = Mockery::mock(Imanghafoori\HeyMan\MakeSure\Chain::class);
-        $chain->shouldReceive('addAssertion')->once()->with('assertSuccessful', null);
+        $chain->shouldReceive('addAssertion')->once()->with('assertSuccessful');
         $resp = new \Imanghafoori\HeyMan\MakeSure\Expectations\Response($chain);
         $resp->success();
     }
@@ -76,7 +76,7 @@ class MakeSureTest extends TestCase
     public function test_success()
     {
         $chain = Mockery::mock(Imanghafoori\HeyMan\MakeSure\Chain::class);
-        $chain->shouldReceive('addAssertion')->once()->with('assertSuccessful', null);
+        $chain->shouldReceive('addAssertion')->once()->with('assertSuccessful');
         $resp = new \Imanghafoori\HeyMan\MakeSure\Expectations\Response($chain);
         $resp->success();
     }
