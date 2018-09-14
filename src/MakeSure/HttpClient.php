@@ -25,9 +25,23 @@ class HttpClient
         return new IsRespondedWith($this->chain);
     }
 
+    public function sendingJsonPostRequest($uri, array $data = [], array $headers = []): IsRespondedWith
+    {
+        $this->chain->http($uri, $data, $headers, 'postJson');
+
+        return new IsRespondedWith($this->chain);
+    }
+
     public function sendingDeleteRequest($uri, array $data = [], array $headers = []) : IsRespondedWith
     {
         $this->chain->http($uri, $data, $headers, 'delete');
+
+        return new IsRespondedWith($this->chain);
+    }
+
+    public function sendingJsonDeleteRequest($uri, array $data = [], array $headers = []) : IsRespondedWith
+    {
+        $this->chain->http($uri, $data, $headers, 'deleteJson');
 
         return new IsRespondedWith($this->chain);
     }
@@ -39,6 +53,13 @@ class HttpClient
         return new IsRespondedWith($this->chain);
     }
 
+    public function sendingJsonPutRequest($uri, array $data = [], array $headers = []) : IsRespondedWith
+    {
+        $this->chain->http($uri, $data, $headers, 'putJson');
+
+        return new IsRespondedWith($this->chain);
+    }
+
     public function sendingPatchRequest($uri, array $data = [], array $headers = []) : IsRespondedWith
     {
         $this->chain->http($uri, $data, $headers, 'patch');
@@ -46,14 +67,16 @@ class HttpClient
         return new IsRespondedWith($this->chain);
     }
 
-    public function sendingGetRequest($url, array $headers = []): IsRespondedWith
+    public function sendingJsonPatchRequest($uri, array $data = [], array $headers = []) : IsRespondedWith
     {
-        $this->chain->http = [
-            'method'  => 'get',
-            'url'     => $url,
-            'data'    => [],
-            'headers' => $headers,
-        ];
+        $this->chain->http($uri, $data, $headers, 'patchJson');
+
+        return new IsRespondedWith($this->chain);
+    }
+
+    public function sendingGetRequest($uri, array $headers = []): IsRespondedWith
+    {
+        $this->chain->http($uri, [], $headers, 'get');
 
         return new IsRespondedWith($this->chain);
     }

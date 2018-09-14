@@ -41,8 +41,12 @@ class CheckExpectations
     private function sendRequest()
     {
         $method = $this->chain->http['method'];
-
-        $response = $this->phpunit->$method($this->chain->http['url'], $this->chain->http['data']);
+        $data = $this->chain->http;
+        if ($method == 'get' or $method == 'getJson') {
+            $response = $this->phpunit->$method($data['url'], $data['headers']);
+        } else {
+            $response = $this->phpunit->$method($data['url'], $data['data'], $data['headers']);
+        }
 
         return $response;
     }

@@ -28,12 +28,12 @@ class Chain
      * @param $uri
      * @param array $data
      * @param array $headers
-     * @param $str
+     * @param $httpVerb
      */
-    public function http($uri, array $data, array $headers, $str)
+    public function http($uri, array $data, array $headers, $httpVerb)
     {
         $this->http = [
-            'method'  => $str,
+            'method'  => $httpVerb,
             'url'     => $uri,
             'data'    => $data,
             'headers' => $headers,
