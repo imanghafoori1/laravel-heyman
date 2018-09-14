@@ -23,6 +23,7 @@ class MakeSureTest extends TestCase
         $redirector->shouldReceive('getJson')->once()->andReturn($response);
         Heyman::makeSure($redirector)->sendingJsonGetRequest('/welcome')->isRespondedWith()->statusCode(403);
     }
+
     public function test_sendingPostRequest()
     {
         $formData = ['asdc' => 'yuik'];
