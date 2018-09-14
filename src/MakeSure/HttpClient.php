@@ -49,9 +49,9 @@ class HttpClient
     public function sendingGetRequest($url, array $headers = []): IsRespondedWith
     {
         $this->chain->http = [
-            'method' => 'get',
-            'url'    => $url,
-            'data'   => [],
+            'method'  => 'get',
+            'url'     => $url,
+            'data'    => [],
             'headers' => $headers,
         ];
 
