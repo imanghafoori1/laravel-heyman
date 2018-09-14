@@ -14,6 +14,15 @@ class MakeSureTest extends TestCase
         Heyman::makeSure($redirector)->sendingGetRequest('/welcome')->isRespondedWith()->statusCode(403);
     }
 
+    public function test_sendingJsonGetRequest()
+    {
+        $response = Mockery::mock();
+        $response->shouldReceive('assertStatus')->once()->with(403);
+        $redirector = Mockery::mock();
+
+        $redirector->shouldReceive('getJson')->once()->andReturn($response);
+        Heyman::makeSure($redirector)->sendingJsonGetRequest('/welcome')->isRespondedWith()->statusCode(403);
+    }
     public function test_sendingPostRequest()
     {
         $formData = ['asdc' => 'yuik'];
@@ -21,6 +30,14 @@ class MakeSureTest extends TestCase
         $redirector = Mockery::mock();
         $redirector->shouldReceive('post')->with('welcome', $formData, [])->once();
         Heyman::makeSure($redirector)->sendingPostRequest('welcome', $formData);
+    }
+
+    public function test_sendingJsonPostRequest()
+    {
+        $formData = ['asdc' => 'yuik'];
+        $redirector = Mockery::mock();
+        $redirector->shouldReceive('postJson')->with('welcome', $formData, [])->once();
+        Heyman::makeSure($redirector)->sendingJsonPostRequest('welcome', $formData);
     }
 
     public function test_sendingPutRequest()
@@ -31,6 +48,14 @@ class MakeSureTest extends TestCase
         Heyman::makeSure($redirector)->sendingPutRequest('welcome', $formData);
     }
 
+    public function test_sendingJsonPutRequest()
+    {
+        $formData = ['asdc' => 'yuik'];
+        $redirector = Mockery::mock();
+        $redirector->shouldReceive('putJson')->with('welcome', $formData, [])->once();
+        Heyman::makeSure($redirector)->sendingJsonPutRequest('welcome', $formData);
+    }
+
     public function test_sendingPatchRequest()
     {
         $formData = ['asdc' => 'yuik'];
@@ -39,7 +64,23 @@ class MakeSureTest extends TestCase
         Heyman::makeSure($redirector)->sendingPatchRequest('welcome', $formData);
     }
 
+    public function test_sendingJsonPatchRequest()
+    {
+        $formData = ['asdc' => 'yuik'];
+        $redirector = Mockery::mock();
+        $redirector->shouldReceive('patchJson')->with('welcome', $formData, [])->once();
+        Heyman::makeSure($redirector)->sendingJsonPatchRequest('welcome', $formData);
+    }
+
     public function test_sendingDeleteRequest()
+    {
+        $formData = ['asdc' => 'yuik'];
+        $redirector = Mockery::mock();
+        $redirector->shouldReceive('delete')->with('welcome', $formData, [])->once();
+        Heyman::makeSure($redirector)->sendingDeleteRequest('welcome', $formData);
+    }
+
+    public function test_sendingJsonDeleteRequest()
     {
         $formData = ['asdc' => 'yuik'];
         $redirector = Mockery::mock();

@@ -81,6 +81,13 @@ class HttpClient
         return new IsRespondedWith($this->chain);
     }
 
+    public function sendingJsonGetRequest($uri, array $headers = []): IsRespondedWith
+    {
+        $this->chain->http($uri, [], $headers, 'getJson');
+
+        return new IsRespondedWith($this->chain);
+    }
+
     public function exceptionIsThrown($type)
     {
         $this->chain->exception = $type;
