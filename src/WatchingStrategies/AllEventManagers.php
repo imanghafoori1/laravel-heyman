@@ -2,7 +2,9 @@
 
 namespace Imanghafoori\HeyMan\WatchingStrategies;
 
-use Imanghafoori\HeyMan\WatchingStrategies\{EloquentModels\EloquentEventsManager, Routes\RouterEventManager, Views\ViewEventManager};
+use Imanghafoori\HeyMan\WatchingStrategies\EloquentModels\EloquentEventsManager;
+use Imanghafoori\HeyMan\WatchingStrategies\Routes\RouterEventManager;
+use Imanghafoori\HeyMan\WatchingStrategies\Views\ViewEventManager;
 
 class AllEventManagers
 {
