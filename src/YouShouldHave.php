@@ -2,7 +2,8 @@
 
 namespace Imanghafoori\HeyMan;
 
-use Imanghafoori\HeyMan\Conditions\{ConditionsFacade, RequestValidation};
+use Imanghafoori\HeyMan\Conditions\ConditionsFacade;
+use Imanghafoori\HeyMan\Conditions\RequestValidation;
 use Imanghafoori\HeyMan\Reactions\Reactions;
 
 final class YouShouldHave
