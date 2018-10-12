@@ -1,8 +1,8 @@
 <?php
 
-namespace Imanghafoori\HeyMan\Situations;
+namespace Imanghafoori\HeyMan\WatchingStrategies\Events;
 
-use Imanghafoori\HeyMan\WatchingStrategies\EventManager;
+use Imanghafoori\HeyMan\Situations\BaseSituation;
 
 final class EventSituations extends BaseSituation
 {

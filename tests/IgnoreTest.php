@@ -1,7 +1,7 @@
 <?php
 
 use Imanghafoori\HeyMan\Facades\HeyMan;
-use Imanghafoori\HeyMan\WatchingStrategies\EventManager;
+use Imanghafoori\HeyMan\WatchingStrategies\Events\EventManager;
 use Imanghafoori\HeyMan\WatchingStrategies\Views\ViewEventManager;
 
 class IgnoreTest extends TestCase

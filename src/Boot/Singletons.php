@@ -8,7 +8,7 @@ use Imanghafoori\HeyMan\HeyMan;
 use Imanghafoori\HeyMan\Reactions\ReactionFactory;
 use Imanghafoori\HeyMan\Switching\HeyManSwitcher;
 use Imanghafoori\HeyMan\WatchingStrategies\EloquentModels\EloquentEventsManager;
-use Imanghafoori\HeyMan\WatchingStrategies\EventManager;
+use Imanghafoori\HeyMan\WatchingStrategies\Events\EventManager;
 use Imanghafoori\HeyMan\WatchingStrategies\Routes\RouterEventManager;
 use Imanghafoori\HeyMan\WatchingStrategies\Views\ViewEventManager;
 use Imanghafoori\HeyMan\WatchingStrategies\Views\ViewNormalizer;
