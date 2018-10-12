@@ -1,8 +1,8 @@
 <?php
 
-namespace Imanghafoori\HeyMan\Situations;
+namespace Imanghafoori\HeyMan\WatchingStrategies\EloquentModels;
 
-use Imanghafoori\HeyMan\WatchingStrategies\EloquentEventsManager;
+use Imanghafoori\HeyMan\Situations\BaseSituation;
 
 final class EloquentSituations extends BaseSituation
 {

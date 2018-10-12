@@ -2,7 +2,7 @@
 
 use Imanghafoori\HeyMan\Facades\HeyMan;
 use Imanghafoori\HeyMan\WatchingStrategies\EventManager;
-use Imanghafoori\HeyMan\WatchingStrategies\ViewEventManager;
+use Imanghafoori\HeyMan\WatchingStrategies\Views\ViewEventManager;
 
 class IgnoreTest extends TestCase
 {

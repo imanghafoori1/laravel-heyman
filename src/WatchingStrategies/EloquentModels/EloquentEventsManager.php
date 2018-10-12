@@ -1,6 +1,8 @@
 <?php
 
-namespace Imanghafoori\HeyMan\WatchingStrategies;
+namespace Imanghafoori\HeyMan\WatchingStrategies\EloquentModels;
+
+use Imanghafoori\HeyMan\WatchingStrategies\BaseManager;
 
 class EloquentEventsManager extends BaseManager
 {

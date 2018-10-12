@@ -1,7 +1,7 @@
 <?php
 
 use Imanghafoori\HeyMan\Facades\HeyMan;
-use Imanghafoori\HeyMan\WatchingStrategies\ViewEventManager;
+use Imanghafoori\HeyMan\WatchingStrategies\Views\ViewEventManager;
 
 class reactionsTest extends TestCase
 {

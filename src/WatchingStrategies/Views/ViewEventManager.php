@@ -1,6 +1,8 @@
 <?php
 
-namespace Imanghafoori\HeyMan\WatchingStrategies;
+namespace Imanghafoori\HeyMan\WatchingStrategies\Views;
+
+use Imanghafoori\HeyMan\WatchingStrategies\BaseManager;
 
 class ViewEventManager extends BaseManager
 {

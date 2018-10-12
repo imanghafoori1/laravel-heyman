@@ -2,6 +2,8 @@
 
 namespace Imanghafoori\HeyMan\WatchingStrategies;
 
+use Imanghafoori\HeyMan\WatchingStrategies\{EloquentModels\EloquentEventsManager, Routes\RouterEventManager, Views\ViewEventManager};
+
 class AllEventManagers
 {
     public static function start()

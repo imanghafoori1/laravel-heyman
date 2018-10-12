@@ -1,9 +1,8 @@
 <?php
 
-namespace Imanghafoori\HeyMan\Situations;
+namespace Imanghafoori\HeyMan\WatchingStrategies\Views;
 
-use Imanghafoori\HeyMan\Normilizers\ViewNormalizer;
-use Imanghafoori\HeyMan\WatchingStrategies\ViewEventManager;
+use Imanghafoori\HeyMan\Situations\BaseSituation;
 
 final class ViewSituations extends BaseSituation
 {

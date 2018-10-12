@@ -1,6 +1,6 @@
 <?php
 
-namespace Imanghafoori\HeyMan\Normilizers;
+namespace Imanghafoori\HeyMan\WatchingStrategies\Views;
 
 final class ViewNormalizer
 {

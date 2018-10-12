@@ -1,10 +1,10 @@
 <?php
 
-namespace Imanghafoori\HeyMan\WatchingStrategies;
+namespace Imanghafoori\HeyMan\WatchingStrategies\Routes;
 
 use Illuminate\Routing\Events\RouteMatched;
 use Illuminate\Support\Facades\Route;
-use Imanghafoori\HeyMan\RouteMatchListener;
+use Imanghafoori\HeyMan\WatchingStrategies\BaseManager;
 
 class RouterEventManager extends BaseManager
 {

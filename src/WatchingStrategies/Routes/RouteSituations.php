@@ -1,9 +1,8 @@
 <?php
 
-namespace Imanghafoori\HeyMan\Situations;
+namespace Imanghafoori\HeyMan\WatchingStrategies\Routes;
 
-use Imanghafoori\HeyMan\Normilizers\RouteNormalizer;
-use Imanghafoori\HeyMan\WatchingStrategies\RouterEventManager;
+use Imanghafoori\HeyMan\Situations\BaseSituation;
 
 final class RouteSituations extends BaseSituation
 {

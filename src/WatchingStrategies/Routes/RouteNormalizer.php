@@ -1,6 +1,6 @@
 <?php
 
-namespace Imanghafoori\HeyMan\Normilizers;
+namespace Imanghafoori\HeyMan\WatchingStrategies\Routes;
 
 final class RouteNormalizer
 {
