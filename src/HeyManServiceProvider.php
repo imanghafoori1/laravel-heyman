@@ -3,10 +3,8 @@
 namespace Imanghafoori\HeyMan;
 
 use Illuminate\Foundation\AliasLoader;
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\ServiceProvider;
-use Imanghafoori\HeyMan\Boot\DebugbarIntergrator;
-use Imanghafoori\HeyMan\Boot\Singletons;
+use Illuminate\Support\{Facades\Gate, ServiceProvider};
+use Imanghafoori\HeyMan\Boot\{DebugbarIntergrator, Singletons};
 use Imanghafoori\HeyMan\WatchingStrategies\AllEventManagers;
 
 final class HeyManServiceProvider extends ServiceProvider

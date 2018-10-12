@@ -4,10 +4,7 @@ namespace Imanghafoori\HeyMan\Facades;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Facade;
-use Imanghafoori\HeyMan\Forget;
-use Imanghafoori\HeyMan\MakeSure\HttpClient;
-use Imanghafoori\HeyMan\Switching\Consider;
-use Imanghafoori\HeyMan\YouShouldHave;
+use Imanghafoori\HeyMan\{Forget, MakeSure\HttpClient, Switching\Consider, YouShouldHave};
 
 /**
  * Class HeyMan.
