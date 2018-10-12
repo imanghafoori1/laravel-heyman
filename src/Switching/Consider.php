@@ -2,10 +2,7 @@
 
 namespace Imanghafoori\HeyMan\Switching;
 
-use Imanghafoori\HeyMan\WatchingStrategies\EloquentModels\EloquentEventsManager;
-use Imanghafoori\HeyMan\WatchingStrategies\Events\EventManager;
-use Imanghafoori\HeyMan\WatchingStrategies\Routes\RouterEventManager;
-use Imanghafoori\HeyMan\WatchingStrategies\Views\ViewEventManager;
+use Imanghafoori\HeyMan\WatchingStrategies\{EloquentModels\EloquentEventsManager, Events\EventManager, Routes\RouterEventManager, Views\ViewEventManager};
 
 /**
  * Class Consider.
