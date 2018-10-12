@@ -2,10 +2,7 @@
 
 namespace Imanghafoori\HeyMan\Situations;
 
-use Imanghafoori\HeyMan\WatchingStrategies\EloquentModels\EloquentSituations;
-use Imanghafoori\HeyMan\WatchingStrategies\Events\EventSituations;
-use Imanghafoori\HeyMan\WatchingStrategies\Routes\RouteSituations;
-use Imanghafoori\HeyMan\WatchingStrategies\Views\ViewSituations;
+use Imanghafoori\HeyMan\WatchingStrategies\{EloquentModels\EloquentSituations, Events\EventSituations, Routes\RouteSituations, Views\ViewSituations};
 use Imanghafoori\HeyMan\YouShouldHave;
 
 final class SituationsProxy
@@ -21,11 +18,21 @@ final class SituationsProxy
     {
         $args = is_array($args[0]) ? $args[0] : $args;
         foreach (self::situations as $className) {
-            if (method_exists($className, $method) || resolve($className)->hasMethod($method)) {
+            if (self::methodExists($method, $className)) {
                 resolve($className)->$method(...$args);
 
                 return resolve(YouShouldHave::class);
             }
         }
+    }
+
+    /**
+     * @param $method
+     * @param $className
+     * @return bool
+     */
+    private static function methodExists($method, $className): bool
+    {
+        return method_exists($className, $method) || resolve($className)->hasMethod($method);
     }
 }

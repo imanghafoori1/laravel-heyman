@@ -11,8 +11,8 @@ final class RouteMatchListener
      */
     private function exec(array $closures)
     {
-        foreach (array_flatten($closures) as $c) {
-            $c();
+        foreach (array_flatten($closures) as $closure) {
+            $closure();
         }
     }
 
