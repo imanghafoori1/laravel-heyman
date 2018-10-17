@@ -7,7 +7,7 @@ use Imanghafoori\HeyMan\WatchingStrategies\Events\EventManager;
 
 class GateAuthorizationTest extends TestCase
 {
-    public function testGate()
+    public function test_Gate()
     {
         Gate::define('helloGate', function ($user, $param1, $false) {
             return $false;
@@ -21,7 +21,7 @@ class GateAuthorizationTest extends TestCase
         event('myEvent');
     }
 
-    public function testGateAsMethod()
+    public function test_Gate_As_Method()
     {
         HeyMan::whenEventHappens('myEvent')->thisGateShouldAllow('Gates@helloGate', false)->otherwise()->weDenyAccess();
         app(EventManager::class)->start();
@@ -31,7 +31,7 @@ class GateAuthorizationTest extends TestCase
         event('myEvent');
     }
 
-    public function testInlineGate()
+    public function test_Inline_Gate()
     {
         $gate = function ($user, $booleanFlag) {
             return $booleanFlag;

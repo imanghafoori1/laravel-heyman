@@ -77,7 +77,7 @@ class reactionsTest extends TestCase
         $this->get('welcome1')->assertStatus(200);
     }
 
-    public function test_respond_from()
+    public function test_we_respond_from()
     {
         Route::get('/welcome', 'HomeController@index');
 
