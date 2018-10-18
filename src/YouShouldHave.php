@@ -9,14 +9,18 @@ use Imanghafoori\HeyMan\Reactions\Reactions;
 /**
  * Class YouShouldHave.
  *
- * @method youShouldBeGuest($guard = null)
- * @method youShouldBeLoggedIn($guard = null)
- * @method thisGateShouldAllow($gate, ...$parameters)
- * @method youShouldHaveRole(string $role)
- * @method thisClosureShouldAllow(callable $callback, array $parameters = [])
- * @method thisValueShouldAllow($value)
- * @method thisMethodShouldAllow($callback, array $parameters = [])
- * @method sessionShouldHave($key)
+ * @method Otherwise youShouldBeGuest($guard = null)
+ * @method Otherwise youShouldBeLoggedIn($guard = null)
+ *
+ * @method Otherwise thisGateShouldAllow($gate, ...$parameters)
+ * @method Otherwise youShouldHaveRole(string $role)
+ *
+ * @method Otherwise thisClosureShouldAllow(callable $callback, array $parameters = [])
+ * @method Otherwise thisValueShouldAllow($value)
+ * @method Otherwise thisMethodShouldAllow($callback, array $parameters = [])
+ *
+ * @method Otherwise sessionShouldHave($key)
+ *
  */
 final class YouShouldHave
 {
