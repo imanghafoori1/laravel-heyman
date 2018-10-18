@@ -23,8 +23,10 @@ final class ResponderFactory
     public function make()
     {
         $m = $this->chain->responseType;
-
-        return $this->$m(...$this->chain->data);
+        $this->chain->responseType = 'nothing';
+        $data = $this->chain->data;
+        $this->chain->data = [];
+        return $this->$m(...$data);
     }
 
     protected function abort($abort): \Closure

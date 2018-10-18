@@ -1,5 +1,6 @@
 <?php
 
+use Imanghafoori\HeyMan\Chain;
 use Imanghafoori\HeyMan\Facades\HeyMan;
 
 class RequestValidationTest extends TestCase
@@ -9,7 +10,11 @@ class RequestValidationTest extends TestCase
         Route::get('/welcome', 'HomeController@index')->name('welcome.name');
         Auth::shouldReceive('check')->andReturn(false);
         HeyMan::whenYouVisitUrl('welcome')->yourRequestShouldBeValid(['name' => 'required']);
+        $this->assertEquals([], resolve(Chain::class)->data);
+        $this->assertEquals('nothing', resolve(Chain::class)->responseType);
         HeyMan::whenYouVisitUrl('welcome')->youShouldBeLoggedIn()->otherwise()->weDenyAccess();
+        $this->assertEquals([], resolve(Chain::class)->data);
+        $this->assertEquals('nothing', resolve(Chain::class)->responseType);
 
         $this->get('welcome')->assertStatus(302)->assertSessionHasErrors('name');
     }

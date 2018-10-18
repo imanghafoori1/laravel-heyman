@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Gate;
+use Imanghafoori\HeyMan\Chain;
 use Imanghafoori\HeyMan\Facades\HeyMan;
 
 class Logger
@@ -54,6 +55,9 @@ class MethodCallReactionTest extends TestCase
             ->otherwise()
             ->afterCalling($cb)
             ->weDenyAccess();
+
+        $this->assertEquals([], resolve(Chain::class)->data);
+        $this->assertEquals('nothing', resolve(Chain::class)->responseType);
 
         $this->get('welcome');
     }
