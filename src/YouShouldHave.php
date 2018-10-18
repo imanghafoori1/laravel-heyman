@@ -6,11 +6,25 @@ use Imanghafoori\HeyMan\Conditions\ConditionsFacade;
 use Imanghafoori\HeyMan\Conditions\RequestValidation;
 use Imanghafoori\HeyMan\Reactions\Reactions;
 
+/**
+ * Class YouShouldHave.
+ *
+ * @method youShouldBeGuest($guard = null)
+ * @method youShouldBeLoggedIn($guard = null)
+ *
+ * @method thisGateShouldAllow($gate, ...$parameters)
+ * @method youShouldHaveRole(string $role)
+ *
+ * @method thisClosureShouldAllow(callable $callback, array $parameters = [])
+ * @method thisValueShouldAllow($value)
+ * @method thisMethodShouldAllow($callback, array $parameters = [])
+ *
+ * @method sessionShouldHave($key)
+ *
+ */
 final class YouShouldHave
 {
     use RequestValidation;
-
-    public $condition;
 
     public function __call($method, $args): Otherwise
     {
