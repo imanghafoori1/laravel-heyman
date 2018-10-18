@@ -11,16 +11,12 @@ use Imanghafoori\HeyMan\Reactions\Reactions;
  *
  * @method Otherwise youShouldBeGuest($guard = null)
  * @method Otherwise youShouldBeLoggedIn($guard = null)
- *
  * @method Otherwise thisGateShouldAllow($gate, ...$parameters)
  * @method Otherwise youShouldHaveRole(string $role)
- *
  * @method Otherwise thisClosureShouldAllow(callable $callback, array $parameters = [])
  * @method Otherwise thisValueShouldAllow($value)
  * @method Otherwise thisMethodShouldAllow($callback, array $parameters = [])
- *
  * @method Otherwise sessionShouldHave($key)
- *
  */
 final class YouShouldHave
 {

@@ -26,6 +26,7 @@ final class ResponderFactory
         $this->chain->responseType = 'nothing';
         $data = $this->chain->data;
         $this->chain->data = [];
+
         return $this->$m(...$data);
     }
 
