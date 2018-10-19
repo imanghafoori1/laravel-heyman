@@ -2,7 +2,7 @@
 
 namespace Imanghafoori\HeyMan\Reactions;
 
-use Imanghafoori\HeyMan\Chain;
+use Imanghafoori\HeyMan\ChainManager;
 
 final class ReactionFactory
 {
@@ -12,7 +12,7 @@ final class ReactionFactory
     public function make(): \Closure
     {
         $reaction = $this->makeReaction();
-        $condition = resolve(Chain::class)->condition;
+        $condition = resolve(ChainManager::class)->getCondition();
 
         return function (...$f) use ($condition, $reaction) {
             if (!$condition($f)) {
@@ -23,9 +23,9 @@ final class ReactionFactory
 
     private function makeReaction(): \Closure
     {
-        $chain = resolve(Chain::class);
+        $chain = resolve(ChainManager::class);
         $beforeReaction = $chain->beforeReaction();
-        $debug = $chain->debugInfo;
+        $debug = $chain->debugInfo();
         $termination = $chain->getTermination();
 
         $responder = resolve(ResponderFactory::class)->make();

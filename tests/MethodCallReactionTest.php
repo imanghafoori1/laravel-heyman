@@ -56,8 +56,8 @@ class MethodCallReactionTest extends TestCase
             ->afterCalling($cb)
             ->weDenyAccess();
 
-        $this->assertEquals([], resolve(Chain::class)->data);
-        $this->assertEquals('nothing', resolve(Chain::class)->responseType);
+        $this->assertEquals([], resolve(Chain::class)->chainInfo['data']);
+        $this->assertEquals('nothing', resolve(Chain::class)->chainInfo['responseType']);
 
         $this->get('welcome');
     }

@@ -4,28 +4,14 @@ namespace Imanghafoori\HeyMan\Reactions;
 
 use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Http\Exceptions\HttpResponseException;
-use Imanghafoori\HeyMan\{Chain, Switching\HeyManSwitcher};
+use Imanghafoori\HeyMan\{ChainManager, Switching\HeyManSwitcher};
 
 final class ResponderFactory
 {
-    private $chain;
-
-    /**
-     * ResponderFactory constructor.
-     *
-     * @param Chain $chain
-     */
-    public function __construct(Chain $chain)
-    {
-        $this->chain = $chain;
-    }
-
     public function make()
     {
-        $m = $this->chain->responseType;
-        $this->chain->responseType = 'nothing';
-        $data = $this->chain->data;
-        $this->chain->data = [];
+        $chain = resolve(ChainManager::class);
+        list($data, $m) = $chain->getCalledResponse();
 
         return $this->$m(...$data);
     }

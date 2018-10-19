@@ -3,7 +3,7 @@
 namespace Imanghafoori\HeyMan\Reactions;
 
 use Illuminate\Auth\Access\AuthorizationException;
-use Imanghafoori\HeyMan\Chain;
+use Imanghafoori\HeyMan\ChainManager;
 use Imanghafoori\HeyMan\Reactions\Redirect\Redirector;
 
 final class Reactions
@@ -50,11 +50,11 @@ final class Reactions
 
     public function __destruct()
     {
-        resolve(Chain::class)->submitChainConfig();
+        resolve(ChainManager::class)->submitChainConfig();
     }
 
     private function commit($args, $methodName)
     {
-        resolve(Chain::class)->commitCalledMethod($args, $methodName);
+        resolve(ChainManager::class)->commitCalledMethod($args, $methodName);
     }
 }

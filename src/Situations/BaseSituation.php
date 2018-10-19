@@ -2,7 +2,7 @@
 
 namespace Imanghafoori\HeyMan\Situations;
 
-use Imanghafoori\HeyMan\Chain;
+use Imanghafoori\HeyMan\ChainManager;
 
 abstract class BaseSituation
 {
@@ -13,6 +13,6 @@ abstract class BaseSituation
 
     protected function setManager(string $class, ...$array)
     {
-        resolve(Chain::class)->eventManager = resolve($class)->init(...$array);
+        resolve(ChainManager::class)->setEventManager(resolve($class)->init(...$array));
     }
 }

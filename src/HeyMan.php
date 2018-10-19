@@ -17,7 +17,11 @@ class HeyMan
 
     public function __call($method, $args)
     {
-        resolve(Chain::class)->writeDebugInfo(debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 2));
+        resolve(ChainManager::class)->startChain();
+
+        if (config()->get('app.debug') and ! app()->environment('production')) {
+            resolve(ChainManager::class)->writeDebugInfo(debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 2));
+        }
 
         return  SituationsProxy::call($method, $args);
     }

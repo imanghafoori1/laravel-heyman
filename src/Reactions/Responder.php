@@ -2,7 +2,7 @@
 
 namespace Imanghafoori\HeyMan\Reactions;
 
-use Imanghafoori\HeyMan\Chain;
+use Imanghafoori\HeyMan\ChainManager;
 
 /**
  * Class Responder.
@@ -31,6 +31,6 @@ final class Responder
 
     public function __call($method, $parameters)
     {
-        resolve(Chain::class)->commitCalledMethod([$method, $parameters], 'response');
+        resolve(ChainManager::class)->commitCalledMethod([$method, $parameters], 'response');
     }
 }

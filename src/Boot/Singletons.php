@@ -2,9 +2,9 @@
 
 namespace Imanghafoori\HeyMan\Boot;
 
-use Imanghafoori\HeyMan\Chain;
 use Imanghafoori\HeyMan\Conditions\ConditionsFacade;
 use Imanghafoori\HeyMan\HeyMan;
+use Imanghafoori\HeyMan\ChainManager;
 use Imanghafoori\HeyMan\Reactions\ReactionFactory;
 use Imanghafoori\HeyMan\Switching\HeyManSwitcher;
 use Imanghafoori\HeyMan\WatchingStrategies\EloquentModels\EloquentEventsManager;
@@ -32,7 +32,6 @@ class Singletons
     {
         return [
             HeyManSwitcher::class,
-            Chain::class,
             HeyMan::class,
             YouShouldHave::class,
             ReactionFactory::class,
@@ -42,6 +41,7 @@ class Singletons
             EloquentEventsManager::class,
             ViewNormalizer::class,
             ConditionsFacade::class,
+            ChainManager::class,
         ];
     }
 }

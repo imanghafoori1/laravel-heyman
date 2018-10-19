@@ -2,7 +2,7 @@
 
 namespace Imanghafoori\HeyMan\Reactions\Redirect;
 
-use Imanghafoori\HeyMan\Chain;
+use Imanghafoori\HeyMan\ChainManager;
 use Imanghafoori\HeyMan\Reactions\Reactions;
 
 /**
@@ -30,7 +30,7 @@ class Redirector
 
     public function __call($method, $parameters)
     {
-        resolve(Chain::class)->commitCalledMethod([$method, $parameters], 'redirect');
+        resolve(ChainManager::class)->commitCalledMethod([$method, $parameters], 'redirect');
 
         return new RedirectionMsg($this);
     }

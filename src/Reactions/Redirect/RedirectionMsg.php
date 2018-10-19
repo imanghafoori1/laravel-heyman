@@ -2,7 +2,7 @@
 
 namespace Imanghafoori\HeyMan\Reactions\Redirect;
 
-use Imanghafoori\HeyMan\Chain;
+use Imanghafoori\HeyMan\ChainManager;
 use Imanghafoori\HeyMan\Reactions\TerminateWith;
 
 /**
@@ -43,7 +43,7 @@ final class RedirectionMsg
             return new TerminateWith($this);
         }
 
-        resolve(Chain::class)->commitCalledMethod([$method, $parameters], 'redirect');
+        resolve(ChainManager::class)->commitCalledMethod([$method, $parameters], 'redirect');
 
         return $this;
     }

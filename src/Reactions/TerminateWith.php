@@ -2,7 +2,7 @@
 
 namespace Imanghafoori\HeyMan\Reactions;
 
-use Imanghafoori\HeyMan\Chain;
+use Imanghafoori\HeyMan\ChainManager;
 
 class TerminateWith
 {
@@ -20,6 +20,6 @@ class TerminateWith
 
     public function terminateWith($callback)
     {
-        resolve(Chain::class)->addTerminationCallback($callback);
+        resolve(ChainManager::class)->addTerminationCallback($callback);
     }
 }
