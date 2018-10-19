@@ -20,6 +20,6 @@ class TerminateWith
 
     public function terminateWith($callback)
     {
-        resolve(ChainManager::class)->addTerminationCallback($callback);
+        resolve(ChainManager::class)->set('termination', $callback);
     }
 }

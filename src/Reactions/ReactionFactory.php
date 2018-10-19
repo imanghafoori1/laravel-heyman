@@ -12,7 +12,7 @@ final class ReactionFactory
     public function make(): \Closure
     {
         $reaction = $this->makeReaction();
-        $condition = resolve(ChainManager::class)->getCondition();
+        $condition = resolve(ChainManager::class)->get('condition');
 
         return function (...$f) use ($condition, $reaction) {
             if (!$condition($f)) {
@@ -25,8 +25,8 @@ final class ReactionFactory
     {
         $chain = resolve(ChainManager::class);
         $beforeReaction = $chain->beforeReaction();
-        $debug = $chain->debugInfo();
-        $termination = $chain->getTermination();
+        $debug = $chain->get('debugInfo');
+        $termination = $chain->get('termination');
 
         $responder = resolve(ResponderFactory::class)->make();
 

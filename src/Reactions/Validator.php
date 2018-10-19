@@ -36,7 +36,7 @@ final class Validator
         };
         $chain = resolve(ChainManager::class);
         $condition = resolve(ResponderFactory::class)->validatorCallback($modifier, ...$data);
-        $chain->setCondition($condition);
+        $chain->set('condition', $condition);
         $chain->submitChainConfig();
     }
 }

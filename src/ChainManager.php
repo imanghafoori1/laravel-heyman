@@ -20,7 +20,13 @@ class ChainManager
 
     public function startChain()
     {
-        $this->chain = resolve(Chain::class);
+        $this->chain = new Chain();
+        $this->chain->chainInfo = [
+            'beforeReaction' => [],
+            'debugInfo' => ['file' => '', 'line' => '', 'args' => ''],
+            'responseType' => 'nothing',
+            'data' => [],
+        ];
     }
 
     public function addEventBeforeReaction($event, array $payload, bool $halt)
@@ -30,20 +36,15 @@ class ChainManager
         };
     }
 
-    public function addTerminationCallback($callback)
-    {
-        $this->chain->chainInfo['termination'] = $callback;
-    }
-
     public function submitChainConfig()
     {
         $callbackListener = resolve(ReactionFactory::class)->make();
-        $this->chain->chainInfo['eventManager']->commitChain($callbackListener);
+        $this->get('eventManager')->commitChain($callbackListener);
     }
 
     public function beforeReaction(): \Closure
     {
-        $tasks = $this->chain->chainInfo['beforeReaction'];
+        $tasks = $this->get('beforeReaction');
 
         return function () use ($tasks) {
             foreach ($tasks as $task) {
@@ -55,41 +56,21 @@ class ChainManager
     public function commitCalledMethod($args, $methodName)
     {
         $this->chain->chainInfo['data'][] = $args;
-        $this->chain->chainInfo['responseType'] = $methodName;
+        $this->set('responseType', $methodName);
     }
 
     public function getCalledResponse()
     {
-        return [$this->chain->chainInfo['data'], $this->chain->chainInfo['responseType']];
+        return [$this->get('data'), $this->get('responseType')];
     }
 
-    public function writeDebugInfo($d)
+    public function get($key)
     {
-        $this->chain->chainInfo['debugInfo'] = array_only($d[1], ['file', 'line', 'args']);
+        return $this->chain->chainInfo[$key] ?? null;
     }
 
-    public function debugInfo()
+    public function set($key, $value)
     {
-        return $this->chain->chainInfo['debugInfo'];
-    }
-
-    public function getTermination()
-    {
-        return $this->chain->chainInfo['termination'];
-    }
-
-    public function setEventManager($manager)
-    {
-        $this->chain->chainInfo['eventManager'] = $manager;
-    }
-
-    public function setCondition($condition)
-    {
-        $this->chain->chainInfo['condition'] = $condition;
-    }
-
-    public function getCondition()
-    {
-        return $this->chain->chainInfo['condition'];
+        $this->chain->chainInfo[$key] = $value;
     }
 }

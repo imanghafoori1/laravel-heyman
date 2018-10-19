@@ -13,6 +13,6 @@ abstract class BaseSituation
 
     protected function setManager(string $class, ...$array)
     {
-        resolve(ChainManager::class)->setEventManager(resolve($class)->init(...$array));
+        resolve(ChainManager::class)->set('eventManager', resolve($class)->init(...$array));
     }
 }

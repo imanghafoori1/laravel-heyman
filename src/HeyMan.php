@@ -20,7 +20,8 @@ class HeyMan
         resolve(ChainManager::class)->startChain();
 
         if (config()->get('app.debug') and ! app()->environment('production')) {
-            resolve(ChainManager::class)->writeDebugInfo(debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 2));
+            $d = array_only(debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 2)[1], ['file', 'line', 'args']);
+            resolve(ChainManager::class)->set('debugInfo', $d);
         }
 
         return  SituationsProxy::call($method, $args);
