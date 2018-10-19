@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Imanghafoori\HeyMan\Boot\DebugbarIntergrator;
 use Imanghafoori\HeyMan\Boot\Singletons;
+use Imanghafoori\HeyMan\Facades\HeyMan;
 use Imanghafoori\HeyMan\WatchingStrategies\AllEventManagers;
 
 final class HeyManServiceProvider extends ServiceProvider
@@ -18,7 +19,7 @@ final class HeyManServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__.'/migrations');
 
         app()->booted([AllEventManagers::class, 'start']);
-
+        $this->disableIfIsSeeding();
         DebugbarIntergrator::register();
     }
 
@@ -36,5 +37,12 @@ final class HeyManServiceProvider extends ServiceProvider
         Gate::define('heyman.youShouldHaveRole', function ($user, $role) {
             return $user->role == $role;
         });
+    }
+
+    private function disableIfIsSeeding()
+    {
+        if (isset(\Request::server('argv')[1]) && \Request::server('argv')[1] == 'db:seed') {
+            HeyMan::turnOff()->eloquentChecks();
+        }
     }
 }
