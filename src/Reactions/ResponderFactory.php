@@ -3,8 +3,8 @@
 namespace Imanghafoori\HeyMan\Reactions;
 
 use Illuminate\Contracts\Validation\Factory;
-use Imanghafoori\HeyMan\Chain;
-use Imanghafoori\HeyMan\Switching\HeyManSwitcher;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Imanghafoori\HeyMan\{Chain, Switching\HeyManSwitcher};
 
 final class ResponderFactory
 {
@@ -77,26 +77,32 @@ final class ResponderFactory
         };
     }
 
+    /**
+     * @param $method
+     * @return \Closure
+     *
+     * @throws \Illuminate\Http\Exceptions\HttpResponseException
+     */
     protected function respondFrom($method): \Closure
     {
         return function () use ($method) {
-            respondWith(app()->call(...$method));
+            throw new HttpResponseException(app()->call(...$method));
         };
     }
 
     /**
-     * @param array $resp
+     * @param array $methodCalls
      * @param $respObj
      *
-     * @throws \ImanGhafoori\Terminator\TerminateException
+     * @throws \Illuminate\Http\Exceptions\HttpResponseException
      */
-    private function sendResponse(array $resp, $respObj)
+    private function sendResponse(array $methodCalls, $respObj)
     {
-        foreach ($resp as $call) {
+        foreach ($methodCalls as $call) {
             list($method, $args) = $call;
             $respObj = $respObj->{$method}(...$args);
         }
-        respondWith($respObj);
+        throw new HttpResponseException($respObj);
     }
 
     /**
