@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Gate;
-use Imanghafoori\HeyMan\Chain;
 use Imanghafoori\HeyMan\Facades\HeyMan;
 
 class Logger

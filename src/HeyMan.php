@@ -19,7 +19,7 @@ class HeyMan
     {
         resolve(ChainManager::class)->startChain();
 
-        if (config()->get('app.debug') and ! app()->environment('production')) {
+        if (config()->get('app.debug') and !app()->environment('production')) {
             $d = array_only(debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 2)[1], ['file', 'line', 'args']);
             resolve(ChainManager::class)->set('debugInfo', $d);
         }
