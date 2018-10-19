@@ -23,9 +23,9 @@ class ChainManager
         $this->chain = new Chain();
         $this->chain->chainInfo = [
             'beforeReaction' => [],
-            'debugInfo' => ['file' => '', 'line' => '', 'args' => ''],
-            'responseType' => 'nothing',
-            'data' => [],
+            'debugInfo'      => ['file' => '', 'line' => '', 'args' => ''],
+            'responseType'   => 'nothing',
+            'data'           => [],
         ];
     }
 

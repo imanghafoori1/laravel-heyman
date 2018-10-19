@@ -4,7 +4,8 @@ namespace Imanghafoori\HeyMan\Reactions;
 
 use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Http\Exceptions\HttpResponseException;
-use Imanghafoori\HeyMan\{ChainManager, Switching\HeyManSwitcher};
+use Imanghafoori\HeyMan\ChainManager;
+use Imanghafoori\HeyMan\Switching\HeyManSwitcher;
 
 final class ResponderFactory
 {
@@ -65,9 +66,10 @@ final class ResponderFactory
 
     /**
      * @param $method
-     * @return \Closure
      *
      * @throws \Illuminate\Http\Exceptions\HttpResponseException
+     *
+     * @return \Closure
      */
     protected function respondFrom($method): \Closure
     {
@@ -88,6 +90,7 @@ final class ResponderFactory
             list($method, $args) = $call;
             $respObj = $respObj->{$method}(...$args);
         }
+
         throw new HttpResponseException($respObj);
     }
 

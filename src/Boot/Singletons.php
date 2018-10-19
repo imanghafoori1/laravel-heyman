@@ -2,9 +2,9 @@
 
 namespace Imanghafoori\HeyMan\Boot;
 
+use Imanghafoori\HeyMan\ChainManager;
 use Imanghafoori\HeyMan\Conditions\ConditionsFacade;
 use Imanghafoori\HeyMan\HeyMan;
-use Imanghafoori\HeyMan\ChainManager;
 use Imanghafoori\HeyMan\Reactions\ReactionFactory;
 use Imanghafoori\HeyMan\Switching\HeyManSwitcher;
 use Imanghafoori\HeyMan\WatchingStrategies\EloquentModels\EloquentEventsManager;
