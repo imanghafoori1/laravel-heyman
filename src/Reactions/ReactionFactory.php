@@ -44,6 +44,7 @@ final class ReactionFactory
 
     /**
      * @param $chain
+     *
      * @return \Closure
      */
     private function makePreResponseActions($chain): \Closure
@@ -60,6 +61,7 @@ final class ReactionFactory
 
     /**
      * @param $chain
+     *
      * @return array
      */
     private function convertToClosures($chain): array
@@ -68,7 +70,6 @@ final class ReactionFactory
         $r = [];
         foreach ($tasks as $task) {
             if ($task[1] == 'event') {
-
                 $r[] = function () use ($task) {
                     resolve('events')->dispatch(...$task[0]);
                 };
@@ -78,6 +79,7 @@ final class ReactionFactory
                 };
             }
         }
+
         return $r;
     }
 }
