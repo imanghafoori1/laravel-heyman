@@ -55,6 +55,8 @@ final class Reactions
 
     private function commit($args, $methodName)
     {
-        resolve(ChainManager::class)->commitCalledMethod($args, $methodName);
+        $chain = resolve(ChainManager::class);
+        $chain->push('data', $args);
+        $chain->set('responseType', $methodName);
     }
 }

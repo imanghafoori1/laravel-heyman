@@ -28,12 +28,6 @@ class ChainManager
         $this->get('eventManager')->commitChain($callbackListener);
     }
 
-    public function commitCalledMethod($args, $methodName)
-    {
-        $this->push('data', $args);
-        $this->set('responseType', $methodName);
-    }
-
     public function get($key)
     {
         return $this->chain->chainInfo[$key] ?? null;

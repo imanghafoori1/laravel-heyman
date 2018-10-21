@@ -31,6 +31,8 @@ final class Responder
 
     public function __call($method, $parameters)
     {
-        resolve(ChainManager::class)->commitCalledMethod([$method, $parameters], 'response');
+        $chain = resolve(ChainManager::class);
+        $chain->push('data', [$method, $parameters]);
+        $chain->set('responseType', 'response');
     }
 }

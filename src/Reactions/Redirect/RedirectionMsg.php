@@ -43,7 +43,7 @@ final class RedirectionMsg
             return new TerminateWith($this);
         }
 
-        resolve(ChainManager::class)->commitCalledMethod([$method, $parameters], 'redirect');
+        resolve(ChainManager::class)->push('data', [$method, $parameters]);
 
         return $this;
     }
