@@ -19,7 +19,7 @@ class ResponderTest extends TestCase
 
             \Facades\Imanghafoori\HeyMan\ChainManager::shouldReceive('submitChainConfig')->once();
             \Facades\Imanghafoori\HeyMan\ChainManager::shouldReceive('set')
-                ->once()->with('responseType',  'response');
+                ->once()->with('responseType', 'response');
 
             \Facades\Imanghafoori\HeyMan\ChainManager::shouldReceive('push')
                 ->once()->with('data', [$method, [$param]]);
