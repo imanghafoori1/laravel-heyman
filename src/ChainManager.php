@@ -9,12 +9,11 @@ class ChainManager
     /**
      * @var \Imanghafoori\HeyMan\Chain
      */
-    private $chain;
+    private $chainInfo = [];
 
     public function startChain()
     {
-        $this->chain = new Chain();
-        $this->chain->chainInfo = [
+        $this->chainInfo = [
             'beforeReaction' => [],
             'debugInfo'      => ['file' => '', 'line' => '', 'args' => ''],
             'responseType'   => 'nothing',
@@ -30,16 +29,16 @@ class ChainManager
 
     public function get($key)
     {
-        return $this->chain->chainInfo[$key] ?? null;
+        return $this->chainInfo[$key] ?? null;
     }
 
     public function set($key, $value)
     {
-        $this->chain->chainInfo[$key] = $value;
+        $this->chainInfo[$key] = $value;
     }
 
     public function push($key, $value)
     {
-        $this->chain->chainInfo[$key][] = $value;
+        $this->chainInfo[$key][] = $value;
     }
 }
