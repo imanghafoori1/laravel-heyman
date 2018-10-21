@@ -34,11 +34,6 @@ class ChainManager
         $this->set('responseType', $methodName);
     }
 
-    public function getCalledResponse()
-    {
-        return [$this->get('data'), $this->get('responseType')];
-    }
-
     public function get($key)
     {
         return $this->chain->chainInfo[$key] ?? null;

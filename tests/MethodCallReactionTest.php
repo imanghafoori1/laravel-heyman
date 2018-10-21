@@ -55,10 +55,10 @@ class MethodCallReactionTest extends TestCase
             ->afterCalling($cb)
             ->weDenyAccess();
 
-        resolve(\Imanghafoori\HeyMan\ChainManager::class)->startChain();
-        list($data, $responseType) = resolve(\Imanghafoori\HeyMan\ChainManager::class)->getCalledResponse();
-        $this->assertEquals([], $data);
-        $this->assertEquals('nothing', $responseType);
+        $chain = resolve(\Imanghafoori\HeyMan\ChainManager::class);
+        $chain->startChain();
+        $this->assertEquals([], $chain->get('data'));
+        $this->assertEquals('nothing', $chain->get('responseType'));
 
         $this->get('welcome');
     }
