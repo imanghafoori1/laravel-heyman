@@ -48,6 +48,22 @@ final class ReactionFactory
      */
     private function makePreResponseActions($chain): \Closure
     {
+        $tasks = $this->convertToClosures($chain);
+        $beforeReaction = function () use ($tasks) {
+            foreach ($tasks as $task) {
+                $task();
+            }
+        };
+
+        return $beforeReaction;
+    }
+
+    /**
+     * @param $chain
+     * @return array
+     */
+    private function convertToClosures($chain): array
+    {
         $tasks = $chain->get('beforeReaction');
         $r = [];
         foreach ($tasks as $task) {
@@ -62,13 +78,6 @@ final class ReactionFactory
                 };
             }
         }
-        $tasks = $r;
-        $beforeReaction = function () use ($tasks) {
-            foreach ($tasks as $task) {
-                $task();
-            }
-        };
-
-        return $beforeReaction;
+        return $r;
     }
 }
