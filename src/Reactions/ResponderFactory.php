@@ -14,6 +14,7 @@ final class ResponderFactory
         $chain = resolve(ChainManager::class);
         $m = $chain->get('responseType');
         $data = $chain->get('data');
+
         return $this->$m(...$data);
     }
 
