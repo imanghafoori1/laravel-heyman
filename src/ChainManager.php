@@ -11,13 +11,6 @@ class ChainManager
      */
     private $chain;
 
-    public function addCallbackBeforeReaction($callback, $parameters)
-    {
-        $this->chain->chainInfo['beforeReaction'][] = function () use ($callback, $parameters) {
-            app()->call($callback, $parameters);
-        };
-    }
-
     public function startChain()
     {
         $this->chain = new Chain();
@@ -29,33 +22,15 @@ class ChainManager
         ];
     }
 
-    public function addEventBeforeReaction($event, array $payload, bool $halt)
-    {
-        $this->chain->chainInfo['beforeReaction'][] = function () use ($event, $payload, $halt) {
-            resolve('events')->dispatch($event, $payload, $halt);
-        };
-    }
-
     public function submitChainConfig()
     {
         $callbackListener = resolve(ReactionFactory::class)->make();
         $this->get('eventManager')->commitChain($callbackListener);
     }
 
-    public function beforeReaction(): \Closure
-    {
-        $tasks = $this->get('beforeReaction');
-
-        return function () use ($tasks) {
-            foreach ($tasks as $task) {
-                $task();
-            }
-        };
-    }
-
     public function commitCalledMethod($args, $methodName)
     {
-        $this->chain->chainInfo['data'][] = $args;
+        $this->push('data', $args);
         $this->set('responseType', $methodName);
     }
 
@@ -72,5 +47,10 @@ class ChainManager
     public function set($key, $value)
     {
         $this->chain->chainInfo[$key] = $value;
+    }
+
+    public function push($key, $value)
+    {
+        $this->chain->chainInfo[$key][] = $value;
     }
 }

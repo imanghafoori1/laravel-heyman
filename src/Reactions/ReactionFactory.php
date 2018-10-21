@@ -24,7 +24,9 @@ final class ReactionFactory
     private function makeReaction(): \Closure
     {
         $chain = resolve(ChainManager::class);
-        $beforeReaction = $chain->beforeReaction();
+
+        $beforeReaction = $this->makePreResponseActions($chain);
+
         $debug = $chain->get('debugInfo');
         $termination = $chain->get('termination');
 
@@ -38,5 +40,35 @@ final class ReactionFactory
             $beforeReaction();
             $responder();
         };
+    }
+
+    /**
+     * @param $chain
+     * @return \Closure
+     */
+    private function makePreResponseActions($chain): \Closure
+    {
+        $tasks = $chain->get('beforeReaction');
+        $r = [];
+        foreach ($tasks as $task) {
+            if ($task[1] == 'event') {
+
+                $r[] = function () use ($task) {
+                    resolve('events')->dispatch(...$task[0]);
+                };
+            } elseif ($task[1] == 'cb') {
+                $r[] = function () use ($task) {
+                    app()->call(...$task[0]);
+                };
+            }
+        }
+        $tasks = $r;
+        $beforeReaction = function () use ($tasks) {
+            foreach ($tasks as $task) {
+                $task();
+            }
+        };
+
+        return $beforeReaction;
     }
 }
