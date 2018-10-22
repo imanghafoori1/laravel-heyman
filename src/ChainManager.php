@@ -2,8 +2,6 @@
 
 namespace Imanghafoori\HeyMan;
 
-use Imanghafoori\HeyMan\Reactions\ReactionFactory;
-
 class ChainManager
 {
     /**
@@ -13,18 +11,7 @@ class ChainManager
 
     public function startChain()
     {
-        $this->chainInfo = [
-            'beforeReaction' => [],
-            'debugInfo'      => ['file' => '', 'line' => '', 'args' => ''],
-            'responseType'   => 'nothing',
-            'data'           => [],
-        ];
-    }
-
-    public function submitChainConfig()
-    {
-        $callbackListener = resolve(ReactionFactory::class)->make();
-        $this->get('eventManager')->commitChain($callbackListener);
+        $this->chainInfo = [];
     }
 
     public function get($key)

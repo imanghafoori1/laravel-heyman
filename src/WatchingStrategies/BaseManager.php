@@ -3,6 +3,7 @@
 namespace Imanghafoori\HeyMan\WatchingStrategies;
 
 use Imanghafoori\HeyMan\Normilizers\InputNormalizer;
+use Imanghafoori\HeyMan\Reactions\ReactionFactory;
 use Imanghafoori\HeyMan\Switching\HeyManSwitcher;
 
 abstract class BaseManager
@@ -54,10 +55,10 @@ abstract class BaseManager
     }
 
     /**
-     * @param callable $callback
      */
-    public function commitChain(callable $callback)
+    public function commitChain()
     {
+        $callback = resolve(ReactionFactory::class)->make();
         $switchableListener = resolve(HeyManSwitcher::class)->wrapForIgnorance($callback, get_class($this));
 
         foreach ($this->watchedEntities as $value) {

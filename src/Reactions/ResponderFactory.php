@@ -12,8 +12,8 @@ final class ResponderFactory
     public function make()
     {
         $chain = resolve(ChainManager::class);
-        $m = $chain->get('responseType');
-        $data = $chain->get('data');
+        $m = $chain->get('responseType') ?? 'nothing';
+        $data = $chain->get('data') ?? [];
 
         return $this->$m(...$data);
     }

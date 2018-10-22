@@ -27,7 +27,7 @@ final class ReactionFactory
 
         $beforeReaction = $this->makePreResponseActions($chain);
 
-        $debug = $chain->get('debugInfo');
+        $debug = $chain->get('debugInfo') ?? ['file' => '', 'line' => '', 'args' => ''];
         $termination = $chain->get('termination');
 
         $responder = resolve(ResponderFactory::class)->make();
@@ -66,7 +66,7 @@ final class ReactionFactory
      */
     private function convertToClosures($chain): array
     {
-        $tasks = $chain->get('beforeReaction');
+        $tasks = $chain->get('beforeReaction') ?? [];
         $r = [];
         foreach ($tasks as $task) {
             if ($task[1] == 'event') {

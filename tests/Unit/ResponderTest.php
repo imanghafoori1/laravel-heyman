@@ -17,7 +17,10 @@ class ResponderTest extends TestCase
         foreach ($methods as $method) {
             $param = str_random(3);
 
-            \Facades\Imanghafoori\HeyMan\ChainManager::shouldReceive('submitChainConfig')->once();
+            $m = Mockery::mock(\Imanghafoori\HeyMan\WatchingStrategies\BaseManager::class);
+            $m->shouldReceive('commitChain');
+
+            \Facades\Imanghafoori\HeyMan\ChainManager::shouldReceive('get')->once()->with('eventManager')->andReturn($m);
             \Facades\Imanghafoori\HeyMan\ChainManager::shouldReceive('set')
                 ->once()->with('responseType', 'response');
 
@@ -41,7 +44,10 @@ class ResponderTest extends TestCase
 
         foreach ($methods as $method) {
             $param = str_random(3);
-            \Facades\Imanghafoori\HeyMan\ChainManager::shouldReceive('submitChainConfig')->once();
+
+            $m = Mockery::mock(\Imanghafoori\HeyMan\WatchingStrategies\BaseManager::class);
+            $m->shouldReceive('commitChain');
+            \Facades\Imanghafoori\HeyMan\ChainManager::shouldReceive('get')->once()->with('eventManager')->andReturn($m);
             \Facades\Imanghafoori\HeyMan\ChainManager::shouldReceive('set')->once()->with('responseType', 'redirect');
             \Facades\Imanghafoori\HeyMan\ChainManager::shouldReceive('push')->once()->with('data', [$method, [$param]]);
 

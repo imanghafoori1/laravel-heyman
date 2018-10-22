@@ -50,7 +50,7 @@ final class Reactions
 
     public function __destruct()
     {
-        resolve(ChainManager::class)->submitChainConfig();
+        resolve(ChainManager::class)->get('eventManager')->commitChain();
     }
 
     private function commit($args, $methodName)

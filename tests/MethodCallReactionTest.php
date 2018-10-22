@@ -57,8 +57,8 @@ class MethodCallReactionTest extends TestCase
 
         $chain = resolve(\Imanghafoori\HeyMan\ChainManager::class);
         $chain->startChain();
-        $this->assertEquals([], $chain->get('data'));
-        $this->assertEquals('nothing', $chain->get('responseType'));
+        $this->assertEquals(null, $chain->get('data'));
+        $this->assertEquals(null, $chain->get('responseType'));
 
         $this->get('welcome');
     }
