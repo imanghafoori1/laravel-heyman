@@ -67,19 +67,21 @@ final class ReactionFactory
     private function convertToClosures($chain): array
     {
         $tasks = $chain->get('beforeReaction') ?? [];
-        $r = [];
-        foreach ($tasks as $task) {
+
+        $map = function ($task) {
+            $params = $task[0];
+
             if ($task[1] == 'event') {
-                $r[] = function () use ($task) {
-                    resolve('events')->dispatch(...$task[0]);
-                };
-            } elseif ($task[1] == 'cb') {
-                $r[] = function () use ($task) {
-                    app()->call(...$task[0]);
+                return function () use ($params) {
+                    resolve('events')->dispatch(...$params);
                 };
             }
-        }
 
-        return $r;
+            return function () use ($params) {
+                app()->call(...$params);
+            };
+        };
+
+        return array_map($map, $tasks);
     }
 }
