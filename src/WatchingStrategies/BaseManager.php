@@ -54,8 +54,6 @@ abstract class BaseManager
         return $this;
     }
 
-    /**
-     */
     public function commitChain()
     {
         $callback = resolve(ReactionFactory::class)->make();
