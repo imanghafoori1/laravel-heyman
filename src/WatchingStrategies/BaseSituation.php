@@ -1,8 +1,6 @@
 <?php
 
-namespace Imanghafoori\HeyMan\Situations;
-
-use Imanghafoori\HeyMan\ChainManager;
+namespace Imanghafoori\HeyMan\WatchingStrategies;
 
 abstract class BaseSituation
 {
@@ -13,6 +11,6 @@ abstract class BaseSituation
 
     protected function setManager(string $class, ...$array)
     {
-        resolve(ChainManager::class)->set('eventManager', resolve($class)->init(...$array));
+        resolve('heyman.chain')->set('eventManager', resolve($class)->init(...$array));
     }
 }

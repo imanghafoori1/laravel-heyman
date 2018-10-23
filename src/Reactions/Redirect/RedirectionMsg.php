@@ -43,7 +43,7 @@ final class RedirectionMsg
             return new TerminateWith($this);
         }
 
-        resolve(ChainManager::class)->push('data', [$method, $parameters]);
+        resolve('heyman.chain')->push('data', [$method, $parameters]);
 
         return $this;
     }

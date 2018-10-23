@@ -23,6 +23,7 @@ class Singletons
         foreach ($singletons as $class) {
             $app->singleton($class, $class);
         }
+        $app->singleton('heyman.chain', ChainManager::class);
     }
 
     /**

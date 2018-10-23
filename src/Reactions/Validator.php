@@ -2,8 +2,6 @@
 
 namespace Imanghafoori\HeyMan\Reactions;
 
-use Imanghafoori\HeyMan\ChainManager;
-
 final class Validator
 {
     /**
@@ -34,7 +32,7 @@ final class Validator
         $modifier = $this->modifier ?: function ($d) {
             return $d;
         };
-        $chain = resolve(ChainManager::class);
+        $chain = resolve('heyman.chain');
         $condition = resolve(ResponderFactory::class)->validatorCallback($modifier, ...$data);
         $chain->set('condition', $condition);
         $chain->get('eventManager')->commitChain();

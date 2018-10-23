@@ -24,7 +24,7 @@ final class YouShouldHave
 
     public function __call($method, $args): Otherwise
     {
-        resolve(ChainManager::class)->set('condition', app(ConditionsFacade::class)->$method(...$args));
+        resolve('heyman.chain')->set('condition', app(ConditionsFacade::class)->$method(...$args));
 
         return resolve(Otherwise::class);
     }

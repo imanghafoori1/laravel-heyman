@@ -1,6 +1,6 @@
 <?php
 
-namespace Imanghafoori\HeyMan\Situations;
+namespace Imanghafoori\HeyMan\WatchingStrategies;
 
 use Imanghafoori\HeyMan\WatchingStrategies\EloquentModels\EloquentSituations;
 use Imanghafoori\HeyMan\WatchingStrategies\Events\EventSituations;

@@ -2,8 +2,6 @@
 
 namespace Imanghafoori\HeyMan\Reactions;
 
-use Imanghafoori\HeyMan\ChainManager;
-
 /**
  * Class Responder.
  *
@@ -31,6 +29,6 @@ final class Responder
 
     public function __call($method, $parameters)
     {
-        resolve(ChainManager::class)->push('data', [$method, $parameters]);
+        resolve('heyman.chain')->push('data', [$method, $parameters]);
     }
 }

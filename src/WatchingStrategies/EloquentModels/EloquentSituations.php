@@ -2,7 +2,7 @@
 
 namespace Imanghafoori\HeyMan\WatchingStrategies\EloquentModels;
 
-use Imanghafoori\HeyMan\Situations\BaseSituation;
+use Imanghafoori\HeyMan\WatchingStrategies\BaseSituation;
 
 final class EloquentSituations extends BaseSituation
 {

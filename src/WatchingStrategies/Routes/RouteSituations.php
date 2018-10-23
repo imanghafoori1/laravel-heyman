@@ -2,7 +2,7 @@
 
 namespace Imanghafoori\HeyMan\WatchingStrategies\Routes;
 
-use Imanghafoori\HeyMan\Situations\BaseSituation;
+use Imanghafoori\HeyMan\WatchingStrategies\BaseSituation;
 
 final class RouteSituations extends BaseSituation
 {

@@ -2,8 +2,6 @@
 
 namespace Imanghafoori\HeyMan\Reactions;
 
-use Imanghafoori\HeyMan\ChainManager;
-
 final class ReactionFactory
 {
     /**
@@ -12,7 +10,7 @@ final class ReactionFactory
     public function make(): \Closure
     {
         $reaction = $this->makeReaction();
-        $condition = resolve(ChainManager::class)->get('condition');
+        $condition = resolve('heyman.chain')->get('condition');
 
         return function (...$f) use ($condition, $reaction) {
             if (!$condition($f)) {
@@ -23,7 +21,7 @@ final class ReactionFactory
 
     private function makeReaction(): \Closure
     {
-        $chain = resolve(ChainManager::class);
+        $chain = resolve('heyman.chain');
 
         $beforeReaction = $this->makePreResponseActions($chain);
 
@@ -49,7 +47,8 @@ final class ReactionFactory
      */
     private function makePreResponseActions($chain): \Closure
     {
-        $tasks = $this->convertToClosures($chain);
+        $tasks = $chain->get('beforeReaction') ?? [];
+        $tasks = $this->convertToClosures($tasks);
         $beforeReaction = function () use ($tasks) {
             foreach ($tasks as $task) {
                 $task();
@@ -60,14 +59,11 @@ final class ReactionFactory
     }
 
     /**
-     * @param $chain
-     *
+     * @param $tasks
      * @return array
      */
-    private function convertToClosures($chain): array
+    private function convertToClosures($tasks): array
     {
-        $tasks = $chain->get('beforeReaction') ?? [];
-
         $map = function ($task) {
             $params = $task[0];
 

@@ -2,8 +2,6 @@
 
 namespace Imanghafoori\HeyMan\Reactions;
 
-use Imanghafoori\HeyMan\ChainManager;
-
 trait BeforeReaction
 {
     public function afterCalling($callback, array $parameters = []): self
@@ -18,8 +16,7 @@ trait BeforeReaction
 
     private function pushIt($arr)
     {
-        resolve(ChainManager::class)->push('beforeReaction', $arr);
-
+        resolve('heyman.chain')->push('beforeReaction', $arr);
         return $this;
     }
 }

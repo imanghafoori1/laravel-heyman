@@ -30,7 +30,7 @@ class Redirector
 
     public function __call($method, $parameters)
     {
-        resolve(ChainManager::class)->push('data', [$method, $parameters]);
+        resolve('heyman.chain')->push('data', [$method, $parameters]);
 
         return new RedirectionMsg($this);
     }

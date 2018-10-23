@@ -3,8 +3,8 @@
 namespace Imanghafoori\HeyMan;
 
 use Imanghafoori\HeyMan\MakeSure\HttpClient;
-use Imanghafoori\HeyMan\Situations\SituationsProxy;
 use Imanghafoori\HeyMan\Switching\Turn;
+use Imanghafoori\HeyMan\WatchingStrategies\SituationsProxy;
 
 class HeyMan
 {
@@ -17,11 +17,11 @@ class HeyMan
 
     public function __call($method, $args)
     {
-        resolve(ChainManager::class)->startChain();
+        resolve('heyman.chain')->startChain();
 
         if (config()->get('app.debug') and !app()->environment('production')) {
             $d = array_only(debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 2)[1], ['file', 'line', 'args']);
-            resolve(ChainManager::class)->set('debugInfo', $d);
+            resolve('heyman.chain')->set('debugInfo', $d);
         }
 
         return  SituationsProxy::call($method, $args);

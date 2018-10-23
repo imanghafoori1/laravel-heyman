@@ -2,7 +2,7 @@
 
 namespace Imanghafoori\HeyMan\WatchingStrategies\Events;
 
-use Imanghafoori\HeyMan\Situations\BaseSituation;
+use Imanghafoori\HeyMan\WatchingStrategies\BaseSituation;
 
 final class EventSituations extends BaseSituation
 {
