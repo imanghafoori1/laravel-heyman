@@ -30,10 +30,7 @@ class Redirector
 
     public function __call($method, $parameters)
     {
-        $chain = resolve(ChainManager::class);
-
-        $chain->push('data', [$method, $parameters]);
-        $chain->set('responseType', 'redirect');
+        resolve(ChainManager::class)->push('data', [$method, $parameters]);
 
         return new RedirectionMsg($this);
     }

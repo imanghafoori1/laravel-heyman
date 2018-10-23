@@ -18,6 +18,14 @@ use Imanghafoori\HeyMan\WatchingStrategies\Views\ViewEventManager;
  */
 class Consider
 {
+    const methods = [
+            'eventChecks'      => EventManager::class,
+            'viewChecks'       => ViewEventManager::class,
+            'routeChecks'      => RouterEventManager::class,
+            'eloquentChecks'   => EloquentEventsManager::class,
+            'validationChecks' => 'validation',
+    ];
+
     private $mode;
 
     public function __construct($mode)
@@ -27,14 +35,12 @@ class Consider
 
     public function __call($method, $args)
     {
-        $m = $this->methods();
-
-        return $this->turn($m[$method], ...$args);
+        return $this->turn(self::methods[$method], ...$args);
     }
 
     public function allChecks()
     {
-        foreach ($this->methods() as $method => $type) {
+        foreach (self::methods as $method => $type) {
             $this->$method();
         }
     }
@@ -68,19 +74,5 @@ class Consider
             'turnOff' => true,
             'turnOn'  => false,
         ][$this->mode]);
-    }
-
-    /**
-     * @return array
-     */
-    private function methods(): array
-    {
-        return [
-            'eventChecks'      => EventManager::class,
-            'viewChecks'       => ViewEventManager::class,
-            'routeChecks'      => RouterEventManager::class,
-            'eloquentChecks'   => EloquentEventsManager::class,
-            'validationChecks' => 'validation',
-        ];
     }
 }

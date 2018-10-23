@@ -8,15 +8,17 @@ trait BeforeReaction
 {
     public function afterCalling($callback, array $parameters = []): self
     {
-        resolve(ChainManager::class)->push('beforeReaction', [[$callback, $parameters], 'cb']);
-
-        return $this;
+        return $this->pushIt([[$callback, $parameters], 'cb']);
     }
 
     public function afterFiringEvent($event, $payload = [], $halt = false): self
     {
-        resolve(ChainManager::class)->push('beforeReaction', [[$event, $payload, $halt], 'event']);
+        return $this->pushIt([[$event, $payload, $halt], 'event']);
+    }
 
+    private function pushIt($arr)
+    {
+        resolve(ChainManager::class)->push('beforeReaction', $arr);
         return $this;
     }
 }

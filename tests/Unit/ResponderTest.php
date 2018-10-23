@@ -20,7 +20,9 @@ class ResponderTest extends TestCase
             $m = Mockery::mock(\Imanghafoori\HeyMan\WatchingStrategies\BaseManager::class);
             $m->shouldReceive('commitChain');
 
-            \Facades\Imanghafoori\HeyMan\ChainManager::shouldReceive('get')->once()->with('eventManager')->andReturn($m);
+            \Facades\Imanghafoori\HeyMan\ChainManager::shouldReceive('get')
+                ->once()->with('eventManager')->andReturn($m);
+
             \Facades\Imanghafoori\HeyMan\ChainManager::shouldReceive('set')
                 ->once()->with('responseType', 'response');
 
