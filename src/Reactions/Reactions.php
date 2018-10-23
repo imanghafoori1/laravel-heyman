@@ -3,7 +3,8 @@
 namespace Imanghafoori\HeyMan\Reactions;
 
 use Illuminate\Auth\Access\AuthorizationException;
-use Imanghafoori\HeyMan\{ChainManager, Reactions\Redirect\Redirector};
+use Imanghafoori\HeyMan\ChainManager;
+use Imanghafoori\HeyMan\Reactions\Redirect\Redirector;
 
 final class Reactions
 {
@@ -12,12 +13,14 @@ final class Reactions
     public function response(): Responder
     {
         resolve(ChainManager::class)->set('responseType', 'response');
+
         return new Responder($this);
     }
 
     public function redirect(): Redirector
     {
         resolve(ChainManager::class)->set('responseType', 'redirect');
+
         return new Redirector($this);
     }
 

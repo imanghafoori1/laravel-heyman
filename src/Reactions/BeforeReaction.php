@@ -19,6 +19,7 @@ trait BeforeReaction
     private function pushIt($arr)
     {
         resolve(ChainManager::class)->push('beforeReaction', $arr);
+
         return $this;
     }
 }
