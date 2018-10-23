@@ -2,7 +2,6 @@
 
 namespace Imanghafoori\HeyMan\Reactions\Redirect;
 
-use Imanghafoori\HeyMan\ChainManager;
 use Imanghafoori\HeyMan\Reactions\TerminateWith;
 
 /**

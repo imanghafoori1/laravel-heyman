@@ -19,6 +19,7 @@ final class Reactions
     public function redirect(): Redirector
     {
         resolve('heyman.chain')->set('responseType', 'redirect');
+
         return new Redirector($this);
     }
 
