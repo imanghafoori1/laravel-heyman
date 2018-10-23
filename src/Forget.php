@@ -3,13 +3,11 @@
 namespace Imanghafoori\HeyMan;
 
 use Imanghafoori\HeyMan\Normilizers\InputNormalizer;
-use Imanghafoori\HeyMan\WatchingStrategies\{
-    EloquentModels\EloquentEventsManager,
-    Events\EventManager,
-    Routes\RouteNormalizer,
-    Routes\RouterEventManager,
-    Views\ViewEventManager
-};
+use Imanghafoori\HeyMan\WatchingStrategies\EloquentModels\EloquentEventsManager;
+use Imanghafoori\HeyMan\WatchingStrategies\Events\EventManager;
+use Imanghafoori\HeyMan\WatchingStrategies\Routes\RouteNormalizer;
+use Imanghafoori\HeyMan\WatchingStrategies\Routes\RouterEventManager;
+use Imanghafoori\HeyMan\WatchingStrategies\Views\ViewEventManager;
 
 /**
  * Class Forget.

@@ -17,6 +17,7 @@ trait BeforeReaction
     private function pushIt($arr)
     {
         resolve('heyman.chain')->push('beforeReaction', $arr);
+
         return $this;
     }
 }

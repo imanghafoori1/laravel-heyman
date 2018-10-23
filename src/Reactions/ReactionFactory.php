@@ -60,6 +60,7 @@ final class ReactionFactory
 
     /**
      * @param $tasks
+     *
      * @return array
      */
     private function convertToClosures($tasks): array
