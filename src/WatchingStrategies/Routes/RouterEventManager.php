@@ -15,7 +15,9 @@ class RouterEventManager
                 $eventObj->route->getActionName(),
                 $eventObj->request->method().$eventObj->route->uri,
             ];
-            resolve(RouteMatchListener::class)->execMatchedCallbacks($matchedRoute, resolve('BaseManager')->data ?? []);
+
+            $t = resolve('BaseManager')->data['Imanghafoori\HeyMan\WatchingStrategies\Routes\RouterEventManager'] ?? [];
+            resolve(RouteMatchListener::class)->execMatchedCallbacks($matchedRoute, $t);
         });
     }
 }

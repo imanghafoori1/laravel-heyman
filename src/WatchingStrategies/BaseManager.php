@@ -20,22 +20,27 @@ class BaseManager
 
     public function start()
     {
-        foreach ($this->data as $value => $callbacks) {
-            foreach ($callbacks as $key => $cb) {
-                resolve($this->manager)->register($value, $cb, $key);
+        foreach ($this->data as $manager => $f) {
+            if($manager == RouterEventManager::class)
+                continue;
+            foreach ($f as $value => $callbacks) {
+                foreach ($callbacks as $key => $cb) {
+
+                    resolve($manager)->register($value, $cb, $key);
+                }
             }
         }
     }
 
-    public function forgetAbout($models, $event = null)
+    public function forgetAbout($manager, $models, $event = null)
     {
         $models = $this->normalizeInput($models);
 
         foreach ($models as $model) {
             if ($event) {
-                unset($this->data[$model][$event]);
+                unset($this->data[$manager][$model][$event]);
             } else {
-                unset($this->data[$model]);
+                unset($this->data[$manager][$model]);
             }
         }
     }
@@ -64,7 +69,7 @@ class BaseManager
         $switchableListener = resolve(HeyManSwitcher::class)->wrapForIgnorance($callback, $this->manager);
 
         foreach ($this->watchedEntities as $value) {
-            $this->data[$value][$this->event][] = $switchableListener;
+            $this->data[$this->manager][$value][$this->event][] = $switchableListener;
         }
     }
 }
