@@ -3,7 +3,6 @@
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Facades\Gate;
 use Imanghafoori\HeyMan\Facades\HeyMan;
-use Imanghafoori\HeyMan\WatchingStrategies\Events\EventManager;
 
 class GateAuthorizationTest extends TestCase
 {
