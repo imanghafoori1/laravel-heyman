@@ -8,6 +8,7 @@ final class ViewSituations
     {
         return false;
     }
+
     /**
      * @param array|string $views
      */

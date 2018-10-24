@@ -21,11 +21,11 @@ class BaseManager
     public function start()
     {
         foreach ($this->data as $manager => $f) {
-            if($manager == RouterEventManager::class)
+            if ($manager == RouterEventManager::class) {
                 continue;
+            }
             foreach ($f as $value => $callbacks) {
                 foreach ($callbacks as $key => $cb) {
-
                     resolve($manager)->register($value, $cb, $key);
                 }
             }
@@ -49,7 +49,7 @@ class BaseManager
      * ViewEventManager constructor.
      *
      * @param $manager
-     * @param array $values
+     * @param array  $values
      * @param string $param
      *
      * @return self

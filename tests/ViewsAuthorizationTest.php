@@ -2,7 +2,6 @@
 
 use Illuminate\Auth\Access\AuthorizationException;
 use Imanghafoori\HeyMan\Facades\HeyMan;
-use Imanghafoori\HeyMan\WatchingStrategies\Views\ViewEventManager;
 
 class ViewsAuthorizationTest extends TestCase
 {
