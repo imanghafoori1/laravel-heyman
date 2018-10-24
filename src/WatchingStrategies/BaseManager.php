@@ -43,22 +43,19 @@ class BaseManager
     /**
      * ViewEventManager constructor.
      *
+     * @param $manager
      * @param array $values
      * @param string $param
      *
      * @return self
      */
-    public function init(array $values, string $param = 'default'): self
+    public function init($manager, array $values, string $param = 'default'): self
     {
+        $this->manager = $manager;
         $this->watchedEntities = $values;
         $this->event = $param;
 
         return $this;
-    }
-
-    public function setManager($manager)
-    {
-        $this->manager = $manager;
     }
 
     public function commitChain()

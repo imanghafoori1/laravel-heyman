@@ -14,6 +14,7 @@ class ResponderTest extends TestCase
             'jsonp',
             'download',
         ];
+
         foreach ($methods as $method) {
             $param = str_random(3);
 

@@ -2,9 +2,7 @@
 
 namespace Imanghafoori\HeyMan\WatchingStrategies\EloquentModels;
 
-use Imanghafoori\HeyMan\WatchingStrategies\BaseSituation;
-
-final class EloquentSituations extends BaseSituation
+final class EloquentSituations
 {
     const methods = [
         'whenYouFetch'  => 'retrieved',
@@ -21,6 +19,6 @@ final class EloquentSituations extends BaseSituation
 
     public function __call($method, $model)
     {
-        $this->setManager(EloquentEventsManager::class, $model, self::methods[$method]);
+        resolve('BaseManager')->init(EloquentEventsManager::class, $model, self::methods[$method]);
     }
 }

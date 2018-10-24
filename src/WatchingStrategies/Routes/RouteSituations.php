@@ -2,9 +2,7 @@
 
 namespace Imanghafoori\HeyMan\WatchingStrategies\Routes;
 
-use Imanghafoori\HeyMan\WatchingStrategies\BaseSituation;
-
-final class RouteSituations extends BaseSituation
+final class RouteSituations
 {
     public function hasMethod($method)
     {
@@ -22,7 +20,7 @@ final class RouteSituations extends BaseSituation
     public function __call($method, $args)
     {
         $args = $this->getNormalizedArgs($method, $args);
-        $this->setManager(RouterEventManager::class, $args);
+        resolve('BaseManager')->init(RouterEventManager::class, $args);
     }
 
     /**

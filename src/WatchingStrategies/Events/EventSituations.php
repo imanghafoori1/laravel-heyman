@@ -2,16 +2,14 @@
 
 namespace Imanghafoori\HeyMan\WatchingStrategies\Events;
 
-use Imanghafoori\HeyMan\WatchingStrategies\BaseSituation;
-
-final class EventSituations extends BaseSituation
+final class EventSituations
 {
     /**
      * @param mixed ...$event
      */
     public function whenEventHappens(...$event)
     {
-        $this->setManager(EventManager::class, $event);
+        resolve('BaseManager')->init(EventManager::class, $event);
     }
 
     public function whenYouReachCheckPoint($name)
