@@ -2,16 +2,14 @@
 
 namespace Imanghafoori\HeyMan\WatchingStrategies\EloquentModels;
 
-use Imanghafoori\HeyMan\WatchingStrategies\BaseManager;
-
-class EloquentEventsManager extends BaseManager
+class EloquentEventsManager
 {
     /**
      * @param $callbacks
      * @param $event
      * @param $model
      */
-    protected function register(string $model, array $callbacks, string $event)
+    public function register(string $model, array $callbacks, string $event)
     {
         foreach ($callbacks as $cb) {
             $model::{$event}($cb);

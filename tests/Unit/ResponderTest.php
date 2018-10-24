@@ -17,17 +17,7 @@ class ResponderTest extends TestCase
         foreach ($methods as $method) {
             $param = str_random(3);
 
-            $m = Mockery::mock(\Imanghafoori\HeyMan\WatchingStrategies\BaseManager::class);
-            $m->shouldReceive('commitChain');
-
-            \Facades\Imanghafoori\HeyMan\ChainManager::shouldReceive('get')
-                ->once()->with('eventManager')->andReturn($m);
-
-            \Facades\Imanghafoori\HeyMan\ChainManager::shouldReceive('set')
-                ->once()->with('responseType', 'response');
-
-            \Facades\Imanghafoori\HeyMan\ChainManager::shouldReceive('push')
-                ->once()->with('data', [$method, [$param]]);
+            \Facades\BaseManager::shouldReceive('commitChain')->once();
 
             $reaction = app(\Imanghafoori\HeyMan\Reactions\Reactions::class);
             $reaction->response()->{$method}($param);
@@ -47,11 +37,7 @@ class ResponderTest extends TestCase
         foreach ($methods as $method) {
             $param = str_random(3);
 
-            $m = Mockery::mock(\Imanghafoori\HeyMan\WatchingStrategies\BaseManager::class);
-            $m->shouldReceive('commitChain');
-            \Facades\Imanghafoori\HeyMan\ChainManager::shouldReceive('get')->once()->with('eventManager')->andReturn($m);
-            \Facades\Imanghafoori\HeyMan\ChainManager::shouldReceive('set')->once()->with('responseType', 'redirect');
-            \Facades\Imanghafoori\HeyMan\ChainManager::shouldReceive('push')->once()->with('data', [$method, [$param]]);
+            \Facades\BaseManager::shouldReceive('commitChain')->once();
 
             $reaction = app(\Imanghafoori\HeyMan\Reactions\Reactions::class);
             $reaction->redirect()->{$method}($param);
@@ -72,9 +58,9 @@ class ResponderTest extends TestCase
 
         foreach ($methods as $method) {
             $param = str_random(2);
-            $Redirector = Mockery::mock(\Imanghafoori\HeyMan\Reactions\Redirect\Redirector::class);
+            $redirector = Mockery::mock(\Imanghafoori\HeyMan\Reactions\Redirect\Redirector::class);
             app(\Facades\Imanghafoori\HeyMan\ChainManager::class)->shouldReceive('push')->once()->with('data', [$method, [[$param]]]);
-            $redirectionMsg = new \Imanghafoori\HeyMan\Reactions\Redirect\RedirectionMsg($Redirector);
+            $redirectionMsg = new \Imanghafoori\HeyMan\Reactions\Redirect\RedirectionMsg($redirector);
             $redirectionMsg->{$method}([$param]);
         }
     }

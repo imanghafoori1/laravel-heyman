@@ -30,7 +30,7 @@ class reactionsTest extends TestCase
         Auth::shouldReceive('guest')->andReturn(false);
 
         HeyMan::whenYouMakeView('welcome')->youShouldBeGuest()->otherwise()->redirect()->to('home')->withErrors('key_1', 'value_1');
-        app(ViewEventManager::class)->start();
+        app('BaseManager')->start();
         $this->get('welcome')->assertRedirect('home')->assertSessionHas('errors');
     }
 

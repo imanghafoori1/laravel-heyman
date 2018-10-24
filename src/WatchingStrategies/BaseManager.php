@@ -6,7 +6,7 @@ use Imanghafoori\HeyMan\Normilizers\InputNormalizer;
 use Imanghafoori\HeyMan\Reactions\ReactionFactory;
 use Imanghafoori\HeyMan\Switching\HeyManSwitcher;
 
-abstract class BaseManager
+class BaseManager
 {
     use InputNormalizer;
 
@@ -14,13 +14,15 @@ abstract class BaseManager
 
     protected $event;
 
-    protected $data = [];
+    public $manager;
+
+    public $data = [];
 
     public function start()
     {
         foreach ($this->data as $value => $callbacks) {
             foreach ($callbacks as $key => $cb) {
-                $this->register($value, $cb, $key);
+                resolve($this->manager)->register($value, $cb, $key);
             }
         }
     }
@@ -41,7 +43,7 @@ abstract class BaseManager
     /**
      * ViewEventManager constructor.
      *
-     * @param $values
+     * @param array $values
      * @param string $param
      *
      * @return self
@@ -54,10 +56,15 @@ abstract class BaseManager
         return $this;
     }
 
+    public function setManager($manager)
+    {
+        $this->manager = $manager;
+    }
+
     public function commitChain()
     {
         $callback = resolve(ReactionFactory::class)->make();
-        $switchableListener = resolve(HeyManSwitcher::class)->wrapForIgnorance($callback, get_class($this));
+        $switchableListener = resolve(HeyManSwitcher::class)->wrapForIgnorance($callback, $this->manager);
 
         foreach ($this->watchedEntities as $value) {
             $this->data[$value][$this->event][] = $switchableListener;

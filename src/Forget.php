@@ -28,12 +28,12 @@ final class Forget
 
     public function aboutView(...$view)
     {
-        resolve(ViewEventManager::class)->forgetAbout($view);
+        resolve('BaseManager')->forgetAbout($view);
     }
 
     public function aboutEvent(...$events)
     {
-        resolve(EventManager::class)->forgetAbout($events);
+        resolve('BaseManager')->forgetAbout($events);
     }
 
     public function __call($method, $args)
@@ -45,12 +45,12 @@ final class Forget
         if (in_array($method, ['Route', 'Action', 'Url'])) {
             $args = resolve(RouteNormalizer::class)->{'normalize'.$method}($args);
 
-            return resolve(RouterEventManager::class)->forgetAbout($args);
+            return resolve('BaseManager')->forgetAbout($args);
         }
 
         $method = str_replace('Fetching', 'retrieved', $method);
         $method = strtolower($method);
         $method = $method == 'model' ? null : $method;
-        resolve(EloquentEventsManager::class)->forgetAbout($args, $method);
+        resolve('BaseManager')->forgetAbout($args, $method);
     }
 }

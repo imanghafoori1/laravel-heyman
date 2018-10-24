@@ -4,7 +4,7 @@ namespace Imanghafoori\HeyMan\WatchingStrategies\Views;
 
 use Imanghafoori\HeyMan\WatchingStrategies\BaseManager;
 
-class ViewEventManager extends BaseManager
+class ViewEventManager
 {
     /**
      * @param string $view

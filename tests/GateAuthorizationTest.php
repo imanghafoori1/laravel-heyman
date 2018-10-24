@@ -14,7 +14,7 @@ class GateAuthorizationTest extends TestCase
         });
 
         HeyMan::whenEventHappens('myEvent')->thisGateShouldAllow('helloGate', 'param1', false)->otherwise()->weDenyAccess();
-        app(EventManager::class)->start();
+        app('BaseManager')->start();
 
         $this->expectException(AuthorizationException::class);
 
@@ -24,7 +24,7 @@ class GateAuthorizationTest extends TestCase
     public function test_Gate_As_Method()
     {
         HeyMan::whenEventHappens('myEvent')->thisGateShouldAllow('Gates@helloGate', false)->otherwise()->weDenyAccess();
-        app(EventManager::class)->start();
+        app('BaseManager')->start();
 
         $this->expectException(AuthorizationException::class);
 
@@ -38,7 +38,7 @@ class GateAuthorizationTest extends TestCase
         };
 
         HeyMan::whenEventHappens('myEvent')->thisGateShouldAllow($gate, false)->otherwise()->weDenyAccess();
-        app(EventManager::class)->start();
+        app('BaseManager')->start();
 
         $this->expectException(AuthorizationException::class);
 

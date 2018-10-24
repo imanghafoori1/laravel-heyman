@@ -2,9 +2,7 @@
 
 namespace Imanghafoori\HeyMan\WatchingStrategies\Events;
 
-use Imanghafoori\HeyMan\WatchingStrategies\BaseManager;
-
-class EventManager extends BaseManager
+class EventManager
 {
     public function register($event, array $callback)
     {

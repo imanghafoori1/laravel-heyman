@@ -99,7 +99,7 @@ class IgnoreTest extends TestCase
     public function testEventAuthorized_Ignorance()
     {
         HeyMan::whenEventHappens('hey')->always()->weDenyAccess();
-        app(EventManager::class)->start();
+        app('BaseManager')->start();
         Heyman::turnOff()->eventChecks();
 
         event('hey');
@@ -126,7 +126,7 @@ class IgnoreTest extends TestCase
             ->thisValueShouldAllow(false)
             ->otherwise()
             ->weDenyAccess();
-        app(ViewEventManager::class)->start();
+        app('BaseManager')->start();
         Heyman::turnOff()->viewChecks();
 
         view('welcome');
@@ -139,7 +139,7 @@ class IgnoreTest extends TestCase
             ->thisValueShouldAllow(false)
             ->otherwise()
             ->weDenyAccess();
-        app(ViewEventManager::class)->start();
+        app('BaseManager')->start();
         Heyman::turnOff()->allChecks();
 
         view('welcome');

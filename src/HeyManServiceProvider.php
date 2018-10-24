@@ -8,7 +8,7 @@ use Illuminate\Support\ServiceProvider;
 use Imanghafoori\HeyMan\Boot\DebugbarIntergrator;
 use Imanghafoori\HeyMan\Boot\Singletons;
 use Imanghafoori\HeyMan\Facades\HeyMan;
-use Imanghafoori\HeyMan\WatchingStrategies\AllEventManagers;
+use Imanghafoori\HeyMan\WatchingStrategies\Routes\RouterEventManager;
 
 final class HeyManServiceProvider extends ServiceProvider
 {
@@ -17,8 +17,8 @@ final class HeyManServiceProvider extends ServiceProvider
         $this->defineGates();
 
         $this->loadMigrationsFrom(__DIR__.'/migrations');
-
-        app()->booted([AllEventManagers::class, 'start']);
+        app()->booted([resolve('BaseManager'), 'start']);
+        resolve(RouterEventManager::class)->start();
         $this->disableIfIsSeeding();
         DebugbarIntergrator::register();
     }

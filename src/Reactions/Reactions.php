@@ -53,7 +53,7 @@ final class Reactions
 
     public function __destruct()
     {
-        resolve('heyman.chain')->get('eventManager')->commitChain();
+        resolve('BaseManager')->commitChain();
     }
 
     private function commit($args, $methodName)
