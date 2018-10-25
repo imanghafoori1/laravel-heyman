@@ -24,7 +24,7 @@ class Singletons
             $app->singleton($class, $class);
         }
         $app->singleton('heyman.chain', Chain::class);
-        $app->singleton('AllChains', AllChains::class);
+        $app->singleton('heyman.chains', AllChains::class);
     }
 
     /**

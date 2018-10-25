@@ -27,12 +27,12 @@ final class Forget
 
     public function aboutView(...$view)
     {
-        resolve('AllChains')->forgetAbout(ViewEventManager::class, $view);
+        resolve('heyman.chains')->forgetAbout(ViewEventManager::class, $view);
     }
 
     public function aboutEvent(...$events)
     {
-        resolve('AllChains')->forgetAbout(EventManager::class, $events);
+        resolve('heyman.chains')->forgetAbout(EventManager::class, $events);
     }
 
     public function __call($method, $args)
@@ -44,12 +44,12 @@ final class Forget
         if (in_array($method, ['Route', 'Action', 'Url'])) {
             $args = resolve(RouteNormalizer::class)->{'normalize'.$method}($args);
 
-            return resolve('AllChains')->forgetAbout('route', $args);
+            return resolve('heyman.chains')->forgetAbout('route', $args);
         }
 
         $method = str_replace('Fetching', 'retrieved', $method);
         $method = strtolower($method);
         $method = $method == 'model' ? null : $method;
-        resolve('AllChains')->forgetAbout(EloquentEventsManager::class, $args, $method);
+        resolve('heyman.chains')->forgetAbout(EloquentEventsManager::class, $args, $method);
     }
 }

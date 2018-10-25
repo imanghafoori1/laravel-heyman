@@ -10,10 +10,10 @@ class StartGuarding
 {
     public function start()
     {
-        foreach (resolve('AllChains')->data as $manager => $f) {
-            if ($manager == 'route') {
-                continue;
-            }
+        $data = resolve('heyman.chains')->data;
+        unset($data['route']);
+
+        foreach ($data as $manager => $f) {
             foreach ($f as $value => $callbacks) {
                 foreach ($callbacks as $key => $cb) {
                     resolve($manager)->register($value, $cb, $key);
@@ -33,7 +33,7 @@ class StartGuarding
                 $eventObj->request->method().$eventObj->route->uri,
             ];
 
-            $t = resolve('AllChains')->data['route'] ?? [];
+            $t = resolve('heyman.chains')->data['route'] ?? [];
             resolve(RouteMatchListener::class)->execMatchedCallbacks($matchedRoute, $t);
         });
     }
