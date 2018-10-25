@@ -10,7 +10,6 @@ use Imanghafoori\HeyMan\Switching\HeyManSwitcher;
 use Imanghafoori\HeyMan\WatchingStrategies\AllChains;
 use Imanghafoori\HeyMan\WatchingStrategies\EloquentModels\EloquentEventsManager;
 use Imanghafoori\HeyMan\WatchingStrategies\Events\EventManager;
-use Imanghafoori\HeyMan\WatchingStrategies\Routes\RouterEventManager;
 use Imanghafoori\HeyMan\WatchingStrategies\Views\ViewEventManager;
 use Imanghafoori\HeyMan\WatchingStrategies\Views\ViewNormalizer;
 use Imanghafoori\HeyMan\YouShouldHave;
@@ -39,7 +38,6 @@ class Singletons
             YouShouldHave::class,
             ReactionFactory::class,
             EventManager::class,
-            RouterEventManager::class,
             ViewEventManager::class,
             EloquentEventsManager::class,
             ViewNormalizer::class,

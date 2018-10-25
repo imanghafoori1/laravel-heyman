@@ -4,7 +4,6 @@ namespace Imanghafoori\HeyMan\Switching;
 
 use Imanghafoori\HeyMan\WatchingStrategies\EloquentModels\EloquentEventsManager;
 use Imanghafoori\HeyMan\WatchingStrategies\Events\EventManager;
-use Imanghafoori\HeyMan\WatchingStrategies\Routes\RouterEventManager;
 use Imanghafoori\HeyMan\WatchingStrategies\Views\ViewEventManager;
 
 /**
@@ -21,7 +20,7 @@ class Consider
     const methods = [
             'eventChecks'      => EventManager::class,
             'viewChecks'       => ViewEventManager::class,
-            'routeChecks'      => RouterEventManager::class,
+            'routeChecks'      => 'route',
             'eloquentChecks'   => EloquentEventsManager::class,
             'validationChecks' => 'validation',
     ];
