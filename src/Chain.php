@@ -29,14 +29,12 @@ class Chain
         $this->chainInfo[$key][] = $value;
     }
 
-
     /**
      * ViewEventManager constructor.
      *
      * @param $manager
      * @param array  $values
      * @param string $param
-     *
      */
     public function init($manager, array $values, string $param = 'default')
     {

@@ -2,7 +2,9 @@
 
 namespace Imanghafoori\HeyMan\WatchingStrategies;
 
-use Imanghafoori\HeyMan\{Normilizers\InputNormalizer, Reactions\ReactionFactory, Switching\HeyManSwitcher};
+use Imanghafoori\HeyMan\Normilizers\InputNormalizer;
+use Imanghafoori\HeyMan\Reactions\ReactionFactory;
+use Imanghafoori\HeyMan\Switching\HeyManSwitcher;
 
 class AllChains
 {
