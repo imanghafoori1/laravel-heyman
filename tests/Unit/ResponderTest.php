@@ -18,7 +18,7 @@ class ResponderTest extends TestCase
         foreach ($methods as $method) {
             $param = str_random(3);
 
-            \Facades\BaseManager::shouldReceive('commitChain')->once();
+            \Facades\AllChains::shouldReceive('commitChain')->once();
 
             $reaction = app(\Imanghafoori\HeyMan\Reactions\Reactions::class);
             $reaction->response()->{$method}($param);
@@ -38,7 +38,7 @@ class ResponderTest extends TestCase
         foreach ($methods as $method) {
             $param = str_random(3);
 
-            \Facades\BaseManager::shouldReceive('commitChain')->once();
+            \Facades\AllChains::shouldReceive('commitChain')->once();
 
             $reaction = app(\Imanghafoori\HeyMan\Reactions\Reactions::class);
             $reaction->redirect()->{$method}($param);

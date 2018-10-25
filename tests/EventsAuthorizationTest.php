@@ -2,6 +2,7 @@
 
 use Illuminate\Auth\Access\AuthorizationException;
 use Imanghafoori\HeyMan\Facades\HeyMan;
+use Imanghafoori\HeyMan\StartGuarding;
 
 class EventsAuthorizationTest extends TestCase
 {
@@ -9,7 +10,7 @@ class EventsAuthorizationTest extends TestCase
     {
         HeyMan::whenEventHappens(['myEvent', 'myEvent1'])->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
         HeyMan::whenEventHappens('myEvent4')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
-        app('BaseManager')->start();
+        app(StartGuarding::class)->start();
 
         Heyman::makeSure($this)->whenEventHappens('myEvent1')->exceptionIsThrown(AuthorizationException::class);
     }
@@ -18,7 +19,7 @@ class EventsAuthorizationTest extends TestCase
     {
         HeyMan::whenEventHappens(['myEvent', 'myEvent1'])->always()->weDenyAccess();
         HeyMan::whenEventHappens('myEvent4')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
-        app('BaseManager')->start();
+        app(StartGuarding::class)->start();
         $this->expectException(AuthorizationException::class);
 
         event('myEvent1');
@@ -30,7 +31,7 @@ class EventsAuthorizationTest extends TestCase
         HeyMan::whenEventHappens('myEvent4')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
         HeyMan::whenEventHappens('myEvent4')->thisValueShouldAllow(true)->otherwise()->weThrowNew(\Illuminate\Validation\UnauthorizedException::class);
         HeyMan::forget()->aboutEvent(['myEvent', 'myEvent1', 'myEvent4']);
-        app('BaseManager')->start();
+        app(StartGuarding::class)->start();
 
         event('myEvent');
         event('myEvent1');
@@ -45,7 +46,7 @@ class EventsAuthorizationTest extends TestCase
         HeyMan::whenEventHappens('myEvent4')->thisValueShouldAllow(true)->otherwise()
             ->weThrowNew(\Illuminate\Validation\UnauthorizedException::class);
         HeyMan::forget()->aboutEvent('myEvent4');
-        app('BaseManager')->start();
+        app(StartGuarding::class)->start();
 
         event('myEvent4');
         app()->terminate();
@@ -60,7 +61,7 @@ class EventsAuthorizationTest extends TestCase
         });
 
         HeyMan::whenEventHappens(['my-event', 'myEvent1'])->always()->abort(402);
-        app('BaseManager')->start();
+        app(StartGuarding::class)->start();
 
         Heyman::makeSure($this)
             ->sendingGetRequest('event/my-event')
@@ -75,7 +76,7 @@ class EventsAuthorizationTest extends TestCase
         });
 
         HeyMan::whenEventHappens(['my-event', 'myEvent1'])->always()->redirect()->to('welcome');
-        app('BaseManager')->start();
+        app(StartGuarding::class)->start();
 
         Heyman::makeSure($this)
             ->sendingGetRequest('event/my-event')
@@ -86,7 +87,7 @@ class EventsAuthorizationTest extends TestCase
     public function testCheckPoints()
     {
         Heyman::whenYouReachCheckPoint('*AreYou')->always()->redirect()->to('welcome');
-        app('BaseManager')->start();
+        app(StartGuarding::class)->start();
 
         \Route::get('oh', function () {
             Heyman::checkPoint('whoAreYou');

@@ -35,6 +35,6 @@ final class Validator
         $chain = resolve('heyman.chain');
         $condition = resolve(ResponderFactory::class)->validatorCallback($modifier, ...$data);
         $chain->set('condition', $condition);
-        resolve('BaseManager')->commitChain();
+        resolve('AllChains')->commitChain();
     }
 }

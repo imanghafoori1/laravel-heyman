@@ -17,7 +17,7 @@ final class HeyManServiceProvider extends ServiceProvider
         $this->defineGates();
 
         $this->loadMigrationsFrom(__DIR__.'/migrations');
-        app()->booted([resolve('BaseManager'), 'start']);
+        app()->booted([resolve(StartGuarding::class), 'start']);
         resolve(RouterEventManager::class)->start();
         $this->disableIfIsSeeding();
         DebugbarIntergrator::register();

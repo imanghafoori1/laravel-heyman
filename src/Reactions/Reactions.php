@@ -53,7 +53,7 @@ final class Reactions
 
     public function __destruct()
     {
-        resolve('BaseManager')->commitChain();
+        resolve('AllChains')->commitChain();
     }
 
     private function commit($args, $methodName)

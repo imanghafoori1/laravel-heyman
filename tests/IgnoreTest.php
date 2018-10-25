@@ -1,6 +1,8 @@
 <?php
 
 use Imanghafoori\HeyMan\Facades\HeyMan;
+use Imanghafoori\HeyMan\StartGuarding;
+
 
 class IgnoreTest extends TestCase
 {
@@ -97,7 +99,7 @@ class IgnoreTest extends TestCase
     public function testEventAuthorized_Ignorance()
     {
         HeyMan::whenEventHappens('hey')->always()->weDenyAccess();
-        app('BaseManager')->start();
+        app(StartGuarding::class)->start();
         Heyman::turnOff()->eventChecks();
 
         event('hey');
@@ -124,7 +126,7 @@ class IgnoreTest extends TestCase
             ->thisValueShouldAllow(false)
             ->otherwise()
             ->weDenyAccess();
-        app('BaseManager')->start();
+        app(StartGuarding::class)->start();
         Heyman::turnOff()->viewChecks();
 
         view('welcome');
@@ -137,7 +139,7 @@ class IgnoreTest extends TestCase
             ->thisValueShouldAllow(false)
             ->otherwise()
             ->weDenyAccess();
-        app('BaseManager')->start();
+        app(StartGuarding::class)->start();
         Heyman::turnOff()->allChecks();
 
         view('welcome');

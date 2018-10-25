@@ -2,13 +2,14 @@
 
 use Illuminate\Auth\Access\AuthorizationException;
 use Imanghafoori\HeyMan\Facades\HeyMan;
+use Imanghafoori\HeyMan\StartGuarding;
 
 class ViewsAuthorizationTest extends TestCase
 {
     public function testViewIsAuthorized()
     {
         HeyMan::whenYouMakeView('welcome')->always()->weDenyAccess();
-        app('BaseManager')->start();
+        app(StartGuarding::class)->start();
         $this->expectException(AuthorizationException::class);
 
         view('welcome');
@@ -18,7 +19,7 @@ class ViewsAuthorizationTest extends TestCase
     {
         HeyMan::whenYouMakeView(['welcome'])->always()->weDenyAccess();
         HeyMan::whenYouMakeView(['errors.503'])->always()->weDenyAccess();
-        app('BaseManager')->start();
+        app(StartGuarding::class)->start();
         $this->expectException(AuthorizationException::class);
 
         view('welcome');
@@ -27,7 +28,7 @@ class ViewsAuthorizationTest extends TestCase
     public function testViewIsAuthorized34()
     {
         HeyMan::whenYouMakeView('welcome')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
-        app('BaseManager')->start();
+        app(StartGuarding::class)->start();
         view('welcome');
         $this->assertTrue(true);
     }
@@ -35,7 +36,7 @@ class ViewsAuthorizationTest extends TestCase
     public function testViewIsAuthorized21134()
     {
         HeyMan::whenYouMakeView(['welcome', 'errors.503'])->always()->weDenyAccess();
-        app('BaseManager')->start();
+        app(StartGuarding::class)->start();
         $this->expectException(AuthorizationException::class);
 
         view('welcome');
@@ -44,7 +45,7 @@ class ViewsAuthorizationTest extends TestCase
     public function testViewIsAuthorized2174()
     {
         HeyMan::whenYouMakeView('welcome', 'errors/503')->always()->weDenyAccess();
-        app('BaseManager')->start();
+        app(StartGuarding::class)->start();
         $this->expectException(AuthorizationException::class);
 
         view('errors.503');
@@ -53,7 +54,7 @@ class ViewsAuthorizationTest extends TestCase
     public function test_views_are_normalized()
     {
         HeyMan::whenYouMakeView('errors/503')->always()->weDenyAccess();
-        app('BaseManager')->start();
+        app(StartGuarding::class)->start();
         $this->expectException(AuthorizationException::class);
 
         view('errors.503');
@@ -62,7 +63,7 @@ class ViewsAuthorizationTest extends TestCase
     public function testViewIsAuthorized274()
     {
         HeyMan::whenYouMakeView('errors.*')->always()->weDenyAccess();
-        app('BaseManager')->start();
+        app(StartGuarding::class)->start();
         $this->expectException(AuthorizationException::class);
 
         view('errors.503');
@@ -71,7 +72,7 @@ class ViewsAuthorizationTest extends TestCase
     public function testViewIsAuthorized24()
     {
         HeyMan::whenYouMakeView('*.503')->always()->weDenyAccess();
-        app('BaseManager')->start();
+        app(StartGuarding::class)->start();
         $this->expectException(AuthorizationException::class);
 
         view('errors.503');
@@ -90,7 +91,7 @@ class ViewsAuthorizationTest extends TestCase
         HeyMan::whenYouMakeView('welcome', 'errors/503')->always()->weDenyAccess();
         HeyMan::forget()->aboutView('welcome', 'errors/503');
 
-        app('BaseManager')->start();
+        app(StartGuarding::class)->start();
 
         view('errors.503');
         $this->assertTrue(true);
@@ -101,7 +102,7 @@ class ViewsAuthorizationTest extends TestCase
         HeyMan::whenYouMakeView('welcome')->always()->weDenyAccess();
         HeyMan::forget()->aboutView('welcome', 'errors/503');
 
-        app('BaseManager')->start();
+        app(StartGuarding::class)->start();
 
         view('welcome');
         $this->assertTrue(true);
@@ -113,7 +114,7 @@ class ViewsAuthorizationTest extends TestCase
         HeyMan::whenYouMakeView('welcome', 'errors/503')->always()->weThrowNew(AuthorizationException::class);
         HeyMan::forget()->aboutView(['welcome', 'errors/503']);
 
-        app('BaseManager')->start();
+        app(StartGuarding::class)->start();
 
         view('errors.503');
         view('welcome');
@@ -125,7 +126,7 @@ class ViewsAuthorizationTest extends TestCase
         HeyMan::whenYouMakeView('welcome', 'errors/503')->always()->weDenyAccess();
         HeyMan::forget()->aboutView('welcome1');
 
-        app('BaseManager')->start();
+        app(StartGuarding::class)->start();
         $this->expectException(AuthorizationException::class);
 
         view('errors.503');
