@@ -3,7 +3,6 @@
 use Imanghafoori\HeyMan\Facades\HeyMan;
 use Imanghafoori\HeyMan\StartGuarding;
 
-
 class IgnoreTest extends TestCase
 {
     public function testUrlIsAuthorized()
