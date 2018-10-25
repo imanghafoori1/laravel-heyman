@@ -2,7 +2,7 @@
 
 namespace Imanghafoori\HeyMan\Boot;
 
-use Imanghafoori\HeyMan\ChainManager;
+use Imanghafoori\HeyMan\Chain;
 use Imanghafoori\HeyMan\Conditions\ConditionsFacade;
 use Imanghafoori\HeyMan\HeyMan;
 use Imanghafoori\HeyMan\Reactions\ReactionFactory;
@@ -24,7 +24,7 @@ class Singletons
         foreach ($singletons as $class) {
             $app->singleton($class, $class);
         }
-        $app->singleton('heyman.chain', ChainManager::class);
+        $app->singleton('heyman.chain', Chain::class);
         $app->singleton('BaseManager', BaseManager::class);
     }
 
@@ -44,7 +44,7 @@ class Singletons
             EloquentEventsManager::class,
             ViewNormalizer::class,
             ConditionsFacade::class,
-            ChainManager::class,
+            Chain::class,
         ];
     }
 }

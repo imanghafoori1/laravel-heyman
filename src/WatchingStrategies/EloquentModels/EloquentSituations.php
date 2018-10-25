@@ -19,6 +19,6 @@ final class EloquentSituations
 
     public function __call($method, $model)
     {
-        resolve('BaseManager')->init(EloquentEventsManager::class, $model, self::methods[$method]);
+        resolve('heyman.chain')->init(EloquentEventsManager::class, $model, self::methods[$method]);
     }
 }

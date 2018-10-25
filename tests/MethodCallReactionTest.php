@@ -55,7 +55,7 @@ class MethodCallReactionTest extends TestCase
             ->afterCalling($cb)
             ->weDenyAccess();
 
-        $chain = resolve(\Imanghafoori\HeyMan\ChainManager::class);
+        $chain = resolve(\Imanghafoori\HeyMan\Chain::class);
         $chain->startChain();
         $this->assertEquals(null, $chain->get('data'));
         $this->assertEquals(null, $chain->get('responseType'));

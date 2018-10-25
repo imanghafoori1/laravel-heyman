@@ -10,12 +10,6 @@ class BaseManager
 {
     use InputNormalizer;
 
-    protected $watchedEntities = [];
-
-    protected $event;
-
-    public $manager;
-
     public $data = [];
 
     public function start()
@@ -45,31 +39,16 @@ class BaseManager
         }
     }
 
-    /**
-     * ViewEventManager constructor.
-     *
-     * @param $manager
-     * @param array  $values
-     * @param string $param
-     *
-     * @return self
-     */
-    public function init($manager, array $values, string $param = 'default'): self
-    {
-        $this->manager = $manager;
-        $this->watchedEntities = $values;
-        $this->event = $param;
-
-        return $this;
-    }
-
     public function commitChain()
     {
+        $chain = resolve('heyman.chain');
         $callback = resolve(ReactionFactory::class)->make();
-        $switchableListener = resolve(HeyManSwitcher::class)->wrapForIgnorance($callback, $this->manager);
+        $manager = $chain->get('manager');
+        $switchableListener = resolve(HeyManSwitcher::class)->wrapForIgnorance($callback, $manager);
+        $event = $chain->get('event');
 
-        foreach ($this->watchedEntities as $value) {
-            $this->data[$this->manager][$value][$this->event][] = $switchableListener;
+        foreach ($chain->get('watchedEntities') as $value) {
+            $this->data[$manager][$value][$event][] = $switchableListener;
         }
     }
 }
