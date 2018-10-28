@@ -22,6 +22,10 @@ class StartGuarding
         }
 
         $this->guardRoutes();
+
+        // We free up the memory here ...
+        // Although it is a very small amount
+        resolve('heyman.chains')->data = [];
     }
 
     private function guardRoutes()
