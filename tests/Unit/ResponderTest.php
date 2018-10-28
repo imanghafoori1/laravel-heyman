@@ -14,11 +14,12 @@ class ResponderTest extends TestCase
             'jsonp',
             'download',
         ];
+        $m = \Mockery::mock(\Imanghafoori\HeyMan\WatchingStrategies\AllChains::class);
+        $m->shouldReceive('commitChain')->times(7);
+        app()->instance('heyman.chains', $m);
 
         foreach ($methods as $method) {
             $param = str_random(3);
-
-            \Facades\AllChains::shouldReceive('commitChain')->once();
 
             $reaction = app(\Imanghafoori\HeyMan\Reactions\Reactions::class);
             $reaction->response()->{$method}($param);
@@ -35,10 +36,12 @@ class ResponderTest extends TestCase
             'to',
         ];
 
+        $m = \Mockery::mock(\Imanghafoori\HeyMan\WatchingStrategies\AllChains::class);
+        $m->shouldReceive('commitChain')->times(5);
+        app()->instance('heyman.chains', $m);
+
         foreach ($methods as $method) {
             $param = str_random(3);
-
-            \Facades\AllChains::shouldReceive('commitChain')->once();
 
             $reaction = app(\Imanghafoori\HeyMan\Reactions\Reactions::class);
             $reaction->redirect()->{$method}($param);
