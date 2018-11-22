@@ -59,7 +59,7 @@ This is fork from result of laracasts.com tutorial series refactored to use the 
 ## Heyman, let's fight off zombies
 
 
-<br>
+
 
 
 <img align="right" src="https://user-images.githubusercontent.com/6961695/45443957-64cc3e00-b6db-11e8-9768-163e47f5a46c.jpg" width="160px">
@@ -75,7 +75,7 @@ This is fork from result of laracasts.com tutorial series refactored to use the 
 
 <br>
 
-#### <= Heyman   
+ <= Laravel Heyman   
 
 
 
