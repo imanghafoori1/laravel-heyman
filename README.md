@@ -58,25 +58,29 @@ This is fork from result of laracasts.com tutorial series refactored to use the 
 
 ## Heyman, let's fight off zombies
 
-<img align="right" src="https://user-images.githubusercontent.com/6961695/45443957-64cc3e00-b6db-11e8-9768-163e47f5a46c.jpg">
 
 <br>
 
-<br>
 
-<img align="left" src="https://user-images.githubusercontent.com/6961695/45444536-f7b9a800-b6dc-11e8-84c2-2b0eb224afdb.jpg">
+<img align="right" src="https://user-images.githubusercontent.com/6961695/45443957-64cc3e00-b6db-11e8-9768-163e47f5a46c.jpg" width="160px">
+
+
+<p align="right">
+   Zombie Http Request =>
+ </p>
+
+<img align="left" src="https://user-images.githubusercontent.com/6961695/45444536-f7b9a800-b6dc-11e8-84c2-2b0eb224afdb.jpg" width="130px">
 
 #
 
 <br>
 
-#### <= Heyman      
+#### <= Heyman   
 
 
 
 <br>
 
-<br>
 
 <br>
 
