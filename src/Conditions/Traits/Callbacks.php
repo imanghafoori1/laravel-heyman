@@ -11,7 +11,6 @@ class Callbacks
                 return (bool) $value;
             },
 
-
         ];
     }
 
