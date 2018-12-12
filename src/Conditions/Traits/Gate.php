@@ -4,23 +4,26 @@ namespace Imanghafoori\HeyMan\Conditions\Traits;
 
 use Illuminate\Support\Facades\Gate as GateFacade;
 
-trait Gate
+class Gate
 {
-    public function thisGateShouldAllow($gate, ...$parameters)
+    public static function conditions()
     {
-        $gate = $this->defineNewGate($gate);
+        $thisGateShouldAllow = function ($gate, ...$parameters) {
+            $gate = self::defineNewGate($gate);
 
-        return function (...$payload) use ($gate, $parameters) {
-            return GateFacade::allows($gate, (array_merge($parameters, ...$payload)));
+            return function (...$payload) use ($gate, $parameters) {
+                return GateFacade::allows($gate, (array_merge($parameters, ...$payload)));
+            };
         };
+
+        $youShouldHaveRole = function (string $role) use ($thisGateShouldAllow) {
+            return $thisGateShouldAllow('heyman.youShouldHaveRole', $role);
+        };
+
+         return compact('youShouldHaveRole', 'thisGateShouldAllow');
     }
 
-    /**
-     * @param $gate
-     *
-     * @return string
-     */
-    private function defineNewGate($gate): string
+    private static function defineNewGate ($gate): string
     {
         // Define a Gate for inline closures passed as gate
         if (is_callable($gate)) {
@@ -35,10 +38,5 @@ trait Gate
         }
 
         return $gate;
-    }
-
-    public function youShouldHaveRole(string $role)
-    {
-        return $this->thisGateShouldAllow('heyman.youShouldHaveRole', $role);
     }
 }

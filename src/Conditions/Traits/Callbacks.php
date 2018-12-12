@@ -2,8 +2,19 @@
 
 namespace Imanghafoori\HeyMan\Conditions\Traits;
 
-trait Callbacks
+class Callbacks
 {
+    public static function conditions()
+    {
+        return [
+            'thisValueShouldAllow' => function ($value) {
+                return (bool) $value;
+            },
+
+
+        ];
+    }
+
     public function thisClosureShouldAllow(callable $callback, array $parameters = [])
     {
         return $this->thisMethodShouldAllow($callback, $parameters);
@@ -13,13 +24,6 @@ trait Callbacks
     {
         return function (...$payload) use ($callback, $parameters) {
             return (bool) app()->call($callback, array_merge($parameters, ...$payload));
-        };
-    }
-
-    public function thisValueShouldAllow($value)
-    {
-        return function () use ($value) {
-            return (bool) $value;
         };
     }
 }

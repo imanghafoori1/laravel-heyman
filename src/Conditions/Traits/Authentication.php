@@ -2,19 +2,22 @@
 
 namespace Imanghafoori\HeyMan\Conditions\Traits;
 
-trait Authentication
+class Authentication
 {
-    public function youShouldBeGuest($guard = null)
-    {
-        return function () use ($guard) {
-            return auth($guard)->guest();
-        };
-    }
+   public static function conditions()
+   {
+       return [
+           'youShouldBeGuest' => function ($guard = null) {
+               return function () use ($guard) {
+                   return auth($guard)->guest();
+               };
+           },
 
-    public function youShouldBeLoggedIn($guard = null)
-    {
-        return function () use ($guard) {
-            return auth($guard)->check();
-        };
-    }
+           'youShouldBeLoggedIn' => function ($guard = null) {
+               return function () use ($guard) {
+                   return auth($guard)->check();
+               };
+           },
+       ];
+   }
 }
