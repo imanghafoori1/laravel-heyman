@@ -20,10 +20,10 @@ class Gate
             return $thisGateShouldAllow('heyman.youShouldHaveRole', $role);
         };
 
-         return compact('youShouldHaveRole', 'thisGateShouldAllow');
+        return compact('youShouldHaveRole', 'thisGateShouldAllow');
     }
 
-    private static function defineNewGate ($gate): string
+    private static function defineNewGate($gate): string
     {
         // Define a Gate for inline closures passed as gate
         if (is_callable($gate)) {

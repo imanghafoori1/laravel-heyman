@@ -22,7 +22,6 @@ class ConditionsFacade
 
     public function call($method, $param)
     {
-
     }
 
     use Traits\Gate;
