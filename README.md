@@ -369,6 +369,36 @@ HeyMan::whenYouVisitUrl('home')->sessionShouldHave('key1')->...
 --------------------
 
 
+#### define your own conditions : 
+
+You can extend the build in conditions and introduce some methods into heyman API like this:
+
+```php
+
+// In the `boot` method of your service providers
+
+HeyMan::condition('youShouldBeMan', function () {
+   return function () {
+       return auth()->user() && auth()->user()->gender === 'Man';
+   };
+});
+
+// or 
+
+HeyMan::condition('youShouldBeMan', '\App\SomeWhere\SomeClass@someMethod');
+
+```
+Then you can use it like this:
+
+```php
+
+HeyMan::whenYouVisitUrl('home')->youShouldBeMan()-> ...
+
+```
+Nice, isn't it ?!
+
+
+
 ## Reactions:
 
 
