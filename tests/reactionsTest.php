@@ -7,6 +7,7 @@ class reactionsTest extends TestCase
 {
     public function test_redirect_with_flash_msg()
     {
+        $this->withExceptionHandling();
         Route::get('/welcome', 'HomeController@index')->name('welcome.name');
 
         HeyMan::whenYouVisitUrl('welcome')->always()->redirect()->to('home')->with('hi', 'jpp');

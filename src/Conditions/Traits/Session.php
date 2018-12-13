@@ -4,11 +4,13 @@ namespace Imanghafoori\HeyMan\Conditions\Traits;
 
 class Session
 {
-    public static function conditions($key)
+    public static function conditions()
     {
         return [
-            'sessionShouldHave' => function () use ($key) {
-                return session()->has($key);
+            'sessionShouldHave' => function ($key) {
+                return function () use ($key) {
+                    return session()->has($key);
+                };
             },
         ];
     }

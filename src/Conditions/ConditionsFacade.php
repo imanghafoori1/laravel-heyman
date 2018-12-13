@@ -9,9 +9,7 @@ use Imanghafoori\HeyMan\Conditions\Traits\Session;
 
 class ConditionsFacade
 {
-    private $methods = [
-
-    ];
+    private $methods = [];
 
     /**
      * ConditionsFacade constructor.
@@ -20,11 +18,11 @@ class ConditionsFacade
      */
     public function __construct()
     {
-        $this->methods = $this->methods + Authentication::conditions() + Callbacks::conditions() + Gate::conditions() + Session::conditions('');
+        $this->methods = Authentication::conditions() + Callbacks::conditions() + Gate::conditions() + Session::conditions('');
     }
 
     public function call($method, $param)
     {
-        $this->methods[$method]($param);
+        return $this->methods[$method](...$param);
     }
 }
