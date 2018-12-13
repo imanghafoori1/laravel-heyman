@@ -6,6 +6,7 @@ class Callbacks
 {
     public function closureAllows($emptyString, $callback, $parameters = [])
     {
+        // laravel bug :
         // it is not clear why laravel passes the $emptyString as the first parameter here.
         // check Imanghafoori\HeyMan\Conditions\ConditionsFacade class line 12;
 

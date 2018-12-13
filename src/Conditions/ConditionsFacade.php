@@ -11,6 +11,8 @@ class ConditionsFacade
         if (isset($this->methods[$method])) {
             return app()->call($this->methods[$method], $param);
         }
+
+        throw new \BadMethodCallException($method.' does not exists as a condition');
     }
 
     public function define($methodName, $callable)
