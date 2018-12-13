@@ -61,7 +61,9 @@ final class HeyManServiceProvider extends ServiceProvider
         app(ConditionsFacade::class)->define('thisMethodShouldAllow', Callbacks::class.'@methodAllows');
         app(ConditionsFacade::class)->define('thisValueShouldAllow', Callbacks::class.'@valueAllows');
 
-        app()->call([myGate::class, 'conditions']);
-        app()->call([mySession::class, 'conditions']);
+        app(ConditionsFacade::class)->define('thisGateShouldAllow', myGate::class.'@thisGateShouldAllow');
+        app(ConditionsFacade::class)->define('youShouldHaveRole', myGate::class.'@youShouldHaveRole');
+
+        app(ConditionsFacade::class)->define('sessionShouldHave', mySession::class.'@sessionHas');
     }
 }
