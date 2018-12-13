@@ -8,7 +8,7 @@ class Callbacks
     {
         // it is not clear why laravel passes the $emptyString as the first parameter here.
         // check Imanghafoori\HeyMan\Conditions\ConditionsFacade class line 12;
-        
+
         return $this->methodAllows($emptyString, $callback, $parameters);
     }
 

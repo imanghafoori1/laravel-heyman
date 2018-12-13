@@ -17,6 +17,4 @@ class Authentication
             return auth($guard)->check();
         };
     }
-
-
 }
