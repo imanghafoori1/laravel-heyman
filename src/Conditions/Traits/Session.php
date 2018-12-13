@@ -2,16 +2,16 @@
 
 namespace Imanghafoori\HeyMan\Conditions\Traits;
 
+use Imanghafoori\HeyMan\Conditions\ConditionsFacade;
+
 class Session
 {
-    public static function conditions()
+    public static function conditions(ConditionsFacade $cFacade)
     {
-        return [
-            'sessionShouldHave' => function ($key) {
-                return function () use ($key) {
-                    return session()->has($key);
-                };
-            },
-        ];
+        $cFacade->define('sessionShouldHave', function ($key) {
+            return function () use ($key) {
+                return session()->has($key);
+            };
+        });
     }
 }

@@ -2,27 +2,21 @@
 
 namespace Imanghafoori\HeyMan\Conditions;
 
-use Imanghafoori\HeyMan\Conditions\Traits\Authentication;
-use Imanghafoori\HeyMan\Conditions\Traits\Callbacks;
-use Imanghafoori\HeyMan\Conditions\Traits\Gate;
-use Imanghafoori\HeyMan\Conditions\Traits\Session;
-
 class ConditionsFacade
 {
     private $methods = [];
 
-    /**
-     * ConditionsFacade constructor.
-     *
-     * @param array $methods
-     */
-    public function __construct()
+    public function _call($method, $param)
     {
-        $this->methods = Authentication::conditions() + Callbacks::conditions() + Gate::conditions() + Session::conditions('');
+        if (isset($this->methods[$method]) and is_string($this->methods[$method])) {
+            return app()->call($this->methods[$method], $param);
+        }
+
+        return $this->methods[$method](...$param);
     }
 
-    public function call($method, $param)
+    public function define($methodName, $callable)
     {
-        return $this->methods[$method](...$param);
+        $this->methods[$methodName] = $callable;
     }
 }

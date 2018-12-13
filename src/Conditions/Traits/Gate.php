@@ -3,10 +3,11 @@
 namespace Imanghafoori\HeyMan\Conditions\Traits;
 
 use Illuminate\Support\Facades\Gate as GateFacade;
+use Imanghafoori\HeyMan\Conditions\ConditionsFacade;
 
 class Gate
 {
-    public static function conditions()
+    public static function conditions(ConditionsFacade $conditions)
     {
         $thisGateShouldAllow = function ($gate, ...$parameters) {
             $gate = self::defineNewGate($gate);
@@ -16,11 +17,11 @@ class Gate
             };
         };
 
-        $youShouldHaveRole = function (string $role) use ($thisGateShouldAllow) {
+        $conditions->define('youShouldHaveRole', function (string $role) use ($thisGateShouldAllow) {
             return $thisGateShouldAllow('heyman.youShouldHaveRole', $role);
-        };
+        });
 
-        return compact('youShouldHaveRole', 'thisGateShouldAllow');
+        $conditions->define('thisGateShouldAllow', $thisGateShouldAllow);
     }
 
     private static function defineNewGate($gate): string

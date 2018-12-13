@@ -4,20 +4,19 @@ namespace Imanghafoori\HeyMan\Conditions\Traits;
 
 class Authentication
 {
-    public static function conditions()
+    public function beGuest($guard = null)
     {
-        return [
-           'youShouldBeGuest' => function ($guard = null) {
-               return function () use ($guard) {
-                   return auth($guard)->guest();
-               };
-           },
-
-           'youShouldBeLoggedIn' => function ($guard = null) {
-               return function () use ($guard) {
-                   return auth($guard)->check();
-               };
-           },
-       ];
+        return function () use ($guard) {
+            return auth($guard)->guest();
+        };
     }
+
+    public function loggedIn($guard = null)
+    {
+        return function () use ($guard) {
+            return auth($guard)->check();
+        };
+    }
+
+
 }
