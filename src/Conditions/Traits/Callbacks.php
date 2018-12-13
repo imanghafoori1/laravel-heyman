@@ -18,7 +18,7 @@ class Callbacks
                     return (bool) $value;
                 };
             },
-            'thisMethodShouldAllow' => $thisMethodShouldAllow,
+            'thisMethodShouldAllow'  => $thisMethodShouldAllow,
             'thisClosureShouldAllow' => function (callable $callback, array $parameters = []) use ($thisMethodShouldAllow) {
                 return $thisMethodShouldAllow($callback, $parameters);
             },
