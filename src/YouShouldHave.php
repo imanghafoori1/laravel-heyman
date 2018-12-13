@@ -22,9 +22,9 @@ final class YouShouldHave
 {
     use RequestValidation;
 
-    public function __call($method, $args): Otherwise
+    public function __call(string $method, $args): Otherwise
     {
-        resolve('heyman.chain')->set('condition', app(ConditionsFacade::class)->$method(...$args));
+        resolve('heyman.chain')->set('condition', app(ConditionsFacade::class)->_call($method, $args));
 
         return resolve(Otherwise::class);
     }

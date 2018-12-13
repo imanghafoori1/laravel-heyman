@@ -23,14 +23,14 @@ final class Reactions
         return new Redirector($this);
     }
 
-    public function weThrowNew(string $exception, string $message = '')
+    public function weThrowNew(string $exception, string $message = null)
     {
         $this->commit(func_get_args(), 'exception');
 
         return new Then($this);
     }
 
-    public function abort($code, string $message = '', array $headers = [])
+    public function abort($code, string $message = null, array $headers = [])
     {
         $this->commit(func_get_args(), __FUNCTION__);
 
@@ -44,7 +44,7 @@ final class Reactions
         return new Then($this);
     }
 
-    public function weDenyAccess(string $message = '')
+    public function weDenyAccess(string $message = null)
     {
         $this->commit([AuthorizationException::class, $message], 'exception');
 

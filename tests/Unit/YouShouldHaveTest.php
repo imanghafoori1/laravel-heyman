@@ -7,12 +7,12 @@ class YouShouldHaveTest extends TestCase
 {
     public function testImmediately()
     {
-        $r = HeyMan::whenYouVisitUrl('sdf')->always();
+        $keepAlive = HeyMan::whenYouVisitUrl('sdf')->always();
 
         $condition = app(\Imanghafoori\HeyMan\Chain::class)->get('condition');
 
         $this->assertFalse($condition());
-        $r;
+        $keepAlive;
     }
 
     public function testYouShouldBeLoggedIn()

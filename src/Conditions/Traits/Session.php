@@ -2,9 +2,9 @@
 
 namespace Imanghafoori\HeyMan\Conditions\Traits;
 
-trait Session
+class Session
 {
-    public function sessionShouldHave($key)
+    public function sessionHas($key)
     {
         return function () use ($key) {
             return session()->has($key);

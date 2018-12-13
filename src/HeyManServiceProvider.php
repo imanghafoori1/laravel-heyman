@@ -7,6 +7,11 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Imanghafoori\HeyMan\Boot\DebugbarIntergrator;
 use Imanghafoori\HeyMan\Boot\Singletons;
+use Imanghafoori\HeyMan\Conditions\ConditionsFacade;
+use Imanghafoori\HeyMan\Conditions\Traits\Authentication;
+use Imanghafoori\HeyMan\Conditions\Traits\Callbacks;
+use Imanghafoori\HeyMan\Conditions\Traits\Gate as myGate;
+use Imanghafoori\HeyMan\Conditions\Traits\Session as mySession;
 use Imanghafoori\HeyMan\Facades\HeyMan;
 
 final class HeyManServiceProvider extends ServiceProvider
@@ -20,6 +25,8 @@ final class HeyManServiceProvider extends ServiceProvider
 
         $this->disableIfIsSeeding();
         DebugbarIntergrator::register();
+
+        $this->registerConditions();
     }
 
     public function register()
@@ -43,5 +50,20 @@ final class HeyManServiceProvider extends ServiceProvider
         if (isset(\Request::server('argv')[1]) && \Request::server('argv')[1] == 'db:seed') {
             HeyMan::turnOff()->eloquentChecks();
         }
+    }
+
+    private function registerConditions()
+    {
+        app(ConditionsFacade::class)->define('youShouldBeGuest', Authentication::class.'@beGuest');
+        app(ConditionsFacade::class)->define('youShouldBeLoggedIn', Authentication::class.'@loggedIn');
+
+        app(ConditionsFacade::class)->define('thisClosureShouldAllow', Callbacks::class.'@closureAllows');
+        app(ConditionsFacade::class)->define('thisMethodShouldAllow', Callbacks::class.'@methodAllows');
+        app(ConditionsFacade::class)->define('thisValueShouldAllow', Callbacks::class.'@valueAllows');
+
+        app(ConditionsFacade::class)->define('thisGateShouldAllow', myGate::class.'@thisGateShouldAllow');
+        app(ConditionsFacade::class)->define('youShouldHaveRole', myGate::class.'@youShouldHaveRole');
+
+        app(ConditionsFacade::class)->define('sessionShouldHave', mySession::class.'@sessionHas');
     }
 }

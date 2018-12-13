@@ -4,7 +4,7 @@ namespace Imanghafoori\HeyMan\Conditions\Traits;
 
 use Illuminate\Support\Facades\Gate as GateFacade;
 
-trait Gate
+class Gate
 {
     public function thisGateShouldAllow($gate, ...$parameters)
     {
