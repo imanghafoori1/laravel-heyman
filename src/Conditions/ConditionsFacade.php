@@ -8,11 +8,9 @@ class ConditionsFacade
 
     public function _call($method, $param)
     {
-        if (isset($this->methods[$method]) and is_string($this->methods[$method])) {
+        if (isset($this->methods[$method])) {
             return app()->call($this->methods[$method], $param);
         }
-
-        return $this->methods[$method](...$param);
     }
 
     public function define($methodName, $callable)
