@@ -2,6 +2,7 @@
 
 namespace Imanghafoori\HeyMan;
 
+use Imanghafoori\HeyMan\Conditions\ConditionsFacade;
 use Imanghafoori\HeyMan\MakeSure\HttpClient;
 use Imanghafoori\HeyMan\Switching\Turn;
 use Imanghafoori\HeyMan\WatchingStrategies\SituationsProxy;
@@ -20,8 +21,8 @@ class HeyMan
         resolve('heyman.chain')->startChain();
 
         if (config()->get('app.debug') and !app()->environment('production')) {
-            $d = array_only(debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 2)[1], ['file', 'line', 'args']);
-            resolve('heyman.chain')->set('debugInfo', $d);
+            $info = array_only(debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 2)[1], ['file', 'line', 'args']);
+            resolve('heyman.chain')->set('debugInfo', $info);
         }
 
         return  SituationsProxy::call($method, $args);
@@ -32,8 +33,13 @@ class HeyMan
         return new HttpClient($app);
     }
 
-    public function checkPoint($pointName)
+    public function checkPoint(string $pointName)
     {
         event('heyman_checkpoint_'.$pointName);
+    }
+
+    public function condition(string $name, $callable)
+    {
+        app(ConditionsFacade::class)->define($name, $callable);
     }
 }

@@ -96,4 +96,21 @@ class YouShouldHaveTest extends TestCase
 
         $this->assertTrue($condition() === $val);
     }
+
+    public function testCustomConditions()
+    {
+        HeyMan::condition('youShouldBeNice', function () {
+            return function ($mood) {
+                return $mood == 'nice';
+            };
+        });
+
+        HeyMan::whenYouVisitUrl('sdf')->youShouldBeNice();
+
+        $condition = app(\Imanghafoori\HeyMan\Chain::class)->get('condition');
+        $this->assertTrue($condition('nice') === true);
+
+        $condition = app(\Imanghafoori\HeyMan\Chain::class)->get('condition');
+        $this->assertTrue($condition('evil') === false);
+    }
 }

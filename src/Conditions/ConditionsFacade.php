@@ -12,7 +12,7 @@ class ConditionsFacade
             return app()->call($this->methods[$method], $param);
         }
 
-        throw new \BadMethodCallException($method.' does not exists as a condition');
+        throw new \BadMethodCallException($method.' does not exists as a Heyman condition');
     }
 
     public function define($methodName, $callable)
