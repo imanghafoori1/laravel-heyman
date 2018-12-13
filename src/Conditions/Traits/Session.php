@@ -4,7 +4,7 @@ namespace Imanghafoori\HeyMan\Conditions\Traits;
 
 class Session
 {
-    public function conditions($key)
+    public static function conditions($key)
     {
         return [
             'sessionShouldHave' => function () use ($key) {

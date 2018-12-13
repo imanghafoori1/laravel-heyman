@@ -10,6 +10,11 @@ class Callbacks
             'thisValueShouldAllow' => function ($value) {
                 return (bool) $value;
             },
+            'thisMethodShouldAllow' => function ($callback, array $parameters = []) {
+                return function (...$payload) use ($callback, $parameters) {
+                    return (bool) app()->call($callback, array_merge($parameters, ...$payload));
+                };
+            },
 
         ];
     }
@@ -17,12 +22,5 @@ class Callbacks
     public function thisClosureShouldAllow(callable $callback, array $parameters = [])
     {
         return $this->thisMethodShouldAllow($callback, $parameters);
-    }
-
-    public function thisMethodShouldAllow($callback, array $parameters = [])
-    {
-        return function (...$payload) use ($callback, $parameters) {
-            return (bool) app()->call($callback, array_merge($parameters, ...$payload));
-        };
     }
 }
