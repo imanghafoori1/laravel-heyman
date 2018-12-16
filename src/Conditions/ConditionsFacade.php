@@ -8,9 +8,9 @@ class ConditionsFacade
 
     public function _call($method, $param)
     {
-        if(in_array($method, ['thisClosureShouldAllow', 'thisMethodShouldAllow'])) {
+        if (in_array($method, ['thisClosureShouldAllow', 'thisMethodShouldAllow'])) {
             $param = [
-                'callback' => $param[0],
+                'callback'   => $param[0],
                 'parameters' => $param[1] ?? [],
             ];
         }
