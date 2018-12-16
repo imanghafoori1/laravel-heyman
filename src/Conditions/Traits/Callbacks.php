@@ -4,20 +4,13 @@ namespace Imanghafoori\HeyMan\Conditions\Traits;
 
 class Callbacks
 {
-    public function closureAllows($emptyString, $callback, $parameters = [])
+    public function closureAllows($callback, $parameters)
     {
-        // laravel bug :
-        // it is not clear why laravel passes the $emptyString as the first parameter here.
-        // check Imanghafoori\HeyMan\Conditions\ConditionsFacade class line 12;
-
-        return $this->methodAllows($emptyString, $callback, $parameters);
+        return $this->methodAllows($callback, $parameters);
     }
 
-    public function methodAllows($emptyString, $callback, array $parameters = [])
+    public function methodAllows($callback, array $parameters)
     {
-        // it is not clear why laravel passes the $emptyString as the first parameter here.
-        // check Imanghafoori\HeyMan\Conditions\ConditionsFacade class line 12;
-
         return function (...$payload) use ($callback, $parameters) {
             return (bool) app()->call($callback, array_merge($parameters, ...$payload));
         };

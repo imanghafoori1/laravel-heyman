@@ -8,6 +8,13 @@ class ConditionsFacade
 
     public function _call($method, $param)
     {
+        if(in_array($method, ['thisClosureShouldAllow', 'thisMethodShouldAllow'])) {
+            $param = [
+                'callback' => $param[0],
+                'parameters' => $param[1] ?? [],
+            ];
+        }
+
         if (isset($this->methods[$method])) {
             return app()->call($this->methods[$method], $param);
         }
