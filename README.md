@@ -17,7 +17,7 @@
 
 
 
-## :ribbon: Hey Man, just tell me what you want, don't ask me for information :ribbon:
+## :ribbon: Heyman just continues where the other role-permission packages left off :ribbon:
 
 ## We have used CDD (Creativity Driven Development) along side the TDD
 
