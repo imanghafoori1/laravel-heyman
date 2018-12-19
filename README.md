@@ -17,7 +17,7 @@
 
 
 
-## :ribbon: Heyman just continues where the other role-permission packages left off :ribbon:
+## :ribbon: Heyman continues where the other role-permission packages left off :ribbon:
 
 ## We have used CDD (Creativity Driven Development) along side the TDD
 
