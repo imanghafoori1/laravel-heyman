@@ -18,84 +18,84 @@ class HttpClient
         $this->chain = new Chain($phpunit);
     }
 
-    public function sendingPostRequest($uri, array $data = [], array $headers = []): IsRespondedWith
+    public function sendingPostRequest(...$data): IsRespondedWith
     {
-        $this->chain->http($uri, $data, $headers, 'post');
+        $this->chain->http('post', ...$data);
 
         return new IsRespondedWith($this->chain);
     }
 
-    public function sendingJsonPostRequest($uri, array $data = [], array $headers = []): IsRespondedWith
+    public function sendingJsonPostRequest(...$data): IsRespondedWith
     {
-        $this->chain->http($uri, $data, $headers, 'postJson');
+        $this->chain->http('postJson', ...$data);
 
         return new IsRespondedWith($this->chain);
     }
 
-    public function sendingDeleteRequest($uri, array $data = [], array $headers = []) : IsRespondedWith
+    public function sendingDeleteRequest(...$data) : IsRespondedWith
     {
-        $this->chain->http($uri, $data, $headers, 'delete');
+        $this->chain->http('delete', ...$data);
 
         return new IsRespondedWith($this->chain);
     }
 
-    public function sendingJsonDeleteRequest($uri, array $data = [], array $headers = []) : IsRespondedWith
+    public function sendingJsonDeleteRequest(...$data) : IsRespondedWith
     {
-        $this->chain->http($uri, $data, $headers, 'deleteJson');
+        $this->chain->http('deleteJson', ...$data);
 
         return new IsRespondedWith($this->chain);
     }
 
-    public function sendingPutRequest($uri, array $data = [], array $headers = []) : IsRespondedWith
+    public function sendingPutRequest(...$data) : IsRespondedWith
     {
-        $this->chain->http($uri, $data, $headers, 'put');
+        $this->chain->http('put', ...$data);
 
         return new IsRespondedWith($this->chain);
     }
 
-    public function sendingJsonPutRequest($uri, array $data = [], array $headers = []) : IsRespondedWith
+    public function sendingJsonPutRequest(...$data) : IsRespondedWith
     {
-        $this->chain->http($uri, $data, $headers, 'putJson');
+        $this->chain->http('putJson', ...$data);
 
         return new IsRespondedWith($this->chain);
     }
 
-    public function sendingPatchRequest($uri, array $data = [], array $headers = []) : IsRespondedWith
+    public function sendingPatchRequest(...$data) : IsRespondedWith
     {
-        $this->chain->http($uri, $data, $headers, 'patch');
+        $this->chain->http('patch', ...$data);
 
         return new IsRespondedWith($this->chain);
     }
 
-    public function sendingJsonPatchRequest($uri, array $data = [], array $headers = []) : IsRespondedWith
+    public function sendingJsonPatchRequest(...$data) : IsRespondedWith
     {
-        $this->chain->http($uri, $data, $headers, 'patchJson');
+        $this->chain->http('patchJson', ...$data);
 
         return new IsRespondedWith($this->chain);
     }
 
-    public function sendingGetRequest($uri, array $headers = []): IsRespondedWith
+    public function sendingGetRequest(...$data): IsRespondedWith
     {
-        $this->chain->http($uri, [], $headers, 'get');
+        $this->chain->http('get', ...$data);
 
         return new IsRespondedWith($this->chain);
     }
 
-    public function sendingJsonGetRequest($uri, array $headers = []): IsRespondedWith
+    public function sendingJsonGetRequest(...$data): IsRespondedWith
     {
-        $this->chain->http($uri, [], $headers, 'getJson');
+        $this->chain->http('getJson', ...$data);
 
         return new IsRespondedWith($this->chain);
     }
 
     public function exceptionIsThrown($type)
     {
-        $this->chain->exception = $type;
+        $this->chain->data['exception'] = $type;
     }
 
     public function whenEventHappens($event)
     {
-        $this->chain->event = $event;
+        $this->chain->data['event'] = $event;
 
         return $this;
     }

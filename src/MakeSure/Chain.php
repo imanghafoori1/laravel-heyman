@@ -11,28 +11,16 @@ class Chain
         $this->phpunit = $phpunit;
     }
 
-    public $http = [];
-
-    public $assertion = [];
-
-    public $event;
-
-    public $exception;
+    public $data = [];
 
     public function __destruct()
     {
         (new CheckExpectations($this, $this->phpunit))->check();
     }
 
-    /**
-     * @param $uri
-     * @param array $data
-     * @param array $headers
-     * @param $method
-     */
-    public function http($uri, array $data, array $headers, $method)
+    public function http($method, ...$rest)
     {
-        $this->http = get_defined_vars();
+        $this->data['http'] = get_defined_vars();
     }
 
     /**
@@ -41,6 +29,6 @@ class Chain
      */
     public function addAssertion($type, $value = null)
     {
-        $this->assertion[] = get_defined_vars();
+        $this->data['assertion'][] = get_defined_vars();
     }
 }

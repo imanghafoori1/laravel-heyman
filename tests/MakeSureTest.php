@@ -29,7 +29,7 @@ class MakeSureTest extends TestCase
         $formData = ['asdc' => 'yuik'];
 
         $redirector = Mockery::mock();
-        $redirector->shouldReceive('post')->with('welcome', $formData, [])->once();
+        $redirector->shouldReceive('post')->with('welcome', $formData)->once();
         Heyman::makeSure($redirector)->sendingPostRequest('welcome', $formData);
     }
 
@@ -37,7 +37,7 @@ class MakeSureTest extends TestCase
     {
         $formData = ['asdc' => 'yuik'];
         $redirector = Mockery::mock();
-        $redirector->shouldReceive('postJson')->with('welcome', $formData, [])->once();
+        $redirector->shouldReceive('postJson')->with('welcome', $formData)->once();
         Heyman::makeSure($redirector)->sendingJsonPostRequest('welcome', $formData);
     }
 
@@ -45,7 +45,7 @@ class MakeSureTest extends TestCase
     {
         $formData = ['asdc' => 'yuik'];
         $redirector = Mockery::mock();
-        $redirector->shouldReceive('put')->with('welcome', $formData, [])->once();
+        $redirector->shouldReceive('put')->with('welcome', $formData)->once();
         Heyman::makeSure($redirector)->sendingPutRequest('welcome', $formData);
     }
 
@@ -53,7 +53,7 @@ class MakeSureTest extends TestCase
     {
         $formData = ['asdc' => 'yuik'];
         $redirector = Mockery::mock();
-        $redirector->shouldReceive('putJson')->with('welcome', $formData, [])->once();
+        $redirector->shouldReceive('putJson')->with('welcome', $formData)->once();
         Heyman::makeSure($redirector)->sendingJsonPutRequest('welcome', $formData);
     }
 
@@ -61,7 +61,7 @@ class MakeSureTest extends TestCase
     {
         $formData = ['asdc' => 'yuik'];
         $redirector = Mockery::mock();
-        $redirector->shouldReceive('patch')->with('welcome', $formData, [])->once();
+        $redirector->shouldReceive('patch')->with('welcome', $formData)->once();
         Heyman::makeSure($redirector)->sendingPatchRequest('welcome', $formData);
     }
 
@@ -69,7 +69,7 @@ class MakeSureTest extends TestCase
     {
         $formData = ['asdc' => 'yuik'];
         $redirector = Mockery::mock();
-        $redirector->shouldReceive('patchJson')->with('welcome', $formData, [])->once();
+        $redirector->shouldReceive('patchJson')->with('welcome', $formData)->once();
         Heyman::makeSure($redirector)->sendingJsonPatchRequest('welcome', $formData);
     }
 
@@ -77,7 +77,7 @@ class MakeSureTest extends TestCase
     {
         $formData = ['asdc' => 'yuik'];
         $redirector = Mockery::mock();
-        $redirector->shouldReceive('delete')->with('welcome', $formData, [])->once();
+        $redirector->shouldReceive('delete')->with('welcome', $formData)->once();
         Heyman::makeSure($redirector)->sendingDeleteRequest('welcome', $formData);
     }
 
@@ -85,7 +85,7 @@ class MakeSureTest extends TestCase
     {
         $formData = ['asdc' => 'yuik'];
         $redirector = Mockery::mock();
-        $redirector->shouldReceive('delete')->with('welcome', $formData, [])->once();
+        $redirector->shouldReceive('delete')->with('welcome', $formData)->once();
         Heyman::makeSure($redirector)->sendingDeleteRequest('welcome', $formData);
     }
 

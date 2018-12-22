@@ -29,26 +29,20 @@ class CheckExpectations
 
     private function checkResponse()
     {
-        if (!$this->chain->http) {
-            return;
+        if (isset($this->chain->data['http'])) {
+            $response = $this->sendRequest($this->chain->data['http']);
+            $this->checkResponses($response);
         }
-        $this->checkResponses($this->sendRequest());
     }
 
     /**
+     * @param $data
      * @return mixed
      */
-    private function sendRequest()
+    private function sendRequest($data)
     {
-        $method = $this->chain->http['method'];
-        $data = $this->chain->http;
-        if ($method == 'get' or $method == 'getJson') {
-            $response = $this->phpunit->$method($data['uri'], $data['headers']);
-        } else {
-            $response = $this->phpunit->$method($data['uri'], $data['data'], $data['headers']);
-        }
-
-        return $response;
+        $method = $data['method'];
+        return $this->phpunit->$method(...$data['rest']);
     }
 
     /**
@@ -56,7 +50,7 @@ class CheckExpectations
      */
     private function checkResponses($response)
     {
-        foreach ($this->chain->assertion as $assertion) {
+        foreach ($this->chain->data['assertion'] ?? [] as $assertion) {
             $type = $assertion['type'];
             $response->$type($assertion['value']);
         }
@@ -64,15 +58,15 @@ class CheckExpectations
 
     private function fireEvents()
     {
-        if ($this->chain->event) {
-            event($this->chain->event);
+        if (isset($this->chain->data['event'])) {
+            event($this->chain->data['event']);
         }
     }
 
     private function expectExceptions()
     {
-        if ($this->chain->exception) {
-            $this->phpunit->expectException($this->chain->exception);
+        if (isset($this->chain->data['exception'])) {
+            $this->phpunit->expectException($this->chain->data['exception']);
         }
     }
 }
