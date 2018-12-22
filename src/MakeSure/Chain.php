@@ -29,6 +29,6 @@ class Chain
      */
     public function addAssertion($type, $value = null)
     {
-        $this->data['assertion'][] = get_defined_vars();
+        $this->data['assertion'][] = [$type, $value];
     }
 }

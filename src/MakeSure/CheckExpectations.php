@@ -52,9 +52,8 @@ class CheckExpectations
      */
     private function checkResponses($response)
     {
-        foreach ($this->chain->data['assertion'] ?? [] as $assertion) {
-            $type = $assertion['type'];
-            $response->$type($assertion['value']);
+        foreach ($this->chain->data['assertion'] ?? [] as [$type, $value]) {
+            $response->$type($value);
         }
     }
 
