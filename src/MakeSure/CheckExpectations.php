@@ -37,11 +37,13 @@ class CheckExpectations
 
     /**
      * @param $data
+     *
      * @return mixed
      */
     private function sendRequest($data)
     {
         $method = $data['method'];
+
         return $this->phpunit->$method(...$data['rest']);
     }
 
