@@ -7,16 +7,16 @@ class HttpClient
     private $chain;
 
     private $methods = [
-        'sendingPostRequest' => 'post',
-        'sendingJsonPostRequest' => 'postJson',
-        'sendingDeleteRequest' => 'delete',
+        'sendingPostRequest'       => 'post',
+        'sendingJsonPostRequest'   => 'postJson',
+        'sendingDeleteRequest'     => 'delete',
         'sendingJsonDeleteRequest' => 'deleteJson',
-        'sendingPutRequest' => 'put',
-        'sendingJsonPutRequest' => 'putJson',
-        'sendingPatchRequest' => 'patch',
-        'sendingJsonPatchRequest' => 'patchJson',
-        'sendingGetRequest' => 'get',
-        'sendingJsonGetRequest' => 'getJson',
+        'sendingPutRequest'        => 'put',
+        'sendingJsonPutRequest'    => 'putJson',
+        'sendingPatchRequest'      => 'patch',
+        'sendingJsonPatchRequest'  => 'patchJson',
+        'sendingGetRequest'        => 'get',
+        'sendingJsonGetRequest'    => 'getJson',
     ];
 
     /**
