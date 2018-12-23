@@ -139,7 +139,7 @@ HeyMan, that is Amazing stuff !!!
 ```php
 
 // This is written in package and lives in vendor folder, So we can not touch it.
-HeyMan::whenYouHitRouteName('someRouteName')-> ....; 
+HeyMan::whenYouHitRouteName('myPackageRoute')->youShouldHaveRole(....; 
 
 ```
 
@@ -151,11 +151,11 @@ HeyMan::whenYouHitRouteName('someRouteName')-> ....;
 public function boot() {
   
   // Cancels out the current rules
-   HeyMan::forget()->aboutRoute('someRouteName');
+   HeyMan::forget()->aboutRoute('myPackageRoute');
   
   
    // Add new rules by package user.
-   HeyMan::whenYouHitRouteName('someRouteName')-> ... 
+   HeyMan::whenYouHitRouteName('myPackageRoute')-> ... 
    
 }
 ```
