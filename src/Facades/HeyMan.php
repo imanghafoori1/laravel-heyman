@@ -2,11 +2,11 @@
 
 namespace Imanghafoori\HeyMan\Facades;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Facade;
 use Imanghafoori\HeyMan\Forget;
-use Imanghafoori\HeyMan\Switching\Consider;
+use Illuminate\Support\Facades\Facade;
 use Imanghafoori\HeyMan\YouShouldHave;
+use Illuminate\Database\Eloquent\Model;
+use Imanghafoori\HeyMan\Switching\Consider;
 
 /**
  * Class HeyMan.

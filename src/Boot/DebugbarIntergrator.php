@@ -6,7 +6,7 @@ class DebugbarIntergrator
 {
     public static function register()
     {
-        if (!app()->offsetExists('debugbar')) {
+        if (! app()->offsetExists('debugbar')) {
             return;
         }
 

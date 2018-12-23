@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Auth\Access\AuthorizationException;
-use Imanghafoori\HeyMan\Facades\HeyMan;
 use Imanghafoori\HeyMan\StartGuarding;
+use Imanghafoori\HeyMan\Facades\HeyMan;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class EloquentAuthorizationTest extends TestCase
 {
@@ -32,7 +32,7 @@ class EloquentAuthorizationTest extends TestCase
     public function testUpdatingModelsIsAuthorized2()
     {
         HeyMan::whenYouUpdate('\App\User')->thisClosureShouldAllow(function ($param, $param2, $user) {
-            return !($param === 1 and $param2 === 2 and (is_a($user, \App\User::class)));
+            return ! ($param === 1 and $param2 === 2 and (is_a($user, \App\User::class)));
         }, [1, 2])->otherwise()->weDenyAccess();
         app(StartGuarding::class)->start();
         $this->expectException(AuthorizationException::class);

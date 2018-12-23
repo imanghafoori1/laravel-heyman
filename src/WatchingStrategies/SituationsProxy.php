@@ -2,11 +2,11 @@
 
 namespace Imanghafoori\HeyMan\WatchingStrategies;
 
-use Imanghafoori\HeyMan\WatchingStrategies\EloquentModels\EloquentSituations;
+use Imanghafoori\HeyMan\YouShouldHave;
+use Imanghafoori\HeyMan\WatchingStrategies\Views\ViewSituations;
 use Imanghafoori\HeyMan\WatchingStrategies\Events\EventSituations;
 use Imanghafoori\HeyMan\WatchingStrategies\Routes\RouteSituations;
-use Imanghafoori\HeyMan\WatchingStrategies\Views\ViewSituations;
-use Imanghafoori\HeyMan\YouShouldHave;
+use Imanghafoori\HeyMan\WatchingStrategies\EloquentModels\EloquentSituations;
 
 final class SituationsProxy
 {

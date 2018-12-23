@@ -1,9 +1,9 @@
 <?php
 
-use Illuminate\Auth\Access\AuthorizationException;
-use Imanghafoori\HeyMan\Facades\HeyMan;
 use Imanghafoori\HeyMan\StartGuarding;
+use Imanghafoori\HeyMan\Facades\HeyMan;
 use Imanghafoori\MakeSure\Facades\MakeSure;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class EventsAuthorizationTest extends TestCase
 {
