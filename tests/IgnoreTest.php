@@ -154,7 +154,7 @@ class IgnoreTest extends TestCase
         Heyman::turnOff()->allChecks();
         Heyman::turnOn()->allChecks();
 
-        $this->put('put')->assertStatus(403);
+        MakeSure::that($this)->sendingPutRequest('put')->isRespondedWith()->statusCode(403);
     }
 
     public function test_it_ignores_validation()
@@ -165,7 +165,7 @@ class IgnoreTest extends TestCase
 
         HeyMan::turnOff()->validationChecks();
 
-        $this->get('welcome')->assertStatus(200)->assertSessionMissing('name');
+        MakeSure::that($this)->sendingGetRequest('welcome')->isRespondedWith()->statusCode(200);
     }
 
     public function test_it_ignores_validation2()
@@ -176,6 +176,6 @@ class IgnoreTest extends TestCase
 
         HeyMan::turnOff()->allChecks();
 
-        $this->get('welcome')->assertStatus(200)->assertSessionMissing('name');
+        MakeSure::that($this)->sendingGetRequest('welcome')->isRespondedWith()->statusCode(200);
     }
 }

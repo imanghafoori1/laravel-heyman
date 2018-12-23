@@ -12,7 +12,7 @@ class EventsAuthorizationTest extends TestCase
         HeyMan::whenEventHappens('myEvent4')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
         app(StartGuarding::class)->start();
 
-        Heyman::makeSure($this)->whenEventHappens('myEvent1')->exceptionIsThrown(AuthorizationException::class);
+        MakeSure::that($this)->whenEventHappens('myEvent1')->exceptionIsThrown(AuthorizationException::class);
     }
 
     public function testEventIsAuthorized2()
@@ -63,7 +63,7 @@ class EventsAuthorizationTest extends TestCase
         HeyMan::whenEventHappens(['my-event', 'myEvent1'])->always()->abort(402);
         app(StartGuarding::class)->start();
 
-        Heyman::makeSure($this)
+        MakeSure::that($this)
             ->sendingGetRequest('event/my-event')
             ->isRespondedWith()
             ->statusCode(402);
@@ -78,7 +78,7 @@ class EventsAuthorizationTest extends TestCase
         HeyMan::whenEventHappens(['my-event', 'myEvent1'])->always()->redirect()->to('welcome');
         app(StartGuarding::class)->start();
 
-        Heyman::makeSure($this)
+        MakeSure::that($this)
             ->sendingGetRequest('event/my-event')
             ->isRespondedWith()
             ->redirect('/welcome', 302);
@@ -93,7 +93,7 @@ class EventsAuthorizationTest extends TestCase
             Heyman::checkPoint('whoAreYou');
         });
 
-        Heyman::makeSure($this)
+        MakeSure::that($this)
             ->sendingGetRequest('oh')
             ->isRespondedWith()
             ->redirect('/welcome', 302);

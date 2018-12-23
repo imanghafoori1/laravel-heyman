@@ -28,9 +28,9 @@ class HeyMan
         return  SituationsProxy::call($method, $args);
     }
 
-    public function makeSure($app): HttpClient
+    public function makeSure($testCase): HttpClient
     {
-        return new HttpClient($app);
+        return new HttpClient($testCase);
     }
 
     public function checkPoint(string $pointName)

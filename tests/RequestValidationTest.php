@@ -32,7 +32,7 @@ class RequestValidationTest extends TestCase
             return ['name' => 'required'];
         });
 
-        Heyman::makeSure($this)
+        MakeSure::that($this)
             ->sendingPostRequest('/welcome', ['f' => 'f'])
             ->isRespondedWith()
             ->statusCode(302)

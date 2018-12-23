@@ -21,6 +21,7 @@
     "require-dev": {
         "orchestra/testbench": "~3.0",
         "barryvdh/laravel-debugbar": "^2.3",
+        "imanghafoori/laravel-makesure": "^1.0",
         "orchestra/database": "@dev",
         "mockery/mockery": "^0.9.9"
     },

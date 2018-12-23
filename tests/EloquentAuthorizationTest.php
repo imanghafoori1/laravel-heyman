@@ -168,7 +168,7 @@ class EloquentAuthorizationTest extends TestCase
         HeyWait::ifIsFalse(auth()->guest())
             ->redirect('/home');
 
-        HeyMan::makeSure()
+        MakeSure::that()
             ->whenYouVisit('admin/article')
             ->asGuest()
             ->youWillBeRedirectedTo('/login');*/
