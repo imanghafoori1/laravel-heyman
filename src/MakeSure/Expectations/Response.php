@@ -20,7 +20,7 @@ class Response
 
     public function redirect($url, $status = null)
     {
-        $this->chain->addAssertion('assertRedirect', $url);
+        $this->addAssertion('assertRedirect', $url);
 
         if (!is_null($status)) {
             $this->statusCode($status);
@@ -31,19 +31,19 @@ class Response
 
     public function statusCode($code)
     {
-        $this->chain->addAssertion('assertStatus', $code);
+        $this->addAssertion('assertStatus', $code);
 
         return $this;
     }
 
     public function success()
     {
-        $this->chain->addAssertion('assertSuccessful');
+        $this->addAssertion('assertSuccessful');
     }
 
     public function withError($value)
     {
-        $this->chain->addAssertion('assertSessionHasErrors', $value);
+        $this->addAssertion('assertSessionHasErrors', $value);
 
         return $this;
     }
@@ -51,5 +51,14 @@ class Response
     public function forbiddenStatus()
     {
         return $this->statusCode(403);
+    }
+
+    /**
+     * @param $value
+     * @param $type
+     */
+    public function addAssertion($type, $value = null)
+    {
+        $this->chain->data['assertion'][] = [$type, $value];
     }
 }

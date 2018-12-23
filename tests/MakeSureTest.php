@@ -102,25 +102,25 @@ class MakeSureTest extends TestCase
     public function test_statusCode()
     {
         $chain = Mockery::mock(Imanghafoori\HeyMan\MakeSure\Chain::class);
-        $chain->shouldReceive('addAssertion')->once()->with('assertSuccessful');
         $resp = new \Imanghafoori\HeyMan\MakeSure\Expectations\Response($chain);
         $resp->success();
+        $this->assertEquals([['assertSuccessful', null]], $chain->data['assertion']);
     }
 
     public function test_forbiddenCode()
     {
         $chain = Mockery::mock(Imanghafoori\HeyMan\MakeSure\Chain::class);
-        $chain->shouldReceive('addAssertion')->once()->with('assertStatus', 403);
         $resp = new \Imanghafoori\HeyMan\MakeSure\Expectations\Response($chain);
         $resp->forbiddenStatus();
+        $this->assertEquals([['assertStatus', 403]], $chain->data['assertion']);
     }
 
     public function test_success()
     {
         $chain = Mockery::mock(Imanghafoori\HeyMan\MakeSure\Chain::class);
-        $chain->shouldReceive('addAssertion')->once()->with('assertSuccessful');
         $resp = new \Imanghafoori\HeyMan\MakeSure\Expectations\Response($chain);
         $resp->success();
+        $this->assertEquals([['assertSuccessful', null]], $chain->data['assertion']);
     }
 
     public function test_checkPoint()

@@ -36,7 +36,7 @@ class HttpClient
 
     public function sendRequest($method, ...$data): IsRespondedWith
     {
-        $this->chain->http($this->methods[$method], ...$data);
+        $this->chain->data['http'] = [$this->methods[$method], $data];
 
         return new IsRespondedWith($this->chain);
     }

@@ -30,21 +30,20 @@ class CheckExpectations
     private function checkResponse()
     {
         if (isset($this->chain->data['http'])) {
-            $response = $this->sendRequest($this->chain->data['http']);
+            $response = $this->sendRequest(...$this->chain->data['http']);
             $this->checkResponses($response);
         }
     }
 
     /**
+     * @param $method
      * @param $data
      *
      * @return mixed
      */
-    private function sendRequest($data)
+    private function sendRequest($method, $data)
     {
-        $method = $data['method'];
-
-        return $this->phpunit->$method(...$data['rest']);
+        return $this->phpunit->$method(...$data);
     }
 
     /**

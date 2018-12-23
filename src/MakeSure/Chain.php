@@ -4,6 +4,8 @@ namespace Imanghafoori\HeyMan\MakeSure;
 
 class Chain
 {
+    public $data = [];
+
     private $phpunit;
 
     public function __construct($phpunit)
@@ -11,24 +13,8 @@ class Chain
         $this->phpunit = $phpunit;
     }
 
-    public $data = [];
-
     public function __destruct()
     {
         (new CheckExpectations($this, $this->phpunit))->check();
-    }
-
-    public function http($method, ...$rest)
-    {
-        $this->data['http'] = get_defined_vars();
-    }
-
-    /**
-     * @param $value
-     * @param $type
-     */
-    public function addAssertion($type, $value = null)
-    {
-        $this->data['assertion'][] = [$type, $value];
     }
 }
