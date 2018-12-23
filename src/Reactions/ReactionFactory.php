@@ -13,7 +13,7 @@ final class ReactionFactory
         $condition = resolve('heyman.chain')->get('condition');
 
         return function (...$f) use ($condition, $reaction) {
-            if (!$condition($f)) {
+            if (! $condition($f)) {
                 $reaction();
             }
         };

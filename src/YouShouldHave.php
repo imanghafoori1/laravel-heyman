@@ -2,9 +2,9 @@
 
 namespace Imanghafoori\HeyMan;
 
+use Imanghafoori\HeyMan\Reactions\Reactions;
 use Imanghafoori\HeyMan\Conditions\ConditionsFacade;
 use Imanghafoori\HeyMan\Conditions\RequestValidation;
-use Imanghafoori\HeyMan\Reactions\Reactions;
 
 /**
  * Class YouShouldHave.

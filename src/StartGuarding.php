@@ -2,8 +2,8 @@
 
 namespace Imanghafoori\HeyMan;
 
-use Illuminate\Routing\Events\RouteMatched;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Routing\Events\RouteMatched;
 use Imanghafoori\HeyMan\WatchingStrategies\Routes\RouteMatchListener;
 
 class StartGuarding

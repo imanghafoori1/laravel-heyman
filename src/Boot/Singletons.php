@@ -3,16 +3,16 @@
 namespace Imanghafoori\HeyMan\Boot;
 
 use Imanghafoori\HeyMan\Chain;
-use Imanghafoori\HeyMan\Conditions\ConditionsFacade;
 use Imanghafoori\HeyMan\HeyMan;
-use Imanghafoori\HeyMan\Reactions\ReactionFactory;
-use Imanghafoori\HeyMan\Switching\HeyManSwitcher;
-use Imanghafoori\HeyMan\WatchingStrategies\AllChains;
-use Imanghafoori\HeyMan\WatchingStrategies\EloquentModels\EloquentEventsManager;
-use Imanghafoori\HeyMan\WatchingStrategies\Events\EventManager;
-use Imanghafoori\HeyMan\WatchingStrategies\Views\ViewEventManager;
-use Imanghafoori\HeyMan\WatchingStrategies\Views\ViewNormalizer;
 use Imanghafoori\HeyMan\YouShouldHave;
+use Imanghafoori\HeyMan\Switching\HeyManSwitcher;
+use Imanghafoori\HeyMan\Reactions\ReactionFactory;
+use Imanghafoori\HeyMan\Conditions\ConditionsFacade;
+use Imanghafoori\HeyMan\WatchingStrategies\AllChains;
+use Imanghafoori\HeyMan\WatchingStrategies\Events\EventManager;
+use Imanghafoori\HeyMan\WatchingStrategies\Views\ViewNormalizer;
+use Imanghafoori\HeyMan\WatchingStrategies\Views\ViewEventManager;
+use Imanghafoori\HeyMan\WatchingStrategies\EloquentModels\EloquentEventsManager;
 
 class Singletons
 {

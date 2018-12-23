@@ -2,17 +2,17 @@
 
 namespace Imanghafoori\HeyMan;
 
-use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
-use Imanghafoori\HeyMan\Boot\DebugbarIntergrator;
+use Imanghafoori\HeyMan\Facades\HeyMan;
 use Imanghafoori\HeyMan\Boot\Singletons;
+use Imanghafoori\HeyMan\Boot\DebugbarIntergrator;
 use Imanghafoori\HeyMan\Conditions\ConditionsFacade;
-use Imanghafoori\HeyMan\Conditions\Traits\Authentication;
 use Imanghafoori\HeyMan\Conditions\Traits\Callbacks;
+use Imanghafoori\HeyMan\Conditions\Traits\Authentication;
 use Imanghafoori\HeyMan\Conditions\Traits\Gate as myGate;
 use Imanghafoori\HeyMan\Conditions\Traits\Session as mySession;
-use Imanghafoori\HeyMan\Facades\HeyMan;
 
 final class HeyManServiceProvider extends ServiceProvider
 {

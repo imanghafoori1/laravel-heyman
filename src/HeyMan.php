@@ -2,9 +2,9 @@
 
 namespace Imanghafoori\HeyMan;
 
-use Imanghafoori\HeyMan\Conditions\ConditionsFacade;
-use Imanghafoori\HeyMan\MakeSure\HttpClient;
 use Imanghafoori\HeyMan\Switching\Turn;
+use Imanghafoori\HeyMan\MakeSure\HttpClient;
+use Imanghafoori\HeyMan\Conditions\ConditionsFacade;
 use Imanghafoori\HeyMan\WatchingStrategies\SituationsProxy;
 
 class HeyMan
@@ -20,7 +20,7 @@ class HeyMan
     {
         resolve('heyman.chain')->startChain();
 
-        if (config()->get('app.debug') and !app()->environment('production')) {
+        if (config()->get('app.debug') and ! app()->environment('production')) {
             $info = array_only(debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 2)[1], ['file', 'line', 'args']);
             resolve('heyman.chain')->set('debugInfo', $info);
         }
