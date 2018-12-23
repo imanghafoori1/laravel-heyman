@@ -98,4 +98,10 @@ class EventsAuthorizationTest extends TestCase
             ->isRespondedWith()
             ->redirect('/welcome', 302);
     }
+
+    public function test_checkPoint()
+    {
+        $this->expectsEvents('heyman_checkpoint_wow');
+        Heyman::checkPoint('wow');
+    }
 }
