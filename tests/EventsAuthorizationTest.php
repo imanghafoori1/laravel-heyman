@@ -3,6 +3,7 @@
 use Illuminate\Auth\Access\AuthorizationException;
 use Imanghafoori\HeyMan\Facades\HeyMan;
 use Imanghafoori\HeyMan\StartGuarding;
+use Imanghafoori\MakeSure\Facades\MakeSure;
 
 class EventsAuthorizationTest extends TestCase
 {

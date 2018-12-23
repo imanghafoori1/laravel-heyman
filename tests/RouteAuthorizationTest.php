@@ -1,6 +1,7 @@
 <?php
 
 use Imanghafoori\HeyMan\Facades\HeyMan;
+use Imanghafoori\MakeSure\Facades\MakeSure;
 
 class RouteAuthorizationTest extends TestCase
 {

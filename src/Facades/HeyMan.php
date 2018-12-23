@@ -32,7 +32,6 @@ use Imanghafoori\HeyMan\YouShouldHave;
  * @method static null checkPoint(string $name)
  * @method static Consider turnOn()
  * @method static Forget forget()
- * @method static HttpClient makeSure()
  *
  * @see \Imanghafoori\HeyMan\HeyMan
  */
