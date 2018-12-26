@@ -8,22 +8,24 @@ class ConditionsFacade
 
     public function _call($method, $param)
     {
-        if (in_array($method, ['thisClosureShouldAllow', 'thisMethodShouldAllow'])) {
-            $param = [
-                'callback'   => $param[0],
-                'parameters' => $param[1] ?? [],
-            ];
+        if (! isset($this->methods[$method])) {
+            throw new \BadMethodCallException($method.' does not exists as a Heyman condition');
+        }
+       $condition = $this->methods[$method];
+
+       if (is_callable($condition)) {
+            return $condition(...$param);
         }
 
-        if (isset($this->methods[$method])) {
-            return app()->call($this->methods[$method], $param);
-        }
-
-        throw new \BadMethodCallException($method.' does not exists as a Heyman condition');
+        list($class, $method) = explode('@', $condition);
+        return call_user_func_array([new $class, $method], $param);
     }
 
     public function define($methodName, $callable)
     {
-        $this->methods[$methodName] = $callable;
+        if (is_callable($callable) || (is_string($callable) and mb_strpos($callable, '@')))
+            $this->methods[$methodName] = $callable;
+        else
+            throw new \InvalidArgumentException("$callable should be string Class@method or a php callable");
     }
 }
