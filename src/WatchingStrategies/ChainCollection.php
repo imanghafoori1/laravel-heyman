@@ -6,7 +6,7 @@ use Imanghafoori\HeyMan\Switching\HeyManSwitcher;
 use Imanghafoori\HeyMan\Reactions\ReactionFactory;
 use Imanghafoori\HeyMan\Normilizers\InputNormalizer;
 
-class AllChains
+class ChainCollection
 {
     use InputNormalizer;
 
@@ -36,5 +36,20 @@ class AllChains
         foreach ($chain->get('watchedEntities') as $value) {
             $this->data[$manager][$value][$event][] = $switchableListener;
         }
+    }
+
+    /**
+     * initialize the chain.
+     *
+     * @param $manager
+     * @param array  $values
+     * @param string $param
+     */
+    public function init($manager, array $values, string $param = 'default')
+    {
+        $chain = resolve('heyman.chain');
+        $chain->set('manager', $manager);
+        $chain->set('watchedEntities', $values);
+        $chain->set('event', $param);
     }
 }

@@ -14,7 +14,7 @@ class ResponderTest extends TestCase
             'jsonp',
             'download',
         ];
-        $m = \Mockery::mock(\Imanghafoori\HeyMan\WatchingStrategies\AllChains::class);
+        $m = \Mockery::mock(\Imanghafoori\HeyMan\WatchingStrategies\ChainCollection::class);
         $m->shouldReceive('commitChain')->times(7);
         app()->instance('heyman.chains', $m);
 
@@ -36,7 +36,7 @@ class ResponderTest extends TestCase
             'to',
         ];
 
-        $m = \Mockery::mock(\Imanghafoori\HeyMan\WatchingStrategies\AllChains::class);
+        $m = \Mockery::mock(\Imanghafoori\HeyMan\WatchingStrategies\ChainCollection::class);
         $m->shouldReceive('commitChain')->times(5);
         app()->instance('heyman.chains', $m);
 

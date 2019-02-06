@@ -8,7 +8,7 @@ use Imanghafoori\HeyMan\YouShouldHave;
 use Imanghafoori\HeyMan\Switching\HeyManSwitcher;
 use Imanghafoori\HeyMan\Reactions\ReactionFactory;
 use Imanghafoori\HeyMan\Conditions\ConditionsFacade;
-use Imanghafoori\HeyMan\WatchingStrategies\AllChains;
+use Imanghafoori\HeyMan\WatchingStrategies\ChainCollection;
 use Imanghafoori\HeyMan\WatchingStrategies\Events\EventManager;
 use Imanghafoori\HeyMan\WatchingStrategies\Views\ViewNormalizer;
 use Imanghafoori\HeyMan\WatchingStrategies\Views\ViewEventManager;
@@ -24,7 +24,7 @@ class Singletons
             $app->singleton($class, $class);
         }
         $app->singleton('heyman.chain', Chain::class);
-        $app->singleton('heyman.chains', AllChains::class);
+        $app->singleton('heyman.chains', ChainCollection::class);
     }
 
     /**
