@@ -16,7 +16,7 @@ class StartGuarding
         foreach ($data as $manager => $f) {
             foreach ($f as $value => $callbacks) {
                 foreach ($callbacks as $key => $cb) {
-                    resolve($manager)->register($value, $cb, $key);
+                    resolve($manager)->startWatching($value, $cb, $key);
                 }
             }
         }

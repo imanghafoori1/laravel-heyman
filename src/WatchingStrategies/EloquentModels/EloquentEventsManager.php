@@ -9,7 +9,7 @@ class EloquentEventsManager
      * @param $event
      * @param $model
      */
-    public function register(string $model, array $callbacks, string $event)
+    public function startWatching(string $model, array $callbacks, string $event)
     {
         foreach ($callbacks as $cb) {
             $model::{$event}($cb);
