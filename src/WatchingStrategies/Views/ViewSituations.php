@@ -4,9 +4,9 @@ namespace Imanghafoori\HeyMan\WatchingStrategies\Views;
 
 final class ViewSituations
 {
-    public function hasMethod($method)
+    public function hasMethod()
     {
-        return false;
+
     }
 
     /**

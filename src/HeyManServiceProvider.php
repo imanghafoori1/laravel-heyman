@@ -13,6 +13,7 @@ use Imanghafoori\HeyMan\Conditions\Traits\Callbacks;
 use Imanghafoori\HeyMan\Conditions\Traits\Authentication;
 use Imanghafoori\HeyMan\Conditions\Traits\Gate as myGate;
 use Imanghafoori\HeyMan\Conditions\Traits\Session as mySession;
+use Imanghafoori\HeyMan\Register\Situations;
 
 final class HeyManServiceProvider extends ServiceProvider
 {
@@ -27,6 +28,8 @@ final class HeyManServiceProvider extends ServiceProvider
         DebugbarIntergrator::register();
 
         $this->registerConditions();
+
+        Situations::register();
     }
 
     public function register()
