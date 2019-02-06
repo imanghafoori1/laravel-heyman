@@ -5,7 +5,7 @@ namespace Imanghafoori\HeyMan;
 class Chain
 {
     /**
-     * @var \Imanghafoori\HeyMan\Chain
+     * @var array
      */
     private $chainInfo = [];
 
@@ -27,19 +27,5 @@ class Chain
     public function push($key, $value)
     {
         $this->chainInfo[$key][] = $value;
-    }
-
-    /**
-     * ViewEventManager constructor.
-     *
-     * @param $manager
-     * @param array  $values
-     * @param string $param
-     */
-    public function init($manager, array $values, string $param = 'default')
-    {
-        $this->set('manager', $manager);
-        $this->set('watchedEntities', $values);
-        $this->set('event', $param);
     }
 }

@@ -15,6 +15,6 @@ final class ViewSituations
     public function whenYouMakeView(...$views)
     {
         $view = resolve(ViewNormalizer::class)->normalizeView($views);
-        resolve('heyman.chain')->init(ViewEventManager::class, $view);
+        resolve('heyman.chains')->init(ViewEventManager::class, $view);
     }
 }
