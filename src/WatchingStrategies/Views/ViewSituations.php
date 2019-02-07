@@ -6,7 +6,6 @@ final class ViewSituations
 {
     public function hasMethod()
     {
-
     }
 
     /**
