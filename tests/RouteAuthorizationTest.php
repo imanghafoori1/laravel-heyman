@@ -1,6 +1,7 @@
 <?php
 
 use Imanghafoori\HeyMan\Facades\HeyMan;
+use Imanghafoori\HeyMan\StartGuarding;
 use Imanghafoori\MakeSure\Facades\MakeSure;
 
 class RouteAuthorizationTest extends TestCase
@@ -11,6 +12,7 @@ class RouteAuthorizationTest extends TestCase
 
         HeyMan::whenYouVisitUrl('/welco*')->always()->weDenyAccess();
         HeyMan::whenYouVisitUrl('welcome1')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
+        app(StartGuarding::class)->start();
 
         MakeSure::that($this)->sendingGetRequest('/welcome')->isRespondedWith()->statusCode(403);
     }
@@ -21,6 +23,7 @@ class RouteAuthorizationTest extends TestCase
         });
 
         HeyMan::whenYouSendPost('post')->always()->weDenyAccess();
+        app(StartGuarding::class)->start();
 
         MakeSure::that($this)->sendingPostRequest('/post')->isRespondedWith()->statusCode(403);
     }
@@ -35,6 +38,8 @@ class RouteAuthorizationTest extends TestCase
                 event('terminated_well');
             });
         $this->expectsEvents('terminated_well');
+
+        app(StartGuarding::class)->start();
         $this->put('put')->assertStatus(403);
     }
 
@@ -44,6 +49,7 @@ class RouteAuthorizationTest extends TestCase
         });
 
         HeyMan::whenYouSendPatch('patch')->always()->weDenyAccess();
+        app(StartGuarding::class)->start();
         $this->patch('patch')->assertStatus(403);
     }
 
@@ -53,6 +59,7 @@ class RouteAuthorizationTest extends TestCase
         });
 
         HeyMan::whenYouSendDelete('delete')->always()->weDenyAccess();
+        app(StartGuarding::class)->start();
         $this->delete('delete')->assertStatus(403);
     }
 
@@ -63,6 +70,7 @@ class RouteAuthorizationTest extends TestCase
         HeyMan::whenYouVisitUrl(['welcome', 'welcome_'])->always()->weDenyAccess();
         HeyMan::whenYouVisitUrl('welcome1')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
 
+        app(StartGuarding::class)->start();
         MakeSure::that($this)->sendingGetRequest('/welcome')->isRespondedWith()->forbiddenStatus();
     }
 
@@ -73,6 +81,7 @@ class RouteAuthorizationTest extends TestCase
         HeyMan::whenYouVisitUrl(['welcome_', 'welcome'])->always()->weDenyAccess();
         HeyMan::whenYouVisitUrl('welcome1')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
 
+        app(StartGuarding::class)->start();
         MakeSure::that($this)->sendingGetRequest('/welcome')->isRespondedWith()->forbiddenStatus();
     }
 
@@ -83,6 +92,7 @@ class RouteAuthorizationTest extends TestCase
         HeyMan::whenYouVisitUrl('welcome', 'welcome_')->always()->weDenyAccess();
         HeyMan::whenYouVisitUrl('welcome1')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
 
+        app(StartGuarding::class)->start();
         MakeSure::that($this)->sendingGetRequest('/welcome')->isRespondedWith()->forbiddenStatus();
     }
 
@@ -93,6 +103,7 @@ class RouteAuthorizationTest extends TestCase
         HeyMan::whenYouVisitUrl('welcome_', 'welcome')->always()->weDenyAccess();
         HeyMan::whenYouVisitUrl('welcome1')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
 
+        app(StartGuarding::class)->start();
         MakeSure::that($this)->sendingGetRequest('/welcome')->isRespondedWith()->forbiddenStatus();
     }
 
@@ -102,6 +113,7 @@ class RouteAuthorizationTest extends TestCase
 
         HeyMan::whenYouVisitUrl('/welcome', 'ewrf')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
         HeyMan::whenYouVisitUrl('welcome1')->always()->weDenyAccess();
+        app(StartGuarding::class)->start();
 
         $this->get('/welcome')->assertSuccessful();
     }
@@ -112,6 +124,8 @@ class RouteAuthorizationTest extends TestCase
 
         HeyMan::whenYouVisitUrl('welcome')->always()->weDenyAccess();
         HeyMan::whenYouVisitUrl('welcome2')->always()->weDenyAccess();
+        app(StartGuarding::class)->start();
+
         MakeSure::that($this)->sendingGetRequest('/welcome1')->isOk();
     }
 
@@ -121,6 +135,7 @@ class RouteAuthorizationTest extends TestCase
 
         HeyMan::whenYouVisitUrl('/welcome')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
         HeyMan::whenYouVisitUrl('welcome1')->always()->weDenyAccess();
+        app(StartGuarding::class)->start();
 
         MakeSure::that($this)->sendingGetRequest('/welcome')->isOk();
     }
@@ -131,6 +146,7 @@ class RouteAuthorizationTest extends TestCase
 
         HeyMan::whenYouHitRouteName('welcome.name')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
         HeyMan::whenYouHitRouteName('welcome1.name')->always()->weDenyAccess();
+        app(StartGuarding::class)->start();
         MakeSure::that($this)->sendingGetRequest('/welcome')->isOk();
     }
 
@@ -139,6 +155,7 @@ class RouteAuthorizationTest extends TestCase
         Route::get('/welcome', 'HomeController@index')->name('welcome.name');
 
         HeyMan::whenYouHitRouteName('welcome.name')->always()->weDenyAccess();
+        app(StartGuarding::class)->start();
         MakeSure::that($this)->sendingGetRequest('/welcome')->isRespondedWith()->forbiddenStatus();
     }
 
@@ -147,6 +164,8 @@ class RouteAuthorizationTest extends TestCase
         Route::get('/welcome', 'HomeController@index')->name('welcome.name');
 
         HeyMan::whenYouHitRouteName('welcome.*')->always()->weDenyAccess();
+        app(StartGuarding::class)->start();
+
         MakeSure::that($this)->sendingGetRequest('/welcome')->isRespondedWith()->forbiddenStatus();
     }
 
@@ -155,6 +174,7 @@ class RouteAuthorizationTest extends TestCase
         Route::get('/welcome', 'HomeController@index')->name('welcome.name');
 
         HeyMan::whenYouCallAction('\HomeController@index')->always()->weDenyAccess();
+        app(StartGuarding::class)->start();
 
         MakeSure::that($this)->sendingGetRequest('/welcome')->isRespondedWith()->forbiddenStatus();
     }
@@ -164,6 +184,7 @@ class RouteAuthorizationTest extends TestCase
         Route::get('/welcome', 'HomeController@index')->name('welcome.name');
 
         HeyMan::whenYouCallAction('\HomeController@index')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
+        app(StartGuarding::class)->start();
 
         MakeSure::that($this)->sendingGetRequest('/welcome')->isOk();
     }
@@ -174,6 +195,7 @@ class RouteAuthorizationTest extends TestCase
 
         HeyMan::whenYouHitRouteName(['welcome.name'])->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
         HeyMan::whenYouHitRouteName('welcome1.name')->always()->weDenyAccess();
+        app(StartGuarding::class)->start();
 
         MakeSure::that($this)->sendingGetRequest('/welcome')->isOk();
     }
@@ -184,6 +206,7 @@ class RouteAuthorizationTest extends TestCase
 
         HeyMan::whenYouHitRouteName('welcome.Oname')->always()->weDenyAccess();
         HeyMan::whenYouCallAction('\HomeController@index')->always()->weDenyAccess();
+        app(StartGuarding::class)->start();
 
         MakeSure::that($this)->sendingGetRequest('/welcome')->isRespondedWith()->forbiddenStatus();
     }
@@ -194,6 +217,7 @@ class RouteAuthorizationTest extends TestCase
 
         HeyMan::whenYouVisitUrl(['welcom2', 'ewrf'])->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
         HeyMan::whenYouCallAction('\\HomeController@index')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
+        app(StartGuarding::class)->start();
 
         MakeSure::that($this)->sendingGetRequest('/welcome')->isOk();
     }
@@ -203,6 +227,7 @@ class RouteAuthorizationTest extends TestCase
         Route::get('/welcome', 'HomeController@index')->name('welcome.name');
 
         HeyMan::whenYouCallAction('\\HomeController@*')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
+        app(StartGuarding::class)->start();
 
         MakeSure::that($this)->sendingGetRequest('/welcome')->isOk();
     }
@@ -214,6 +239,7 @@ class RouteAuthorizationTest extends TestCase
         HeyMan::whenYouVisitUrl(['welcom2', 'ewrf'])->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
         HeyMan::whenYouCallAction('MyController@index')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
 
+        app(StartGuarding::class)->start();
         MakeSure::that($this)->sendingGetRequest('/welcome')->isOk();
     }
 
@@ -223,6 +249,7 @@ class RouteAuthorizationTest extends TestCase
 
         HeyMan::whenYouCallAction('MyController@*')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
 
+        app(StartGuarding::class)->start();
         MakeSure::that($this)->sendingGetRequest('/welcome')->isOk();
     }
 
@@ -233,6 +260,7 @@ class RouteAuthorizationTest extends TestCase
         HeyMan::whenYouVisitUrl(['welcome', 'welcome_'])->always()->weDenyAccess();
         HeyMan::whenYouVisitUrl('welcome1')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
         HeyMan::forget()->aboutUrl(['welcome', 'welcome_']);
+        app(StartGuarding::class)->start();
         MakeSure::that($this)->sendingGetRequest('/welcome')->isOk();
     }
 
@@ -242,6 +270,7 @@ class RouteAuthorizationTest extends TestCase
 
         HeyMan::whenYouHitRouteName('welcome.name')->always()->weDenyAccess();
         HeyMan::forget()->aboutRoute('welcome.name');
+        app(StartGuarding::class)->start();
         MakeSure::that($this)->sendingGetRequest('/welcome')->isOk();
     }
 
@@ -252,6 +281,7 @@ class RouteAuthorizationTest extends TestCase
         HeyMan::whenYouCallAction('\HomeController@index')->always()->weDenyAccess();
         HeyMan::forget()->aboutAction('\HomeController@index');
 
+        app(StartGuarding::class)->start();
         MakeSure::that($this)->sendingGetRequest('/welcome')->isOk();
     }
 }
