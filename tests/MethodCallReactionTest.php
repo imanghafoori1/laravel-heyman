@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Gate;
-use Imanghafoori\HeyMan\Facades\HeyMan;
 use Imanghafoori\HeyMan\StartGuarding;
+use Imanghafoori\HeyMan\Facades\HeyMan;
 
 class Logger
 {

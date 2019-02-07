@@ -1,7 +1,7 @@
 <?php
 
-use Imanghafoori\HeyMan\Facades\HeyMan;
 use Imanghafoori\HeyMan\StartGuarding;
+use Imanghafoori\HeyMan\Facades\HeyMan;
 
 class RequestValidationTest extends TestCase
 {

@@ -14,6 +14,5 @@ class ViewEventManager
                 view()->creator($value, $cb[0]);
             }
         }
-
     }
 }
