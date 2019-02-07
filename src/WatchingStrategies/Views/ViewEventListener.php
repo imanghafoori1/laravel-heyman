@@ -2,7 +2,7 @@
 
 namespace Imanghafoori\HeyMan\WatchingStrategies\Views;
 
-class ViewEventManager
+class ViewEventListener
 {
     /**
      * @param $chainData

@@ -2,7 +2,7 @@
 
 namespace Imanghafoori\HeyMan\WatchingStrategies\Events;
 
-class EventManager
+class EventListeners
 {
     public function startWatching($data)
     {

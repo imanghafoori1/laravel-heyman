@@ -6,7 +6,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Routing\Events\RouteMatched;
 
-final class RouteEventManager
+final class RouteEventListener
 {
     /**
      * @param $chainData

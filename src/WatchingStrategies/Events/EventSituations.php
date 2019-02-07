@@ -13,7 +13,7 @@ final class EventSituations
      */
     public function whenEventHappens(...$event)
     {
-        resolve('heyman.chains')->init(EventManager::class, $event);
+        resolve('heyman.chains')->init(EventListeners::class, $event);
     }
 
     public function whenYouReachCheckPoint($name)

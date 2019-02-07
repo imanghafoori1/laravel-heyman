@@ -2,10 +2,10 @@
 
 namespace Imanghafoori\HeyMan\WatchingStrategies\EloquentModels;
 
-class EloquentEventsManager
+class EloquentEventsListener
 {
     /**
-     * @param $data
+     * @param array $data
      */
     public function startWatching($data)
     {

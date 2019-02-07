@@ -20,7 +20,7 @@ final class RouteSituations
     public function __call($method, $args)
     {
         $args = $this->getNormalizedArgs($method, $args);
-        resolve('heyman.chains')->init(RouteEventManager::class, $args);
+        resolve('heyman.chains')->init(RouteEventListener::class, $args);
     }
 
     /**
