@@ -7,13 +7,16 @@ use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
 use Imanghafoori\HeyMan\Facades\HeyMan;
 use Imanghafoori\HeyMan\Boot\Singletons;
-use Imanghafoori\HeyMan\Register\Situations;
 use Imanghafoori\HeyMan\Boot\DebugbarIntergrator;
 use Imanghafoori\HeyMan\Conditions\ConditionsFacade;
 use Imanghafoori\HeyMan\Conditions\Traits\Callbacks;
 use Imanghafoori\HeyMan\Conditions\Traits\Authentication;
 use Imanghafoori\HeyMan\Conditions\Traits\Gate as myGate;
 use Imanghafoori\HeyMan\Conditions\Traits\Session as mySession;
+use Imanghafoori\HeyMan\WatchingStrategies\EloquentModels\EloquentSituationProvider;
+use Imanghafoori\HeyMan\WatchingStrategies\Events\EventSituationProvider;
+use Imanghafoori\HeyMan\WatchingStrategies\Routes\RouteSituationProvider;
+use Imanghafoori\HeyMan\WatchingStrategies\Views\ViewSituationProvider;
 
 final class HeyManServiceProvider extends ServiceProvider
 {
@@ -21,7 +24,6 @@ final class HeyManServiceProvider extends ServiceProvider
     {
         $this->defineGates();
 
-        $this->loadMigrationsFrom(__DIR__.'/migrations');
         app()->booted([resolve(StartGuarding::class), 'start']);
 
         $this->disableIfIsSeeding();
@@ -29,7 +31,10 @@ final class HeyManServiceProvider extends ServiceProvider
 
         $this->registerConditions();
 
-        Situations::register();
+        ViewSituationProvider::register();
+        RouteSituationProvider::register();
+        EventSituationProvider::register();
+        EloquentSituationProvider::register();
     }
 
     public function register()
