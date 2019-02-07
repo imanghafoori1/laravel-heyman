@@ -2,10 +2,6 @@
 
 namespace Imanghafoori\HeyMan\Switching;
 
-use Imanghafoori\HeyMan\WatchingStrategies\Events\EventManager;
-use Imanghafoori\HeyMan\WatchingStrategies\Views\ViewEventManager;
-use Imanghafoori\HeyMan\WatchingStrategies\EloquentModels\EloquentEventsManager;
-
 /**
  * Class Consider.
  *
@@ -17,12 +13,8 @@ use Imanghafoori\HeyMan\WatchingStrategies\EloquentModels\EloquentEventsManager;
  */
 class Consider
 {
-    const methods = [
-            'eventChecks'      => EventManager::class,
-            'viewChecks'       => ViewEventManager::class,
-            'routeChecks'      => 'route',
-            'eloquentChecks'   => EloquentEventsManager::class,
-            'validationChecks' => 'validation',
+    public static $methods = [
+        'validationChecks' => 'validation',
     ];
 
     private $mode;
@@ -34,12 +26,12 @@ class Consider
 
     public function __call($method, $args)
     {
-        return $this->turn(self::methods[$method], ...$args);
+        return $this->turn(self::$methods[$method], ...$args);
     }
 
     public function allChecks()
     {
-        foreach (self::methods as $method => $type) {
+        foreach (self::$methods as $method => $type) {
             $this->$method();
         }
     }

@@ -28,11 +28,6 @@ class HeyMan
         return  SituationsProxy::call($method, $args);
     }
 
-    public function makeSure($testCase): HttpClient
-    {
-        return new HttpClient($testCase);
-    }
-
     public function checkPoint(string $pointName)
     {
         event('heyman_checkpoint_'.$pointName);
