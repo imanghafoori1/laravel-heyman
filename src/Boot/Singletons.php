@@ -21,7 +21,7 @@ class Singletons
         $singletons = self::singletons();
 
         foreach ($singletons as $class) {
-            $app->singleton($class, $class);
+            $app->singleton($class);
         }
         $app->singleton('heyman.chain', Chain::class);
         $app->singleton('heyman.chains', ChainCollection::class);
