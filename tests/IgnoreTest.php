@@ -13,6 +13,7 @@ class IgnoreTest extends TestCase
         HeyMan::whenYouVisitUrl('welcome1')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
 
         Heyman::turnOff()->routeChecks();
+        app(StartGuarding::class)->start();
 
         $this->get('welcome')->assertStatus(200);
     }
@@ -25,6 +26,7 @@ class IgnoreTest extends TestCase
         HeyMan::whenYouVisitUrl('welcome1')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
 
         Heyman::turnOff()->routeChecks();
+        app(StartGuarding::class)->start();
 
         $this->get('welcome')->assertStatus(200);
     }
@@ -37,6 +39,7 @@ class IgnoreTest extends TestCase
         HeyMan::whenYouVisitUrl('welcome1')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
 
         Heyman::turnOff()->routeChecks();
+        app(StartGuarding::class)->start();
 
         $this->get('welcome')->assertStatus(200);
     }
@@ -48,6 +51,7 @@ class IgnoreTest extends TestCase
         HeyMan::whenYouHitRouteName('welcome.name')->always()->weDenyAccess();
 
         Heyman::turnOff()->routeChecks();
+        app(StartGuarding::class)->start();
 
         $this->get('welcome')->assertStatus(200);
     }
@@ -59,6 +63,7 @@ class IgnoreTest extends TestCase
         HeyMan::whenYouHitRouteName('welcome.*')->always()->weDenyAccess();
 
         Heyman::turnOff()->routeChecks();
+        app(StartGuarding::class)->start();
 
         $this->get('welcome')->assertStatus(200);
     }
@@ -70,6 +75,7 @@ class IgnoreTest extends TestCase
         HeyMan::whenYouCallAction('\HomeController@index')->always()->weDenyAccess();
 
         Heyman::turnOff()->routeChecks();
+        app(StartGuarding::class)->start();
 
         $this->get('welcome')->assertStatus(200);
     }
@@ -81,6 +87,7 @@ class IgnoreTest extends TestCase
         HeyMan::whenYouCallAction('\HomeController@index')->always()->weDenyAccess();
 
         Heyman::turnOff()->routeChecks();
+        app(StartGuarding::class)->start();
 
         $this->get('welcome')->assertStatus(200);
     }
@@ -153,6 +160,7 @@ class IgnoreTest extends TestCase
 
         Heyman::turnOff()->allChecks();
         Heyman::turnOn()->allChecks();
+        app(StartGuarding::class)->start();
 
         MakeSure::that($this)->sendingPutRequest('put')->isRespondedWith()->statusCode(403);
     }
@@ -164,6 +172,7 @@ class IgnoreTest extends TestCase
         HeyMan::whenYouVisitUrl('welcome')->yourRequestShouldBeValid(['name' => 'required']);
 
         HeyMan::turnOff()->validationChecks();
+        app(StartGuarding::class)->start();
 
         MakeSure::that($this)->sendingGetRequest('welcome')->isRespondedWith()->statusCode(200);
     }
@@ -175,6 +184,7 @@ class IgnoreTest extends TestCase
         HeyMan::whenYouVisitUrl('welcome')->yourRequestShouldBeValid(['name' => 'required']);
 
         HeyMan::turnOff()->allChecks();
+        app(StartGuarding::class)->start();
 
         MakeSure::that($this)->sendingGetRequest('welcome')->isRespondedWith()->statusCode(200);
     }

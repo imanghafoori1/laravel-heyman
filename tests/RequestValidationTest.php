@@ -1,6 +1,7 @@
 <?php
 
 use Imanghafoori\HeyMan\Facades\HeyMan;
+use Imanghafoori\HeyMan\StartGuarding;
 
 class RequestValidationTest extends TestCase
 {
@@ -11,6 +12,7 @@ class RequestValidationTest extends TestCase
         HeyMan::whenYouVisitUrl('welcome')->yourRequestShouldBeValid(['name' => 'required']);
         HeyMan::whenYouVisitUrl('welcome')->youShouldBeLoggedIn()->otherwise()->weDenyAccess();
 
+        app(StartGuarding::class)->start();
         $this->get('welcome')->assertStatus(302)->assertSessionHasErrors('name');
     }
 
@@ -21,6 +23,7 @@ class RequestValidationTest extends TestCase
         HeyMan::whenYouVisitUrl('welcome')->youShouldBeLoggedIn()->otherwise()->weDenyAccess();
         HeyMan::whenYouVisitUrl('welcome')->yourRequestShouldBeValid(['name' => 'required']);
 
+        app(StartGuarding::class)->start();
         $this->get('welcome')->assertStatus(403)->assertSessionMissing('errors');
     }
 
@@ -31,6 +34,8 @@ class RequestValidationTest extends TestCase
         HeyMan::whenYouHitRouteName('welcome.name')->yourRequestShouldBeValid(function () {
             return ['name' => 'required'];
         });
+
+        app(StartGuarding::class)->start();
 
         MakeSure::that($this)
             ->sendingPostRequest('/welcome', ['f' => 'f'])
@@ -50,6 +55,7 @@ class RequestValidationTest extends TestCase
             return ['fname' => 'required'];
         });
 
+        app(StartGuarding::class)->start();
         $this->post('welcome', ['name' => 'required'])->assertStatus(302)
             ->assertSessionHasErrors('fname');
 
@@ -69,6 +75,7 @@ class RequestValidationTest extends TestCase
             return $requestData;
         });
 
+        app(StartGuarding::class)->start();
         $this->post('welcome', ['f' => 'f'])->assertStatus(200)->assertSessionMissing('errors');
     }
 }

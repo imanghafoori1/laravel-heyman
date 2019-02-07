@@ -11,6 +11,7 @@ class reactionsTest extends TestCase
         Route::get('/welcome', 'HomeController@index')->name('welcome.name');
 
         HeyMan::whenYouVisitUrl('welcome')->always()->redirect()->to('home')->with('hi', 'jpp');
+        app(StartGuarding::class)->start();
 
         $this->get('welcome')->assertRedirect('home')->assertSessionHas('hi');
     }
@@ -22,6 +23,8 @@ class reactionsTest extends TestCase
         HeyMan::whenYouVisitUrl('welcome')->always()->afterFiringEvent('explode')->redirect()->to('home')->with('key1', 'jpp');
 
         $this->expectsEvents('explode');
+        app(StartGuarding::class)->start();
+
         $this->get('welcome')->assertRedirect('home')->assertSessionHas('key1');
     }
 
@@ -32,6 +35,7 @@ class reactionsTest extends TestCase
 
         HeyMan::whenYouMakeView('welcome')->youShouldBeGuest()->otherwise()->redirect()->to('home')->withErrors('key_1', 'value_1');
         app(StartGuarding::class)->start();
+
         $this->get('welcome')->assertRedirect('home')->assertSessionHas('errors');
     }
 
@@ -44,6 +48,7 @@ class reactionsTest extends TestCase
         $this->withoutExceptionHandling();
         $this->expectException(\Illuminate\Auth\Access\AuthorizationException::class);
         $this->expectExceptionMessage('abc');
+        app(StartGuarding::class)->start();
 
         $this->get('welcome');
     }
@@ -58,6 +63,7 @@ class reactionsTest extends TestCase
 
         HeyMan::whenYouVisitUrl(['welcome', 'welcome_'])->always()->response()->json(['m'=> 'm'], 403);
         HeyMan::whenYouVisitUrl('welcome1')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
+        app(StartGuarding::class)->start();
 
         $this->get('welcome')->assertJson(['m'=>'m'])->assertStatus(403);
         $this->get('welcome1')->assertStatus(200);
@@ -73,6 +79,7 @@ class reactionsTest extends TestCase
 
         HeyMan::whenYouVisitUrl('welcome', 'asdfv')->always()->abort(405);
         HeyMan::whenYouVisitUrl('welcome1')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
+        app(StartGuarding::class)->start();
 
         $this->get('welcome')->assertStatus(405);
         $this->get('welcome1')->assertStatus(200);
@@ -89,6 +96,7 @@ class reactionsTest extends TestCase
             ->thisValueShouldAllow(false)
             ->otherwise()
             ->weRespondFrom('SomeClass@someMethod');
+        app(StartGuarding::class)->start();
 
         $this->get('welcome')->assertStatus(566)->assertJson(['Wow'=> 'Man']);
     }
