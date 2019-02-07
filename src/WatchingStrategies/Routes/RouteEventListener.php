@@ -16,13 +16,9 @@ final class RouteEventListener
     public function startWatching($chainData)
     {
         Route::matched(function (RouteMatched $eventObj) use ($chainData) {
-            $matchedRoute = [
-                $eventObj->route->getName(),
-                $eventObj->route->getActionName(),
-                $eventObj->request->method().$eventObj->route->uri,
-            ];
+            $matchedRoute = $this->getMatchedRouteInto($eventObj);
             $matchedCallbacks = [];
-            foreach (array_filter($matchedRoute) as $info) {
+            foreach ($matchedRoute as $info) {
                 foreach ($chainData as $routeInfo => $callBacks) {
                     if (Str::is($routeInfo, $info)) {
                         $matchedCallbacks[] = array_pop($callBacks);
@@ -42,5 +38,20 @@ final class RouteEventListener
         foreach (array_flatten($closures) as $closure) {
             $closure();
         }
+    }
+
+    /**
+     * @param \Illuminate\Routing\Events\RouteMatched $eventObj
+     * @return array
+     */
+    public function getMatchedRouteInto(RouteMatched $eventObj): array
+    {
+        $matchedRoute = [
+            $eventObj->route->getName(),
+            $eventObj->route->getActionName(),
+            $eventObj->request->method().$eventObj->route->uri,
+        ];
+
+        return array_filter($matchedRoute);
     }
 }
