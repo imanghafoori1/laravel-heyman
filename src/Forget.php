@@ -4,6 +4,7 @@ namespace Imanghafoori\HeyMan;
 
 use Imanghafoori\HeyMan\Normilizers\InputNormalizer;
 use Imanghafoori\HeyMan\WatchingStrategies\Events\EventManager;
+use Imanghafoori\HeyMan\WatchingStrategies\Routes\RouteEventManager;
 use Imanghafoori\HeyMan\WatchingStrategies\Routes\RouteNormalizer;
 use Imanghafoori\HeyMan\WatchingStrategies\Views\ViewEventManager;
 use Imanghafoori\HeyMan\WatchingStrategies\EloquentModels\EloquentEventsManager;
@@ -44,7 +45,7 @@ final class Forget
         if (in_array($method, ['Route', 'Action', 'Url'])) {
             $args = resolve(RouteNormalizer::class)->{'normalize'.$method}($args);
 
-            return resolve('heyman.chains')->forgetAbout('route', $args);
+            return resolve('heyman.chains')->forgetAbout(RouteEventManager::class, $args);
         }
 
         $method = str_replace('Fetching', 'retrieved', $method);

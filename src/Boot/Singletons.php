@@ -16,33 +16,25 @@ use Imanghafoori\HeyMan\WatchingStrategies\EloquentModels\EloquentEventsManager;
 
 class Singletons
 {
+    protected static $singletons = [
+        HeyManSwitcher::class,
+        HeyMan::class,
+        YouShouldHave::class,
+        ReactionFactory::class,
+        EventManager::class,
+        ViewEventManager::class,
+        EloquentEventsManager::class,
+        ViewNormalizer::class,
+        ConditionsFacade::class,
+        Chain::class,
+    ];
+
     public static function make($app)
     {
-        $singletons = self::singletons();
-
-        foreach ($singletons as $class) {
+        foreach (self::$singletons as $class) {
             $app->singleton($class);
         }
         $app->singleton('heyman.chain', Chain::class);
         $app->singleton('heyman.chains', ChainCollection::class);
-    }
-
-    /**
-     * @return array
-     */
-    private static function singletons(): array
-    {
-        return [
-            HeyManSwitcher::class,
-            HeyMan::class,
-            YouShouldHave::class,
-            ReactionFactory::class,
-            EventManager::class,
-            ViewEventManager::class,
-            EloquentEventsManager::class,
-            ViewNormalizer::class,
-            ConditionsFacade::class,
-            Chain::class,
-        ];
     }
 }

@@ -5,11 +5,15 @@ namespace Imanghafoori\HeyMan\WatchingStrategies\Views;
 class ViewEventManager
 {
     /**
-     * @param string $view
-     * @param array  $callback
+     * @param $chainData
      */
-    public function startWatching(string $view, array $callback)
+    public function startWatching($chainData)
     {
-        view()->creator($view, $callback[0]);
+        foreach ($chainData as $value => $callbacks) {
+            foreach ($callbacks as $key => $cb) {
+                view()->creator($value, $cb[0]);
+            }
+        }
+
     }
 }

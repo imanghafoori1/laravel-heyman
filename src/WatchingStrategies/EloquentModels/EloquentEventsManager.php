@@ -5,14 +5,16 @@ namespace Imanghafoori\HeyMan\WatchingStrategies\EloquentModels;
 class EloquentEventsManager
 {
     /**
-     * @param $callbacks
-     * @param $event
-     * @param $model
+     * @param $data
      */
-    public function startWatching(string $model, array $callbacks, string $event)
+    public function startWatching($data)
     {
-        foreach ($callbacks as $cb) {
-            $model::{$event}($cb);
+        foreach ($data as $model => $f) {
+            foreach ($f as $event => $callbacks) {
+                foreach ($callbacks as $cb) {
+                    $model::{$event}($cb);
+                }
+            }
         }
     }
 }

@@ -3,14 +3,18 @@
 namespace Imanghafoori\HeyMan\Register;
 
 use Imanghafoori\HeyMan\Switching\Consider;
-use Imanghafoori\HeyMan\WatchingStrategies\SituationsProxy;
-use Imanghafoori\HeyMan\WatchingStrategies\Events\EventManager;
-use Imanghafoori\HeyMan\WatchingStrategies\Views\ViewSituations;
-use Imanghafoori\HeyMan\WatchingStrategies\Events\EventSituations;
-use Imanghafoori\HeyMan\WatchingStrategies\Routes\RouteSituations;
-use Imanghafoori\HeyMan\WatchingStrategies\Views\ViewEventManager;
-use Imanghafoori\HeyMan\WatchingStrategies\EloquentModels\EloquentSituations;
-use Imanghafoori\HeyMan\WatchingStrategies\EloquentModels\EloquentEventsManager;
+use Imanghafoori\HeyMan\WatchingStrategies\
+{
+    SituationsProxy,
+    Events\EventManager,
+    Views\ViewSituations,
+    Routes\RouteEventManager,
+    Views\ViewEventManager,
+    EloquentModels\EloquentSituations,
+    Events\EventSituations,
+    Routes\RouteSituations,
+    EloquentModels\EloquentEventsManager
+};
 
 class Situations
 {
@@ -19,7 +23,7 @@ class Situations
         Consider::$methods['eventChecks'] = EventManager::class;
         Consider::$methods['viewChecks'] = ViewEventManager::class;
         Consider::$methods['eloquentChecks'] = EloquentEventsManager::class;
-        Consider::$methods['routeChecks'] = 'route';
+        Consider::$methods['routeChecks'] = RouteEventManager::class;
 
         SituationsProxy::$situations[] = RouteSituations::class;
         SituationsProxy::$situations[] = EventSituations::class;
