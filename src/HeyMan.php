@@ -3,7 +3,6 @@
 namespace Imanghafoori\HeyMan;
 
 use Imanghafoori\HeyMan\Switching\Turn;
-use Imanghafoori\HeyMan\MakeSure\HttpClient;
 use Imanghafoori\HeyMan\Conditions\ConditionsFacade;
 use Imanghafoori\HeyMan\WatchingStrategies\SituationsProxy;
 

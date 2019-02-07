@@ -6,8 +6,8 @@ final class EventSituations
 {
     public function hasMethod()
     {
-
     }
+
     /**
      * @param mixed ...$event
      */
