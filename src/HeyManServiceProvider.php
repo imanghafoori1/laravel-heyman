@@ -7,18 +7,18 @@ use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
 use Imanghafoori\HeyMan\Facades\HeyMan;
 use Imanghafoori\HeyMan\Boot\Singletons;
+use Imanghafoori\HeyMan\Switching\Consider;
 use Imanghafoori\HeyMan\Boot\DebugbarIntergrator;
 use Imanghafoori\HeyMan\Conditions\ConditionsFacade;
 use Imanghafoori\HeyMan\Conditions\Traits\Callbacks;
 use Imanghafoori\HeyMan\Conditions\Traits\Authentication;
 use Imanghafoori\HeyMan\Conditions\Traits\Gate as myGate;
+use Imanghafoori\HeyMan\WatchingStrategies\SituationsProxy;
 use Imanghafoori\HeyMan\Conditions\Traits\Session as mySession;
 use Imanghafoori\HeyMan\WatchingStrategies\Views\ViewSituationProvider;
 use Imanghafoori\HeyMan\WatchingStrategies\Events\EventSituationProvider;
 use Imanghafoori\HeyMan\WatchingStrategies\Routes\RouteSituationProvider;
 use Imanghafoori\HeyMan\WatchingStrategies\EloquentModels\EloquentSituationProvider;
-use Imanghafoori\HeyMan\Switching\Consider;
-use Imanghafoori\HeyMan\WatchingStrategies\SituationsProxy;
 
 final class HeyManServiceProvider extends ServiceProvider
 {
