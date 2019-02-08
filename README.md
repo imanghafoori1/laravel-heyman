@@ -17,13 +17,13 @@
 
 
 
-## :ribbon: Heyman continues where the other role-permission packages left off :ribbon:
+## :ribbon: Heyman continues where the other role-permission packages left off...
 
-## We have used CDD (Creativity Driven Development) along side the TDD
+#### We have used CDD (Creativity Driven Development) along side the TDD
 
-### Built with :heart: for every smart laravel developer
+#### Built with :heart: for every smart laravel developer
 
-and it is very well tested, optimized and production ready !
+Very well tested, optimized and production ready !
 
 In fact, We have tackled a lot of `complexity` behind the scenes, to provide you with a lot of `simplicity`.
 
