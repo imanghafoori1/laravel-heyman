@@ -2,14 +2,20 @@
 
 namespace Imanghafoori\HeyMan\WatchingStrategies\Routes;
 
-use Imanghafoori\HeyMan\Switching\Consider;
-use Imanghafoori\HeyMan\WatchingStrategies\SituationsProxy;
-
 class RouteSituationProvider
 {
-    public static function register(): void
+    public function getListener()
     {
-        Consider::$methods['routeChecks'] = RouteEventListener::class;
-        SituationsProxy::$situations[] = RouteSituations::class;
+        return RouteEventListener::class;
+    }
+
+    public function getSituationProvider()
+    {
+        return RouteSituations::class;
+    }
+
+    public function getForgetKey()
+    {
+        return 'routeChecks';
     }
 }

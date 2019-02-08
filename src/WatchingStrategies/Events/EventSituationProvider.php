@@ -2,14 +2,20 @@
 
 namespace Imanghafoori\HeyMan\WatchingStrategies\Events;
 
-use Imanghafoori\HeyMan\Switching\Consider;
-use Imanghafoori\HeyMan\WatchingStrategies\SituationsProxy;
-
 class EventSituationProvider
 {
-    public static function register(): void
+    public function getListener()
     {
-        Consider::$methods['eventChecks'] = EventListeners::class;
-        SituationsProxy::$situations[] = EventSituations::class;
+        return EventListeners::class;
+    }
+
+    public function getSituationProvider()
+    {
+        return EventSituations::class;
+    }
+
+    public function getForgetKey()
+    {
+        return 'eventChecks';
     }
 }

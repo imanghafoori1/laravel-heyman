@@ -2,14 +2,20 @@
 
 namespace Imanghafoori\HeyMan\WatchingStrategies\EloquentModels;
 
-use Imanghafoori\HeyMan\Switching\Consider;
-use Imanghafoori\HeyMan\WatchingStrategies\SituationsProxy;
-
 class EloquentSituationProvider
 {
-    public static function register(): void
+    public function getListener()
     {
-        Consider::$methods['eloquentChecks'] = EloquentEventsListener::class;
-        SituationsProxy::$situations[] = EloquentSituations::class;
+        return EloquentEventsListener::class;
+    }
+
+    public function getSituationProvider()
+    {
+        return EloquentSituations::class;
+    }
+
+    public function getForgetKey()
+    {
+        return 'eloquentChecks';
     }
 }

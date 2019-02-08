@@ -2,14 +2,20 @@
 
 namespace Imanghafoori\HeyMan\WatchingStrategies\Views;
 
-use Imanghafoori\HeyMan\Switching\Consider;
-use Imanghafoori\HeyMan\WatchingStrategies\SituationsProxy;
-
 class ViewSituationProvider
 {
-    public static function register(): void
+    public function getListener()
     {
-        Consider::$methods['viewChecks'] = ViewEventListener::class;
-        SituationsProxy::$situations[] = ViewSituations::class;
+        return ViewEventListener::class;
+    }
+
+    public function getSituationProvider()
+    {
+        return ViewSituations::class;
+    }
+
+    public function getForgetKey()
+    {
+        return 'viewChecks';
     }
 }

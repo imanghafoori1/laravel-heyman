@@ -17,9 +17,18 @@ use Imanghafoori\HeyMan\WatchingStrategies\Views\ViewSituationProvider;
 use Imanghafoori\HeyMan\WatchingStrategies\Events\EventSituationProvider;
 use Imanghafoori\HeyMan\WatchingStrategies\Routes\RouteSituationProvider;
 use Imanghafoori\HeyMan\WatchingStrategies\EloquentModels\EloquentSituationProvider;
+use Imanghafoori\HeyMan\Switching\Consider;
+use Imanghafoori\HeyMan\WatchingStrategies\SituationsProxy;
 
 final class HeyManServiceProvider extends ServiceProvider
 {
+    public $providers = [
+        ViewSituationProvider::class,
+        RouteSituationProvider::class,
+        EventSituationProvider::class,
+        EloquentSituationProvider::class,
+    ];
+
     public function boot()
     {
         $this->defineGates();
@@ -31,10 +40,7 @@ final class HeyManServiceProvider extends ServiceProvider
 
         $this->registerConditions();
 
-        ViewSituationProvider::register();
-        RouteSituationProvider::register();
-        EventSituationProvider::register();
-        EloquentSituationProvider::register();
+        $this->registerSituationProviders($this->providers);
     }
 
     public function register()
@@ -73,5 +79,14 @@ final class HeyManServiceProvider extends ServiceProvider
         app(ConditionsFacade::class)->define('youShouldHaveRole', myGate::class.'@youShouldHaveRole');
 
         app(ConditionsFacade::class)->define('sessionShouldHave', mySession::class.'@sessionHas');
+    }
+
+    private function registerSituationProviders($providers)
+    {
+        foreach ($providers as $provider) {
+            $provider = new $provider;
+            Consider::$methods[$provider->getForgetKey()] = $provider->getListener();
+            SituationsProxy::$situations[] = $provider->getSituationProvider();
+        }
     }
 }
