@@ -13,7 +13,7 @@ use Imanghafoori\HeyMan\Conditions\ConditionsFacade;
 use Imanghafoori\HeyMan\Conditions\Traits\Callbacks;
 use Imanghafoori\HeyMan\Conditions\Traits\Authentication;
 use Imanghafoori\HeyMan\Conditions\Traits\Gate as myGate;
-use Imanghafoori\HeyMan\WatchingStrategies\SituationsProxy;
+use Imanghafoori\HeyMan\Core\SituationsProxy;
 use Imanghafoori\HeyMan\Conditions\Traits\Session as mySession;
 use Imanghafoori\HeyMan\WatchingStrategies\Views\ViewSituationProvider;
 use Imanghafoori\HeyMan\WatchingStrategies\Events\EventSituationProvider;

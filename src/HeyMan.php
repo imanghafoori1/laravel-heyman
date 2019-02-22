@@ -4,7 +4,7 @@ namespace Imanghafoori\HeyMan;
 
 use Imanghafoori\HeyMan\Switching\Turn;
 use Imanghafoori\HeyMan\Conditions\ConditionsFacade;
-use Imanghafoori\HeyMan\WatchingStrategies\SituationsProxy;
+use Imanghafoori\HeyMan\Core\SituationsProxy;
 
 class HeyMan
 {

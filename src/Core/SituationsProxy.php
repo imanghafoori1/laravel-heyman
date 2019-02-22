@@ -1,6 +1,6 @@
 <?php
 
-namespace Imanghafoori\HeyMan\WatchingStrategies;
+namespace Imanghafoori\HeyMan\Core;
 
 use Imanghafoori\HeyMan\YouShouldHave;
 

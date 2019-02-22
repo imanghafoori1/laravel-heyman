@@ -8,7 +8,7 @@ use Imanghafoori\HeyMan\YouShouldHave;
 use Imanghafoori\HeyMan\Switching\HeyManSwitcher;
 use Imanghafoori\HeyMan\Reactions\ReactionFactory;
 use Imanghafoori\HeyMan\Conditions\ConditionsFacade;
-use Imanghafoori\HeyMan\WatchingStrategies\ChainCollection;
+use Imanghafoori\HeyMan\Core\ChainCollection;
 use Imanghafoori\HeyMan\WatchingStrategies\Views\ViewNormalizer;
 use Imanghafoori\HeyMan\WatchingStrategies\Events\EventListeners;
 use Imanghafoori\HeyMan\WatchingStrategies\Views\ViewEventListener;

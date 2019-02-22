@@ -1,6 +1,6 @@
 <?php
 
-namespace Imanghafoori\HeyMan\WatchingStrategies;
+namespace Imanghafoori\HeyMan\Core;
 
 use Imanghafoori\HeyMan\Switching\HeyManSwitcher;
 use Imanghafoori\HeyMan\Reactions\ReactionFactory;
