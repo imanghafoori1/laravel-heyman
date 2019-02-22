@@ -85,7 +85,7 @@ final class HeyManServiceProvider extends ServiceProvider
     {
         foreach ($providers as $provider) {
             $provider = new $provider;
-            Consider::$methods[$provider->getForgetKey()] = $provider->getListener();
+            Consider::add($provider->getForgetKey(), $provider->getListener());
             SituationsProxy::$situations[] = $provider->getSituationProvider();
         }
     }

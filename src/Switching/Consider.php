@@ -19,6 +19,11 @@ class Consider
 
     private $mode;
 
+    public static function add($key, $listener)
+    {
+        self::$methods[$key] = $listener;
+    }
+
     public function __construct($mode)
     {
         $this->mode = $mode;
