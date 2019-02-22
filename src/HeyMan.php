@@ -3,8 +3,8 @@
 namespace Imanghafoori\HeyMan;
 
 use Imanghafoori\HeyMan\Switching\Turn;
-use Imanghafoori\HeyMan\Conditions\ConditionsFacade;
 use Imanghafoori\HeyMan\Core\SituationsProxy;
+use Imanghafoori\HeyMan\Conditions\ConditionsFacade;
 
 class HeyMan
 {

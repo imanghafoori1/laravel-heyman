@@ -31,7 +31,6 @@ final class Forget
         $args = $this->normalizeInput($args);
 
         if (in_array($method, ['aboutRoute', 'aboutAction', 'aboutUrl'])) {
-
             $args = resolve(RouteNormalizer::class)->{'normalize'.ltrim($method, 'about')}($args);
 
             return resolve('heyman.chains')->forgetAbout(RouteEventListener::class, $args);
@@ -45,7 +44,7 @@ final class Forget
             resolve('heyman.chains')->forgetAbout(ViewEventListener::class, $args);
         }
 
-        if (in_array($method, ['aboutFetching', 'aboutSaving', 'aboutModel','aboutDeleting', 'aboutCreating', 'aboutUpdating'])) {
+        if (in_array($method, ['aboutFetching', 'aboutSaving', 'aboutModel', 'aboutDeleting', 'aboutCreating', 'aboutUpdating'])) {
             $method = ltrim($method, 'about');
             $method = str_replace('Fetching', 'retrieved', $method);
             $method = strtolower($method);
