@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Support\Facades\Auth;
 use Imanghafoori\HeyMan\Core\Chain;
+use Illuminate\Support\Facades\Auth;
 use Imanghafoori\HeyMan\Facades\HeyMan;
 
 class YouShouldHaveTest extends TestCase

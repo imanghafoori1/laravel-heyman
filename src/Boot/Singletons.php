@@ -2,13 +2,13 @@
 
 namespace Imanghafoori\HeyMan\Boot;
 
-use Imanghafoori\HeyMan\Core\Chain;
 use Imanghafoori\HeyMan\HeyMan;
+use Imanghafoori\HeyMan\Core\Chain;
 use Imanghafoori\HeyMan\YouShouldHave;
+use Imanghafoori\HeyMan\Core\ChainCollection;
 use Imanghafoori\HeyMan\Switching\HeyManSwitcher;
 use Imanghafoori\HeyMan\Reactions\ReactionFactory;
 use Imanghafoori\HeyMan\Conditions\ConditionsFacade;
-use Imanghafoori\HeyMan\Core\ChainCollection;
 use Imanghafoori\HeyMan\WatchingStrategies\Views\ViewNormalizer;
 use Imanghafoori\HeyMan\WatchingStrategies\Events\EventListeners;
 use Imanghafoori\HeyMan\WatchingStrategies\Views\ViewEventListener;
