@@ -2,7 +2,7 @@
 
 namespace Imanghafoori\HeyMan\Boot;
 
-use Imanghafoori\HeyMan\Chain;
+use Imanghafoori\HeyMan\Core\Chain;
 use Imanghafoori\HeyMan\HeyMan;
 use Imanghafoori\HeyMan\YouShouldHave;
 use Imanghafoori\HeyMan\Switching\HeyManSwitcher;

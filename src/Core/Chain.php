@@ -1,6 +1,6 @@
 <?php
 
-namespace Imanghafoori\HeyMan;
+namespace Imanghafoori\HeyMan\Core;
 
 class Chain
 {
