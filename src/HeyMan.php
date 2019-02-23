@@ -3,7 +3,7 @@
 namespace Imanghafoori\HeyMan;
 
 use Imanghafoori\HeyMan\Switching\Turn;
-use Imanghafoori\HeyMan\Core\SituationsProxy;
+use Imanghafoori\HeyMan\Core\Situations;
 use Imanghafoori\HeyMan\Conditions\ConditionsFacade;
 
 class HeyMan
@@ -24,7 +24,7 @@ class HeyMan
             resolve('heyman.chain')->set('debugInfo', $info);
         }
 
-        return  SituationsProxy::call($method, $args);
+        return  Situations::call($method, $args);
     }
 
     public function checkPoint(string $pointName)

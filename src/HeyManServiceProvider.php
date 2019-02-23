@@ -14,6 +14,7 @@ use Imanghafoori\HeyMan\Conditions\ConditionsFacade;
 use Imanghafoori\HeyMan\Conditions\Traits\Callbacks;
 use Imanghafoori\HeyMan\Conditions\Traits\Authentication;
 use Imanghafoori\HeyMan\Conditions\Traits\Gate as myGate;
+use Imanghafoori\HeyMan\Core\Situations;
 use Imanghafoori\HeyMan\Conditions\Traits\Session as mySession;
 use Imanghafoori\HeyMan\WatchingStrategies\Views\ViewSituationProvider;
 use Imanghafoori\HeyMan\WatchingStrategies\Events\EventSituationProvider;
@@ -22,7 +23,7 @@ use Imanghafoori\HeyMan\WatchingStrategies\EloquentModels\EloquentSituationProvi
 
 final class HeyManServiceProvider extends ServiceProvider
 {
-    public $providers = [
+    public $situationProviders = [
         ViewSituationProvider::class,
         RouteSituationProvider::class,
         EventSituationProvider::class,
@@ -40,14 +41,14 @@ final class HeyManServiceProvider extends ServiceProvider
 
         $this->registerConditions();
 
-        $this->registerSituationProviders($this->providers);
+        $this->registerSituationProviders($this->situationProviders);
     }
 
     public function register()
     {
         Singletons::make($this->app);
 
-        AliasLoader::getInstance()->alias('HeyMan', \Imanghafoori\HeyMan\Facades\HeyMan::class);
+        AliasLoader::getInstance()->alias('HeyMan', HeyMan::class);
 
         $this->mergeConfigFrom(__DIR__.'/../config/heyMan.php', 'heyMan');
     }
@@ -86,7 +87,7 @@ final class HeyManServiceProvider extends ServiceProvider
         foreach ($providers as $provider) {
             $provider = new $provider;
             Consider::add($provider->getForgetKey(), $provider->getListener());
-            SituationsProxy::$situations[] = $provider->getSituationProvider();
+            Situations::add($provider->getSituationProvider());
         }
     }
 }

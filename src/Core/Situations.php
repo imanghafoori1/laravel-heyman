@@ -4,9 +4,14 @@ namespace Imanghafoori\HeyMan\Core;
 
 use Imanghafoori\HeyMan\YouShouldHave;
 
-final class SituationsProxy
+final class Situations
 {
     public static $situations = [];
+
+    public static function add($situation): void
+    {
+        self::$situations[] = $situation;
+    }
 
     public static function call($method, $args)
     {
