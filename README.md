@@ -20,7 +20,7 @@
 
 ## :ribbon: Heyman continues where the other role-permission packages left off...
 
-#### We have used CDD (Creativity Driven Development) along side the TDD
+#### We have used CDD (Creativity Driven Development) alongside the TDD
 
 #### Built with :heart: for every smart laravel developer
 
