@@ -17,7 +17,7 @@ class ConditionsFacade
             return $condition(...$param);
         }
 
-        list($class, $method) = explode('@', $condition);
+        [$class, $method] = explode('@', $condition);
 
         return call_user_func_array([new $class, $method], $param);
     }

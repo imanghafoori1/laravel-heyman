@@ -87,7 +87,7 @@ final class ResponderFactory
     private function sendResponse(array $methodCalls, $respObj)
     {
         foreach ($methodCalls as $call) {
-            list($method, $args) = $call;
+            [$method, $args] = $call;
             $respObj = $respObj->{$method}(...$args);
         }
 
