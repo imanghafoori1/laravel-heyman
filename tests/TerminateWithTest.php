@@ -2,7 +2,6 @@
 
 use Imanghafoori\HeyMan\StartGuarding;
 use Imanghafoori\HeyMan\Facades\HeyMan;
-use Imanghafoori\MakeSure\Facades\MakeSure;
 
 class TerminateWithTest extends TestCase
 {
@@ -21,5 +20,4 @@ class TerminateWithTest extends TestCase
         app(StartGuarding::class)->start();
         $this->put('put')->assertExactJson(['hello' => 'bye'])->assertStatus(301);
     }
-
 }
