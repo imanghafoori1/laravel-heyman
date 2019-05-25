@@ -39,6 +39,7 @@
         "imanghafoori/laravel-anypass": " Allows you login with any password in local environment.",
 		"imanghafoori/laravel-masterpass": "You can easily set a master password without code change.",
         "imanghafoori/laravel-terminator": "Gives you opportunity to refactor your controllers."
+        "imanghafoori/eloquent-relativity": "Decouple your eloquent models from each other."
     },
     "scripts": {
         "test": "phpunit"
