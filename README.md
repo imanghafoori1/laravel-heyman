@@ -1,7 +1,8 @@
 # Laravel Hey Man
 
 
-![image](https://user-images.githubusercontent.com/6961695/43285148-4d86673e-9133-11e8-9415-2df017906762.png)
+<p align="left">
+  <img src="https://user-images.githubusercontent.com/6961695/43285148-4d86673e-9133-11e8-9415-2df017906762.png" width="600" title="I kill nasty code">
 
 ### Readability Counts. In fact, Readability is the primary value of your code !!!
 
