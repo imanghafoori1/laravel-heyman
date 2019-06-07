@@ -31,6 +31,8 @@ use Imanghafoori\HeyMan\Switching\Consider;
  * @method static null checkPoint(string $name)
  * @method static Consider turnOn()
  * @method static Forget forget()
+ * @method static void defineCondition(string $name, $callable)
+ * @method static void aliasCondition(string $currentName, string $newName)
  *
  * @see \Imanghafoori\HeyMan\HeyMan
  */

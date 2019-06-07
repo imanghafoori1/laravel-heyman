@@ -32,8 +32,18 @@ class HeyMan
         event('heyman_checkpoint_'.$pointName);
     }
 
+    public function aliasCondition(string $currentName, string $newName)
+    {
+        resolve(ConditionsFacade::class)->alias($currentName, $newName);
+    }
+
+    public function defineCondition(string $name, $callable)
+    {
+        resolve(ConditionsFacade::class)->define($name, $callable);
+    }
+
     public function condition(string $name, $callable)
     {
-        app(ConditionsFacade::class)->define($name, $callable);
+        $this->defineCondition($name, $callable);
     }
 }
