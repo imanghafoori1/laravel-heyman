@@ -9,10 +9,6 @@ use Imanghafoori\HeyMan\Core\ChainCollection;
 use Imanghafoori\HeyMan\Switching\HeyManSwitcher;
 use Imanghafoori\HeyMan\Reactions\ReactionFactory;
 use Imanghafoori\HeyMan\Conditions\ConditionsFacade;
-use Imanghafoori\HeyMan\WatchingStrategies\Views\ViewNormalizer;
-use Imanghafoori\HeyMan\WatchingStrategies\Events\EventListeners;
-use Imanghafoori\HeyMan\WatchingStrategies\Views\ViewEventListener;
-use Imanghafoori\HeyMan\WatchingStrategies\EloquentModels\EloquentEventsListener;
 
 class Singletons
 {
@@ -21,10 +17,6 @@ class Singletons
         HeyMan::class,
         YouShouldHave::class,
         ReactionFactory::class,
-        EventListeners::class,
-        ViewEventListener::class,
-        EloquentEventsListener::class,
-        ViewNormalizer::class,
         ConditionsFacade::class,
         Chain::class,
     ];
