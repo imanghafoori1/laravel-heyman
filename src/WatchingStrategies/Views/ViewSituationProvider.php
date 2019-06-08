@@ -25,7 +25,7 @@ class ViewSituationProvider
     public function getMethods(): array
     {
         return [
-            'whenYouMakeView'
+            'whenYouMakeView',
         ];
     }
 }

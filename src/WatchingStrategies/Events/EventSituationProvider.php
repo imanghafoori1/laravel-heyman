@@ -18,6 +18,7 @@ class EventSituationProvider
     {
         return 'eventChecks';
     }
+
     /**
      * @return array
      */
@@ -25,7 +26,7 @@ class EventSituationProvider
     {
         return [
             'whenEventHappens',
-            'whenYouReachCheckPoint'
+            'whenYouReachCheckPoint',
         ];
     }
 }
