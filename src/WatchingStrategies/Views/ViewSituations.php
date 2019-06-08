@@ -11,6 +11,17 @@ final class ViewSituations
      */
     public function normalize($method, $params)
     {
-        return resolve(ViewNormalizer::class)->normalizeView($params);
+        array_walk($params, function ($view) {
+            $this->checkViewExists($view);
+        });
+
+        return [$params];
+    }
+
+    private function checkViewExists($view)
+    {
+        if (strpos($view, '*') === false) {
+            view()->getFinder()->find($view);
+        }
     }
 }
