@@ -131,12 +131,9 @@ You can alias methods like this if you do not like too much verbose syntax provi
 
 You should do it in the boot method.
 
-![image](https://user-images.githubusercontent.com/6961695/59150314-8b36c400-8a36-11e9-8fb0-12af14e3ee0b.png)
 
-instead of :
-```php
-  HeyMan::whenYouMakeView('auth.login')->youShouldBeGuest();
-```
+![alias methods](https://user-images.githubusercontent.com/6961695/59151840-3d7a8580-8a4f-11e9-8ab1-d0f4058c5379.png)
+
 
 
 ### Structural Benefits:
