@@ -119,7 +119,19 @@ And you write code like this in a Service Provider `boot` method to implement wh
 ![image](https://user-images.githubusercontent.com/6961695/43285559-8c09a1e6-9134-11e8-841b-2dc933456082.png)
 
 
-### That is what this package does for you + a lot more...
+#### That is what this package does for you + a lot more...
+
+
+### Cutomizable Syntax :
+
+You can alias methods like this if you do not like too much verbose syntax provided by default.
+
+- Alias Situations  (ex. whenYouMakeView to view)
+- Alias Conditions  (ex. youShouldBeGuest to beGuest)
+
+You should do it in the boot method.
+
+![image](https://user-images.githubusercontent.com/6961695/59150314-8b36c400-8a36-11e9-8fb0-12af14e3ee0b.png)
 
 
 ### Structural Benefits:
@@ -168,6 +180,7 @@ public function boot() {
 ```
 
 
+
 #### Hey Man, Should I Momorize all the Methods ?! 
 
 You do not need any cheat sheet.
@@ -175,6 +188,8 @@ You do not need any cheat sheet.
 > IDE `Auto-completion` is fully supported.
 
 ![refactor5](https://user-images.githubusercontent.com/6961695/43903677-320db906-9c02-11e8-9f2a-ca5a85f6839d.gif)
+
+
 
 #### Hey Man, Where do I put these `Heyman::` calls ?
 
