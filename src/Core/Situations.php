@@ -6,7 +6,7 @@ use Imanghafoori\HeyMan\YouShouldHave;
 
 final class Situations
 {
-    public static $methods = [];
+    private static $methods = [];
 
     public static function add($listenerClass, $situation, $methods): void
     {
