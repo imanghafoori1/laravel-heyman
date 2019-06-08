@@ -17,7 +17,7 @@ final class Situations
     {
         $args = is_array($args[0]) ? $args[0] : $args;
         foreach (self::$situations as $listenerClass => $className) {
-            if (self::methodExists($method, $className)) {
+            if (in_array($method, resolve($className)->getMethods($method))) {
                 $t = resolve($className);
                 $r = $t->normalize($method, $args);
                 resolve('heyman.chains')->init($listenerClass, ...$r);
@@ -25,16 +25,5 @@ final class Situations
             }
         }
         return resolve(YouShouldHave::class);
-    }
-
-    /**
-     * @param string $method
-     * @param string $className
-     *
-     * @return bool
-     */
-    private static function methodExists(string $method, string $className): bool
-    {
-        return resolve($className)->hasMethod($method);
     }
 }

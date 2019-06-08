@@ -12,11 +12,6 @@ final class EloquentSituations
         'whenYouDelete' => 'deleting',
     ];
 
-    public function hasMethod($method)
-    {
-        return array_key_exists($method, $this->methods);
-    }
-
     /**
      * @param $method
      * @param $model
@@ -26,5 +21,16 @@ final class EloquentSituations
     public function normalize($method, $model): array
     {
         return [$model, $this->methods[$method]];
+    }
+
+    public function getMethods(): array
+    {
+        return [
+            'whenYouFetch',
+            'whenYouCreate',
+            'whenYouUpdate',
+            'whenYouSave',
+            'whenYouDelete',
+        ];
     }
 }

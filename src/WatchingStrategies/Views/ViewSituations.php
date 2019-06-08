@@ -4,13 +4,6 @@ namespace Imanghafoori\HeyMan\WatchingStrategies\Views;
 
 final class ViewSituations
 {
-    public function hasMethod($method)
-    {
-        return in_array($method, [
-            'whenYouMakeView'
-        ]);
-    }
-
     /**
      * @param $params
      *
@@ -19,5 +12,15 @@ final class ViewSituations
     public function normalize($method, $params)
     {
         return resolve(ViewNormalizer::class)->normalizeView($params);
+    }
+
+    /**
+     * @return array
+     */
+    public function getMethods(): array
+    {
+        return [
+            'whenYouMakeView'
+        ];
     }
 }

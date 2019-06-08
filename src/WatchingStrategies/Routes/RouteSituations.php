@@ -4,19 +4,6 @@ namespace Imanghafoori\HeyMan\WatchingStrategies\Routes;
 
 final class RouteSituations
 {
-    public function hasMethod($method)
-    {
-        return in_array($method, [
-            'whenYouVisitUrl',
-            'whenYouSendPost',
-            'whenYouSendPatch',
-            'whenYouSendPut',
-            'whenYouSendDelete',
-            'whenYouCallAction',
-            'whenYouHitRouteName',
-        ]);
-    }
-
     /**
      * @param $method
      * @param $args
@@ -38,5 +25,21 @@ final class RouteSituations
         $method = str_replace('Send', '', $method);
 
         return [$normalizer->normalizeUrl($args, strtoupper($method))];
+    }
+
+    /**
+     * @return array
+     */
+    public function getMethods(): array
+    {
+        return [
+            'whenYouVisitUrl',
+            'whenYouSendPost',
+            'whenYouSendPatch',
+            'whenYouSendPut',
+            'whenYouSendDelete',
+            'whenYouCallAction',
+            'whenYouHitRouteName',
+        ];
     }
 }

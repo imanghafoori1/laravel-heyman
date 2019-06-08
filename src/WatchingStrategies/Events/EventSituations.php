@@ -4,14 +4,6 @@ namespace Imanghafoori\HeyMan\WatchingStrategies\Events;
 
 final class EventSituations
 {
-    public function hasMethod($method)
-    {
-        return in_array($method, [
-            'whenEventHappens',
-            'whenYouReachCheckPoint'
-        ]);
-    }
-
     /**
      * @param $method
      * @param $name
@@ -25,5 +17,16 @@ final class EventSituations
         }
 
         return [$name];
+    }
+
+    /**
+     * @return array
+     */
+    public function getMethods(): array
+    {
+        return [
+            'whenEventHappens',
+            'whenYouReachCheckPoint'
+        ];
     }
 }
