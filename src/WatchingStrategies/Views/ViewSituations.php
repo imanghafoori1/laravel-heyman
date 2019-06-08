@@ -13,14 +13,4 @@ final class ViewSituations
     {
         return resolve(ViewNormalizer::class)->normalizeView($params);
     }
-
-    /**
-     * @return array
-     */
-    public function getMethods(): array
-    {
-        return [
-            'whenYouMakeView'
-        ];
-    }
 }

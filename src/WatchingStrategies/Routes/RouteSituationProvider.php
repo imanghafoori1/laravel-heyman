@@ -18,4 +18,20 @@ class RouteSituationProvider
     {
         return 'routeChecks';
     }
+
+    /**
+     * @return array
+     */
+    public function getMethods(): array
+    {
+        return [
+            'whenYouVisitUrl',
+            'whenYouSendPost',
+            'whenYouSendPatch',
+            'whenYouSendPut',
+            'whenYouSendDelete',
+            'whenYouCallAction',
+            'whenYouHitRouteName',
+        ];
+    }
 }

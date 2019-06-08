@@ -18,15 +18,4 @@ final class EventSituations
 
         return [$name];
     }
-
-    /**
-     * @return array
-     */
-    public function getMethods(): array
-    {
-        return [
-            'whenEventHappens',
-            'whenYouReachCheckPoint'
-        ];
-    }
 }

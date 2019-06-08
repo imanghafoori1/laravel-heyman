@@ -6,24 +6,24 @@ use Imanghafoori\HeyMan\YouShouldHave;
 
 final class Situations
 {
-    public static $situations = [];
+    public static $methods = [];
 
-    public static function add($listenerClass, $situation): void
+    public static function add($listenerClass, $situation, $methods): void
     {
-        self::$situations[$listenerClass] = $situation;
+        foreach ($methods as $method) {
+            self::$methods[$method] = [$listenerClass, $situation];
+        }
     }
 
     public static function call($method, $args)
     {
         $args = is_array($args[0]) ? $args[0] : $args;
-        foreach (self::$situations as $listenerClass => $className) {
-            if (in_array($method, resolve($className)->getMethods($method))) {
-                $t = resolve($className);
-                $r = $t->normalize($method, $args);
-                resolve('heyman.chains')->init($listenerClass, ...$r);
-                break;
-            }
-        }
+        [$listenerClass, $situation] = self::$methods[$method];
+
+        resolve('heyman.chains')->init(
+            $listenerClass, ...resolve($situation)->normalize($method, $args)
+        );
+
         return resolve(YouShouldHave::class);
     }
 }

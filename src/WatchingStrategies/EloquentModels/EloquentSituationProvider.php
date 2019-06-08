@@ -18,4 +18,15 @@ class EloquentSituationProvider
     {
         return 'eloquentChecks';
     }
+
+    public function getMethods(): array
+    {
+        return [
+            'whenYouFetch',
+            'whenYouCreate',
+            'whenYouUpdate',
+            'whenYouSave',
+            'whenYouDelete',
+        ];
+    }
 }

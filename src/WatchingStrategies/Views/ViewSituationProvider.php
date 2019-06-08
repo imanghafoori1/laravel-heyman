@@ -18,4 +18,14 @@ class ViewSituationProvider
     {
         return 'viewChecks';
     }
+
+    /**
+     * @return array
+     */
+    public function getMethods(): array
+    {
+        return [
+            'whenYouMakeView'
+        ];
+    }
 }

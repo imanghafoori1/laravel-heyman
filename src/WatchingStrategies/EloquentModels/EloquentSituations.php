@@ -22,15 +22,4 @@ final class EloquentSituations
     {
         return [$model, $this->methods[$method]];
     }
-
-    public function getMethods(): array
-    {
-        return [
-            'whenYouFetch',
-            'whenYouCreate',
-            'whenYouUpdate',
-            'whenYouSave',
-            'whenYouDelete',
-        ];
-    }
 }

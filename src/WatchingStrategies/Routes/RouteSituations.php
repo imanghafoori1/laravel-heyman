@@ -26,20 +26,4 @@ final class RouteSituations
 
         return [$normalizer->normalizeUrl($args, strtoupper($method))];
     }
-
-    /**
-     * @return array
-     */
-    public function getMethods(): array
-    {
-        return [
-            'whenYouVisitUrl',
-            'whenYouSendPost',
-            'whenYouSendPatch',
-            'whenYouSendPut',
-            'whenYouSendDelete',
-            'whenYouCallAction',
-            'whenYouHitRouteName',
-        ];
-    }
 }
