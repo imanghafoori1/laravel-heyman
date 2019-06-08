@@ -1,6 +1,5 @@
 <?php
 
-use Imanghafoori\HeyMan\Core\Situations;
 use Imanghafoori\HeyMan\StartGuarding;
 use Imanghafoori\HeyMan\Facades\HeyMan;
 use Imanghafoori\MakeSure\Facades\MakeSure;
