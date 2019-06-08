@@ -4,8 +4,13 @@ namespace Imanghafoori\HeyMan\WatchingStrategies\Views;
 
 final class ViewSituations
 {
-    public function hasMethod()
+    public $listener = ViewEventListener::class;
+
+    public function hasMethod($method)
     {
+        return in_array($method, [
+            'whenYouMakeView'
+        ]);
     }
 
     /**
@@ -14,6 +19,6 @@ final class ViewSituations
     public function whenYouMakeView(...$views)
     {
         $view = resolve(ViewNormalizer::class)->normalizeView($views);
-        resolve('heyman.chains')->init(ViewEventListener::class, $view);
+        resolve('heyman.chains')->init($this->listener, $view);
     }
 }

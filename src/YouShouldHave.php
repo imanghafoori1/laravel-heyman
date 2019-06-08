@@ -29,7 +29,7 @@ final class YouShouldHave
         return resolve(Otherwise::class);
     }
 
-    public function always() : Reactions
+    public function always(): Reactions
     {
         return $this->thisValueShouldAllow(false)->otherwise();
     }

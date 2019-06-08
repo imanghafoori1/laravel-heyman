@@ -4,6 +4,8 @@ namespace Imanghafoori\HeyMan\WatchingStrategies\Routes;
 
 final class RouteSituations
 {
+    public $listener = RouteEventListener::class;
+
     public function hasMethod($method)
     {
         return in_array($method, [
@@ -19,8 +21,8 @@ final class RouteSituations
 
     public function __call($method, $args)
     {
-        $args = $this->getNormalizedArgs($method, $args);
-        resolve('heyman.chains')->init(RouteEventListener::class, $args);
+        $args = $this->normalize($method, $args);
+        resolve('heyman.chains')->init($this->listener, $args);
     }
 
     /**
@@ -29,7 +31,7 @@ final class RouteSituations
      *
      * @return array
      */
-    private function getNormalizedArgs($method, $args): array
+    public function normalize($method, $args): array
     {
         $normalizer = resolve(RouteNormalizer::class);
         $method = str_replace('whenYou', '', $method);

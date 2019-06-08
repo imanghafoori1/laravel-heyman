@@ -2,6 +2,8 @@
 
 namespace Imanghafoori\HeyMan\WatchingStrategies\Views;
 
+use Illuminate\Contracts\View\Factory as ViewFactory;
+
 class ViewEventListener
 {
     /**
@@ -11,7 +13,7 @@ class ViewEventListener
     {
         foreach ($chainData as $value => $callbacks) {
             foreach ($callbacks as $key => $cb) {
-                view()->creator($value, $cb[0]);
+                resolve(ViewFactory::class)->creator($value, $cb[0]);
             }
         }
     }

@@ -19,10 +19,10 @@ final class Situations
         foreach (self::$situations as $className) {
             if (self::methodExists($method, $className)) {
                 resolve($className)->$method(...$args);
-
-                return resolve(YouShouldHave::class);
+                break;
             }
         }
+        return resolve(YouShouldHave::class);
     }
 
     /**
@@ -33,6 +33,6 @@ final class Situations
      */
     private static function methodExists(string $method, string $className): bool
     {
-        return method_exists($className, $method) || resolve($className)->hasMethod($method);
+        return resolve($className)->hasMethod($method);
     }
 }
