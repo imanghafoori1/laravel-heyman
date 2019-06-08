@@ -4,8 +4,6 @@ namespace Imanghafoori\HeyMan\WatchingStrategies\Routes;
 
 final class RouteSituations
 {
-    public $listener = RouteEventListener::class;
-
     public function hasMethod($method)
     {
         return in_array($method, [
@@ -19,12 +17,6 @@ final class RouteSituations
         ]);
     }
 
-    public function __call($method, $args)
-    {
-        $args = $this->normalize($method, $args);
-        resolve('heyman.chains')->init($this->listener, $args);
-    }
-
     /**
      * @param $method
      * @param $args
@@ -36,15 +28,15 @@ final class RouteSituations
         $normalizer = resolve(RouteNormalizer::class);
         $method = str_replace('whenYou', '', $method);
         if ($method == 'CallAction') {
-            return $normalizer->normalizeAction($args);
+            return [$normalizer->normalizeAction($args)];
         }
         if ($method == 'HitRouteName') {
-            return $args;
+            return [$args];
         }
 
         $method = str_replace('VisitUrl', 'SendGet', $method);
         $method = str_replace('Send', '', $method);
 
-        return $normalizer->normalizeUrl($args, strtoupper($method));
+        return [$normalizer->normalizeUrl($args, strtoupper($method))];
     }
 }

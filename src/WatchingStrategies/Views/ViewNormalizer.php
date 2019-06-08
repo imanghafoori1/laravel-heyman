@@ -15,7 +15,7 @@ final class ViewNormalizer
             $this->checkViewExists($view);
         });
 
-        return $views;
+        return [$views];
     }
 
     private function checkViewExists($view)
