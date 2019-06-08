@@ -1,5 +1,6 @@
 <?php
 
+use Imanghafoori\HeyMan\Core\Situations;
 use Imanghafoori\HeyMan\StartGuarding;
 use Imanghafoori\HeyMan\Facades\HeyMan;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -10,6 +11,19 @@ class EloquentAuthorizationTest extends TestCase
     {
         \HeyMan::whenYouCreate('\App\User')->always()->weDenyAccess();
         \HeyMan::whenYouCreate('\App\User2')->always()->weDenyAccess();
+        app(StartGuarding::class)->start();
+
+        $this->expectException(AuthorizationException::class);
+
+        event('eloquent.creating: App\User', new \App\User());
+    }
+
+    public function testCreatingCanBeAliased()
+    {
+        \HeyMan::aliasSituation('whenYouCreate', 'salam');
+        \HeyMan::salam('\App\User')->always()->weDenyAccess();
+        \HeyMan::salam('\App\User2')->always()->weDenyAccess();
+
         app(StartGuarding::class)->start();
 
         $this->expectException(AuthorizationException::class);

@@ -34,6 +34,11 @@ class HeyMan
         resolve(ConditionsFacade::class)->alias($currentName, $newName);
     }
 
+    public function aliasSituation(string $currentName, string $newName)
+    {
+        Situations::aliasMethod($currentName, $newName);
+    }
+
     public function defineCondition(string $name, $callable)
     {
         resolve(ConditionsFacade::class)->define($name, $callable);

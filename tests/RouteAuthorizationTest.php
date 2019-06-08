@@ -1,5 +1,6 @@
 <?php
 
+use Imanghafoori\HeyMan\Core\Situations;
 use Imanghafoori\HeyMan\StartGuarding;
 use Imanghafoori\HeyMan\Facades\HeyMan;
 use Imanghafoori\MakeSure\Facades\MakeSure;
@@ -272,6 +273,17 @@ class RouteAuthorizationTest extends TestCase
         HeyMan::forget()->aboutRoute('welcome.name');
         app(StartGuarding::class)->start();
         MakeSure::that($this)->sendingGetRequest('/welcome')->isOk();
+    }
+
+    public function testRouteNameConditionCanBeAliased()
+    {
+        Route::get('/welcome', 'HomeController@index')->name('welcome.name');
+
+        HeyMan::aliasSituation('whenYouHitRouteName', 'salam');
+
+        HeyMan::salam('welcome.name')->always()->weDenyAccess();
+        app(StartGuarding::class)->start();
+        $this->get('/welcome')->assertStatus(403);
     }
 
     public function testControllerActionIsAuthorized2()
