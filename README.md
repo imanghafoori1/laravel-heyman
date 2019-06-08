@@ -122,16 +122,21 @@ And you write code like this in a Service Provider `boot` method to implement wh
 #### That is what this package does for you + a lot more...
 
 
-### Cutomizable Syntax :
+### Customizable Syntax :
 
 You can alias methods like this if you do not like too much verbose syntax provided by default.
 
-- Alias Situations  (ex. whenYouMakeView to view)
-- Alias Conditions  (ex. youShouldBeGuest to beGuest)
+- Alias Situations  (ex. `whenYouMakeView` to `view`)
+- Alias Conditions  (ex. `youShouldBeGuest` to `beGuest`)
 
 You should do it in the boot method.
 
 ![image](https://user-images.githubusercontent.com/6961695/59150314-8b36c400-8a36-11e9-8fb0-12af14e3ee0b.png)
+
+instead of :
+```php
+  HeyMan::whenYouMakeView('auth.login')->youShouldBeGuest();
+```
 
 
 ### Structural Benefits:
