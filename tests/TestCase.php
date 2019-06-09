@@ -1,4 +1,5 @@
 <?php
+
 namespace Imanghafoori\HeyManTests;
 
 abstract class TestCase extends \Orchestra\Testbench\TestCase

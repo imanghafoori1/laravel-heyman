@@ -2,10 +2,10 @@
 
 namespace Imanghafoori\HeyManTests;
 
+use InvalidArgumentException;
 use Imanghafoori\HeyMan\StartGuarding;
 use Imanghafoori\HeyMan\Facades\HeyMan;
 use Illuminate\Auth\Access\AuthorizationException;
-use InvalidArgumentException;
 
 class ViewsAuthorizationTest extends TestCase
 {
