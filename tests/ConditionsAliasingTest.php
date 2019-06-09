@@ -4,8 +4,8 @@ namespace Imanghafoori\HeyManTests;
 
 use Imanghafoori\HeyMan\StartGuarding;
 use Imanghafoori\HeyMan\Facades\HeyMan;
-use Illuminate\Auth\Access\AuthorizationException;
 use Imanghafoori\HeyManTests\Stubs\SomeClass;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class ConditionsAliasingTest extends TestCase
 {

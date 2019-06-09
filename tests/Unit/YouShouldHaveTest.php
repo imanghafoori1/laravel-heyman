@@ -4,9 +4,9 @@ namespace Imanghafoori\HeyManTests\Unit;
 
 use Imanghafoori\HeyMan\Core\Chain;
 use Illuminate\Support\Facades\Auth;
+use Imanghafoori\HeyManTests\TestCase;
 use Imanghafoori\HeyMan\Facades\HeyMan;
 use Imanghafoori\HeyManTests\Stubs\SomeClass;
-use Imanghafoori\HeyManTests\TestCase;
 
 class YouShouldHaveTest extends TestCase
 {
