@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Imanghafoori\HeyManTests\Stubs;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 

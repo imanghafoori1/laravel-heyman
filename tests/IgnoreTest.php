@@ -1,7 +1,11 @@
 <?php
 
+namespace Imanghafoori\HeyManTests;
+
+use Illuminate\Support\Facades\Route;
 use Imanghafoori\HeyMan\StartGuarding;
 use Imanghafoori\HeyMan\Facades\HeyMan;
+use Imanghafoori\MakeSure\Facades\MakeSure;
 
 class IgnoreTest extends TestCase
 {
@@ -162,7 +166,7 @@ class IgnoreTest extends TestCase
         Heyman::turnOn()->allChecks();
         app(StartGuarding::class)->start();
 
-        MakeSure::that($this)->sendingPutRequest('put')->isRespondedWith()->statusCode(403);
+        MakeSure::about($this)->sendingPutRequest('put')->isRespondedWith()->statusCode(403);
     }
 
     public function test_it_ignores_validation()
@@ -174,7 +178,7 @@ class IgnoreTest extends TestCase
         HeyMan::turnOff()->validationChecks();
         app(StartGuarding::class)->start();
 
-        MakeSure::that($this)->sendingGetRequest('welcome')->isRespondedWith()->statusCode(200);
+        MakeSure::about($this)->sendingGetRequest('welcome')->isRespondedWith()->statusCode(200);
     }
 
     public function test_it_ignores_validation2()
@@ -186,6 +190,6 @@ class IgnoreTest extends TestCase
         HeyMan::turnOff()->allChecks();
         app(StartGuarding::class)->start();
 
-        MakeSure::that($this)->sendingGetRequest('welcome')->isRespondedWith()->statusCode(200);
+        MakeSure::about($this)->sendingGetRequest('welcome')->isRespondedWith()->statusCode(200);
     }
 }

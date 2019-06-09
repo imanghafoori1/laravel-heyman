@@ -1,5 +1,7 @@
 <?php
 
+namespace Imanghafoori\HeyManTests;
+
 use Illuminate\Support\Facades\Gate;
 use Imanghafoori\HeyMan\StartGuarding;
 use Imanghafoori\HeyMan\Facades\HeyMan;

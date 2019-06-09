@@ -1,7 +1,13 @@
 <?php
 
+namespace Imanghafoori\HeyManTests;
+
+
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 use Imanghafoori\HeyMan\StartGuarding;
 use Imanghafoori\HeyMan\Facades\HeyMan;
+use Imanghafoori\HeyManTests\Stubs\SomeClass;
 
 class reactionsTest extends TestCase
 {
@@ -90,12 +96,12 @@ class reactionsTest extends TestCase
         Route::get('/welcome', 'HomeController@index');
 
         $resp = response()->json(['Wow'=> 'Man'], 566);
-        \Facades\SomeClass::shouldReceive('someMethod')->once()->andReturn($resp);
+        \Facades\Imanghafoori\HeyManTests\Stubs\SomeClass::shouldReceive('someMethod')->once()->andReturn($resp);
 
         HeyMan::whenYouVisitUrl('welcome')
             ->thisValueShouldAllow(false)
             ->otherwise()
-            ->weRespondFrom('SomeClass@someMethod');
+            ->weRespondFrom(SomeClass::class.'@someMethod');
         app(StartGuarding::class)->start();
 
         $this->get('welcome')->assertStatus(566)->assertJson(['Wow'=> 'Man']);

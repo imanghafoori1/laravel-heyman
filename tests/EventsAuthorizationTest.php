@@ -1,5 +1,8 @@
 <?php
 
+namespace Imanghafoori\HeyManTests;
+
+use Illuminate\Support\Facades\Route;
 use Imanghafoori\HeyMan\StartGuarding;
 use Imanghafoori\HeyMan\Facades\HeyMan;
 use Imanghafoori\MakeSure\Facades\MakeSure;
@@ -13,7 +16,7 @@ class EventsAuthorizationTest extends TestCase
         HeyMan::whenEventHappens('myEvent4')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
         app(StartGuarding::class)->start();
 
-        MakeSure::that($this)->whenEventHappens('myEvent1')->exceptionIsThrown(AuthorizationException::class);
+        MakeSure::about($this)->whenEventHappens('myEvent1')->exceptionIsThrown(AuthorizationException::class);
     }
 
     public function testEventIsAuthorized2()
@@ -64,7 +67,7 @@ class EventsAuthorizationTest extends TestCase
         HeyMan::whenEventHappens(['my-event', 'myEvent1'])->always()->abort(402);
         app(StartGuarding::class)->start();
 
-        MakeSure::that($this)
+        MakeSure::about($this)
             ->sendingGetRequest('event/my-event')
             ->isRespondedWith()
             ->statusCode(402);
@@ -79,7 +82,7 @@ class EventsAuthorizationTest extends TestCase
         HeyMan::whenEventHappens(['my-event', 'myEvent1'])->always()->redirect()->to('welcome');
         app(StartGuarding::class)->start();
 
-        MakeSure::that($this)
+        MakeSure::about($this)
             ->sendingGetRequest('event/my-event')
             ->isRespondedWith()
             ->redirect('/welcome', 302);
@@ -94,7 +97,7 @@ class EventsAuthorizationTest extends TestCase
             Heyman::checkPoint('whoAreYou');
         });
 
-        MakeSure::that($this)
+        MakeSure::about($this)
             ->sendingGetRequest('oh')
             ->isRespondedWith()
             ->redirect('/welcome', 302);

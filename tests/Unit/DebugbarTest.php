@@ -1,6 +1,11 @@
 <?php
 
+namespace Imanghafoori\HeyManTests\Unit;
+
+use Illuminate\Support\Facades\Route;
+use Imanghafoori\HeyMan\Facades\HeyMan;
 use Imanghafoori\HeyMan\StartGuarding;
+use Imanghafoori\HeyManTests\TestCase;
 
 class DebugbarTest extends TestCase
 {

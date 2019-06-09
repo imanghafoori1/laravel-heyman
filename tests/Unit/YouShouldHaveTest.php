@@ -1,8 +1,12 @@
 <?php
 
+namespace Imanghafoori\HeyManTests\Unit;
+
 use Imanghafoori\HeyMan\Core\Chain;
 use Illuminate\Support\Facades\Auth;
 use Imanghafoori\HeyMan\Facades\HeyMan;
+use Imanghafoori\HeyManTests\Stubs\SomeClass;
+use Imanghafoori\HeyManTests\TestCase;
 
 class YouShouldHaveTest extends TestCase
 {
@@ -80,9 +84,9 @@ class YouShouldHaveTest extends TestCase
 
     public function testThisMethodShouldAllow()
     {
-        HeyMan::whenYouVisitUrl('sdf')->thisMethodShouldAllow('SomeClass@someMethod', ['aaa']);
+        HeyMan::whenYouVisitUrl('sdf')->thisMethodShouldAllow(SomeClass::class.'@someMethod', ['aaa']);
 
-        \Facades\SomeClass::shouldReceive('someMethod')->once()->with('aaa')->andReturn(false);
+        \Facades\Imanghafoori\HeyManTests\Stubs\SomeClass::shouldReceive('someMethod')->once()->with('aaa')->andReturn(false);
         $condition = app(Chain::class)->get('condition');
 
         $this->assertTrue($condition() === false);

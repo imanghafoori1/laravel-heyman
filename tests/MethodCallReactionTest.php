@@ -1,6 +1,9 @@
 <?php
 
+namespace Imanghafoori\HeyManTests;
+
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Route;
 use Imanghafoori\HeyMan\StartGuarding;
 use Imanghafoori\HeyMan\Facades\HeyMan;
 
@@ -20,18 +23,18 @@ class MethodCallReactionTest extends TestCase
     {
         Route::get('/welcome', 'HomeController@index')->name('welcome.name');
 
-        \Facades\Logger::shouldReceive('error')->once()->with('sss');
-        \Facades\Logger::shouldReceive('info')->times(0);
+        \Facades\Imanghafoori\HeyManTests\Logger::shouldReceive('error')->once()->with('sss');
+        \Facades\Imanghafoori\HeyManTests\Logger::shouldReceive('info')->times(0);
 
         HeyMan::whenYouVisitUrl(['welcome', 'welcome_'])
             ->thisValueShouldAllow(true)
             ->otherwise()
-            ->afterCalling('Logger@info', ['sss'])
+            ->afterCalling(\Imanghafoori\HeyManTests\Logger::class.'@info', ['sss'])
             ->weDenyAccess();
 
         HeyMan::whenYouVisitUrl(['welcome', 'welcome_'])
             ->always()
-            ->afterCalling('Logger@error', ['sss'])
+            ->afterCalling(\Imanghafoori\HeyManTests\Logger::class.'@error', ['sss'])
             ->weDenyAccess();
 
         app(StartGuarding::class)->start();

@@ -2254,16 +2254,16 @@
         },
         {
             "name": "imanghafoori/laravel-makesure",
-            "version": "v1.0.0",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/imanghafoori1/laravel-makesure.git",
-                "reference": "8e78d4e1e40fff6a403d84c07cafb45db57e769e"
+                "reference": "a7d0997ed4d38b1cf9ebec295457f93ffabee62f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/imanghafoori1/laravel-makesure/zipball/8e78d4e1e40fff6a403d84c07cafb45db57e769e",
-                "reference": "8e78d4e1e40fff6a403d84c07cafb45db57e769e",
+                "url": "https://api.github.com/repos/imanghafoori1/laravel-makesure/zipball/a7d0997ed4d38b1cf9ebec295457f93ffabee62f",
+                "reference": "a7d0997ed4d38b1cf9ebec295457f93ffabee62f",
                 "shasum": ""
             },
             "require": {
@@ -2307,7 +2307,7 @@
                 "laravel5-package",
                 "php"
             ],
-            "time": "2018-12-23T13:30:40+00:00"
+            "time": "2019-02-06T17:58:36+00:00"
         },
         {
             "name": "maximebf/debugbar",
@@ -3366,6 +3366,7 @@
                 "mock",
                 "xunit"
             ],
+            "abandoned": true,
             "time": "2018-08-09T05:50:03+00:00"
         },
         {

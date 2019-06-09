@@ -1,16 +1,19 @@
 <?php
 
+namespace Imanghafoori\HeyManTests;
+
 use Imanghafoori\HeyMan\StartGuarding;
 use Imanghafoori\HeyMan\Facades\HeyMan;
 use Illuminate\Auth\Access\AuthorizationException;
+use Imanghafoori\HeyManTests\Stubs\SomeClass;
 
 class ConditionsAliasingTest extends TestCase
 {
     public function test_Method_Should_Allow()
     {
-        \Facades\SomeClass::shouldReceive('someMethod')->once()->andReturn(false);
+        \Facades\Imanghafoori\HeyManTests\Stubs\SomeClass::shouldReceive('someMethod')->once()->andReturn(false);
         HeyMan::aliasCondition('thisMethodShouldAllow', 'method');
-        HeyMan::whenYouMakeView('welcome')->method('SomeClass@someMethod')->otherwise()->weDenyAccess();
+        HeyMan::whenYouMakeView('welcome')->method(SomeClass::class.'@someMethod')->otherwise()->weDenyAccess();
         app(StartGuarding::class)->start();
         $this->expectException(AuthorizationException::class);
 

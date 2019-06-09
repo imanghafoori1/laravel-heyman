@@ -1,7 +1,12 @@
 <?php
 
+namespace Imanghafoori\HeyManTests;
+
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 use Imanghafoori\HeyMan\StartGuarding;
 use Imanghafoori\HeyMan\Facades\HeyMan;
+use Imanghafoori\MakeSure\Facades\MakeSure;
 
 class RequestValidationTest extends TestCase
 {
@@ -37,7 +42,7 @@ class RequestValidationTest extends TestCase
 
         app(StartGuarding::class)->start();
 
-        MakeSure::that($this)
+        MakeSure::about($this)
             ->sendingPostRequest('/welcome', ['f' => 'f'])
             ->isRespondedWith()
             ->statusCode(302)

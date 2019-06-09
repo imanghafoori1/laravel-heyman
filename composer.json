@@ -33,6 +33,14 @@
             "src/helpers.php"
         ]
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Imanghafoori\\HeyManTests\\": "tests"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
 	"suggest": {
         "imanghafoori/laravel-widgetize": "Gives you a better structure and caching opportunity for your web pages.",
         "imanghafoori/laravel-decorator": "Allows you to easily apply the decorator pattern in a laravel app.",
