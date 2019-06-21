@@ -2,6 +2,8 @@
 
 namespace Imanghafoori\HeyMan\WatchingStrategies\Routes;
 
+use Illuminate\Support\Str;
+
 final class RouteNormalizer
 {
     /**
@@ -12,11 +14,11 @@ final class RouteNormalizer
     public function normalizeAction($actions): array
     {
         $addNamespace = function ($action) {
-            if ($action = ltrim($action, '\\')) {
+            if (Str::startsWith($action, '\\')) {
                 return $action;
             }
 
-            return app()->getNamespace().'\\Http\\Controllers\\'.$action;
+            return app()->getNamespace().'Http\\Controllers\\'.$action;
         };
 
         return array_map($addNamespace, $actions);

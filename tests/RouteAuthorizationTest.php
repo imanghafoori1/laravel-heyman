@@ -174,7 +174,7 @@ class RouteAuthorizationTest extends TestCase
 
     public function testControllerActionIsAuthorized()
     {
-        Route::get('/welcome', 'HomeController@index')->name('welcome.name');
+        Route::get('/welcome', '\HomeController@index')->name('welcome.name');
 
         HeyMan::whenYouCallAction('\HomeController@index')->always()->weDenyAccess();
         app(StartGuarding::class)->start();
@@ -205,7 +205,7 @@ class RouteAuthorizationTest extends TestCase
 
     public function testControllerActionIsAuthorized878()
     {
-        Route::get('/welcome', 'HomeController@index')->name('welcome.name');
+        Route::get('/welcome', '\HomeController@index')->name('welcome.name');
 
         HeyMan::whenYouHitRouteName('welcome.Oname')->always()->weDenyAccess();
         HeyMan::whenYouCallAction('\HomeController@index')->always()->weDenyAccess();
