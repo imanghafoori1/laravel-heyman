@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 
 class MatchedRoute
 {
-    static $chainData;
+    public static $chainData;
 
     /**
      * Handle an incoming request.
