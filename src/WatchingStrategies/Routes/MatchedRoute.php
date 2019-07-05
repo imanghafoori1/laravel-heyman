@@ -3,6 +3,7 @@
 namespace Imanghafoori\HeyMan\WatchingStrategies\Routes;
 
 use Closure;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
 class MatchedRoute
@@ -40,7 +41,7 @@ class MatchedRoute
      */
     private function exec(array $closures)
     {
-        foreach (array_flatten($closures) as $closure) {
+        foreach (Arr::flatten($closures) as $closure) {
             $closure();
         }
     }
