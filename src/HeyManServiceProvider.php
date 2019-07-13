@@ -35,12 +35,13 @@ final class HeyManServiceProvider extends ServiceProvider
 
         app()->booted([resolve(StartGuarding::class), 'start']);
 
-        $this->disableIfIsSeeding();
         DebugbarIntergrator::register();
 
         $this->registerConditions();
 
         $this->registerSituationProviders($this->situationProviders);
+
+        $this->disableIfIsSeeding();
     }
 
     public function register()
