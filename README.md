@@ -16,7 +16,6 @@
 [![Total Downloads](https://poser.pugx.org/imanghafoori/laravel-heyman/downloads)](https://packagist.org/packages/imanghafoori/laravel-heyman)
 [![Awesome Laravel](https://img.shields.io/badge/Awesome-Laravel-blue.svg)](https://github.com/chiraggude/awesome-laravel)
 [![Software License](https://img.shields.io/badge/license-MIT-blue.svg?style=round-square)](LICENSE.md)
-[![Donate Bitcoin](https://img.shields.io/badge/donate-$1-orange.svg)](https://blockchain.com/btc/payment_request?address=1MTPGWkNfBtT8mTith1Rf91MS4kucUX4c1&amount=0.00011451&message=heyman_donation&name=Iman)
 
 
 ## :ribbon: Heyman continues where the other role-permission packages left off...
