@@ -9,7 +9,7 @@ trait RequestValidation
     /**
      * Validate the given request with the given rules.
      *
-     * @param array $rules
+     * @param array|callable $rules
      * @param array $messages
      * @param array $customAttributes
      *
