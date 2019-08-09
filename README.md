@@ -577,3 +577,11 @@ As always if you found this package useful and you want to encourage us to maint
 :gem: It allows you to decouple your eloquent models to reach a modular structure
 
 - https://github.com/imanghafoori1/eloquent-relativity
+
+----------------
+
+### Laravel middlewarize
+
+:gem: Use middlewares to wrap any method call on any object
+
+- https://github.com/imanghafoori1/laravel-middlewarize
