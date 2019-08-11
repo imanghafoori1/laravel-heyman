@@ -10,7 +10,7 @@ class HeyMan
 {
     use Turn;
 
-    public function forget(): Forget
+    public function forget()
     {
         return new Forget();
     }
