@@ -536,16 +536,22 @@ HeyMan::turnOn()->eloquentChecks();
 
 ### :raising_hand: Contributing 
 If you find an issue, or have a better way to do something, feel free to open an issue or a pull request.
-If you use laravel-heyman in your open source project, create a pull request to provide it's url as a sample application in the README.md file. 
-
 
 ### :star: Your Stars Make Us Do More :star:
 As always if you found this package useful and you want to encourage us to maintain and work on it. Just press the star button to declare your willing.
 
 
 
-### More packages from the author of heyman:
+## More from the author:
 
+
+###  Laravel middlewarize (new*)
+
+:gem: You can put middleware on any method calls.
+
+- https://github.com/imanghafoori1/laravel-middlewarize
+
+-----------------
 
 ### Laravel Widgetize
 
@@ -564,6 +570,7 @@ As always if you found this package useful and you want to encourage us to maint
 
 
 -----------------
+
 ### Laravel AnyPass
 
 :gem: It allows you login with any password in local environment only.
@@ -572,16 +579,8 @@ As always if you found this package useful and you want to encourage us to maint
 
 -----------------
 
-### Eloquent Relativity
+### Eloquent Relativity (new*)
 
 :gem: It allows you to decouple your eloquent models to reach a modular structure
 
 - https://github.com/imanghafoori1/eloquent-relativity
-
-----------------
-
-### Laravel middlewarize
-
-:gem: Use middlewares to wrap any method call on any object
-
-- https://github.com/imanghafoori1/laravel-middlewarize
