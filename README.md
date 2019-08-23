@@ -584,3 +584,13 @@ As always if you found this package useful and you want to encourage us to maint
 :gem: It allows you to decouple your eloquent models to reach a modular structure
 
 - https://github.com/imanghafoori1/eloquent-relativity
+
+----------------
+
+<p align="center">
+  
+    It's not I am smarter or something, I just stay with the problems longer.
+    
+    "Albert Einstein"
+    
+</p>
