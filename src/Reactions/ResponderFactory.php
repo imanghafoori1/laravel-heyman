@@ -108,7 +108,7 @@ final class ResponderFactory
     {
         $validator = function () use ($modifier, $rules, $messages, $customAttributes) {
             if (is_callable($rules)) {
-                $rules = $rules();
+                $rules = call_user_func($rules);
             }
 
             $data = app()->call($modifier, [request()->all()]);

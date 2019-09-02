@@ -15,10 +15,11 @@ class ConditionsFacade
         if (! isset($this->methods[$method])) {
             throw new \BadMethodCallException($method.' does not exists as a Heyman condition');
         }
+
         $condition = $this->methods[$method];
 
         if (is_callable($condition)) {
-            return $condition(...$param);
+            return call_user_func_array($condition, $param);
         }
 
         [$class, $method] = explode('@', $condition);
