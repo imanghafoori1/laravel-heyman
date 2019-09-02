@@ -49,6 +49,23 @@ class RequestValidationTest extends TestCase
             ->withError('name');
     }
 
+    public function test_request_is_validated_and_errors_are_set2()
+    {
+        Route::post('/welcome', 'HomeController@index')->name('welcome.name');
+
+        HeyMan::whenYouHitRouteName('welcome.name')->yourRequestShouldBeValid(
+            [HeyManValidationTest::class, 'rules']
+        );
+
+        app(StartGuarding::class)->start();
+
+        MakeSure::about($this)
+            ->sendingPostRequest('/welcome', ['f' => 'f'])
+            ->isRespondedWith()
+            ->statusCode(302)
+            ->withError('name');
+    }
+
     public function test_multiple_rules_on_single_route()
     {
         Route::post('/welcome', 'HomeController@index')->name('welcome.name');
@@ -82,5 +99,13 @@ class RequestValidationTest extends TestCase
 
         app(StartGuarding::class)->start();
         $this->post('welcome', ['f' => 'f'])->assertStatus(200)->assertSessionMissing('errors');
+    }
+}
+
+class HeyManValidationTest
+{
+    public static function rules()
+    {
+        return ['name' => 'required'];
     }
 }
