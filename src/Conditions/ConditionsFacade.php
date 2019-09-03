@@ -24,7 +24,7 @@ class ConditionsFacade
 
         [$class, $method] = explode('@', $condition);
 
-        return call_user_func_array([new $class, $method], $param);
+        return call_user_func_array([resolve($class), $method], $param);
     }
 
     public function define($methodName, $callable)
