@@ -2,9 +2,9 @@
 
 namespace Imanghafoori\HeyManTests;
 
+use Imanghafoori\HeyMan\Core\Chain;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
-use Imanghafoori\HeyMan\Core\Chain;
 use Imanghafoori\HeyMan\StartGuarding;
 use Imanghafoori\HeyMan\Facades\HeyMan;
 
@@ -49,8 +49,8 @@ class MethodCallReactionTest extends TestCase
         Gate::shouldReceive('allows')->andReturn(false);
 
         $t = '';
-        $cb = function () use(&$t) {
-            $t = $t .'sss';
+        $cb = function () use (&$t) {
+            $t = $t.'sss';
         };
 
         HeyMan::whenYouHitRouteName(['welcome', 'welcome.name'])
