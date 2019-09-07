@@ -34,18 +34,15 @@ class MatchedRoute
             }
         }
 
-        $this->exec($matchedCallbacks);
+        $this->exec($matchedCallbacks, $route);
 
         return $next($request);
     }
 
-    /**
-     * @param array $closures
-     */
-    private function exec(array $closures)
+    private function exec(array $closures, $route)
     {
         foreach (Arr::flatten($closures) as $closure) {
-            $closure();
+            $closure($route);
         }
     }
 

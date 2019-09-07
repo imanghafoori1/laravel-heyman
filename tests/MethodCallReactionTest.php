@@ -4,6 +4,7 @@ namespace Imanghafoori\HeyManTests;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
+use Imanghafoori\HeyMan\Core\Chain;
 use Imanghafoori\HeyMan\StartGuarding;
 use Imanghafoori\HeyMan\Facades\HeyMan;
 
@@ -44,30 +45,28 @@ class MethodCallReactionTest extends TestCase
 
     public function testCallingClosures()
     {
-        Route::get('/welcome', 'HomeController@index')->name('welcome.name');
-        Gate::shouldReceive('allows')->with('heyman.youShouldHaveRole', ['reader'])->andReturn(false);
+        Route::get('/welcome/{id}/{foo}', 'HomeController@index')->name('welcome.name');
+        Gate::shouldReceive('allows')->andReturn(false);
 
-        $this->withoutExceptionHandling();
-        $this->expectException(\Exception::class);
-        $this->expectExceptionMessage('You have Called me');
-
-        $cb = function () {
-            throw new \Exception('You have Called me');
+        $t = '';
+        $cb = function () use(&$t) {
+            $t = $t .'sss';
         };
 
-        HeyMan::whenYouVisitUrl(['welcome', 'welcome_'])
+        HeyMan::whenYouHitRouteName(['welcome', 'welcome.name'])
             ->youShouldHaveRole('reader')
             ->otherwise()
             ->afterCalling($cb)
             ->weDenyAccess();
 
-        $chain = resolve(\Imanghafoori\HeyMan\Core\Chain::class);
+        $chain = resolve(Chain::class);
         $chain->startChain();
         $this->assertEquals(null, $chain->get('data'));
         $this->assertEquals(null, $chain->get('responseType'));
 
         app(StartGuarding::class)->start();
 
-        $this->get('welcome');
+        $this->get('welcome/a/b');
+        $this->assertEquals($t, 'sss');
     }
 }
