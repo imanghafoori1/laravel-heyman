@@ -40,6 +40,7 @@ class ConditionsFacade
     {
         if ($override || ! isset($this->aliases[$newName])) {
             $this->aliases[$newName] = $currentName;
+
             return true;
         }
 
