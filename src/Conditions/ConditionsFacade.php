@@ -36,10 +36,13 @@ class ConditionsFacade
         }
     }
 
-    public function alias(string $currentName, string $newName)
+    public function alias(string $currentName, string $newName, $override = true)
     {
-        if (isset($this->methods[$currentName]) && ! isset($this->aliases[$newName])) {
+        if ($override || ! isset($this->aliases[$newName])) {
             $this->aliases[$newName] = $currentName;
+            return true;
         }
+
+        return false;
     }
 }
