@@ -516,7 +516,7 @@ HeyMan::whenYouVisitUrl('/login')-> ... ->otherwise()->afterCalling('someclass@m
 
 ### Disabling Heyman:
 
-You can disable HeyMan chacks like this (useful while testing): 
+You can disable HeyMan checks like this (useful while testing): 
 
 ![untitled](https://user-images.githubusercontent.com/6961695/43585840-53aae034-967b-11e8-8503-2c1de7a35e9f.png)
 
