@@ -10,7 +10,7 @@ final class Situations
 
     private static $methods = [];
 
-    public static function add($listenerClass, $situation, $methods): void
+    public static function add($listenerClass, $situation, $methods)
     {
         foreach ($methods as $method) {
             self::$methods[$method] = [$listenerClass, $situation];

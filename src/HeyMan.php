@@ -2,6 +2,7 @@
 
 namespace Imanghafoori\HeyMan;
 
+use Illuminate\Support\Arr;
 use Imanghafoori\HeyMan\Switching\Turn;
 use Imanghafoori\HeyMan\Core\Situations;
 use Imanghafoori\HeyMan\Conditions\ConditionsFacade;
@@ -55,7 +56,7 @@ class HeyMan
     private function writeDebugInfo($debugTrace)
     {
         if (config('app.debug') && ! app()->environment('production')) {
-            $info = array_only($debugTrace, ['file', 'line', 'args']);
+            $info = Arr::only($debugTrace, ['file', 'line', 'args']);
             resolve('heyman.chain')->set('debugInfo', $info);
         }
     }
