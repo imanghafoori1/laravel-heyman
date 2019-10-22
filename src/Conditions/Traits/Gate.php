@@ -2,6 +2,7 @@
 
 namespace Imanghafoori\HeyMan\Conditions\Traits;
 
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Gate as GateFacade;
 
 class Gate
@@ -25,12 +26,12 @@ class Gate
         // Define a Gate for inline closures passed as gate
         if (is_callable($gate)) {
             $closure = $gate;
-            $gate = str_random(10);
+            $gate = Str::random(10);
             GateFacade::define($gate, $closure);
         }
 
         // Define a Gate for "class@method" gates
-        if (is_string($gate) && str_contains($gate, '@')) {
+        if (is_string($gate) && Str::contains($gate, '@')) {
             GateFacade::define($gate, $gate);
         }
 
