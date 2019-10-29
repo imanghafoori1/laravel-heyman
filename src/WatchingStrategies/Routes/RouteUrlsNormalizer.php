@@ -26,5 +26,4 @@ final class RouteUrlsNormalizer
 
         return array_map($removeSlash, $urls);
     }
-
 }

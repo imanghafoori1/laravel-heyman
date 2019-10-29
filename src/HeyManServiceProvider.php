@@ -16,9 +16,9 @@ use Imanghafoori\HeyMan\Conditions\Traits\Authentication;
 use Imanghafoori\HeyMan\Conditions\Traits\Gate as myGate;
 use Imanghafoori\HeyMan\Conditions\Traits\Session as mySession;
 use Imanghafoori\HeyMan\WatchingStrategies\Routes\RouteActionProvider;
-use Imanghafoori\HeyMan\WatchingStrategies\Routes\RouteUrlSituationProvider;
 use Imanghafoori\HeyMan\WatchingStrategies\Views\ViewSituationProvider;
 use Imanghafoori\HeyMan\WatchingStrategies\Events\EventSituationProvider;
+use Imanghafoori\HeyMan\WatchingStrategies\Routes\RouteUrlSituationProvider;
 use Imanghafoori\HeyMan\WatchingStrategies\Routes\RouteNameSituationProvider;
 use Imanghafoori\HeyMan\WatchingStrategies\EloquentModels\EloquentSituationProvider;
 
