@@ -3,11 +3,20 @@
 namespace Imanghafoori\HeyMan;
 
 use Imanghafoori\HeyMan\Normilizers\InputNormalizer;
+use Imanghafoori\HeyMan\WatchingStrategies\EloquentModels\EloquentSituationProvider;
 use Imanghafoori\HeyMan\WatchingStrategies\Events\EventListeners;
+use Imanghafoori\HeyMan\WatchingStrategies\Events\EventSituationProvider;
+use Imanghafoori\HeyMan\WatchingStrategies\Routes\RouteActionNormalizer;
+use Imanghafoori\HeyMan\WatchingStrategies\Routes\RouteActionProvider;
+use Imanghafoori\HeyMan\WatchingStrategies\Routes\RouteNameNormalizer;
+use Imanghafoori\HeyMan\WatchingStrategies\Routes\RouteNameSituationProvider;
 use Imanghafoori\HeyMan\WatchingStrategies\Routes\RouteNormalizer;
+use Imanghafoori\HeyMan\WatchingStrategies\Routes\RouteUrlSituationProvider;
+use Imanghafoori\HeyMan\WatchingStrategies\Routes\RouteUrlsNormalizer;
 use Imanghafoori\HeyMan\WatchingStrategies\Views\ViewEventListener;
 use Imanghafoori\HeyMan\WatchingStrategies\Routes\RouteEventListener;
 use Imanghafoori\HeyMan\WatchingStrategies\EloquentModels\EloquentEventsListener;
+use Imanghafoori\HeyMan\WatchingStrategies\Views\ViewSituationProvider;
 
 /**
  * Class Forget.
@@ -30,26 +39,12 @@ final class Forget
     {
         $args = $this->normalizeInput($args);
 
-        if (in_array($method, ['aboutRoute', 'aboutAction', 'aboutUrl'])) {
-            $args = resolve(RouteNormalizer::class)->{'normalize'.ltrim($method, 'about')}($args);
-
-            return resolve('heyman.chains')->forgetAbout(RouteEventListener::class, $args);
+        foreach (HeyManServiceProvider::$situationProviders as $class) {
+            if (in_array($method, $class::getForgetMethods())) {
+                $args = $class::getForgetArgs($method, $args);
+            }
         }
 
-        if (in_array($method, ['aboutEvent'])) {
-            resolve('heyman.chains')->forgetAbout(EventListeners::class, $args);
-        }
-
-        if (in_array($method, ['aboutView'])) {
-            resolve('heyman.chains')->forgetAbout(ViewEventListener::class, $args);
-        }
-
-        if (in_array($method, ['aboutFetching', 'aboutSaving', 'aboutModel', 'aboutDeleting', 'aboutCreating', 'aboutUpdating'])) {
-            $method = ltrim($method, 'about');
-            $method = str_replace('Fetching', 'retrieved', $method);
-            $method = strtolower($method);
-            $method = $method == 'model' ? null : $method;
-            resolve('heyman.chains')->forgetAbout(EloquentEventsListener::class, $args, $method);
-        }
+        resolve('heyman.chains')->forgetAbout(...$args);
     }
 }

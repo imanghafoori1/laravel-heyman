@@ -29,4 +29,14 @@ class EventSituationProvider
             'whenYouReachCheckPoint',
         ];
     }
+
+    public static function getForgetMethods()
+    {
+        return ['aboutEvent'];
+    }
+
+    public static function getForgetArgs($method, $args)
+    {
+        return [EventListeners::class, $args];
+    }
 }

@@ -28,4 +28,14 @@ class ViewSituationProvider
             'whenYouMakeView',
         ];
     }
+
+    public static function getForgetMethods()
+    {
+        return ['aboutView'];
+    }
+
+    public static function getForgetArgs($method, $args)
+    {
+        return [ViewEventListener::class, $args];
+    }
 }

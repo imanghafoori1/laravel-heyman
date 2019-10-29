@@ -15,16 +15,20 @@ use Imanghafoori\HeyMan\Conditions\Traits\Callbacks;
 use Imanghafoori\HeyMan\Conditions\Traits\Authentication;
 use Imanghafoori\HeyMan\Conditions\Traits\Gate as myGate;
 use Imanghafoori\HeyMan\Conditions\Traits\Session as mySession;
+use Imanghafoori\HeyMan\WatchingStrategies\Routes\RouteActionProvider;
+use Imanghafoori\HeyMan\WatchingStrategies\Routes\RouteUrlSituationProvider;
 use Imanghafoori\HeyMan\WatchingStrategies\Views\ViewSituationProvider;
 use Imanghafoori\HeyMan\WatchingStrategies\Events\EventSituationProvider;
-use Imanghafoori\HeyMan\WatchingStrategies\Routes\RouteSituationProvider;
+use Imanghafoori\HeyMan\WatchingStrategies\Routes\RouteNameSituationProvider;
 use Imanghafoori\HeyMan\WatchingStrategies\EloquentModels\EloquentSituationProvider;
 
 final class HeyManServiceProvider extends ServiceProvider
 {
-    public $situationProviders = [
+    public static $situationProviders = [
         ViewSituationProvider::class,
-        RouteSituationProvider::class,
+        RouteNameSituationProvider::class,
+        RouteUrlSituationProvider::class,
+        RouteActionProvider::class,
         EventSituationProvider::class,
         EloquentSituationProvider::class,
     ];
@@ -39,7 +43,7 @@ final class HeyManServiceProvider extends ServiceProvider
 
         $this->registerConditions();
 
-        $this->registerSituationProviders($this->situationProviders);
+        $this->registerSituationProviders(static::$situationProviders);
 
         $this->disableIfIsSeeding();
     }

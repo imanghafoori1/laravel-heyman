@@ -4,8 +4,13 @@ namespace Imanghafoori\HeyMan\WatchingStrategies\Routes;
 
 use Illuminate\Support\Str;
 
-final class RouteNormalizer
+final class RouteActionNormalizer
 {
+    public function normalize($method, $args): array
+    {
+        return [$this->normalizeAction($args)];
+    }
+
     /**
      * @param $actions
      *
@@ -22,25 +27,5 @@ final class RouteNormalizer
         };
 
         return array_map($addNamespace, $actions);
-    }
-
-    /**
-     * @param $urls
-     * @param $verb
-     *
-     * @return array
-     */
-    public function normalizeUrl($urls, $verb = 'GET'): array
-    {
-        $removeSlash = function ($url) use ($verb) {
-            return $verb.ltrim($url, '/');
-        };
-
-        return array_map($removeSlash, $urls);
-    }
-
-    public function normalizeRoute($r)
-    {
-        return $r;
     }
 }

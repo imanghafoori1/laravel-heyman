@@ -2,7 +2,7 @@
 
 namespace Imanghafoori\HeyMan\WatchingStrategies\Routes;
 
-class RouteSituationProvider
+class RouteActionProvider
 {
     public function getListener()
     {
@@ -11,7 +11,7 @@ class RouteSituationProvider
 
     public function getSituationProvider()
     {
-        return RouteSituations::class;
+        return RouteActionNormalizer::class;
     }
 
     public function getForgetKey()
@@ -19,19 +19,20 @@ class RouteSituationProvider
         return 'routeChecks';
     }
 
-    /**
-     * @return array
-     */
     public function getMethods(): array
     {
         return [
-            'whenYouVisitUrl',
-            'whenYouSendPost',
-            'whenYouSendPatch',
-            'whenYouSendPut',
-            'whenYouSendDelete',
             'whenYouCallAction',
-            'whenYouHitRouteName',
         ];
+    }
+
+    public static function getForgetMethods()
+    {
+        return ['aboutAction'];
+    }
+
+    public static function getForgetArgs($method, $args)
+    {
+        return  $args = [RouteEventListener::class, resolve(RouteActionNormalizer::class)->normalize('get', $args)];
     }
 }
