@@ -3,17 +3,17 @@
 namespace Imanghafoori\HeyMan;
 
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Foundation\AliasLoader;
-use Illuminate\Support\ServiceProvider;
 use Imanghafoori\HeyMan\Core\Forget;
+use Illuminate\Foundation\AliasLoader;
 use Imanghafoori\HeyMan\Core\Reaction;
+use Illuminate\Support\ServiceProvider;
 use Imanghafoori\HeyMan\Facades\HeyMan;
 use Imanghafoori\HeyMan\Boot\Singletons;
 use Imanghafoori\HeyMan\Core\Situations;
-use Imanghafoori\HeyMan\Reactions\Reactions;
 use Imanghafoori\HeyMan\Switching\Consider;
-use Imanghafoori\HeyMan\Boot\DebugbarIntergrator;
+use Imanghafoori\HeyMan\Reactions\Reactions;
 use Imanghafoori\HeyMan\Core\ConditionsFacade;
+use Imanghafoori\HeyMan\Boot\DebugbarIntergrator;
 use Imanghafoori\HeyMan\Plugins\Conditions\Callbacks;
 use Imanghafoori\HeyMan\Plugins\Conditions\Authentication;
 use Imanghafoori\HeyMan\Plugins\Conditions\Gate as myGate;
