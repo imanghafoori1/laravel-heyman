@@ -2,6 +2,7 @@
 
 namespace Imanghafoori\HeyManTests\Unit;
 
+use Illuminate\Support\Str;
 use Mockery;
 use Imanghafoori\HeyManTests\TestCase;
 
@@ -23,9 +24,9 @@ class ResponderTest extends TestCase
         app()->instance('heyman.chains', $m);
 
         foreach ($methods as $method) {
-            $param = str_random(3);
+            $param = Str::random(3);
 
-            $reaction = app(\Imanghafoori\HeyMan\Reactions\Reactions::class);
+            $reaction = app(\Imanghafoori\HeyMan\Plugins\Reactions\Reactions::class);
             $reaction->response()->{$method}($param);
         }
     }
@@ -45,9 +46,9 @@ class ResponderTest extends TestCase
         app()->instance('heyman.chains', $m);
 
         foreach ($methods as $method) {
-            $param = str_random(3);
+            $param = Str::random(3);
 
-            $reaction = app(\Imanghafoori\HeyMan\Reactions\Reactions::class);
+            $reaction = app(\Imanghafoori\HeyMan\Plugins\Reactions\Reactions::class);
             $reaction->redirect()->{$method}($param);
         }
     }
@@ -65,7 +66,7 @@ class ResponderTest extends TestCase
         ];
 
         foreach ($methods as $method) {
-            $param = str_random(2);
+            $param = Str::random(2);
             $redirector = Mockery::mock(\Imanghafoori\HeyMan\Reactions\Redirect\Redirector::class);
             app(\Facades\Imanghafoori\HeyMan\Core\Chain::class)->shouldReceive('push')->once()->with('data', [$method, [[$param]]]);
             $redirectionMsg = new \Imanghafoori\HeyMan\Reactions\Redirect\RedirectionMsg($redirector);

@@ -2,6 +2,7 @@
 
 namespace Imanghafoori\HeyManTests\Unit;
 
+use Illuminate\Support\Str;
 use Imanghafoori\HeyMan\Core\Chain;
 use Illuminate\Support\Facades\Auth;
 use Imanghafoori\HeyManTests\TestCase;
@@ -95,7 +96,7 @@ class YouShouldHaveTest extends TestCase
     public function testSessionShouldHave()
     {
         HeyMan::whenYouVisitUrl('sdf')->sessionShouldHave('some_key');
-        $val = str_random(2);
+        $val = Str::random(2);
         \Illuminate\Support\Facades\Session::shouldReceive('has')->once()->with('some_key')->andReturn($val);
         $condition = app(Chain::class)->get('condition');
 
