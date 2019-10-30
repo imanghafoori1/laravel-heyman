@@ -3,8 +3,8 @@
 namespace Imanghafoori\HeyMan\Facades;
 
 use Imanghafoori\HeyMan\Forget;
-use Illuminate\Support\Facades\Facade;
 use Imanghafoori\HeyMan\Condition;
+use Illuminate\Support\Facades\Facade;
 use Illuminate\Database\Eloquent\Model;
 use Imanghafoori\HeyMan\Switching\Consider;
 
