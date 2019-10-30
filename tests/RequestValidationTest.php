@@ -21,6 +21,20 @@ class RequestValidationTest extends TestCase
         $this->get('welcome')->assertStatus(302)->assertSessionHasErrors('name');
     }
 
+    public function testUrlIsNotAccessedWithInValidRequest2()
+    {
+        Route::post('/welcome', 'HomeController@index')->name('welcome.name');
+
+        HeyMan::whenYouHitRouteName('welcome.name')
+            ->yourRequestShouldBeValid(['name' => 'required'])
+            ->otherwise()
+            ->weDenyAccess();
+
+        app(StartGuarding::class)->start();
+
+        $this->post('welcome', [])->assertStatus(403);
+    }
+
     public function testUrlIsNotAccessedWithInValidRequestInOrder()
     {
         Route::get('/welcome', 'HomeController@index')->name('welcome.name');

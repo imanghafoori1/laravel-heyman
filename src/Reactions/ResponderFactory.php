@@ -71,15 +71,15 @@ final class ResponderFactory
         throw new HttpResponseException($respObj);
     }
 
-    public function validatorCallback($modifier, $rules, array $messages = [], array $customAttributes = []): \Closure
+    public function validatorCallback($modifier, $rules)
     {
-        $validator = function () use ($modifier, $rules, $messages, $customAttributes) {
-            if (is_callable($rules)) {
-                $rules = call_user_func($rules);
+        $validator = function () use ($modifier, $rules) {
+            if (is_callable($rules[0])) {
+                $rules[0] = call_user_func($rules[0]);
             }
 
             $data = app()->call($modifier, [request()->all()]);
-            $validator = resolve(Factory::class)->make($data, $rules, $messages, $customAttributes);
+            $validator = resolve(Factory::class)->make($data, ...$rules);
             $validator->validate();
         };
 

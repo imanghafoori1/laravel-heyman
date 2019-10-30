@@ -15,7 +15,7 @@ class RequestValidation
      *
      * @return \Imanghafoori\HeyMan\Reactions\Validator
      */
-    public function yourRequestShouldBeValid($rules, array $messages = [], array $customAttributes = []): Validator
+    public function yourRequestShouldBeValid($rules, array $messages = [], array $customAttributes = [])
     {
         return new Validator([$rules, $messages, $customAttributes]);
     }
