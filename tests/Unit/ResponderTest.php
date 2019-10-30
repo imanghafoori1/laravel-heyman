@@ -2,8 +2,8 @@
 
 namespace Imanghafoori\HeyManTests\Unit;
 
-use Illuminate\Support\Str;
 use Mockery;
+use Illuminate\Support\Str;
 use Imanghafoori\HeyManTests\TestCase;
 
 class ResponderTest extends TestCase
