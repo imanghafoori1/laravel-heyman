@@ -4,6 +4,7 @@ namespace Imanghafoori\HeyMan;
 
 use Illuminate\Support\Arr;
 use Imanghafoori\HeyMan\Core\Forget;
+use Imanghafoori\HeyMan\Core\Reaction;
 use Imanghafoori\HeyMan\Switching\Turn;
 use Imanghafoori\HeyMan\Core\Situations;
 use Imanghafoori\HeyMan\Core\ConditionsFacade;
@@ -39,6 +40,16 @@ class HeyMan
     public function aliasSituation(string $currentName, string $newName)
     {
         Situations::aliasMethod($currentName, $newName);
+    }
+
+    public function aliasReaction(string $currentName, string $newName)
+    {
+        resolve(Reaction::class)->alias($currentName, $newName);
+    }
+
+    public function defineReaction($methodName, $callable)
+    {
+        resolve(Reaction::class)->define($methodName, $callable);
     }
 
     public function defineCondition(string $name, $callable)

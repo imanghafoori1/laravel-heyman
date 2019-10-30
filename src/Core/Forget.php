@@ -2,7 +2,6 @@
 
 namespace Imanghafoori\HeyMan\Core;
 
-use Imanghafoori\HeyMan\HeyManServiceProvider;
 use Imanghafoori\HeyMan\Normilizers\InputNormalizer;
 
 /**

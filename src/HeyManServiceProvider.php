@@ -6,9 +6,11 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
 use Imanghafoori\HeyMan\Core\Forget;
+use Imanghafoori\HeyMan\Core\Reaction;
 use Imanghafoori\HeyMan\Facades\HeyMan;
 use Imanghafoori\HeyMan\Boot\Singletons;
 use Imanghafoori\HeyMan\Core\Situations;
+use Imanghafoori\HeyMan\Reactions\Reactions;
 use Imanghafoori\HeyMan\Switching\Consider;
 use Imanghafoori\HeyMan\Boot\DebugbarIntergrator;
 use Imanghafoori\HeyMan\Core\ConditionsFacade;
@@ -50,6 +52,7 @@ final class HeyManServiceProvider extends ServiceProvider
         $this->defineGates();
         $this->registerConditions();
         $this->registerSituationProviders(static::$situationProviders);
+        $this->defineReactions();
 
         AliasLoader::getInstance()->alias('HeyMan', HeyMan::class);
 
@@ -98,5 +101,17 @@ final class HeyManServiceProvider extends ServiceProvider
             Consider::add($provider->getForgetKey(), $listener);
             Situations::add($listener, $situation, $provider->getMethods());
         }
+    }
+
+    private function defineReactions()
+    {
+        app(Reaction::class)->define('response', Reactions::class.'@response');
+        app(Reaction::class)->define('redirect', Reactions::class.'@redirect');
+        app(Reaction::class)->define('weThrowNew', Reactions::class.'@weThrowNew');
+        app(Reaction::class)->define('abort', Reactions::class.'@abort');
+        app(Reaction::class)->define('weRespondFrom', Reactions::class.'@weRespondFrom');
+        app(Reaction::class)->define('weDenyAccess', Reactions::class.'@weDenyAccess');
+        app(Reaction::class)->define('afterCalling', Reactions::class.'@afterCalling');
+        app(Reaction::class)->define('afterFiringEvent', Reactions::class.'@afterFiringEvent');
     }
 }

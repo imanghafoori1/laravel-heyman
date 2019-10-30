@@ -2,12 +2,13 @@
 
 namespace Imanghafoori\HeyMan\Core;
 
-use Imanghafoori\HeyMan\Reactions\Reactions;
-
 final class Otherwise
 {
-    public function otherwise(): Reactions
+    /**
+     * @return \Imanghafoori\HeyMan\Reactions\Reactions
+     */
+    public function otherwise()
     {
-        return resolve(Reactions::class);
+        return resolve(Reaction::class);
     }
 }

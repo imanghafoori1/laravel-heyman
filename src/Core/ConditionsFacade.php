@@ -13,7 +13,7 @@ class ConditionsFacade
         $method = $this->aliases[$method] ?? $method;
 
         if (! isset($this->methods[$method])) {
-            throw new \BadMethodCallException($method.' does not exists as a Heyman condition');
+            throw new \BadMethodCallException($method.' does not exist');
         }
 
         $condition = $this->methods[$method];

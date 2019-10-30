@@ -2,7 +2,6 @@
 
 namespace Imanghafoori\HeyMan\Core;
 
-use Imanghafoori\HeyMan\Reactions\Reactions;
 use Imanghafoori\HeyMan\Conditions\RequestValidation;
 
 /**
@@ -28,7 +27,7 @@ final class Condition
         return resolve(Otherwise::class);
     }
 
-    public function always(): Reactions
+    public function always()
     {
         return $this->thisValueShouldAllow(false)->otherwise();
     }

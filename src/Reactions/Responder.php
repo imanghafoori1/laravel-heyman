@@ -17,11 +17,6 @@ final class Responder
 {
     private $action;
 
-    /**
-     * Responder constructor.
-     *
-     * @param $action
-     */
     public function __construct(Reactions $action)
     {
         $this->action = $action;

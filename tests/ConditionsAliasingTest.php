@@ -26,7 +26,8 @@ class ConditionsAliasingTest extends TestCase
             return false;
         };
         HeyMan::aliasCondition('thisClosureShouldAllow', 'method');
-        HeyMan::whenYouMakeView('welcome')->method($cb)->otherwise()->weDenyAccess();
+        HeyMan::aliasReaction('weDenyAccess', 'accessDenied');
+        HeyMan::whenYouMakeView('welcome')->method($cb)->otherwise()->accessDenied();
         app(StartGuarding::class)->start();
         $this->expectException(AuthorizationException::class);
 
