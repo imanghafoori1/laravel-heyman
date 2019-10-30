@@ -2,8 +2,6 @@
 
 namespace Imanghafoori\HeyMan\Core;
 
-use Imanghafoori\HeyMan\Conditions\RequestValidation;
-
 /**
  * Class YouShouldHave.
  *
@@ -18,13 +16,17 @@ use Imanghafoori\HeyMan\Conditions\RequestValidation;
  */
 final class Condition
 {
-    use RequestValidation;
-
-    public function __call(string $method, $args): Otherwise
+    public function __call(string $method, $args)
     {
-        resolve('heyman.chain')->set('condition', resolve(ConditionsFacade::class)->_call($method, $args));
+        $result = resolve(ConditionsFacade::class)->_call($method, $args);
 
-        return resolve(Otherwise::class);
+        if ($result instanceof \Closure) {
+            resolve('heyman.chain')->set('condition', $result);
+
+            return resolve(Otherwise::class);
+        }
+
+        return $result;
     }
 
     public function always()

@@ -4,7 +4,7 @@ namespace Imanghafoori\HeyMan\Conditions;
 
 use Imanghafoori\HeyMan\Reactions\Validator;
 
-trait RequestValidation
+class RequestValidation
 {
     /**
      * Validate the given request with the given rules.

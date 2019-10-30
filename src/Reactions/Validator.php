@@ -4,18 +4,10 @@ namespace Imanghafoori\HeyMan\Reactions;
 
 final class Validator
 {
-    /**
-     * @var array
-     */
     private $validationData;
 
     private $modifier;
 
-    /**
-     * YouShouldHave constructor.
-     *
-     * @param $validationData
-     */
     public function __construct(array $validationData)
     {
         $this->validationData = $validationData;
@@ -29,8 +21,8 @@ final class Validator
     public function __destruct()
     {
         $data = $this->validationData;
-        $modifier = $this->modifier ?: function ($d) {
-            return $d;
+        $modifier = $this->modifier ?: function ($args) {
+            return $args;
         };
         $chain = resolve('heyman.chain');
         $condition = resolve(ResponderFactory::class)->validatorCallback($modifier, ...$data);

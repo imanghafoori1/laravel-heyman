@@ -15,6 +15,7 @@ use Imanghafoori\HeyMan\Reactions\Reactions;
 use Imanghafoori\HeyMan\Core\ConditionsFacade;
 use Imanghafoori\HeyMan\Boot\DebugbarIntergrator;
 use Imanghafoori\HeyMan\Plugins\Conditions\Callbacks;
+use Imanghafoori\HeyMan\Conditions\RequestValidation;
 use Imanghafoori\HeyMan\Plugins\Conditions\Authentication;
 use Imanghafoori\HeyMan\Plugins\Conditions\Gate as myGate;
 use Imanghafoori\HeyMan\Plugins\Conditions\Session as mySession;
@@ -87,6 +88,7 @@ final class HeyManServiceProvider extends ServiceProvider
         $cond->define('youShouldHaveRole', myGate::class.'@youShouldHaveRole');
 
         $cond->define('sessionShouldHave', mySession::class.'@sessionHas');
+        $cond->define('yourRequestShouldBeValid', RequestValidation::class.'@yourRequestShouldBeValid');
     }
 
     private function registerSituationProviders($providers)
