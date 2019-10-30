@@ -81,8 +81,9 @@ class reactionsTest extends TestCase
         Route::get('/welcome1', function () {
             return view('welcome');
         })->name('welcome1.name');
+        HeyMan::aliasReaction('abort', 'willAbort');
 
-        HeyMan::whenYouVisitUrl('welcome', 'asdfv')->always()->abort(405);
+        HeyMan::whenYouVisitUrl('welcome', 'asdfv')->always()->willAbort(405);
         HeyMan::whenYouVisitUrl('welcome1')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
         app(StartGuarding::class)->start();
 

@@ -9,14 +9,14 @@ final class Reactions
 {
     use BeforeReaction;
 
-    public function response(): Responder
+    public function response()
     {
         resolve('heyman.chain')->set('responseType', 'response');
 
         return new Responder($this);
     }
 
-    public function redirect(): Redirector
+    public function redirect()
     {
         resolve('heyman.chain')->set('responseType', 'redirect');
 

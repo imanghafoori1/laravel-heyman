@@ -11,16 +11,16 @@ final class ResponderFactory
     public function make()
     {
         $chain = resolve('heyman.chain');
-        $m = $chain->get('responseType') ?? 'nothing';
+        $method = $chain->get('responseType') ?? 'nothing';
         $data = $chain->get('data') ?? [];
 
-        return $this->$m(...$data);
+        return $this->$method(...$data);
     }
 
-    protected function abort($abort): \Closure
+    protected function abort($args): \Closure
     {
-        return function () use ($abort) {
-            abort(...$abort);
+        return function () use ($args) {
+            abort(...$args);
         };
     }
 

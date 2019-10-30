@@ -75,17 +75,18 @@ final class HeyManServiceProvider extends ServiceProvider
 
     private function registerConditions()
     {
-        app(ConditionsFacade::class)->define('youShouldBeGuest', Authentication::class.'@beGuest');
-        app(ConditionsFacade::class)->define('youShouldBeLoggedIn', Authentication::class.'@loggedIn');
+        $cond = app(ConditionsFacade::class);
+        $cond->define('youShouldBeGuest', Authentication::class.'@beGuest');
+        $cond->define('youShouldBeLoggedIn', Authentication::class.'@loggedIn');
 
-        app(ConditionsFacade::class)->define('thisClosureShouldAllow', Callbacks::class.'@closureAllows');
-        app(ConditionsFacade::class)->define('thisMethodShouldAllow', Callbacks::class.'@methodAllows');
-        app(ConditionsFacade::class)->define('thisValueShouldAllow', Callbacks::class.'@valueAllows');
+        $cond->define('thisClosureShouldAllow', Callbacks::class.'@closureAllows');
+        $cond->define('thisMethodShouldAllow', Callbacks::class.'@methodAllows');
+        $cond->define('thisValueShouldAllow', Callbacks::class.'@valueAllows');
 
-        app(ConditionsFacade::class)->define('thisGateShouldAllow', myGate::class.'@thisGateShouldAllow');
-        app(ConditionsFacade::class)->define('youShouldHaveRole', myGate::class.'@youShouldHaveRole');
+        $cond->define('thisGateShouldAllow', myGate::class.'@thisGateShouldAllow');
+        $cond->define('youShouldHaveRole', myGate::class.'@youShouldHaveRole');
 
-        app(ConditionsFacade::class)->define('sessionShouldHave', mySession::class.'@sessionHas');
+        $cond->define('sessionShouldHave', mySession::class.'@sessionHas');
     }
 
     private function registerSituationProviders($providers)
@@ -105,13 +106,15 @@ final class HeyManServiceProvider extends ServiceProvider
 
     private function defineReactions()
     {
-        app(Reaction::class)->define('response', Reactions::class.'@response');
-        app(Reaction::class)->define('redirect', Reactions::class.'@redirect');
-        app(Reaction::class)->define('weThrowNew', Reactions::class.'@weThrowNew');
-        app(Reaction::class)->define('abort', Reactions::class.'@abort');
-        app(Reaction::class)->define('weRespondFrom', Reactions::class.'@weRespondFrom');
-        app(Reaction::class)->define('weDenyAccess', Reactions::class.'@weDenyAccess');
-        app(Reaction::class)->define('afterCalling', Reactions::class.'@afterCalling');
-        app(Reaction::class)->define('afterFiringEvent', Reactions::class.'@afterFiringEvent');
+        $reaction = resolve(Reaction::class);
+
+        $reaction->define('response', Reactions::class.'@response');
+        $reaction->define('redirect', Reactions::class.'@redirect');
+        $reaction->define('weThrowNew', Reactions::class.'@weThrowNew');
+        $reaction->define('abort', Reactions::class.'@abort');
+        $reaction->define('weRespondFrom', Reactions::class.'@weRespondFrom');
+        $reaction->define('weDenyAccess', Reactions::class.'@weDenyAccess');
+        $reaction->define('afterCalling', Reactions::class.'@afterCalling');
+        $reaction->define('afterFiringEvent', Reactions::class.'@afterFiringEvent');
     }
 }
