@@ -3,9 +3,10 @@
 namespace Imanghafoori\HeyMan;
 
 use Illuminate\Support\Arr;
+use Imanghafoori\HeyMan\Core\Forget;
 use Imanghafoori\HeyMan\Switching\Turn;
 use Imanghafoori\HeyMan\Core\Situations;
-use Imanghafoori\HeyMan\Conditions\ConditionsFacade;
+use Imanghafoori\HeyMan\Core\ConditionsFacade;
 
 class HeyMan
 {

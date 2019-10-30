@@ -5,22 +5,23 @@ namespace Imanghafoori\HeyMan;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
+use Imanghafoori\HeyMan\Core\Forget;
 use Imanghafoori\HeyMan\Facades\HeyMan;
 use Imanghafoori\HeyMan\Boot\Singletons;
 use Imanghafoori\HeyMan\Core\Situations;
 use Imanghafoori\HeyMan\Switching\Consider;
 use Imanghafoori\HeyMan\Boot\DebugbarIntergrator;
-use Imanghafoori\HeyMan\Conditions\ConditionsFacade;
-use Imanghafoori\HeyMan\Conditions\Traits\Callbacks;
-use Imanghafoori\HeyMan\Conditions\Traits\Authentication;
-use Imanghafoori\HeyMan\Conditions\Traits\Gate as myGate;
-use Imanghafoori\HeyMan\Conditions\Traits\Session as mySession;
-use Imanghafoori\HeyMan\WatchingStrategies\Routes\RouteActionProvider;
-use Imanghafoori\HeyMan\WatchingStrategies\Views\ViewSituationProvider;
-use Imanghafoori\HeyMan\WatchingStrategies\Events\EventSituationProvider;
-use Imanghafoori\HeyMan\WatchingStrategies\Routes\RouteUrlSituationProvider;
-use Imanghafoori\HeyMan\WatchingStrategies\Routes\RouteNameSituationProvider;
-use Imanghafoori\HeyMan\WatchingStrategies\EloquentModels\EloquentSituationProvider;
+use Imanghafoori\HeyMan\Core\ConditionsFacade;
+use Imanghafoori\HeyMan\Plugins\Conditions\Callbacks;
+use Imanghafoori\HeyMan\Plugins\Conditions\Authentication;
+use Imanghafoori\HeyMan\Plugins\Conditions\Gate as myGate;
+use Imanghafoori\HeyMan\Plugins\Conditions\Session as mySession;
+use Imanghafoori\HeyMan\Plugins\WatchingStrategies\Routes\RouteActionProvider;
+use Imanghafoori\HeyMan\Plugins\WatchingStrategies\Views\ViewSituationProvider;
+use Imanghafoori\HeyMan\Plugins\WatchingStrategies\Events\EventSituationProvider;
+use Imanghafoori\HeyMan\Plugins\WatchingStrategies\Routes\RouteUrlSituationProvider;
+use Imanghafoori\HeyMan\Plugins\WatchingStrategies\Routes\RouteNameSituationProvider;
+use Imanghafoori\HeyMan\Plugins\WatchingStrategies\EloquentModels\EloquentSituationProvider;
 
 final class HeyManServiceProvider extends ServiceProvider
 {
@@ -35,22 +36,20 @@ final class HeyManServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        $this->defineGates();
-
         app()->booted([resolve(StartGuarding::class), 'start']);
 
         DebugbarIntergrator::register();
-
-        $this->registerConditions();
-
-        $this->registerSituationProviders(static::$situationProviders);
 
         $this->disableIfIsSeeding();
     }
 
     public function register()
     {
+        Forget::$situation_providers = static::$situationProviders;
         Singletons::make($this->app);
+        $this->defineGates();
+        $this->registerConditions();
+        $this->registerSituationProviders(static::$situationProviders);
 
         AliasLoader::getInstance()->alias('HeyMan', HeyMan::class);
 

@@ -4,9 +4,6 @@ namespace Imanghafoori\HeyMan\Reactions;
 
 final class ReactionFactory
 {
-    /**
-     * @return \Closure
-     */
     public function make(): \Closure
     {
         $reaction = $this->makeReaction();

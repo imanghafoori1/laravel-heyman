@@ -2,8 +2,6 @@
 
 namespace Imanghafoori\HeyMan\Core;
 
-use Imanghafoori\HeyMan\YouShouldHave;
-
 final class Situations
 {
     private static $methodAliases = [];
@@ -27,7 +25,7 @@ final class Situations
             $listenerClass, ...resolve($situation)->normalize($method, $args)
         );
 
-        return resolve(YouShouldHave::class);
+        return resolve(Condition::class);
     }
 
     public static function aliasMethod($currentName, $newName)

@@ -4,18 +4,18 @@ namespace Imanghafoori\HeyMan\Boot;
 
 use Imanghafoori\HeyMan\HeyMan;
 use Imanghafoori\HeyMan\Core\Chain;
-use Imanghafoori\HeyMan\YouShouldHave;
+use Imanghafoori\HeyMan\Condition;
 use Imanghafoori\HeyMan\Core\ChainCollection;
 use Imanghafoori\HeyMan\Switching\HeyManSwitcher;
 use Imanghafoori\HeyMan\Reactions\ReactionFactory;
-use Imanghafoori\HeyMan\Conditions\ConditionsFacade;
+use Imanghafoori\HeyMan\Core\ConditionsFacade;
 
 class Singletons
 {
     protected static $singletons = [
         HeyManSwitcher::class,
         HeyMan::class,
-        YouShouldHave::class,
+        Condition::class,
         ReactionFactory::class,
         ConditionsFacade::class,
         Chain::class,
