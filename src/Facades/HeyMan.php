@@ -32,8 +32,10 @@ use Imanghafoori\HeyMan\Switching\Consider;
  * @method static Consider turnOn()
  * @method static Forget forget()
  * @method static void defineCondition(string $name, $callable)
+ * @method static void defineReaction($methodName, $callable)
  * @method static void aliasCondition(string $currentName, string $newName)
  * @method static void aliasSituation(string $currentName, string $newName)
+ * @method static void aliasReaction(string $currentName, string $newName)
  *
  * @see \Imanghafoori\HeyMan\HeyMan
  */
