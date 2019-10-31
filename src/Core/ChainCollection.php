@@ -3,7 +3,6 @@
 namespace Imanghafoori\HeyMan\Core;
 
 use Imanghafoori\HeyMan\Switching\HeyManSwitcher;
-use Imanghafoori\HeyMan\Reactions\ReactionFactory;
 use Imanghafoori\HeyMan\Normilizers\InputNormalizer;
 
 class ChainCollection

@@ -74,15 +74,30 @@ final class ResponderFactory
     public function validatorCallback($modifier, $rules)
     {
         $validator = function () use ($modifier, $rules) {
-            if (is_callable($rules[0])) {
-                $rules[0] = call_user_func($rules[0]);
-            }
-
-            $data = app()->call($modifier, [request()->all()]);
-            $validator = resolve(Factory::class)->make($data, ...$rules);
-            $validator->validate();
+            $this->makeValidator($modifier, $rules)->validate();
         };
 
         return resolve(HeyManSwitcher::class)->wrapForIgnorance($validator, 'validation');
+    }
+
+    public function validationPassesCallback($modifier, $rules)
+    {
+        $validator = function () use ($modifier, $rules) {
+
+            return ! $this->makeValidator($modifier, $rules)->fails();
+        };
+
+        return resolve(HeyManSwitcher::class)->wrapForIgnorance($validator, 'validation');
+    }
+
+    public function makeValidator($modifier, $rules)
+    {
+        if (is_callable($rules[0])) {
+            $rules[0] = call_user_func($rules[0]);
+        }
+
+        $newData = app()->call($modifier, [request()->all()]);
+
+        return resolve(Factory::class)->make($newData, ...$rules);
     }
 }

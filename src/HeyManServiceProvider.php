@@ -48,7 +48,7 @@ final class HeyManServiceProvider extends ServiceProvider
 
     public function register()
     {
-        Forget::$situation_providers = static::$situationProviders;
+        Forget::$situationProviders = static::$situationProviders;
         Singletons::make($this->app);
         $this->defineGates();
         $this->registerConditions();

@@ -9,7 +9,7 @@ use Imanghafoori\HeyMan\Core\Condition;
 use Imanghafoori\HeyMan\Core\ChainCollection;
 use Imanghafoori\HeyMan\Core\ConditionsFacade;
 use Imanghafoori\HeyMan\Switching\HeyManSwitcher;
-use Imanghafoori\HeyMan\Reactions\ReactionFactory;
+use Imanghafoori\HeyMan\Core\ReactionFactory;
 
 class Singletons
 {

@@ -3,8 +3,6 @@
 namespace Imanghafoori\HeyMan\Reactions;
 
 use Imanghafoori\HeyMan\Core\Reaction;
-use Illuminate\Contracts\Validation\Factory;
-use Imanghafoori\HeyMan\Switching\HeyManSwitcher;
 
 final class Validator
 {
@@ -23,18 +21,8 @@ final class Validator
         $modifier = $this->modifier ?: function ($args) {
             return $args;
         };
-        $validator = function () use ($modifier, $rules) {
-            if (is_callable($rules[0])) {
-                $rules[0] = call_user_func($rules[0]);
-            }
 
-            $newData = app()->call($modifier, [request()->all()]);
-            $validator = resolve(Factory::class)->make($newData, ...$rules);
-
-            return ! $validator->fails();
-        };
-
-        $result = resolve(HeyManSwitcher::class)->wrapForIgnorance($validator, 'validation');
+        $result = resolve(ResponderFactory::class)->validationPassesCallback($modifier, $rules);
 
         resolve('heyman.chain')->set('condition', $result);
 
@@ -48,18 +36,20 @@ final class Validator
 
     public function __destruct()
     {
-        $data = $this->validationData;
-        $modifier = $this->modifier ?: function ($args) {
-            return $args;
-        };
-
         try {
             $chain = app('heyman.chain');
             $condition = $chain->get('condition');
+
             if (! $condition) {
+                $data = $this->validationData;
+                $modifier = $this->modifier ?: function ($args) {
+                    return $args;
+                };
+
                 $condition = resolve(ResponderFactory::class)->validatorCallback($modifier, $data);
                 $chain->set('condition', $condition);
             }
+
             resolve('heyman.chains')->commitChain();
         } catch (\Throwable $throwable) {
             //

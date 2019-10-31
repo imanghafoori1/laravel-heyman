@@ -1,10 +1,12 @@
 <?php
 
-namespace Imanghafoori\HeyMan\Reactions;
+namespace Imanghafoori\HeyMan\Core;
+
+use Imanghafoori\HeyMan\Reactions\ResponderFactory;
 
 final class ReactionFactory
 {
-    public function make(): \Closure
+    public function make()
     {
         $reaction = $this->makeReaction();
         $condition = resolve('heyman.chain')->get('condition');
@@ -16,7 +18,7 @@ final class ReactionFactory
         };
     }
 
-    private function makeReaction(): \Closure
+    private function makeReaction()
     {
         $chain = resolve('heyman.chain');
 
@@ -37,12 +39,7 @@ final class ReactionFactory
         };
     }
 
-    /**
-     * @param $chain
-     *
-     * @return \Closure
-     */
-    private function makePreResponseActions($chain): \Closure
+    private function makePreResponseActions($chain)
     {
         $tasks = $chain->get('beforeReaction') ?? [];
         $tasks = $this->convertToClosures($tasks);
@@ -55,12 +52,7 @@ final class ReactionFactory
         return $beforeReaction;
     }
 
-    /**
-     * @param $tasks
-     *
-     * @return array
-     */
-    private function convertToClosures($tasks): array
+    private function convertToClosures($tasks)
     {
         $map = function ($task) {
             $params = $task[0];

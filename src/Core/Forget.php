@@ -21,13 +21,13 @@ final class Forget
 {
     use InputNormalizer;
 
-    public static $situation_providers;
+    public static $situationProviders;
 
     public function __call($method, $args)
     {
         $args = $this->normalizeInput($args);
 
-        foreach (static::$situation_providers as $class) {
+        foreach (static::$situationProviders as $class) {
             if (in_array($method, $class::getForgetMethods())) {
                 $args = $class::getForgetArgs($method, $args);
             }
