@@ -83,7 +83,6 @@ final class ResponderFactory
     public function validationPassesCallback($modifier, $rules)
     {
         $validator = function () use ($modifier, $rules) {
-
             return ! $this->makeValidator($modifier, $rules)->fails();
         };
 
