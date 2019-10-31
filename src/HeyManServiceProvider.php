@@ -14,7 +14,7 @@ use Imanghafoori\HeyMan\Switching\Consider;
 use Imanghafoori\HeyMan\Reactions\Reactions;
 use Imanghafoori\HeyMan\Core\ConditionsFacade;
 use Imanghafoori\HeyMan\Boot\DebugbarIntergrator;
-use Imanghafoori\HeyMan\Conditions\RequestValidation;
+use Imanghafoori\HeyMan\Plugins\Conditions\RequestValidation;
 use Imanghafoori\HeyMan\Plugins\Conditions\Callbacks;
 use Imanghafoori\HeyMan\Plugins\Conditions\Authentication;
 use Imanghafoori\HeyMan\Plugins\Conditions\Gate as myGate;

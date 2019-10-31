@@ -1,6 +1,6 @@
 <?php
 
-namespace Imanghafoori\HeyMan\Conditions;
+namespace Imanghafoori\HeyMan\Plugins\Conditions;
 
 use Imanghafoori\HeyMan\Reactions\Validator;
 
