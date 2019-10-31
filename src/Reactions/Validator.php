@@ -52,12 +52,17 @@ final class Validator
         $modifier = $this->modifier ?: function ($args) {
             return $args;
         };
-        $chain = resolve('heyman.chain');
-        $condition = $chain->get('condition');
-        if (! $condition) {
-            $condition = resolve(ResponderFactory::class)->validatorCallback($modifier, $data);
-            $chain->set('condition', $condition);
+
+        try {
+            $chain = app('heyman.chain');
+            $condition = $chain->get('condition');
+            if (! $condition) {
+                $condition = resolve(ResponderFactory::class)->validatorCallback($modifier, $data);
+                $chain->set('condition', $condition);
+            }
+            resolve('heyman.chains')->commitChain();
+        } catch (\Throwable $throwable) {
+            //
         }
-        resolve('heyman.chains')->commitChain();
     }
 }

@@ -28,11 +28,11 @@ class RequestValidationTest extends TestCase
         HeyMan::whenYouHitRouteName('welcome.name')
             ->yourRequestShouldBeValid(['name' => 'required'])
             ->otherwise()
-            ->weDenyAccess();
+            ->redirect()->to('/sss');
 
         app(StartGuarding::class)->start();
 
-        $this->post('welcome', [])->assertStatus(403);
+        $this->post('welcome', [])->assertStatus(302);
     }
 
     public function testUrlIsNotAccessedWithInValidRequestInOrder()
