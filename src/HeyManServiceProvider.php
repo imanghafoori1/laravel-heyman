@@ -58,6 +58,8 @@ final class HeyManServiceProvider extends ServiceProvider
         AliasLoader::getInstance()->alias('HeyMan', HeyMan::class);
 
         $this->mergeConfigFrom(__DIR__.'/../config/heyMan.php', 'heyMan');
+        HeyMan::aliasSituation('whenYouHitRouteName', 'onRoute');
+        HeyMan::aliasSituation('whenYouReachCheckPoint', 'onCheckPoint');
     }
 
     private function defineGates()
@@ -79,16 +81,19 @@ final class HeyManServiceProvider extends ServiceProvider
         $cond = app(ConditionsFacade::class);
         $cond->define('youShouldBeGuest', Authentication::class.'@beGuest');
         $cond->define('youShouldBeLoggedIn', Authentication::class.'@loggedIn');
+        $cond->alias('youShouldBeLoggedIn', 'checkAuth');
 
         $cond->define('thisClosureShouldAllow', Callbacks::class.'@closureAllows');
         $cond->define('thisMethodShouldAllow', Callbacks::class.'@methodAllows');
         $cond->define('thisValueShouldAllow', Callbacks::class.'@valueAllows');
 
         $cond->define('thisGateShouldAllow', myGate::class.'@thisGateShouldAllow');
+        $cond->alias('thisGateShouldAllow', 'checkGate');
         $cond->define('youShouldHaveRole', myGate::class.'@youShouldHaveRole');
 
         $cond->define('sessionShouldHave', mySession::class.'@sessionHas');
         $cond->define('yourRequestShouldBeValid', RequestValidation::class.'@yourRequestShouldBeValid');
+        $cond->alias('yourRequestShouldBeValid', 'validate');
     }
 
     private function registerSituationProviders($providers)

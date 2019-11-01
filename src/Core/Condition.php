@@ -7,7 +7,11 @@ namespace Imanghafoori\HeyMan\Core;
  *
  * @method Otherwise youShouldBeGuest($guard = null)
  * @method Otherwise youShouldBeLoggedIn($guard = null)
+ * @method Otherwise checkAuth($guard = null)
+ * @method Otherwise yourRequestShouldBeValid($rules, array $messages = [], array $customAttributes = [])
+ * @method Otherwise validate($rules, array $messages = [], array $customAttributes = [])
  * @method Otherwise thisGateShouldAllow($gate, ...$parameters)
+ * @method Otherwise checkGate($gate, ...$parameters)
  * @method Otherwise thisClosureShouldAllow(callable $callback, array $parameters = [])
  * @method Otherwise thisValueShouldAllow($value)
  * @method Otherwise thisMethodShouldAllow($callback, array $parameters = [])
