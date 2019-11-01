@@ -3,7 +3,7 @@
 namespace Imanghafoori\HeyMan\Core;
 
 /**
- * Class YouShouldHave.
+ * Class Condition.
  *
  * @method Otherwise youShouldBeGuest($guard = null)
  * @method Otherwise youShouldBeLoggedIn($guard = null)
