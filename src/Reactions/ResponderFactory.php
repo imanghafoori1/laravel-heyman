@@ -20,7 +20,7 @@ final class ResponderFactory
     protected function abort($args)
     {
         return function () use ($args) {
-            abort(...$args);
+            app()->abort(...$args);
         };
     }
 
@@ -42,16 +42,12 @@ final class ResponderFactory
 
     protected function response(...$resp)
     {
-        return function () use ($resp) {
-            $this->sendResponse($resp, response());
-        };
+        return $this->sendResponse($resp, 'response');
     }
 
     protected function redirect(...$resp)
     {
-        return function () use ($resp) {
-            $this->sendResponse($resp, redirect());
-        };
+        return $this->sendResponse($resp, 'redirect');
     }
 
     protected function respondFrom($method)
@@ -61,14 +57,17 @@ final class ResponderFactory
         };
     }
 
-    private function sendResponse(array $methodCalls, $respObj)
+    private function sendResponse(array $methodCalls, $func)
     {
-        foreach ($methodCalls as $call) {
-            [$method, $args] = $call;
-            $respObj = $respObj->{$method}(...$args);
-        }
+        return function () use ($func, $methodCalls) {
+            $respObj = $func();
+            foreach ($methodCalls as $call) {
+                [$method, $args] = $call;
+                $respObj = $respObj->{$method}(...$args);
+            }
 
-        throw new HttpResponseException($respObj);
+            throw new HttpResponseException($respObj);
+        };
     }
 
     public function validatorCallback($modifier, $rules)
