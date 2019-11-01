@@ -16,7 +16,7 @@ class Gate
         };
     }
 
-    private function defineNewGate($gate): string
+    private function defineNewGate($gate)
     {
         // Define a Gate for inline closures passed as gate
         if (is_callable($gate)) {

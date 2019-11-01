@@ -18,7 +18,7 @@ final class EloquentSituations
      *
      * @return array
      */
-    public function normalize($method, $model): array
+    public function normalize($method, $model)
     {
         return [$model, $this->methods[$method]];
     }

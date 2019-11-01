@@ -17,20 +17,20 @@ final class ResponderFactory
         return $this->$method(...$data);
     }
 
-    protected function abort($args): \Closure
+    protected function abort($args)
     {
         return function () use ($args) {
             abort(...$args);
         };
     }
 
-    protected function nothing(): \Closure
+    protected function nothing()
     {
         return function () {
         };
     }
 
-    protected function exception(array $e): \Closure
+    protected function exception(array $e)
     {
         return function () use ($e) {
             $exClass = $e[0];
@@ -40,21 +40,21 @@ final class ResponderFactory
         };
     }
 
-    protected function response(...$resp): \Closure
+    protected function response(...$resp)
     {
         return function () use ($resp) {
             $this->sendResponse($resp, response());
         };
     }
 
-    protected function redirect(...$resp): \Closure
+    protected function redirect(...$resp)
     {
         return function () use ($resp) {
             $this->sendResponse($resp, redirect());
         };
     }
 
-    protected function respondFrom($method): \Closure
+    protected function respondFrom($method)
     {
         return function () use ($method) {
             throw new HttpResponseException(app()->call(...$method));

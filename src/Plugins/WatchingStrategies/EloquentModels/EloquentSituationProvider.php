@@ -34,7 +34,7 @@ class EloquentSituationProvider
         return [EloquentEventsListener::class, $args, $method];
     }
 
-    public function getMethods(): array
+    public function getMethods()
     {
         return [
             'whenYouFetch',

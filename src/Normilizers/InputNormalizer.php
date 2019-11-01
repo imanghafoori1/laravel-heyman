@@ -9,7 +9,7 @@ trait InputNormalizer
      *
      * @return array
      */
-    protected function normalizeInput(array $url): array
+    protected function normalizeInput(array $url)
     {
         return is_array($url[0]) ? $url[0] : $url;
     }
