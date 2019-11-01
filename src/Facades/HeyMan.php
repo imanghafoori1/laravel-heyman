@@ -4,8 +4,8 @@ namespace Imanghafoori\HeyMan\Facades;
 
 use Imanghafoori\HeyMan\Forget;
 use Illuminate\Support\Facades\Facade;
-use Imanghafoori\HeyMan\Core\Condition;
 use Illuminate\Database\Eloquent\Model;
+use Imanghafoori\HeyMan\Core\Condition;
 use Imanghafoori\HeyMan\Switching\Consider;
 
 /**
