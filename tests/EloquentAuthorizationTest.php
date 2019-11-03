@@ -2,12 +2,12 @@
 
 namespace Imanghafoori\HeyManTests;
 
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Facades\Gate;
-use Imanghafoori\HeyMan\StartGuarding;
 use Imanghafoori\HeyMan\Facades\HeyMan;
+use Imanghafoori\HeyMan\StartGuarding;
 use Imanghafoori\HeyManTests\Stubs\User;
 use Imanghafoori\HeyManTests\Stubs\User2;
-use Illuminate\Auth\Access\AuthorizationException;
 
 class EloquentAuthorizationTest extends TestCase
 {

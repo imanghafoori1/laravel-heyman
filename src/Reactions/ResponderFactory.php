@@ -3,8 +3,8 @@
 namespace Imanghafoori\HeyMan\Reactions;
 
 use Illuminate\Contracts\Validation\Factory;
-use Imanghafoori\HeyMan\Switching\HeyManSwitcher;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Imanghafoori\HeyMan\Switching\HeyManSwitcher;
 
 final class ResponderFactory
 {

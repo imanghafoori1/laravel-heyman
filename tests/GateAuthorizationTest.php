@@ -2,10 +2,10 @@
 
 namespace Imanghafoori\HeyManTests;
 
-use Illuminate\Support\Facades\Gate;
-use Imanghafoori\HeyMan\StartGuarding;
-use Imanghafoori\HeyMan\Facades\HeyMan;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Support\Facades\Gate;
+use Imanghafoori\HeyMan\Facades\HeyMan;
+use Imanghafoori\HeyMan\StartGuarding;
 
 class GateAuthorizationTest extends TestCase
 {

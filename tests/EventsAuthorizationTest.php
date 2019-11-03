@@ -2,11 +2,11 @@
 
 namespace Imanghafoori\HeyManTests;
 
-use Illuminate\Support\Facades\Route;
-use Imanghafoori\HeyMan\StartGuarding;
-use Imanghafoori\HeyMan\Facades\HeyMan;
-use Imanghafoori\MakeSure\Facades\MakeSure;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Support\Facades\Route;
+use Imanghafoori\HeyMan\Facades\HeyMan;
+use Imanghafoori\HeyMan\StartGuarding;
+use Imanghafoori\MakeSure\Facades\MakeSure;
 
 class EventsAuthorizationTest extends TestCase
 {

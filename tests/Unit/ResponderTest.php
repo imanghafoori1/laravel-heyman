@@ -2,9 +2,9 @@
 
 namespace Imanghafoori\HeyManTests\Unit;
 
-use Mockery;
 use Illuminate\Support\Str;
 use Imanghafoori\HeyManTests\TestCase;
+use Mockery;
 
 class ResponderTest extends TestCase
 {

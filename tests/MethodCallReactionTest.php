@@ -2,11 +2,11 @@
 
 namespace Imanghafoori\HeyManTests;
 
-use Imanghafoori\HeyMan\Core\Chain;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
-use Imanghafoori\HeyMan\StartGuarding;
+use Imanghafoori\HeyMan\Core\Chain;
 use Imanghafoori\HeyMan\Facades\HeyMan;
+use Imanghafoori\HeyMan\StartGuarding;
 
 class Logger
 {
