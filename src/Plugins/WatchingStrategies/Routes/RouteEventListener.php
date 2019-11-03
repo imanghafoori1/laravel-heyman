@@ -2,8 +2,8 @@
 
 namespace Imanghafoori\HeyMan\Plugins\WatchingStrategies\Routes;
 
-use Illuminate\Support\Facades\Route;
 use Illuminate\Routing\Events\RouteMatched;
+use Illuminate\Support\Facades\Route;
 
 final class RouteEventListener
 {

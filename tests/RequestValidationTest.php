@@ -4,8 +4,8 @@ namespace Imanghafoori\HeyManTests;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use Imanghafoori\HeyMan\StartGuarding;
 use Imanghafoori\HeyMan\Facades\HeyMan;
+use Imanghafoori\HeyMan\StartGuarding;
 use Imanghafoori\MakeSure\Facades\MakeSure;
 
 class RequestValidationTest extends TestCase

@@ -2,8 +2,8 @@
 
 namespace Imanghafoori\HeyMan\Plugins\Conditions;
 
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Gate as GateFacade;
+use Illuminate\Support\Str;
 
 class Gate
 {

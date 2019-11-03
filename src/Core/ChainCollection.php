@@ -2,8 +2,8 @@
 
 namespace Imanghafoori\HeyMan\Core;
 
-use Imanghafoori\HeyMan\Switching\HeyManSwitcher;
 use Imanghafoori\HeyMan\Normilizers\InputNormalizer;
+use Imanghafoori\HeyMan\Switching\HeyManSwitcher;
 
 class ChainCollection
 {

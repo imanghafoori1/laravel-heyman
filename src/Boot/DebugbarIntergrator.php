@@ -2,8 +2,8 @@
 
 namespace Imanghafoori\HeyMan\Boot;
 
-use Illuminate\Support\Facades\Event;
 use DebugBar\DataCollector\MessagesCollector;
+use Illuminate\Support\Facades\Event;
 
 class DebugbarIntergrator
 {

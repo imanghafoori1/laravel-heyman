@@ -2,10 +2,10 @@
 
 namespace Imanghafoori\HeyManTests;
 
-use Imanghafoori\HeyMan\StartGuarding;
-use Imanghafoori\HeyMan\Facades\HeyMan;
-use Imanghafoori\HeyManTests\Stubs\SomeClass;
 use Illuminate\Auth\Access\AuthorizationException;
+use Imanghafoori\HeyMan\Facades\HeyMan;
+use Imanghafoori\HeyMan\StartGuarding;
+use Imanghafoori\HeyManTests\Stubs\SomeClass;
 
 class MethodShouldAllowTest extends TestCase
 {

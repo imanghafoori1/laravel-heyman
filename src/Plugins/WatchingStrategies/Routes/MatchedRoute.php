@@ -3,9 +3,9 @@
 namespace Imanghafoori\HeyMan\Plugins\WatchingStrategies\Routes;
 
 use Closure;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Illuminate\Http\RedirectResponse;
 
 class MatchedRoute
 {
