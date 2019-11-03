@@ -2,7 +2,7 @@
 
 namespace Imanghafoori\HeyMan\Core;
 
-class Reaction extends ConditionsFacade
+class Reaction extends ProxyClass
 {
     public function __call($method, $param)
     {

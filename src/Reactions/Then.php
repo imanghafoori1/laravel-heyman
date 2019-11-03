@@ -11,7 +11,7 @@ class Then
      *
      * @param \Imanghafoori\HeyMan\Reactions\Reactions $reactions
      */
-    public function __construct(Reactions $reactions)
+    public function __construct($reactions)
     {
         $this->reaction = $reactions;
     }

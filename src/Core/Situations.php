@@ -4,7 +4,7 @@ namespace Imanghafoori\HeyMan\Core;
 
 final class Situations
 {
-    private static $methodAliases = [];
+    private static $aliases = [];
 
     private static $methods = [];
 
@@ -17,7 +17,7 @@ final class Situations
 
     public static function call($method, $args)
     {
-        $method = self::$methodAliases[$method] ?? $method;
+        $method = self::$aliases[$method] ?? $method;
         $args = is_array($args[0]) ? $args[0] : $args;
         [$listenerClass, $situation] = self::$methods[$method];
 
@@ -30,6 +30,6 @@ final class Situations
 
     public static function aliasMethod($currentName, $newName)
     {
-        self::$methodAliases[$newName] = $currentName;
+        self::$aliases[$newName] = $currentName;
     }
 }
