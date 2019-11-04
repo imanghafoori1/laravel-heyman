@@ -2,8 +2,6 @@
 
 namespace Imanghafoori\HeyMan\Core;
 
-use Imanghafoori\HeyMan\Normilizers\InputNormalizer;
-
 /**
  * Class Forget.
  *
@@ -19,13 +17,11 @@ use Imanghafoori\HeyMan\Normilizers\InputNormalizer;
  */
 final class Forget
 {
-    use InputNormalizer;
-
     public static $situationProviders;
 
     public function __call($method, $args)
     {
-        $args = $this->normalizeInput($args);
+        $args = is_array($args[0]) ? $args[0] : $args;
 
         foreach (static::$situationProviders as $class) {
             if (in_array($method, $class::getForgetMethods())) {

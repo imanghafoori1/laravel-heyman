@@ -2,18 +2,15 @@
 
 namespace Imanghafoori\HeyMan\Core;
 
-use Imanghafoori\HeyMan\Normilizers\InputNormalizer;
 use Imanghafoori\HeyMan\Switching\HeyManSwitcher;
 
 class ChainCollection
 {
-    use InputNormalizer;
-
     public $data = [];
 
     public function forgetAbout($manager, $models, $event = null)
     {
-        $models = $this->normalizeInput($models);
+        $models = is_array($models[0]) ? $models[0] : $models;;
 
         foreach ($models as $model) {
             if ($event) {
