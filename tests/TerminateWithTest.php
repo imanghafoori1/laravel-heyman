@@ -18,8 +18,8 @@ class TerminateWithTest extends TestCase
             ->terminateWith(function () {
                 event('terminated_well');
             });
-        $this->expectsEvents('terminated_well');
 
+        $this->expectsEvents('terminated_well');
         app(StartGuarding::class)->start();
         $this->put('put')->assertExactJson(['hello' => 'bye'])->assertStatus(301);
     }

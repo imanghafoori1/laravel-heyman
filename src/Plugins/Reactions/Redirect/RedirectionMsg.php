@@ -1,6 +1,6 @@
 <?php
 
-namespace Imanghafoori\HeyMan\Reactions\Redirect;
+namespace Imanghafoori\HeyMan\Plugins\Reactions\Redirect;
 
 use Imanghafoori\HeyMan\Reactions\TerminateWith;
 

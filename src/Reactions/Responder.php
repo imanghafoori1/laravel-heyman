@@ -17,7 +17,7 @@ final class Responder
 {
     private $action;
 
-    public function __construct(Reactions $action)
+    public function __construct($action)
     {
         $this->action = $action;
     }

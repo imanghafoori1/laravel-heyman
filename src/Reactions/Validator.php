@@ -3,6 +3,8 @@
 namespace Imanghafoori\HeyMan\Reactions;
 
 use Imanghafoori\HeyMan\Core\Reaction;
+use Illuminate\Contracts\Validation\Factory;
+use Imanghafoori\HeyMan\Switching\HeyManSwitcher;
 
 final class Validator
 {
@@ -22,7 +24,7 @@ final class Validator
             return $args;
         };
 
-        $result = resolve(ResponderFactory::class)->validationPassesCallback($modifier, $rules);
+        $result = $this->validationPassesCallback($modifier, $rules);
 
         resolve('heyman.chain')->set('condition', $result);
 
@@ -32,6 +34,35 @@ final class Validator
     public function beforeValidationModifyData($callable)
     {
         $this->modifier = $callable;
+    }
+
+    public function validatorCallback($modifier, $rules)
+    {
+        $validator = function () use ($modifier, $rules) {
+            $this->makeValidator($modifier, $rules)->validate();
+        };
+
+        return $this->wrapForIgnore($validator);
+    }
+
+    public function validationPassesCallback($modifier, $rules)
+    {
+        $validator = function () use ($modifier, $rules) {
+            return ! $this->makeValidator($modifier, $rules)->fails();
+        };
+
+        return $this->wrapForIgnore($validator);
+    }
+
+    public function makeValidator($modifier, $rules)
+    {
+        if (is_callable($rules[0])) {
+            $rules[0] = call_user_func($rules[0]);
+        }
+
+        $newData = app()->call($modifier, [request()->all()]);
+
+        return resolve(Factory::class)->make($newData, ...$rules);
     }
 
     public function __destruct()
@@ -46,7 +77,7 @@ final class Validator
                     return $args;
                 };
 
-                $condition = resolve(ResponderFactory::class)->validatorCallback($modifier, $data);
+                $condition = $this->validatorCallback($modifier, $data);
                 $chain->set('condition', $condition);
             }
 
@@ -55,4 +86,14 @@ final class Validator
             //
         }
     }
+
+    /**
+     * @param \Closure $validator
+     *
+     * @return mixed
+     */
+    private function wrapForIgnore(\Closure $validator)
+    {
+        return resolve(HeyManSwitcher::class)->wrapForIgnorance($validator, 'validation');
+}
 }

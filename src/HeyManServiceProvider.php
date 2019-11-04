@@ -10,11 +10,17 @@ use Imanghafoori\HeyMan\Boot\Singletons;
 use Imanghafoori\HeyMan\Core\ConditionsFacade;
 use Imanghafoori\HeyMan\Core\Forget;
 use Imanghafoori\HeyMan\Core\Reaction;
-use Imanghafoori\HeyMan\Core\Situations;
 use Imanghafoori\HeyMan\Facades\HeyMan;
-use Imanghafoori\HeyMan\Plugins\Conditions\Authentication;
+use Imanghafoori\HeyMan\Core\Situations;
+use Imanghafoori\HeyMan\Switching\Consider;
+use Imanghafoori\HeyMan\Plugins\Reactions\Abort;
+use Imanghafoori\HeyMan\Plugins\Reactions\Response;
 use Imanghafoori\HeyMan\Plugins\Conditions\Callbacks;
+use Imanghafoori\HeyMan\Plugins\Reactions\WeRespondFrom;
+use Imanghafoori\HeyMan\Plugins\PreReaction\PreReactions;
+use Imanghafoori\HeyMan\Plugins\Conditions\Authentication;
 use Imanghafoori\HeyMan\Plugins\Conditions\Gate as myGate;
+use Imanghafoori\HeyMan\Plugins\Reactions\WeThrowException;
 use Imanghafoori\HeyMan\Plugins\Conditions\RequestValidation;
 use Imanghafoori\HeyMan\Plugins\Conditions\Session as mySession;
 use Imanghafoori\HeyMan\Plugins\WatchingStrategies\EloquentModels\EloquentSituationProvider;
@@ -24,7 +30,6 @@ use Imanghafoori\HeyMan\Plugins\WatchingStrategies\Routes\RouteNameSituationProv
 use Imanghafoori\HeyMan\Plugins\WatchingStrategies\Routes\RouteUrlSituationProvider;
 use Imanghafoori\HeyMan\Plugins\WatchingStrategies\Views\ViewSituationProvider;
 use Imanghafoori\HeyMan\Reactions\Reactions;
-use Imanghafoori\HeyMan\Switching\Consider;
 
 final class HeyManServiceProvider extends ServiceProvider
 {
@@ -115,13 +120,14 @@ final class HeyManServiceProvider extends ServiceProvider
     {
         $reaction = resolve(Reaction::class);
 
-        $reaction->define('response', Reactions::class.'@response');
-        $reaction->define('redirect', Reactions::class.'@redirect');
-        $reaction->define('weThrowNew', Reactions::class.'@weThrowNew');
-        $reaction->define('abort', Reactions::class.'@abort');
-        $reaction->define('weRespondFrom', Reactions::class.'@weRespondFrom');
-        $reaction->define('weDenyAccess', Reactions::class.'@weDenyAccess');
-        $reaction->define('afterCalling', Reactions::class.'@afterCalling');
-        $reaction->define('afterFiringEvent', Reactions::class.'@afterFiringEvent');
+        $reaction->define('response', Response::class.'@response');
+        $reaction->define('redirect', Response::class.'@redirect');
+        $reaction->define('weThrowNew', WeThrowException::class.'@weThrowNew');
+        $reaction->define('abort', Abort::class.'@abort');
+        $reaction->define('weRespondFrom', WeRespondFrom::class.'@weRespondFrom');
+        $reaction->define('weDenyAccess', WeThrowException::class.'@weDenyAccess');
+
+        $reaction->define('afterCalling', PreReactions::class.'@afterCalling');
+        $reaction->define('afterFiringEvent', PreReactions::class.'@afterFiringEvent');
     }
 }

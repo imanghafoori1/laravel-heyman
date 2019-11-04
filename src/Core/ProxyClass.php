@@ -29,7 +29,7 @@ class ProxyClass
 
     public function define($methodName, $callable)
     {
-        if (is_callable($callable) || (is_string($callable) and mb_strpos($callable, '@'))) {
+        if (is_callable($callable) || (is_string($callable) && mb_strpos($callable, '@'))) {
             $this->methods[$methodName] = $callable;
         } else {
             throw new \InvalidArgumentException("$callable should be string Class@method or a php callable");

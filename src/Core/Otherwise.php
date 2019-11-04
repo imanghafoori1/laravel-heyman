@@ -5,7 +5,7 @@ namespace Imanghafoori\HeyMan\Core;
 final class Otherwise
 {
     /**
-     * @return \Imanghafoori\HeyMan\Reactions\Reactions
+     * @return \Imanghafoori\HeyMan\Reactions\PreReactions
      */
     public function otherwise()
     {

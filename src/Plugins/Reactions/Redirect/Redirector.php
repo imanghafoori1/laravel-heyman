@@ -1,8 +1,8 @@
 <?php
 
-namespace Imanghafoori\HeyMan\Reactions\Redirect;
+namespace Imanghafoori\HeyMan\Plugins\Reactions\Redirect;
 
-use Imanghafoori\HeyMan\Reactions\Reactions;
+use Imanghafoori\HeyMan\Reactions\PreReactions;
 
 /**
  * Class Redirector.
@@ -20,9 +20,9 @@ class Redirector
     /**
      * Responder constructor.
      *
-     * @param Reactions $reaction
+     * @param PreReactions $reaction
      */
-    public function __construct(Reactions $reaction)
+    public function __construct($reaction)
     {
         $this->action = $reaction;
     }

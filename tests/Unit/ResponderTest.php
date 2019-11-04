@@ -2,9 +2,14 @@
 
 namespace Imanghafoori\HeyManTests\Unit;
 
-use Illuminate\Support\Str;
-use Imanghafoori\HeyManTests\TestCase;
 use Mockery;
+use Illuminate\Support\Str;
+use Imanghafoori\HeyMan\Core\Reaction;
+use Imanghafoori\HeyManTests\TestCase;
+use Facades\Imanghafoori\HeyMan\Core\Chain;
+use Imanghafoori\HeyMan\WatchingStrategies\ChainCollection;
+use Imanghafoori\HeyMan\Plugins\Reactions\Redirect\Redirector;
+use Imanghafoori\HeyMan\Plugins\Reactions\Redirect\RedirectionMsg;
 
 class ResponderTest extends TestCase
 {
@@ -19,14 +24,14 @@ class ResponderTest extends TestCase
             'jsonp',
             'download',
         ];
-        $m = \Mockery::mock(\Imanghafoori\HeyMan\WatchingStrategies\ChainCollection::class);
+        $m = \Mockery::mock(ChainCollection::class);
         $m->shouldReceive('commitChain')->times(7);
         app()->instance('heyman.chains', $m);
 
         foreach ($methods as $method) {
             $param = Str::random(3);
 
-            $reaction = app(\Imanghafoori\HeyMan\Reactions\Reactions::class);
+            $reaction = resolve(Reaction::class);
             $reaction->response()->{$method}($param);
         }
     }
@@ -41,14 +46,14 @@ class ResponderTest extends TestCase
             'to',
         ];
 
-        $m = \Mockery::mock(\Imanghafoori\HeyMan\WatchingStrategies\ChainCollection::class);
+        $m = \Mockery::mock(ChainCollection::class);
         $m->shouldReceive('commitChain')->times(5);
         app()->instance('heyman.chains', $m);
 
         foreach ($methods as $method) {
             $param = Str::random(3);
 
-            $reaction = app(\Imanghafoori\HeyMan\Reactions\Reactions::class);
+            $reaction = resolve(Reaction::class);
             $reaction->redirect()->{$method}($param);
         }
     }
@@ -67,9 +72,9 @@ class ResponderTest extends TestCase
 
         foreach ($methods as $method) {
             $param = Str::random(2);
-            $redirector = Mockery::mock(\Imanghafoori\HeyMan\Reactions\Redirect\Redirector::class);
-            app(\Facades\Imanghafoori\HeyMan\Core\Chain::class)->shouldReceive('push')->once()->with('data', [$method, [[$param]]]);
-            $redirectionMsg = new \Imanghafoori\HeyMan\Reactions\Redirect\RedirectionMsg($redirector);
+            $redirector = Mockery::mock(Redirector::class);
+            app(Chain::class)->shouldReceive('push')->once()->with('data', [$method, [[$param]]]);
+            $redirectionMsg = new RedirectionMsg($redirector);
             $redirectionMsg->{$method}([$param]);
         }
     }
