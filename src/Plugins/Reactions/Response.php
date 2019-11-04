@@ -2,10 +2,10 @@
 
 namespace Imanghafoori\HeyMan\Plugins\Reactions;
 
-use Imanghafoori\HeyMan\Core\BaseReaction;
-use Imanghafoori\HeyMan\Reactions\Responder;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Imanghafoori\HeyMan\Core\BaseReaction;
 use Imanghafoori\HeyMan\Plugins\Reactions\Redirect\Redirector;
+use Imanghafoori\HeyMan\Reactions\Responder;
 
 class Response extends BaseReaction
 {
