@@ -52,19 +52,16 @@ class HeyMan
         resolve(Reaction::class)->define($methodName, $callable);
     }
 
-    public function defineCondition(string $name, $callable)
+    public function defineCondition($methodName, $callable)
     {
-        resolve(ConditionsFacade::class)->define($name, $callable);
+        resolve(ConditionsFacade::class)->define($methodName, $callable);
     }
 
-    public function condition(string $name, $callable)
+    public function condition($methodName, $callable)
     {
-        $this->defineCondition($name, $callable);
+        $this->defineCondition($methodName, $callable);
     }
 
-    /**
-     * @param $debugTrace
-     */
     private function writeDebugInfo($debugTrace)
     {
         if (config('app.debug') && ! app()->environment('production')) {

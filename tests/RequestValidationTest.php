@@ -21,6 +21,32 @@ class RequestValidationTest extends TestCase
         $this->get('welcome')->assertStatus(302)->assertSessionHasErrors('name');
     }
 
+    public function testUrlIsAccessedWithValidRequest()
+    {
+        Route::post('/welcome', 'HomeController@index')->name('welcome.name');
+        Auth::shouldReceive('check')->andReturn(false);
+        HeyMan::whenYouVisitUrl('welcome')->yourRequestShouldBeValid(['name' => 'required']);
+        HeyMan::whenYouVisitUrl('welcome')->youShouldBeLoggedIn()->otherwise()->weDenyAccess();
+
+        app(StartGuarding::class)->start();
+        $this->post('welcome', ['name' => 'Iman'])->assertStatus(200);
+    }
+
+    public function testUrlIsAccessedWithValidRequest2()
+    {
+        Route::post('/welcome', 'HomeController@index')->name('welcome.name');
+        Auth::shouldReceive('check')->andReturn(false);
+        HeyMan::whenYouVisitUrl('welcome')
+            ->yourRequestShouldBeValid(['name' => 'required'])
+            ->otherwise()
+            ->response()->json(['Error' => 'Request Invalid !!!'], 400);
+
+        HeyMan::whenYouVisitUrl('welcome')->youShouldBeLoggedIn()->otherwise()->weDenyAccess();
+
+        app(StartGuarding::class)->start();
+        $this->post('welcome', ['name' => 'Iman'])->assertStatus(200);
+    }
+
     public function testUrlIsNotAccessedWithInValidRequest2()
     {
         Route::post('/welcome', 'HomeController@index')->name('welcome.name');

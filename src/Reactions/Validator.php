@@ -2,8 +2,8 @@
 
 namespace Imanghafoori\HeyMan\Reactions;
 
-use Illuminate\Contracts\Validation\Factory;
 use Imanghafoori\HeyMan\Core\Reaction;
+use Illuminate\Contracts\Validation\Factory;
 use Imanghafoori\HeyMan\Switching\HeyManSwitcher;
 
 final class Validator
@@ -71,15 +71,17 @@ final class Validator
             $chain = app('heyman.chain');
             $condition = $chain->get('condition');
 
-            if (! $condition) {
-                $data = $this->validationData;
-                $modifier = $this->modifier ?: function ($args) {
-                    return $args;
-                };
-
-                $condition = $this->validatorCallback($modifier, $data);
-                $chain->set('condition', $condition);
+            if ($condition) {
+                return resolve('heyman.chains')->commitChain();
             }
+
+            $data = $this->validationData;
+            $modifier = $this->modifier ?: function ($args) {
+                return $args;
+            };
+
+            $condition = $this->validatorCallback($modifier, $data);
+            $chain->set('condition', $condition);
 
             resolve('heyman.chains')->commitChain();
         } catch (\Throwable $throwable) {
@@ -87,12 +89,7 @@ final class Validator
         }
     }
 
-    /**
-     * @param \Closure $validator
-     *
-     * @return mixed
-     */
-    private function wrapForIgnore(\Closure $validator)
+    private function wrapForIgnore($validator)
     {
         return resolve(HeyManSwitcher::class)->wrapForIgnorance($validator, 'validation');
     }
