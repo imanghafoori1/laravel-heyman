@@ -2,14 +2,14 @@
 
 namespace Imanghafoori\HeyManTests\Unit;
 
-use Mockery;
+use Facades\Imanghafoori\HeyMan\Core\Chain;
 use Illuminate\Support\Str;
 use Imanghafoori\HeyMan\Core\Reaction;
-use Imanghafoori\HeyManTests\TestCase;
-use Facades\Imanghafoori\HeyMan\Core\Chain;
-use Imanghafoori\HeyMan\WatchingStrategies\ChainCollection;
-use Imanghafoori\HeyMan\Plugins\Reactions\Redirect\Redirector;
 use Imanghafoori\HeyMan\Plugins\Reactions\Redirect\RedirectionMsg;
+use Imanghafoori\HeyMan\Plugins\Reactions\Redirect\Redirector;
+use Imanghafoori\HeyMan\WatchingStrategies\ChainCollection;
+use Imanghafoori\HeyManTests\TestCase;
+use Mockery;
 
 class ResponderTest extends TestCase
 {

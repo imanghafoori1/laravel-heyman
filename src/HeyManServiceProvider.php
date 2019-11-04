@@ -10,26 +10,25 @@ use Imanghafoori\HeyMan\Boot\Singletons;
 use Imanghafoori\HeyMan\Core\ConditionsFacade;
 use Imanghafoori\HeyMan\Core\Forget;
 use Imanghafoori\HeyMan\Core\Reaction;
-use Imanghafoori\HeyMan\Facades\HeyMan;
 use Imanghafoori\HeyMan\Core\Situations;
-use Imanghafoori\HeyMan\Switching\Consider;
-use Imanghafoori\HeyMan\Plugins\Reactions\Abort;
-use Imanghafoori\HeyMan\Plugins\Reactions\Response;
-use Imanghafoori\HeyMan\Plugins\Conditions\Callbacks;
-use Imanghafoori\HeyMan\Plugins\Reactions\WeRespondFrom;
-use Imanghafoori\HeyMan\Plugins\PreReaction\PreReactions;
+use Imanghafoori\HeyMan\Facades\HeyMan;
 use Imanghafoori\HeyMan\Plugins\Conditions\Authentication;
+use Imanghafoori\HeyMan\Plugins\Conditions\Callbacks;
 use Imanghafoori\HeyMan\Plugins\Conditions\Gate as myGate;
-use Imanghafoori\HeyMan\Plugins\Reactions\WeThrowException;
 use Imanghafoori\HeyMan\Plugins\Conditions\RequestValidation;
 use Imanghafoori\HeyMan\Plugins\Conditions\Session as mySession;
+use Imanghafoori\HeyMan\Plugins\PreReaction\PreReactions;
+use Imanghafoori\HeyMan\Plugins\Reactions\Abort;
+use Imanghafoori\HeyMan\Plugins\Reactions\Response;
+use Imanghafoori\HeyMan\Plugins\Reactions\WeRespondFrom;
+use Imanghafoori\HeyMan\Plugins\Reactions\WeThrowException;
 use Imanghafoori\HeyMan\Plugins\WatchingStrategies\EloquentModels\EloquentSituationProvider;
 use Imanghafoori\HeyMan\Plugins\WatchingStrategies\Events\EventSituationProvider;
 use Imanghafoori\HeyMan\Plugins\WatchingStrategies\Routes\RouteActionProvider;
 use Imanghafoori\HeyMan\Plugins\WatchingStrategies\Routes\RouteNameSituationProvider;
 use Imanghafoori\HeyMan\Plugins\WatchingStrategies\Routes\RouteUrlSituationProvider;
 use Imanghafoori\HeyMan\Plugins\WatchingStrategies\Views\ViewSituationProvider;
-use Imanghafoori\HeyMan\Reactions\Reactions;
+use Imanghafoori\HeyMan\Switching\Consider;
 
 final class HeyManServiceProvider extends ServiceProvider
 {
