@@ -10,7 +10,7 @@ class ChainCollection
 
     public function forgetAbout($manager, $models, $event = null)
     {
-        $models = is_array($models[0]) ? $models[0] : $models;;
+        $models = is_array($models[0]) ? $models[0] : $models;
 
         foreach ($models as $model) {
             if ($event) {
