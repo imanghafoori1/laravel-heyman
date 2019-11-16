@@ -48,7 +48,11 @@ final class Validator
     public function validationPassesCallback($modifier, $rules)
     {
         $validator = function () use ($modifier, $rules) {
-            return ! $this->makeValidator($modifier, $rules)->fails();
+            $v = $this->makeValidator($modifier, $rules);
+
+            resolve('heyman.chain')->set('condition_meta', $v);
+
+            return ! $v->fails();
         };
 
         return $this->wrapForIgnore($validator);

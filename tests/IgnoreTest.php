@@ -48,6 +48,19 @@ class IgnoreTest extends TestCase
         $this->get('welcome')->assertStatus(200);
     }
 
+    public function testUrlIsAuthorized566()
+    {
+        Route::get('/welcome', 'HomeController@index');
+
+        HeyMan::whenYouVisitUrl('welcome_', 'welcome')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
+        HeyMan::whenYouVisitUrl('welcome1')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
+
+        Heyman::turnOff()->routeChecks();
+        app(StartGuarding::class)->start();
+
+        $this->get('welcome')->assertStatus(200);
+    }
+
     public function testRouteNameIsAuthorized1()
     {
         Route::get('/welcome', 'HomeController@index')->name('welcome.name');
@@ -182,6 +195,22 @@ class IgnoreTest extends TestCase
     }
 
     public function test_it_ignores_validation2()
+    {
+        Route::get('/welcome', 'HomeController@index')->name('welcome.name');
+
+        HeyMan::whenYouVisitUrl('welcome')
+            ->yourRequestShouldBeValid(['name' => 'required'])
+            ->otherwise()
+            ->response()->json(['oh oh'], 400);
+        ;
+
+        HeyMan::turnOff()->validationChecks();
+        app(StartGuarding::class)->start();
+
+        MakeSure::about($this)->sendingGetRequest('welcome')->isRespondedWith()->statusCode(200);
+    }
+
+    public function test_it_ignores_validation3()
     {
         Route::get('/welcome', 'HomeController@index')->name('welcome.name');
 

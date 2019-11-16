@@ -2,9 +2,9 @@
 
 namespace Imanghafoori\HeyMan\Plugins\Reactions;
 
-use Illuminate\Http\Exceptions\HttpResponseException;
-use Imanghafoori\HeyMan\Core\BaseReaction;
 use Imanghafoori\HeyMan\Reactions\Then;
+use Imanghafoori\HeyMan\Core\BaseReaction;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 final class WeRespondFrom extends BaseReaction
 {
@@ -17,8 +17,16 @@ final class WeRespondFrom extends BaseReaction
 
     public static function respondFrom($method)
     {
-        return function () use ($method) {
-            throw new HttpResponseException(app()->call(...$method));
+        return function ($meta = null) use ($method) {
+            array_push($method, [$meta]);
+
+            if (is_array($method[0])) {
+                $response = call_user_func_array(...$method);
+            } else {
+                $response = app()->call(...$method);
+            }
+
+            throw new HttpResponseException($response);
         };
     }
 }

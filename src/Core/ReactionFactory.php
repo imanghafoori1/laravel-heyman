@@ -13,7 +13,8 @@ final class ReactionFactory
 
         return function (...$f) use ($condition, $reaction) {
             if (! $condition($f)) {
-                $reaction();
+                $conditionMeta = resolve('heyman.chain')->get('condition_meta') ?: null;
+                $reaction($conditionMeta);
             }
         };
     }
@@ -29,13 +30,13 @@ final class ReactionFactory
 
         $responder = resolve(ResponderFactory::class)->make();
 
-        return function () use ($beforeReaction, $responder, $debug, $termination) {
+        return function ($param = null) use ($beforeReaction, $responder, $debug, $termination) {
             if ($termination) {
                 app()->terminating($termination);
             }
             event('heyman_reaction_is_happening', $debug);
             $beforeReaction();
-            $responder();
+            $responder($param);
         };
     }
 
