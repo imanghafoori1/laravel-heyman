@@ -202,7 +202,6 @@ class IgnoreTest extends TestCase
             ->yourRequestShouldBeValid(['name' => 'required'])
             ->otherwise()
             ->response()->json(['oh oh'], 400);
-        ;
 
         HeyMan::turnOff()->validationChecks();
         app(StartGuarding::class)->start();
