@@ -2,9 +2,9 @@
 
 namespace Imanghafoori\HeyMan\Plugins\Reactions;
 
-use Imanghafoori\HeyMan\Reactions\Then;
-use Imanghafoori\HeyMan\Core\BaseReaction;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Imanghafoori\HeyMan\Core\BaseReaction;
+use Imanghafoori\HeyMan\Reactions\Then;
 
 final class WeRespondFrom extends BaseReaction
 {

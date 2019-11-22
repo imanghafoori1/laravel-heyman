@@ -2,8 +2,8 @@
 
 namespace Imanghafoori\HeyMan\Reactions;
 
-use Imanghafoori\HeyMan\Core\Reaction;
 use Illuminate\Contracts\Validation\Factory;
+use Imanghafoori\HeyMan\Core\Reaction;
 use Imanghafoori\HeyMan\Switching\HeyManSwitcher;
 
 final class Validator
