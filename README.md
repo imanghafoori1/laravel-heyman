@@ -589,7 +589,7 @@ As always if you found this package useful and you want to encourage us to maint
 
 <p align="center">
   
-    It's not I am smarter or something, I just stay with the problems longer.
+    Great spirits have always encountered violent opposition from mediocre minds.
     
     "Albert Einstein"
     
