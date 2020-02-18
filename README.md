@@ -587,6 +587,19 @@ As always if you found this package useful and you want to encourage us to maint
 
 ----------------
 
+### 🍌 Reward me a banana 🍌
+so that I will have energy to start the next package for you.
+
+
+Dodge Coin: DJEZr6GJ4Vx37LGF3zSng711AFZzmJTouN
+LiteCoin: ltc1q82gnjkend684c5hvprg95fnja0ktjdfrhcu4c4
+BitCoin: bc1q53dys3jkv0h4vhl88yqhqzyujvk35x8wad7uf9
+Ripple: rJwrb2v1TR6rAHRWwcYvNZxjDN2bYpYXhZ
+Etherium: 0xa4898246820bbC8f677A97C2B73e6DBB9510151e
+
+--------------
+
+
 <p align="center">
   
     Great spirits have always encountered violent opposition from mediocre minds.
