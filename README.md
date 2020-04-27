@@ -545,14 +545,6 @@ As always if you found this package useful and you want to encourage us to maint
 ## More from the author:
 
 
-###  Laravel middlewarize (new*)
-
-:gem: You can put middleware on any method calls.
-
-- https://github.com/imanghafoori1/laravel-middlewarize
-
------------------
-
 ### Laravel Widgetize
 
  :gem: A minimal yet powerful package to give a better structure and caching opportunity for your laravel apps.
@@ -580,11 +572,11 @@ As always if you found this package useful and you want to encourage us to maint
 -----------------
 
 
-### Laravel Self Test
+### Laravel Microscope
 
-:gem: It automatically checks your laravel application
+:gem: It automatically checks your laravel application (*new*)
 
-- https://github.com/imanghafoori1/laravel-self-test
+- https://github.com/imanghafoori1/laravel-microscope
 
 
 ----------------
