@@ -2,6 +2,6 @@
 
 namespace Imanghafoori\HeyMan\Plugins\WatchingStrategies\Concerns;
 
-interface ListenToSituation {
+interface HeymanSentinel {
     public function startWatching($chainData);
 }

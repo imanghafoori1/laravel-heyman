@@ -2,7 +2,7 @@
 
 namespace Imanghafoori\HeyMan\Plugins\WatchingStrategies\Concerns;
 
-interface Situationable {
+interface ForgettableSituation {
     public function getListener();
     public function getSituationProvider();
     public function getMethods();

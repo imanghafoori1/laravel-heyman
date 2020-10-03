@@ -2,9 +2,9 @@
 
 namespace Imanghafoori\HeyMan\Plugins\WatchingStrategies\EloquentModels;
 
-use Imanghafoori\HeyMan\Plugins\WatchingStrategies\Concerns\ListenToSituation;
+use Imanghafoori\HeyMan\Plugins\WatchingStrategies\Concerns\HeymanSentinel;
 
-class EloquentEventsListener implements ListenToSituation
+class EloquentEventsListener implements HeymanSentinel
 {
     public function startWatching($data)
     {

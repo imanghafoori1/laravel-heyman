@@ -2,9 +2,9 @@
 
 namespace Imanghafoori\HeyMan\Plugins\WatchingStrategies\Views;
 
-use Imanghafoori\HeyMan\Plugins\WatchingStrategies\Concerns\Situationable;
+use Imanghafoori\HeyMan\Plugins\WatchingStrategies\Concerns\ForgettableSituation;
 
-class ViewSituationProvider implements Situationable
+class ViewSituationProvider implements ForgettableSituation
 {
     public function getListener()
     {

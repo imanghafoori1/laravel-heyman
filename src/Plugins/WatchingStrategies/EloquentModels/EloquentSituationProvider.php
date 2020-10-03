@@ -2,9 +2,9 @@
 
 namespace Imanghafoori\HeyMan\Plugins\WatchingStrategies\EloquentModels;
 
-use Imanghafoori\HeyMan\Plugins\WatchingStrategies\Concerns\Situationable;
+use Imanghafoori\HeyMan\Plugins\WatchingStrategies\Concerns\ForgettableSituation;
 
-class EloquentSituationProvider implements Situationable
+class EloquentSituationProvider implements ForgettableSituation
 {
     public function getListener()
     {
