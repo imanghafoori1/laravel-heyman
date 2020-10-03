@@ -2,7 +2,7 @@
 
 namespace Imanghafoori\HeyMan\Plugins\WatchingStrategies\Views;
 
-use Imanghafoori\HeyMan\Plugins\WatchingStrategies\Concerns\ForgettableSituation;
+use Imanghafoori\HeyMan\Contracts\ForgettableSituation;
 
 class ViewSituationProvider implements ForgettableSituation
 {

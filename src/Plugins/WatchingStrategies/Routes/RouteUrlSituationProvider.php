@@ -2,7 +2,7 @@
 
 namespace Imanghafoori\HeyMan\Plugins\WatchingStrategies\Routes;
 
-use Imanghafoori\HeyMan\Plugins\WatchingStrategies\Concerns\ForgettableSituation;
+use Imanghafoori\HeyMan\Contracts\ForgettableSituation;
 
 class RouteUrlSituationProvider implements ForgettableSituation
 {

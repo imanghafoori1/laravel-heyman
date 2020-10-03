@@ -3,7 +3,7 @@
 namespace Imanghafoori\HeyMan\Plugins\WatchingStrategies\Views;
 
 use Illuminate\Contracts\View\Factory as ViewFactory;
-use Imanghafoori\HeyMan\Plugins\WatchingStrategies\Concerns\HeymanSentinel;
+use Imanghafoori\HeyMan\Contracts\HeymanSentinel;
 
 class ViewEventListener implements HeymanSentinel
 {

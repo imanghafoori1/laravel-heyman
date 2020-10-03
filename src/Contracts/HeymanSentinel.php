@@ -1,6 +1,6 @@
 <?php
 
-namespace Imanghafoori\HeyMan\Plugins\WatchingStrategies\Concerns;
+namespace Imanghafoori\HeyMan\Contracts;
 
 interface HeymanSentinel {
     public function startWatching($chainData);

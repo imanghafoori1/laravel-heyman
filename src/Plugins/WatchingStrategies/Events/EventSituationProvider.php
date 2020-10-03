@@ -2,7 +2,7 @@
 
 namespace Imanghafoori\HeyMan\Plugins\WatchingStrategies\Events;
 
-use Imanghafoori\HeyMan\Plugins\WatchingStrategies\Concerns\ForgettableSituation;
+use Imanghafoori\HeyMan\Contracts\ForgettableSituation;
 
 class EventSituationProvider implements ForgettableSituation
 {

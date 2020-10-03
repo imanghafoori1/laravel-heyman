@@ -2,7 +2,7 @@
 
 namespace Imanghafoori\HeyMan\Plugins\WatchingStrategies\Events;
 
-use Imanghafoori\HeyMan\Plugins\WatchingStrategies\Concerns\HeymanSentinel;
+use Imanghafoori\HeyMan\Contracts\HeymanSentinel;
 
 class EventListeners implements HeymanSentinel
 {
