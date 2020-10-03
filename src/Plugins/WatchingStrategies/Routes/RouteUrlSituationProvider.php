@@ -2,7 +2,9 @@
 
 namespace Imanghafoori\HeyMan\Plugins\WatchingStrategies\Routes;
 
-class RouteUrlSituationProvider
+use Imanghafoori\HeyMan\Plugins\WatchingStrategies\Concerns\Situationable;
+
+class RouteUrlSituationProvider implements Situationable
 {
     public function getListener()
     {

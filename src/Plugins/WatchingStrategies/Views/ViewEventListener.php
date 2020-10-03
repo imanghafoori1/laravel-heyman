@@ -3,8 +3,9 @@
 namespace Imanghafoori\HeyMan\Plugins\WatchingStrategies\Views;
 
 use Illuminate\Contracts\View\Factory as ViewFactory;
+use Imanghafoori\HeyMan\Plugins\WatchingStrategies\Concerns\ListenToSituation;
 
-class ViewEventListener
+class ViewEventListener implements ListenToSituation
 {
     public function startWatching($chainData)
     {

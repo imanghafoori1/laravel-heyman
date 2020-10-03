@@ -2,7 +2,9 @@
 
 namespace Imanghafoori\HeyMan\Plugins\WatchingStrategies\Events;
 
-class EventSituationProvider
+use Imanghafoori\HeyMan\Plugins\WatchingStrategies\Concerns\Situationable;
+
+class EventSituationProvider implements Situationable
 {
     public function getListener()
     {

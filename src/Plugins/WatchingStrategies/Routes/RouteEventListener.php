@@ -4,8 +4,9 @@ namespace Imanghafoori\HeyMan\Plugins\WatchingStrategies\Routes;
 
 use Illuminate\Routing\Events\RouteMatched;
 use Illuminate\Support\Facades\Route;
+use Imanghafoori\HeyMan\Plugins\WatchingStrategies\Concerns\ListenToSituation;
 
-final class RouteEventListener
+final class RouteEventListener implements ListenToSituation
 {
     public function startWatching($chainData)
     {
