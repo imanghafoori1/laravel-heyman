@@ -2,7 +2,9 @@
 
 namespace Imanghafoori\HeyMan\Plugins\WatchingStrategies\Events;
 
-class EventSituationProvider
+use Imanghafoori\HeyMan\Contracts\ForgettableSituation;
+
+class EventSituationProvider implements ForgettableSituation
 {
     public function getListener()
     {

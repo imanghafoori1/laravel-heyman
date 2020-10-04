@@ -2,7 +2,9 @@
 
 namespace Imanghafoori\HeyMan\Plugins\WatchingStrategies\Views;
 
-class ViewSituationProvider
+use Imanghafoori\HeyMan\Contracts\ForgettableSituation;
+
+class ViewSituationProvider implements ForgettableSituation
 {
     public function getListener()
     {

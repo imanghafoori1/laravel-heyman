@@ -3,8 +3,9 @@
 namespace Imanghafoori\HeyMan\Plugins\WatchingStrategies\Views;
 
 use Illuminate\Contracts\View\Factory as ViewFactory;
+use Imanghafoori\HeyMan\Contracts\HeymanSentinel;
 
-class ViewEventListener
+class ViewEventListener implements HeymanSentinel
 {
     public function startWatching($chainData)
     {

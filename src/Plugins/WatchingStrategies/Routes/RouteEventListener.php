@@ -4,8 +4,9 @@ namespace Imanghafoori\HeyMan\Plugins\WatchingStrategies\Routes;
 
 use Illuminate\Routing\Events\RouteMatched;
 use Illuminate\Support\Facades\Route;
+use Imanghafoori\HeyMan\Contracts\HeymanSentinel;
 
-final class RouteEventListener
+final class RouteEventListener implements HeymanSentinel
 {
     public function startWatching($chainData)
     {
