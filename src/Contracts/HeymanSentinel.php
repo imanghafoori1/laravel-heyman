@@ -2,6 +2,7 @@
 
 namespace Imanghafoori\HeyMan\Contracts;
 
-interface HeymanSentinel {
+interface HeymanSentinel
+{
     public function startWatching($chainData);
 }
