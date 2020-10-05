@@ -5,6 +5,7 @@ namespace Imanghafoori\HeyManTests;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Facades\Gate;
 use Imanghafoori\HeyMan\Facades\HeyMan;
+use Imanghafoori\HeyMan\Plugins\WatchingStrategies\EloquentModels\EloquentSituationProvider;
 use Imanghafoori\HeyMan\StartGuarding;
 use Imanghafoori\HeyManTests\Stubs\User;
 use Imanghafoori\HeyManTests\Stubs\User2;
@@ -58,24 +59,6 @@ class EloquentAuthorizationTest extends TestCase
         event('eloquent.updating: '.User::class, new User());
     }
 
-    public function testSavingModelsIsAuthorized2()
-    {
-        HeyMan::whenYouSave(User::class)->always()->weDenyAccess();
-        app(StartGuarding::class)->start();
-        $this->expectException(AuthorizationException::class);
-
-        event('eloquent.saving: '.User::class);
-    }
-
-    public function testSavingModelsIsAuthorized3()
-    {
-        HeyMan::whenYouSave(User::class)->always()->weDenyAccess();
-        app(StartGuarding::class)->start();
-        $this->expectException(AuthorizationException::class);
-
-        event('eloquent.saving: '.User::class);
-    }
-
     public function testSavingModelsIsAuthorized1()
     {
         HeyMan::whenYouSave(User::class)->always()->weDenyAccess();
@@ -85,10 +68,16 @@ class EloquentAuthorizationTest extends TestCase
         event('eloquent.saving: '.User::class);
     }
 
-    public function testSavingModelsIsAuthorized36()
+    public function testSavingModelsIsAuthorized2()
     {
         HeyMan::whenYouSave(User::class)->always()->weDenyAccess();
+
+        $this->assertEquals(1, count(resolve('heyman.chains')->data[resolve(EloquentSituationProvider::class)->getListener()][User::class]['saving']));
+
         HeyMan::forget()->aboutSaving([User::class]);
+
+        $this->assertEmpty(resolve('heyman.chains')->data[resolve(EloquentSituationProvider::class)->getListener()][User::class]);
+
         app(StartGuarding::class)->start();
 
         event('eloquent.saving: '.User::class);
@@ -107,7 +96,13 @@ class EloquentAuthorizationTest extends TestCase
     public function testDeletingModelsIsAuthorized4()
     {
         HeyMan::whenYouDelete(User::class)->always()->weDenyAccess();
+
+        $this->assertEquals(1, count(resolve('heyman.chains')->data[resolve(EloquentSituationProvider::class)->getListener()][User::class]['deleting']));
+
         HeyMan::forget()->aboutDeleting([User::class]);
+
+        $this->assertEmpty(resolve('heyman.chains')->data[resolve(EloquentSituationProvider::class)->getListener()][User::class]);
+
         app(StartGuarding::class)->start();
         event('eloquent.deleting: '.User::class);
         $this->assertTrue(true);
@@ -118,8 +113,12 @@ class EloquentAuthorizationTest extends TestCase
         HeyMan::whenYouSave(User::class)->always()->weDenyAccess();
         HeyMan::whenYouDelete(User::class)->always()->weDenyAccess();
 
+        $this->assertEquals(2, count(resolve('heyman.chains')->data[resolve(EloquentSituationProvider::class)->getListener()][User::class]));
+
         HeyMan::forget()->aboutDeleting([User::class]);
-        app(StartGuarding::class)->start();
+
+        $this->assertEquals(1, count(resolve('heyman.chains')->data[resolve(EloquentSituationProvider::class)->getListener()][User::class]));
+
         app(StartGuarding::class)->start();
         $this->expectException(AuthorizationException::class);
         event('eloquent.deleting: '.User::class);
@@ -149,7 +148,13 @@ class EloquentAuthorizationTest extends TestCase
     {
         HeyMan::whenYouFetch(User::class)->always()->weDenyAccess();
         HeyMan::whenYouCreate(User2::class)->always()->weDenyAccess();
+
+        $this->assertEquals(2, count(resolve('heyman.chains')->data[resolve(EloquentSituationProvider::class)->getListener()]));
+
         HeyMan::forget()->aboutModel(User::class);
+
+        $this->assertEquals(1, count(resolve('heyman.chains')->data[resolve(EloquentSituationProvider::class)->getListener()]));
+
         app(StartGuarding::class)->start();
 
         event('eloquent.retrieved: '.User::class);
@@ -160,35 +165,16 @@ class EloquentAuthorizationTest extends TestCase
     {
         HeyMan::whenYouFetch(User::class)->always()->weDenyAccess();
         HeyMan::whenYouCreate(User2::class)->always()->weDenyAccess();
+
+        $this->assertEquals(2, count(resolve('heyman.chains')->data[resolve(EloquentSituationProvider::class)->getListener()]));
+
         HeyMan::forget()->aboutFetching(User::class);
+
+        $this->assertEmpty(resolve('heyman.chains')->data[resolve(EloquentSituationProvider::class)->getListener()][User::class]);
+
         app(StartGuarding::class)->start();
 
         event('eloquent.retrieved: '.User::class);
         $this->assertTrue(true);
-    }
-
-    public function _testHeyWait()
-    {
-
-     /*   HeyWait::byNow()
-            ->youShouldBeloggedIn()
-            ->otherwise()
-            ->redirectBack();
-
-
-        HeyWait::ifYouAreLoggedIn()->redirectBack();
-        HeyWait::ifGateDenies('')->redirectBack();
-
-        HeyWait::ifIsFalsy(function () {
-            return false;
-        })->redirectBack();
-
-        HeyWait::ifIsFalse(auth()->guest())
-            ->redirect('/home');
-
-        MakeSure::that()
-            ->whenYouVisit('admin/article')
-            ->asGuest()
-            ->youWillBeRedirectedTo('/login');*/
     }
 }
