@@ -5,6 +5,7 @@ namespace Imanghafoori\HeyManTests;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Facades\Route;
 use Imanghafoori\HeyMan\Facades\HeyMan;
+use Imanghafoori\HeyMan\Plugins\WatchingStrategies\Events\EventSituationProvider;
 use Imanghafoori\HeyMan\StartGuarding;
 use Imanghafoori\MakeSure\Facades\MakeSure;
 
@@ -34,7 +35,13 @@ class EventsAuthorizationTest extends TestCase
         HeyMan::whenEventHappens(['myEvent', 'myEvent1'])->always()->weDenyAccess();
         HeyMan::whenEventHappens('myEvent4')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
         HeyMan::whenEventHappens('myEvent4')->thisValueShouldAllow(true)->otherwise()->weThrowNew(\Illuminate\Validation\UnauthorizedException::class);
+
+        $this->assertEquals(3, count(resolve('heyman.chains')->data[resolve(EventSituationProvider::class)->getListener()]));
+
         HeyMan::forget()->aboutEvent(['myEvent', 'myEvent1', 'myEvent4']);
+
+        $this->assertEmpty(resolve('heyman.chains')->data[resolve(EventSituationProvider::class)->getListener()]);
+
         app(StartGuarding::class)->start();
 
         event('myEvent');
@@ -49,7 +56,13 @@ class EventsAuthorizationTest extends TestCase
         HeyMan::whenEventHappens('myEvent4')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
         HeyMan::whenEventHappens('myEvent4')->thisValueShouldAllow(true)->otherwise()
             ->weThrowNew(\Illuminate\Validation\UnauthorizedException::class);
+
+        $this->assertEquals(3, count(resolve('heyman.chains')->data[resolve(EventSituationProvider::class)->getListener()]));
+
         HeyMan::forget()->aboutEvent('myEvent4');
+
+        $this->assertEquals(2, count(resolve('heyman.chains')->data[resolve(EventSituationProvider::class)->getListener()]));
+
         app(StartGuarding::class)->start();
 
         event('myEvent4');
