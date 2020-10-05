@@ -5,7 +5,6 @@ namespace Imanghafoori\HeyManTests;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Facades\Gate;
 use Imanghafoori\HeyMan\Facades\HeyMan;
-use Imanghafoori\HeyMan\Plugins\WatchingStrategies\EloquentModels\EloquentSituationProvider;
 use Imanghafoori\HeyMan\StartGuarding;
 use Imanghafoori\HeyManTests\Stubs\User;
 use Imanghafoori\HeyManTests\Stubs\User2;
