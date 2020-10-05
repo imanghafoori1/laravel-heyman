@@ -3,7 +3,6 @@
 namespace Imanghafoori\HeyManTests;
 
 use Illuminate\Auth\Access\AuthorizationException;
-use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Route;
 use Imanghafoori\HeyMan\Facades\HeyMan;
 use Imanghafoori\HeyMan\Plugins\WatchingStrategies\Events\EventSituationProvider;
