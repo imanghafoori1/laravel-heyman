@@ -20,11 +20,7 @@ final class Validator
     public function otherwise()
     {
         $rules = $this->validationData;
-        $modifier = $this->modifier ?: function ($args) {
-            return $args;
-        };
-
-        $result = $this->validationPassesCallback($modifier, $rules);
+        $result = $this->validationPassesCallback($this->getModifier(), $rules);
 
         resolve('heyman.chain')->set('condition', $result);
 
@@ -80,11 +76,7 @@ final class Validator
             }
 
             $data = $this->validationData;
-            $modifier = $this->modifier ?: function ($args) {
-                return $args;
-            };
-
-            $condition = $this->validatorCallback($modifier, $data);
+            $condition = $this->validatorCallback($this->getModifier(), $data);
             $chain->set('condition', $condition);
 
             resolve('heyman.chains')->commitChain();
@@ -96,5 +88,12 @@ final class Validator
     private function wrapForIgnore($validator)
     {
         return resolve(HeyManSwitcher::class)->wrapForIgnorance($validator, 'validation');
+    }
+
+    private function getModifier()
+    {
+        return $this->modifier ?: function () {
+            return request()->all();
+        };
     }
 }
