@@ -60,7 +60,7 @@ final class Validator
             $rules[0] = call_user_func($rules[0]);
         }
 
-        $newData = app()->call($modifier, [request()->all()]);
+        $newData = app()->call($modifier);
 
         return resolve(Factory::class)->make($newData, ...$rules);
     }
