@@ -18,7 +18,7 @@ final class Situations
     public static function call($method, $args)
     {
         $method = self::$aliases[$method] ?? $method;
-        $args = is_array($args[0]) ? $args[0] : $args;
+        $args = is_array($args[0] ?? null) ? $args[0] : $args;
         [$listenerClass, $situation] = self::$methods[$method];
 
         resolve('heyman.chains')->init(
