@@ -28,9 +28,7 @@ Very well tested, optimized and production ready !
 
 In fact, We have tackled a lot of `complexity` behind the scenes, to provide you with a lot of `simplicity`.
 
-- Integrated with laravel-debugbar package out of the box:
-
-https://github.com/barryvdh/laravel-debugbar
+- Integrated with laravel-debugbar package out of the box: <a href="https://github.com/barryvdh/laravel-debugbar">laravel debugbar</a>
 
 
 ### Installation
