@@ -31,7 +31,7 @@ In fact, We have tackled a lot of `complexity` behind the scenes, to provide you
 - Integrated with laravel-debugbar package out of the box: <a href="https://github.com/barryvdh/laravel-debugbar">laravel debugbar</a>
 
 
-### Installation
+### Installation:
 
 ```
 
@@ -46,9 +46,9 @@ composer require imanghafoori/laravel-heyman
 - Laravel v5.1 or above
 
 
-## Example : 
+## Example: 
 
-Here you can see a good example at :
+Here you can see a good example at:
 
 https://github.com/imanghafoori1/council
 
@@ -92,7 +92,7 @@ This is fork from result of laracasts.com tutorial series refactored to use the 
 
 <br>
 
-### A story :
+### A story:
 
 Imagine your boss comes to you and says :
 
@@ -135,10 +135,10 @@ You should do it in the boot method.
 
 ### Structural Benefits:
 
-1 - This way you can fully `decouple` authorization and a lot of guarding code from the rest of your application code and put it in an other place. So your Controllers and Routes become less crowded and you will have a central place where you limit the access of users to your application or perform Request validation.
+1- This way you can fully `decouple` authorization and a lot of guarding code from the rest of your application code and put it in an other place. So your Controllers and Routes become less crowded and you will have a central place where you limit the access of users to your application or perform Request validation.
 
 
-2 - In fact, when you write your code in the way, you are conforming to the famous "`Tell don't ask principle.`"
+2- In fact, when you write your code in the way, you are conforming to the famous "`Tell don't ask principle.`"
 
 You are telling the framework what to do in certain situations rather than getting information and decide what to do then.
 
@@ -148,7 +148,7 @@ You are telling the framework what to do in certain situations rather than getti
 > — Alec Sharp `
 
 
-3 - This approach is paticularly useful when you for example write a package which needs ACL but you want to allow your package users to override and apply they own ACL (or validation) rules into your package routes...
+3- This approach is paticularly useful when you for example write a package which needs ACL but you want to allow your package users to override and apply they own ACL (or validation) rules into your package routes...
 
 And that becomes possible when you use laravel-HeyMan for ACL. The users can easily cancel out the default rules and re-write their favorite acl or validation stuff in a regular ServiceProviders.
 
@@ -180,7 +180,7 @@ public function boot() {
 
 
 
-#### Hey Man, Should I Momorize all the Methods ?! 
+#### Hey Man, Should I Momorize all the Methods?! 
 
 You do not need any cheat sheet.
 
@@ -190,7 +190,7 @@ You do not need any cheat sheet.
 
 
 
-#### Hey Man, Where do I put these `Heyman::` calls ?
+#### Hey Man, Where do I put these `Heyman::` calls?
 
 > You may put them in `AuthServiceProvider.php` (or any other service provider) `boot` method.
 
@@ -214,14 +214,14 @@ https://github.com/imanghafoori1/council/blob/master/app/Providers/AuthServicePr
 
 
 
-## Situations :
+## Situations:
 
 ```php
 HeyMan::  (situation) ->   (condition)   -> otherwise() -> (reaction) ;
 ```
 
 
-#### 1 - Url is matched
+#### 1- Url is matched
 
 ```php
 HeyMan::whenYouVisitUrl(['/welcome', '/home'])->...   // you can pass an Array
@@ -235,7 +235,7 @@ HeyMan::whenYouSendPut('/article/edit')->    ...
 HeyMan::whenYouSendDelete('/article/delete')-> ...
 ```
 
-#### 2 - Route Name is matched
+#### 2- Route Name is matched
 
 ```php
 HeyMan::whenYouHitRouteName('welcome.name')->...              // For route names
@@ -243,14 +243,14 @@ HeyMan::whenYouHitRouteName('welcome.*')->...                 // or match by wil
 ```
 
 
-#### 3 - Controller Action is about to Call
+#### 3- Controller Action is about to Call
 
 ```php
 HeyMan::whenYouCallAction('HomeController@index')->...
 HeyMan::whenYouCallAction('HomeController@*')->...          // or match by wildcard
 ```
 
-#### 4 - A View file is about to render
+#### 4- A View file is about to render
 
 ```php 
  HeyMan::whenYouMakeView('article.editForm')->...     // also accepts an array
@@ -268,7 +268,7 @@ HeyMan::whenEventHappens('myEvent')->...
 Actually it refers to the moment when `event('myEvent')` is executed.
 
 
-#### 6 - An Eloquent Model is about to save
+#### 6- An Eloquent Model is about to save
 ```php
 HeyMan::whenYouSave(\App\User::class)->...
 HeyMan::whenYouFetch(\App\User::class)->...
@@ -292,7 +292,7 @@ HeyMan::  (situation) ->   (condition)   -> otherwise() -> (reaction) ;
 
 After considering situations it is time to check some conditions
 
-#### 1 - Gates
+#### 1- Gates
 
 ```php
 
@@ -319,13 +319,13 @@ $gate = function($user, $role) {
 HeyMan::whenYouVisitUrl('/home')->thisGateShouldAllow($gate, 'editor')->otherwise()->...;
 ```
 
-#### 2 - Authentication stuff:
+#### 2- Authentication stuff:
 ```php
 HeyMan::whenYouVisitUrl('/home')->  youShouldBeGuest()    ->otherwise()->...;
 HeyMan::whenYouVisitUrl('/home')->  youShouldBeLoggedIn() ->otherwise()->...;
 ```
 
-#### 3 - Checking A `Closure` or `Method` or `Value`:
+#### 3- Checking A `Closure` or `Method` or `Value`:
 ```php
 HeyMan::whenYouVisitUrl('home')->thisMethodShouldAllow('someClass@someMethod', ['param1'])->otherwise()->...;
 HeyMan::whenYouVisitUrl('home')->thisClosureShouldAllow( function($a) { ... }, ['param1'] )  ->otherwise()->...;
@@ -429,14 +429,14 @@ Nice, isn't it ?!
 HeyMan::  (situation) ->   (condition)   -> otherwise() -> (reaction) ;
 ```
 
-### 1 - Deny Access
+### 1- Deny Access:
 ```php
 HeyMan::whenSaving(\App\User::class)->thisGateShouldAllow('hasRole', 'editor')->otherwise()->weDenyAccess();
 ```
 An `AuthorizationException` will be thrown if needed
 
 
-### 2 - Redirect
+### 2- Redirect:
 ```php
 HeyMan::whenYouVisitUrl('/login')-> ... ->otherwise()->redirect()->to(...)     ->with([...]);
 HeyMan::whenYouVisitUrl('/login')-> ... ->otherwise()->redirect()->route(...)  ->withErrors(...);
@@ -532,7 +532,7 @@ HeyMan::turnOn()->eloquentChecks();
 ```
 --------------------
 
-### :raising_hand: Contributing 
+### :raising_hand: Contributing: 
 If you find an issue, or have a better way to do something, feel free to open an issue or a pull request.
 
 ### :star: Your Stars Make Us Do More :star:
