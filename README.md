@@ -18,7 +18,7 @@
 [![Software License](https://img.shields.io/badge/license-MIT-blue.svg?style=round-square)](LICENSE.md)
 
 
-## :ribbon: Heyman continues where the other role-permission packages left off...
+### :ribbon: Heyman continues where the other role-permission packages left off...
 
 #### We have used CDD (Creativity Driven Development) alongside the TDD
 
