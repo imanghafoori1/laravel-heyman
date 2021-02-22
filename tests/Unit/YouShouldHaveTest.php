@@ -18,7 +18,6 @@ class YouShouldHaveTest extends TestCase
         $condition = app(Chain::class)->get('condition');
 
         $this->assertFalse($condition());
-        $keepAlive;
     }
 
     public function testYouShouldBeLoggedIn()
