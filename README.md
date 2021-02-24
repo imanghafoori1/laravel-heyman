@@ -152,7 +152,7 @@ You are telling the framework what to do in certain situations rather than getti
 
 And that becomes possible when you use laravel-HeyMan for ACL. The users can easily cancel out the default rules and re-write their favorite acl or validation stuff in a regular ServiceProviders.
 
-HeyMan, that is Amazing stuff !!! 
+Hey Man, that is Amazing stuff!
 
 ```php
 
@@ -208,9 +208,9 @@ use Imanghafoori\HeyMan\Facades\HeyMan;
 use HeyMan;  // <--- alias
 ```
 
-Again we recommend visiting this link for examples:
+Again we recommend visiting this file:
 
-https://github.com/imanghafoori1/council/blob/master/app/Providers/AuthServiceProvider.php
+<a href="https://github.com/imanghafoori1/council/blob/master/app/Providers/AuthServiceProvider.php">Working heyman sample rules</a>
 
 
 
@@ -259,7 +259,7 @@ HeyMan::whenYouCallAction('HomeController@*')->...          // or match by wildc
  
  Actually it refers to the moment when `view('article.editForm')` is executed.
  
- #### 5 - Custom Event is Fired
+ #### 5- Custom Event is Fired
 
 ```php
 HeyMan::whenEventHappens('myEvent')->...
@@ -290,12 +290,11 @@ HeyMan::whenYouDelete(\App\User::class)->...
 HeyMan::  (situation) ->   (condition)   -> otherwise() -> (reaction) ;
 ```
 
-After considering situations it is time to check some conditions
+After mentioning the situation, it is time to mention the condition.
 
 #### 1- Gates
 
 ```php
-
 // define Gate
 Gate::define('hasRole', function(){...});
 
@@ -373,7 +372,7 @@ HeyMan::whenYouReachCheckPoint('MyLane')->youShouldHaveRole('Zombie')-> ...
 ```
 
 
-```
+```php
 HeyMan::whenYouVisitUrl('home')->always()-> ...
 HeyMan::whenYouVisitUrl('home')->sessionShouldHave('key1')->...
 ```
@@ -381,8 +380,8 @@ HeyMan::whenYouVisitUrl('home')->sessionShouldHave('key1')->...
 
 #### Other things:
 
-You can also use one of these:
-```
+You can also use "`always`" and "`sessionShouldHave`" methods:
+```php
 HeyMan::whenYouVisitUrl('home')->always()-> ...
 HeyMan::whenYouVisitUrl('home')->sessionShouldHave('key1')->...
 ```
@@ -390,7 +389,7 @@ HeyMan::whenYouVisitUrl('home')->sessionShouldHave('key1')->...
 --------------------
 
 
-#### Define your own conditions : 
+#### Define your own conditions: 
 
 You can extend the conditions and introduce new methods into heyman API like this:
 
