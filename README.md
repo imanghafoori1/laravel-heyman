@@ -24,7 +24,7 @@
 
 #### Built with :heart: for every smart laravel developer
 
-Very well tested, optimized and production ready !
+Very well tested, optimized and production ready!
 
 In fact, We have tackled a lot of `complexity` behind the scenes, to provide you with a lot of `simplicity`.
 
@@ -119,7 +119,7 @@ And you write code like this in a Service Provider `boot` method to implement wh
 #### That is what this package does for you + a lot more...
 
 
-### Customizable Syntax :
+### Customizable Syntax:
 
 You can alias methods like this if you do not like too much verbose syntax provided by default.
 
@@ -292,7 +292,7 @@ HeyMan::  (situation) ->   (condition)   -> otherwise() -> (reaction) ;
 
 After mentioning the situation, it is time to mention the condition.
 
-#### 1- Gates
+#### 1- Gates:
 
 ```php
 // define Gate
