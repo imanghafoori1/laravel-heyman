@@ -13,8 +13,8 @@ class EventsAuthorizationTest extends TestCase
 {
     public function testEventIsAuthorized1()
     {
+        HeyMan::whenEventHappens('myEvent1')->thisValueShouldAllow(true)->otherwise()->redirect()->to('/11');
         HeyMan::whenEventHappens(['myEvent', 'myEvent1'])->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
-        HeyMan::whenEventHappens('myEvent4')->youShouldHaveRole('reader')->otherwise()->weDenyAccess();
         app(StartGuarding::class)->start();
 
         MakeSure::about($this)->whenEventHappens('myEvent1')->exceptionIsThrown(AuthorizationException::class);

@@ -10,7 +10,9 @@ class EventListeners implements HeymanSentinel
     {
         foreach ($data as $event => $callbacks) {
             foreach ($callbacks as $key => $cbs) {
-                \Event::listen($event, $cbs[0]);
+                foreach ($cbs as $cb) {
+                    \Event::listen($event, $cb);
+                }
             }
         }
     }
