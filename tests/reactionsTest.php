@@ -96,12 +96,15 @@ class reactionsTest extends TestCase
         Route::get('/welcome', 'HomeController@index');
 
         $resp = response()->json(['Wow'=> 'Man'], 566);
-        \Facades\Imanghafoori\HeyManTests\Stubs\SomeClass::shouldReceive('someMethod')->once()->andReturn($resp);
+        \Facades\Imanghafoori\HeyManTests\Stubs\SomeClass::shouldReceive('someMethod')
+            ->once()
+            ->with(20, 30)
+            ->andReturn($resp);
 
         HeyMan::whenYouVisitUrl('welcome')
             ->thisValueShouldAllow(false)
             ->otherwise()
-            ->weRespondFrom(SomeClass::class.'@someMethod');
+            ->weRespondFrom(SomeClass::class.'@someMethod', [20, 30]);
         app(StartGuarding::class)->start();
 
         $this->get('welcome')->assertStatus(566)->assertJson(['Wow'=> 'Man']);

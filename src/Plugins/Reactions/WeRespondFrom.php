@@ -17,9 +17,7 @@ final class WeRespondFrom extends BaseReaction
 
     public static function respondFrom($method)
     {
-        return function ($meta = null) use ($method) {
-            array_push($method, [$meta]);
-
+        return function () use ($method) {
             if (is_array($method[0])) {
                 $response = call_user_func_array(...$method);
             } else {
