@@ -19,6 +19,7 @@ final class WeRespondFrom extends BaseReaction
     {
         return function () use ($method) {
             if (is_array($method[0])) {
+				$method[] = [];
                 $response = call_user_func_array(...$method);
             } else {
                 $response = app()->call(...$method);
