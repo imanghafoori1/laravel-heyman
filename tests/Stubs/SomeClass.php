@@ -11,7 +11,7 @@ class SomeClass
 
     public function someMethod2($p1, $p2)
     {
-        return response()->json(['Wow' => (string)($p1 + $p2)], 566);
+        return response()->json(['Wow' => (string) ($p1 + $p2)], 566);
     }
 
     public static function someStaticMethod()
