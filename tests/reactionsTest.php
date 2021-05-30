@@ -111,10 +111,24 @@ class reactionsTest extends TestCase
         HeyMan::whenYouVisitUrl('welcome')
             ->thisValueShouldAllow(false)
             ->otherwise()
-            ->weRespondFrom([SomeClass::class, 'someStaticMethod']);
+            ->weRespondFrom([SomeClass::class, 'someStaticMethod'], [20, 30]);
 
         app(StartGuarding::class)->start();
 
-        $this->get('welcome')->assertStatus(201)->assertJson(['Wow'=> 'Man']);
+        $this->get('welcome')->assertStatus(201)->assertJson(['Wow'=> '50']);
+    }
+
+    public function test_we_respond_from_3()
+    {
+        Route::get('/welcome', 'HomeController@index');
+
+        HeyMan::whenYouVisitUrl('welcome')
+            ->thisValueShouldAllow(false)
+            ->otherwise()
+            ->weRespondFrom([SomeClass::class, 'someStaticMethod_2']);
+
+        app(StartGuarding::class)->start();
+
+        $this->get('welcome')->assertStatus(201)->assertJson(['Wow' => 'aaa']);
     }
 }

@@ -14,8 +14,13 @@ class SomeClass
         return response()->json(['Wow' => (string) ($p1 + $p2)], 566);
     }
 
-    public static function someStaticMethod()
+    public static function someStaticMethod($p1, $p2)
     {
-        return response()->json(['Wow' => 'Man'], 201);
+        return response()->json(['Wow' => (string) ($p1 + $p2)], 201);
+    }
+
+    public static function someStaticMethod_2()
+    {
+        return response()->json(['Wow' => 'aaa'], 201);
     }
 }
