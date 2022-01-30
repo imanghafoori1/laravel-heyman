@@ -15,7 +15,6 @@ final class EloquentSituations
     /**
      * @param $method
      * @param $model
-     *
      * @return array
      */
     public function normalize($method, $model)
