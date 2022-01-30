@@ -9,7 +9,7 @@ class Then
     /**
      * Termination constructor.
      *
-     * @param \Imanghafoori\HeyMan\Reactions\PreReactions $reactions
+     * @param  \Imanghafoori\HeyMan\Reactions\PreReactions  $reactions
      */
     public function __construct($reactions)
     {
