@@ -20,7 +20,7 @@ class Redirector
     /**
      * Responder constructor.
      *
-     * @param PreReactions $reaction
+     * @param  PreReactions  $reaction
      */
     public function __construct($reaction)
     {

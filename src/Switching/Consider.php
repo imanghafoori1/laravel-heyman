@@ -43,7 +43,7 @@ class Consider
 
     /**
      * @param $key
-     * @param callable|null $closure
+     * @param  callable|null  $closure
      */
     private function turn($key, callable $closure = null)
     {

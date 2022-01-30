@@ -21,7 +21,7 @@ final class RedirectionMsg
     /**
      * Redirector constructor.
      *
-     * @param Redirector $redirect
+     * @param  Redirector  $redirect
      */
     public function __construct(Redirector $redirect)
     {
@@ -29,12 +29,11 @@ final class RedirectionMsg
     }
 
     /**
-     * @param string $method
-     * @param array  $parameters
+     * @param  string  $method
+     * @param  array  $parameters
+     * @return $this
      *
      * @throws \BadMethodCallException
-     *
-     * @return $this
      */
     public function __call($method, $parameters)
     {
