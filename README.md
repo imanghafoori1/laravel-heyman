@@ -537,6 +537,9 @@ If you find an issue, or have a better way to do something, feel free to open an
 ### :star: Your Stars Make Us Do More :star:
 As always if you found this package useful and you want to encourage us to maintain and work on it. Just press the star button to declare your willing.
 
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=imanghafoori1/laravel-heyman&type=Date)](https://star-history.com/#imanghafoori1/laravel-heyman&Date)
 
 
 ## More from the author:
