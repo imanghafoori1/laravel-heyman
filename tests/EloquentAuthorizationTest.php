@@ -50,7 +50,7 @@ class EloquentAuthorizationTest extends TestCase
     public function testUpdatingModelsIsAuthorized2()
     {
         HeyMan::whenYouUpdate(User::class)->thisClosureShouldAllow(function ($param, $param2, $user) {
-            return ! ($param === 1 and $param2 === 2 and (is_a($user, User::class)));
+            return ! ($param === 1 and $param2 === 2 and is_a($user, User::class));
         }, [1, 2])->otherwise()->weDenyAccess();
         app(StartGuarding::class)->start();
         $this->expectException(AuthorizationException::class);

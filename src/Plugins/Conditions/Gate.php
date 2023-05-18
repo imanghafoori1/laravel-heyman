@@ -12,7 +12,7 @@ class Gate
         $gate = $this->defineNewGate($gate);
 
         return function (...$payload) use ($gate, $parameters) {
-            return GateFacade::allows($gate, (array_merge($parameters, ...$payload)));
+            return GateFacade::allows($gate, array_merge($parameters, ...$payload));
         };
     }
 
