@@ -4,10 +4,10 @@ namespace Imanghafoori\HeyManTests\Unit;
 
 use Facades\Imanghafoori\HeyMan\Core\Chain;
 use Illuminate\Support\Str;
+use Imanghafoori\HeyMan\Core\ChainCollection;
 use Imanghafoori\HeyMan\Core\Reaction;
 use Imanghafoori\HeyMan\Plugins\Reactions\Redirect\RedirectionMsg;
 use Imanghafoori\HeyMan\Plugins\Reactions\Redirect\Redirector;
-use Imanghafoori\HeyMan\Core\ChainCollection;
 use Imanghafoori\HeyManTests\TestCase;
 use Mockery;
 
