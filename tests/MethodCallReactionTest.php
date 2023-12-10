@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use Imanghafoori\HeyMan\Core\Chain;
 use Imanghafoori\HeyMan\Facades\HeyMan;
 use Imanghafoori\HeyMan\StartGuarding;
+use Mockery;
 
 class Logger
 {
@@ -24,18 +25,18 @@ class MethodCallReactionTest extends TestCase
     {
         Route::get('/welcome', 'HomeController@index')->name('welcome.name');
 
-        \Facades\Imanghafoori\HeyManTests\Logger::shouldReceive('error')->once()->with('sss');
-        \Facades\Imanghafoori\HeyManTests\Logger::shouldReceive('info')->times(0);
+        Mockery::mock(Logger::class)->shouldReceive('error')->once()->with('sss');
+        Mockery::mock(Logger::class)->shouldReceive('info')->times(0);
 
         HeyMan::whenYouVisitUrl(['welcome', 'welcome_'])
             ->thisValueShouldAllow(true)
             ->otherwise()
-            ->afterCalling(\Imanghafoori\HeyManTests\Logger::class.'@info', ['sss'])
+            ->afterCalling(Logger::class.'@info', ['sss'])
             ->weDenyAccess();
 
         HeyMan::whenYouVisitUrl(['welcome', 'welcome_'])
             ->always()
-            ->afterCalling(\Imanghafoori\HeyManTests\Logger::class.'@error', ['sss'])
+            ->afterCalling(Logger::class.'@error', ['sss'])
             ->weDenyAccess();
 
         app(StartGuarding::class)->start();

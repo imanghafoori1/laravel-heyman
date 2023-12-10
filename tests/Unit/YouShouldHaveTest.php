@@ -86,7 +86,7 @@ class YouShouldHaveTest extends TestCase
     {
         HeyMan::whenYouVisitUrl('sdf')->thisMethodShouldAllow(SomeClass::class.'@someMethod', ['aaa']);
 
-        \Facades\Imanghafoori\HeyManTests\Stubs\SomeClass::shouldReceive('someMethod')->once()->with('aaa')->andReturn(false);
+        \Mockery::mock(\Imanghafoori\HeyManTests\Stubs\SomeClass::class)->shouldReceive('someMethod')->once()->with('aaa')->andReturn(false);
         $condition = app(Chain::class)->get('condition');
 
         $this->assertTrue($condition() === false);

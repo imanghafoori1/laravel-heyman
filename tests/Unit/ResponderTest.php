@@ -2,7 +2,7 @@
 
 namespace Imanghafoori\HeyManTests\Unit;
 
-use Facades\Imanghafoori\HeyMan\Core\Chain;
+use Imanghafoori\HeyMan\Core\Chain;
 use Illuminate\Support\Str;
 use Imanghafoori\HeyMan\Core\ChainCollection;
 use Imanghafoori\HeyMan\Core\Reaction;
@@ -73,7 +73,7 @@ class ResponderTest extends TestCase
         foreach ($methods as $method) {
             $param = Str::random(2);
             $redirector = Mockery::mock(Redirector::class);
-            app(Chain::class)->shouldReceive('push')->once()->with('data', [$method, [[$param]]]);
+            Mockery::mock(Chain::class)->shouldReceive('push')->once()->with('data', [$method, [[$param]]]);
             $redirectionMsg = new RedirectionMsg($redirector);
             $redirectionMsg->{$method}([$param]);
         }
