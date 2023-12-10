@@ -37,7 +37,7 @@ class ChainCollection
     /**
      * initialize the chain.
      *
-     * @param $manager
+     * @param  $manager
      * @param  array  $values
      * @param  string  $param
      */
