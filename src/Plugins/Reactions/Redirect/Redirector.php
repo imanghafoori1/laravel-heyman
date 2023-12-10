@@ -2,16 +2,14 @@
 
 namespace Imanghafoori\HeyMan\Plugins\Reactions\Redirect;
 
-use Imanghafoori\HeyMan\Reactions\PreReactions;
-
 /**
  * Class Redirector.
  *
- * @method RedirectMsg to(string $path, int $status = 302, array $headers = [], $secure = null)
- * @method RedirectMsg route(string $route, array $parameters = [], int $status = 302, array $headers = [])
- * @method RedirectMsg action($action, array $parameters = [], int $status = 302, array $headers = [])
- * @method RedirectMsg guest($path, int $status = 302, array $headers = [], $secure = null)
- * @method RedirectMsg intended(string $default = '/', int $status = 302, array $headers = [], $secure = null)
+ * @method RedirectionMsg to(string $path, int $status = 302, array $headers = [], $secure = null)
+ * @method RedirectionMsg route(string $route, array $parameters = [], int $status = 302, array $headers = [])
+ * @method RedirectionMsg action($action, array $parameters = [], int $status = 302, array $headers = [])
+ * @method RedirectionMsg guest($path, int $status = 302, array $headers = [], $secure = null)
+ * @method RedirectionMsg intended(string $default = '/', int $status = 302, array $headers = [], $secure = null)
  */
 class Redirector
 {
@@ -20,7 +18,7 @@ class Redirector
     /**
      * Responder constructor.
      *
-     * @param  PreReactions  $reaction
+     * @param  \Imanghafoori\HeyMan\Plugins\PreReaction\PreReactions  $reaction
      */
     public function __construct($reaction)
     {

@@ -9,7 +9,7 @@ class TerminateWith
     /**
      * Termination constructor.
      *
-     * @param  \Imanghafoori\HeyMan\Reactions\PreReactions  $reactions
+     * @param  \Imanghafoori\HeyMan\Plugins\PreReaction\PreReactions  $reactions
      */
     public function __construct($reactions)
     {

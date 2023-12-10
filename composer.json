@@ -16,9 +16,10 @@
         "laravel/framework":"~5.1|6.*|7.*|8.*|9.*|10.*"
     },
     "require-dev": {
-        "orchestra/testbench": "~3.0",
-        "barryvdh/laravel-debugbar": "^2.3",
+        "orchestra/testbench": "~3.0|~4.0|~5.0|~6.0|~7.0",
+        "barryvdh/laravel-debugbar": "^2.3|3.*|4.*",
         "imanghafoori/laravel-makesure": "^1.0",
+        "imanghafoori/php-imports-analyzer": "^1.0.2",
         "orchestra/database": "@dev",
         "mockery/mockery": "^1.5"
     },

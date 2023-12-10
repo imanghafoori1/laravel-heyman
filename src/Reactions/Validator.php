@@ -2,6 +2,7 @@
 
 namespace Imanghafoori\HeyMan\Reactions;
 
+use Closure;
 use Illuminate\Contracts\Validation\Factory;
 use Imanghafoori\HeyMan\Core\Reaction;
 use Imanghafoori\HeyMan\Switching\HeyManSwitcher;
@@ -60,7 +61,11 @@ final class Validator
             $rules[0] = call_user_func($rules[0]);
         }
 
-        $newData = app()->call($modifier, [request()->all()]);
+        if ($modifier instanceof Closure) {
+            $newData = call_user_func($modifier, request()->all());
+        } else {
+            $newData = app()->call($modifier, [request()->all()]);
+        }
 
         return resolve(Factory::class)->make($newData, ...$rules);
     }

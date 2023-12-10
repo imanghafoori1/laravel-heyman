@@ -103,11 +103,11 @@ class EventsAuthorizationTest extends TestCase
 
     public function testCheckPoints()
     {
-        Heyman::whenYouReachCheckPoint('*AreYou')->always()->redirect()->to('welcome');
+        HeyMan::whenYouReachCheckPoint('*AreYou')->always()->redirect()->to('welcome');
         app(StartGuarding::class)->start();
 
         \Route::get('oh', function () {
-            Heyman::checkPoint('whoAreYou');
+            HeyMan::checkPoint('whoAreYou');
         });
 
         MakeSure::about($this)
@@ -119,6 +119,6 @@ class EventsAuthorizationTest extends TestCase
     public function test_checkPoint()
     {
         $this->expectsEvents('heyman_checkpoint_wow');
-        Heyman::checkPoint('wow');
+        HeyMan::checkPoint('wow');
     }
 }

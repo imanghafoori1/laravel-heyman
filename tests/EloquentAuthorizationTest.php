@@ -13,8 +13,8 @@ class EloquentAuthorizationTest extends TestCase
 {
     public function testCreatingModelsIsAuthorized()
     {
-        \HeyMan::whenYouCreate(User::class)->always()->weDenyAccess();
-        \HeyMan::whenYouCreate(User2::class)->always()->weDenyAccess();
+        HeyMan::whenYouCreate(User::class)->always()->weDenyAccess();
+        HeyMan::whenYouCreate(User2::class)->always()->weDenyAccess();
         app(StartGuarding::class)->start();
 
         $this->expectException(AuthorizationException::class);
@@ -24,9 +24,9 @@ class EloquentAuthorizationTest extends TestCase
 
     public function testCreatingCanBeAliased()
     {
-        \HeyMan::aliasSituation('whenYouCreate', 'salam');
-        \HeyMan::salam(User::class)->always()->weDenyAccess();
-        \HeyMan::salam(User2::class)->always()->weDenyAccess();
+        HeyMan::aliasSituation('whenYouCreate', 'salam');
+        HeyMan::salam(User::class)->always()->weDenyAccess();
+        HeyMan::salam(User2::class)->always()->weDenyAccess();
 
         app(StartGuarding::class)->start();
 

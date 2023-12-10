@@ -8,7 +8,7 @@ use Imanghafoori\HeyMan\Facades\HeyMan;
 use Imanghafoori\HeyMan\StartGuarding;
 use Imanghafoori\HeyManTests\Stubs\SomeClass;
 
-class reactionsTest extends TestCase
+class ReactionsTest extends TestCase
 {
     public function test_redirect_with_flash_msg()
     {
@@ -98,7 +98,7 @@ class reactionsTest extends TestCase
         HeyMan::whenYouVisitUrl('welcome')
             ->thisValueShouldAllow(false)
             ->otherwise()
-            ->weRespondFrom(SomeClass::class.'@someMethod2', [20, 30]);
+            ->weRespondFrom(SomeClass::class.'@someMethod2', ['p1' => 20, 'p2' =>30]);
         app(StartGuarding::class)->start();
 
         $this->get('welcome')->assertStatus(566)->assertJson(['Wow'=> '50']);

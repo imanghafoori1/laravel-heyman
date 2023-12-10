@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 use Imanghafoori\HeyMan\Core\Reaction;
 use Imanghafoori\HeyMan\Plugins\Reactions\Redirect\RedirectionMsg;
 use Imanghafoori\HeyMan\Plugins\Reactions\Redirect\Redirector;
-use Imanghafoori\HeyMan\WatchingStrategies\ChainCollection;
+use Imanghafoori\HeyMan\Core\ChainCollection;
 use Imanghafoori\HeyManTests\TestCase;
 use Mockery;
 

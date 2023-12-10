@@ -6,7 +6,9 @@ class Callbacks
 {
     public function closureAllows($callback, $parameters = [])
     {
-        return $this->methodAllows($callback, $parameters);
+        return function (...$payload) use ($callback, $parameters) {
+            return (bool) $callback(...array_merge($parameters, ...$payload));
+        };
     }
 
     public function methodAllows($callback, array $parameters = [])
