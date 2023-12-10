@@ -2,8 +2,8 @@
 
 namespace Imanghafoori\HeyManTests\Unit;
 
-use Imanghafoori\HeyMan\Core\Chain;
 use Illuminate\Support\Str;
+use Imanghafoori\HeyMan\Core\Chain;
 use Imanghafoori\HeyMan\Core\ChainCollection;
 use Imanghafoori\HeyMan\Core\Reaction;
 use Imanghafoori\HeyMan\Plugins\Reactions\Redirect\RedirectionMsg;
