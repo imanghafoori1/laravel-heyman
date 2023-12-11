@@ -43,7 +43,8 @@
         "imanghafoori/laravel-terminator": "Gives you opportunity to refactor your controllers."
     },
     "scripts": {
-        "test": "./vendor/bin/phpunit"
+        "test": "./vendor/bin/phpunit",
+            "imports": "./vendor/bin/check_imports"
     },
     "extra": {
         "laravel": {
