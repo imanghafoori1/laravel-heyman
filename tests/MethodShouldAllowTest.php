@@ -6,13 +6,13 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Imanghafoori\HeyMan\Facades\HeyMan;
 use Imanghafoori\HeyMan\StartGuarding;
 use Imanghafoori\HeyManTests\Stubs\SomeClass;
-use Mockery;
 
 class MethodShouldAllowTest extends TestCase
 {
     public function test_Method_Should_Allow()
     {
-        Mockery::mock(SomeClass::class)->shouldReceive('someMethod')->once()->andReturn(false);
+        $this->mock(SomeClass::class)->shouldReceive('someMethod')->once()->andReturn(false);
+
         HeyMan::whenYouMakeView('welcome')->thisMethodShouldAllow(SomeClass::class.'@someMethod')->otherwise()->weDenyAccess();
         app(StartGuarding::class)->start();
         $this->expectException(AuthorizationException::class);

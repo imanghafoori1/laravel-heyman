@@ -12,7 +12,6 @@
     ],
     "require": {
         "php": ">=7.1",
-        "imanghafoori/laravel-terminator" : "*",
         "laravel/framework":"~5.1|6.*|7.*|8.*|9.*|10.*"
     },
     "require-dev": {
@@ -21,7 +20,7 @@
         "imanghafoori/laravel-makesure": "^1.0",
         "imanghafoori/php-imports-analyzer": "^1.0.2",
         "orchestra/database": "@dev",
-        "mockery/mockery": "^1.5"
+        "mockery/mockery": "^1.0"
     },
     "autoload": {
         "psr-4": {
@@ -44,7 +43,7 @@
         "imanghafoori/laravel-terminator": "Gives you opportunity to refactor your controllers."
     },
     "scripts": {
-        "test": "/vendor/bin/phpunit"
+        "test": "./vendor/bin/phpunit"
     },
     "extra": {
         "laravel": {

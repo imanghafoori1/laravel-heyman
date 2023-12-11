@@ -25,8 +25,10 @@ class MethodCallReactionTest extends TestCase
     {
         Route::get('/welcome', 'HomeController@index')->name('welcome.name');
 
-        Mockery::mock(Logger::class)->shouldReceive('error')->once()->with('sss');
-        Mockery::mock(Logger::class)->shouldReceive('info')->times(0);
+        $m = Mockery::mock(Logger::class);
+        $m->shouldReceive('error')->once()->with('sss');
+        $m->shouldReceive('info')->times(0);
+        app()->singleton(Logger::class, fn () => $m);
 
         HeyMan::whenYouVisitUrl(['welcome', 'welcome_'])
             ->thisValueShouldAllow(true)

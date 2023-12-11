@@ -70,10 +70,13 @@ class ResponderTest extends TestCase
             'nonExistentMethod',
         ];
 
+        $m = Mockery::mock(Chain::class);
+        app()->singleton(Chain::class, fn () => $m);
+
         foreach ($methods as $method) {
             $param = Str::random(2);
             $redirector = Mockery::mock(Redirector::class);
-            Mockery::mock(Chain::class)->shouldReceive('push')->once()->with('data', [$method, [[$param]]]);
+            $m->shouldReceive('push')->once()->with('data', [$method, [[$param]]]);
             $redirectionMsg = new RedirectionMsg($redirector);
             $redirectionMsg->{$method}([$param]);
         }

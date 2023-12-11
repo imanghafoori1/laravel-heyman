@@ -8,6 +8,7 @@ use Imanghafoori\HeyMan\Core\Chain;
 use Imanghafoori\HeyMan\Facades\HeyMan;
 use Imanghafoori\HeyManTests\Stubs\SomeClass;
 use Imanghafoori\HeyManTests\TestCase;
+use Mockery;
 
 class YouShouldHaveTest extends TestCase
 {
@@ -86,7 +87,9 @@ class YouShouldHaveTest extends TestCase
     {
         HeyMan::whenYouVisitUrl('sdf')->thisMethodShouldAllow(SomeClass::class.'@someMethod', ['aaa']);
 
-        \Mockery::mock(\Imanghafoori\HeyManTests\Stubs\SomeClass::class)->shouldReceive('someMethod')->once()->with('aaa')->andReturn(false);
+        $m = Mockery::mock(SomeClass::class);
+        $m->shouldReceive('someMethod')->once()->with('aaa')->andReturn(false);
+        app()->singleton(SomeClass::class, fn () => $m);
         $condition = app(Chain::class)->get('condition');
 
         $this->assertTrue($condition() === false);
