@@ -2,8 +2,8 @@
 
 namespace Imanghafoori\HeyManTests\Unit;
 
-use Imanghafoori\HeyMan\Core\Chain;
 use Illuminate\Support\Str;
+use Imanghafoori\HeyMan\Core\Chain;
 use Imanghafoori\HeyMan\Core\ChainCollection;
 use Imanghafoori\HeyMan\Core\Reaction;
 use Imanghafoori\HeyMan\Plugins\Reactions\Redirect\RedirectionMsg;
@@ -71,7 +71,9 @@ class ResponderTest extends TestCase
         ];
 
         $m = Mockery::mock(Chain::class);
-        app()->singleton(Chain::class, fn () => $m);
+        app()->singleton(Chain::class, function () use ($m) {
+            return $m;
+        });
 
         foreach ($methods as $method) {
             $param = Str::random(2);

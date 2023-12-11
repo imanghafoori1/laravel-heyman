@@ -89,7 +89,9 @@ class YouShouldHaveTest extends TestCase
 
         $m = Mockery::mock(SomeClass::class);
         $m->shouldReceive('someMethod')->once()->with('aaa')->andReturn(false);
-        app()->singleton(SomeClass::class, fn () => $m);
+        app()->singleton(SomeClass::class, function () use ($m) {
+            return $m;
+        });
         $condition = app(Chain::class)->get('condition');
 
         $this->assertTrue($condition() === false);

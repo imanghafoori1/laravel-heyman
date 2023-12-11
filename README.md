@@ -9,7 +9,8 @@
 <a href="https://scrutinizer-ci.com/g/imanghafoori1/laravel-heyman"><img src="https://img.shields.io/scrutinizer/g/imanghafoori1/laravel-heyman.svg?style=round-square" alt="Quality Score"></img></a>
 [![code coverage](https://codecov.io/gh/imanghafoori1/laravel-heyman/branch/master/graph/badge.svg)](https://codecov.io/gh/imanghafoori1/laravel-heyman)
 [![Maintainability](https://api.codeclimate.com/v1/badges/9d6be7b057103cb14410/maintainability)](https://codeclimate.com/github/imanghafoori1/laravel-heyman/maintainability)
-[![Build Status](https://travis-ci.org/imanghafoori1/laravel-heyman.svg?branch=master)](https://travis-ci.org/imanghafoori1/laravel-heyman)
+[![Imports](https://github.com/imanghafoori1/laravel-heyman/actions/workflows/imports.yml/badge.svg?branch=master)](https://github.com/imanghafoori1/laravel-heyman/actions/workflows/imports.yml)
+[![Test](https://github.com/imanghafoori1/laravel-heyman/actions/workflows/tests.yml/badge.svg?branch=master)](https://github.com/imanghafoori1/laravel-heyman/actions/workflows/tests.yml)
 [![StyleCI](https://github.styleci.io/repos/139709518/shield?branch=master)](https://github.styleci.io/repos/139709518)
 [![Latest Stable Version](https://poser.pugx.org/imanghafoori/laravel-heyman/v/stable)](https://packagist.org/packages/imanghafoori/laravel-heyman)
 [![Daily Downloads](https://poser.pugx.org/imanghafoori/laravel-heyman/d/daily)](https://packagist.org/packages/imanghafoori/laravel-heyman)
@@ -24,9 +25,9 @@
 
 #### Built with :heart: for every smart laravel developer
 
-Very well tested, optimized and production ready!
+Very well-tested, optimized, and production-ready!
 
-In fact, We have tackled a lot of `complexity` behind the scenes, to provide you with a lot of `simplicity`.
+We have tackled a lot of `complexity` behind the scenes, to provide you with a lot of `simplicity`.
 
 - Integrated with laravel-debugbar package out of the box: <a href="https://github.com/barryvdh/laravel-debugbar">laravel debugbar</a>
 
@@ -148,7 +149,7 @@ You are telling the framework what to do in certain situations rather than getti
 > — Alec Sharp `
 
 
-3- This approach is paticularly useful when you for example write a package which needs ACL but you want to allow your package users to override and apply they own ACL (or validation) rules into your package routes...
+3- This approach is particularly useful when you for example write a package which needs ACL but you want to allow your package users to override and apply they own ACL (or validation) rules into your package routes...
 
 And that becomes possible when you use laravel-HeyMan for ACL. The users can easily cancel out the default rules and re-write their favorite acl or validation stuff in a regular ServiceProviders.
 
@@ -355,7 +356,7 @@ HeyMan::whenYouHitRouteName('welcome.name')
 
 #### 5- Check points:
 
-You can also declare some check points some where, within your application code:
+You can also declare some check points somewhere, within your application code:
 
 ```php
 

@@ -5,13 +5,14 @@ namespace Imanghafoori\HeyManTests;
 use Illuminate\Support\Facades\Route;
 use Imanghafoori\HeyMan\Facades\HeyMan;
 use Imanghafoori\HeyMan\StartGuarding;
+use Imanghafoori\HeyManTests\Stubs\HomeController;
 use Imanghafoori\MakeSure\Facades\MakeSure;
 
 class IgnoreTest extends TestCase
 {
     public function testUrlIsAuthorized()
     {
-        Route::get('/welcome', 'HomeController@index');
+        Route::get('/welcome', HomeController::class.'@index');
 
         HeyMan::whenYouVisitUrl('/welco*')->always()->weDenyAccess();
         HeyMan::whenYouVisitUrl('welcome1')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
@@ -24,7 +25,7 @@ class IgnoreTest extends TestCase
 
     public function testUrlIsAuthorized657()
     {
-        Route::get('/welcome', 'HomeController@index');
+        Route::get('/welcome', HomeController::class.'@index');
 
         HeyMan::whenYouVisitUrl(['welcome_', 'welcome'])->always()->weDenyAccess();
         HeyMan::whenYouVisitUrl('welcome1')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
@@ -37,7 +38,7 @@ class IgnoreTest extends TestCase
 
     public function testUrlIsAuthorized563()
     {
-        Route::get('/welcome', 'HomeController@index');
+        Route::get('/welcome', HomeController::class.'@index');
 
         HeyMan::whenYouVisitUrl('welcome_', 'welcome')->always()->weDenyAccess();
         HeyMan::whenYouVisitUrl('welcome1')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
@@ -50,7 +51,7 @@ class IgnoreTest extends TestCase
 
     public function testUrlIsAuthorized566()
     {
-        Route::get('/welcome', 'HomeController@index');
+        Route::get('/welcome', HomeController::class.'@index');
 
         HeyMan::whenYouVisitUrl('welcome_', 'welcome')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
         HeyMan::whenYouVisitUrl('welcome1')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
@@ -63,7 +64,7 @@ class IgnoreTest extends TestCase
 
     public function testRouteNameIsAuthorized1()
     {
-        Route::get('/welcome', 'HomeController@index')->name('welcome.name');
+        Route::get('/welcome', HomeController::class.'@index')->name('welcome.name');
 
         HeyMan::whenYouHitRouteName('welcome.name')->always()->weDenyAccess();
 
@@ -75,7 +76,7 @@ class IgnoreTest extends TestCase
 
     public function testRouteNameIsMatchWithPattern()
     {
-        Route::get('/welcome', 'HomeController@index')->name('welcome.name');
+        Route::get('/welcome', HomeController::class.'@index')->name('welcome.name');
 
         HeyMan::whenYouHitRouteName('welcome.*')->always()->weDenyAccess();
 
@@ -87,9 +88,9 @@ class IgnoreTest extends TestCase
 
     public function testControllerActionIsAuthorized()
     {
-        Route::get('/welcome', 'HomeController@index');
+        Route::get('/welcome', HomeController::class.'@index');
 
-        HeyMan::whenYouCallAction('\HomeController@index')->always()->weDenyAccess();
+        HeyMan::whenYouCallAction(HomeController::class.'@index')->always()->weDenyAccess();
 
         HeyMan::turnOff()->routeChecks();
         app(StartGuarding::class)->start();
@@ -99,9 +100,9 @@ class IgnoreTest extends TestCase
 
     public function testControllerActionIsAuthorized878()
     {
-        Route::get('/welcome', 'HomeController@index');
+        Route::get('/welcome', HomeController::class.'@index');
 
-        HeyMan::whenYouCallAction('\HomeController@index')->always()->weDenyAccess();
+        HeyMan::whenYouCallAction(HomeController::class.'@index')->always()->weDenyAccess();
 
         HeyMan::turnOff()->routeChecks();
         app(StartGuarding::class)->start();
@@ -184,7 +185,7 @@ class IgnoreTest extends TestCase
 
     public function test_it_ignores_validation()
     {
-        Route::get('/welcome', 'HomeController@index')->name('welcome.name');
+        Route::get('/welcome', HomeController::class.'@index')->name('welcome.name');
 
         HeyMan::whenYouVisitUrl('welcome')->yourRequestShouldBeValid(['name' => 'required']);
 
@@ -196,7 +197,7 @@ class IgnoreTest extends TestCase
 
     public function test_it_ignores_validation2()
     {
-        Route::get('/welcome', 'HomeController@index')->name('welcome.name');
+        Route::get('/welcome', HomeController::class.'@index')->name('welcome.name');
 
         HeyMan::whenYouVisitUrl('welcome')
             ->yourRequestShouldBeValid(['name' => 'required'])
@@ -211,7 +212,7 @@ class IgnoreTest extends TestCase
 
     public function test_it_ignores_validation3()
     {
-        Route::get('/welcome', 'HomeController@index')->name('welcome.name');
+        Route::get('/welcome', HomeController::class.'@index')->name('welcome.name');
 
         HeyMan::whenYouVisitUrl('welcome')->yourRequestShouldBeValid(['name' => 'required']);
 

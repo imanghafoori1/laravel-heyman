@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use Imanghafoori\HeyMan\Core\Chain;
 use Imanghafoori\HeyMan\Facades\HeyMan;
 use Imanghafoori\HeyMan\StartGuarding;
+use Imanghafoori\HeyManTests\Stubs\HomeController;
 use Mockery;
 
 class Logger
@@ -23,12 +24,14 @@ class MethodCallReactionTest extends TestCase
 {
     public function testCallingMethodsOnClasses()
     {
-        Route::get('/welcome', 'HomeController@index')->name('welcome.name');
+        Route::get('/welcome', HomeController::class.'@index')->name('welcome.name');
 
         $m = Mockery::mock(Logger::class);
         $m->shouldReceive('error')->once()->with('sss');
         $m->shouldReceive('info')->times(0);
-        app()->singleton(Logger::class, fn () => $m);
+        app()->singleton(Logger::class, function () use ($m) {
+            return $m;
+        });
 
         HeyMan::whenYouVisitUrl(['welcome', 'welcome_'])
             ->thisValueShouldAllow(true)
@@ -48,7 +51,7 @@ class MethodCallReactionTest extends TestCase
 
     public function testCallingClosures()
     {
-        Route::get('/welcome/{id}/{foo}', 'HomeController@index')->name('welcome.name');
+        Route::get('/welcome/{id}/{foo}', HomeController::class.'@index')->name('welcome.name');
         Gate::shouldReceive('allows')->andReturn(false);
 
         $t = '';
