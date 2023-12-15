@@ -1,4 +1,4 @@
-# Laravel Hey Man
+# Laravel HeyMan
 
 
 <p align="left">

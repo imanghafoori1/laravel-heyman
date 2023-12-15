@@ -1,6 +1,5 @@
 name: tests
 
-# Controls when the workflow will run
 on:
   push:
     branches: [master]
@@ -13,44 +12,44 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   test:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: true
       matrix:
+        os: [ubuntu-latest, windows-latest]
         php: [7.2, 7.3, 7.4, 8.0, 8.1, 8.2, 8.3]
-        laravel: [^6.0, ^7.0, ^8.0, ^9.0, ^10.0]
+        laravel: [6.*, 7.*, 8.*, 9.*, 10.*]
         exclude:
           - php: 7.2
-            laravel: ^8.0
+            laravel: 8.*
           - php: 7.2
-            laravel: ^9.0
+            laravel: 9.*
           - php: 7.2
-            laravel: ^10.0
+            laravel: 10.*
           - php: 7.3
-            laravel: ^9.0
+            laravel: 9.*
           - php: 7.3
-            laravel: ^10.0
+            laravel: 10.*
           - php: 7.4
-            laravel: ^9.0
+            laravel: 9.*
           - php: 7.4
-            laravel: ^10.0
+            laravel: 10.*
           - php: 8.0
-            laravel: ^10.0
+            laravel: 10.*
           - php: 8.1
-            laravel: ^6.0
+            laravel: 6.*
           - php: 8.1
-            laravel: ^7.0
+            laravel: 7.*
           - php: 8.2
-            laravel: ^7.0
+            laravel: 7.*
           - php: 8.2
-            laravel: ^6.0
+            laravel: 6.*
           - php: 8.3
-            laravel: ^7.0
+            laravel: 7.*
           - php: 8.3
-            laravel: ^6.0
+            laravel: 6.*
 
-    name: PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }}
+    name: PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }} on ${{ matrix.os }}
 
     steps:
         - name: Checkout code
@@ -60,7 +59,7 @@ jobs:
           uses: shivammathur/setup-php@v2
           with:
               php-version: ${{ matrix.php }}
-              extensions: mbstring, exif, iconv, tokenizer
+              extensions: mbstring, exif, iconv, tokenizer, fileinfo
               coverage: none
 
         - name: Install dependencies
