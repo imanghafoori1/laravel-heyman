@@ -5,10 +5,10 @@ namespace Imanghafoori\HeyMan\Plugins\WatchingStrategies\EloquentModels;
 final class EloquentSituations
 {
     protected $methods = [
-        'whenYouFetch'  => 'retrieved',
+        'whenYouFetch' => 'retrieved',
         'whenYouCreate' => 'creating',
         'whenYouUpdate' => 'updating',
-        'whenYouSave'   => 'saving',
+        'whenYouSave' => 'saving',
         'whenYouDelete' => 'deleting',
     ];
 

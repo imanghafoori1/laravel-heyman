@@ -68,7 +68,7 @@ class Consider
     {
         config()->set($key, [
             'turnOff' => true,
-            'turnOn'  => false,
+            'turnOn' => false,
         ][$this->mode]);
     }
 }
