@@ -69,11 +69,11 @@ class ReactionsTest extends TestCase
             return view('welcome');
         })->name('welcome1.name');
 
-        HeyMan::whenYouVisitUrl(['welcome', 'welcome_'])->always()->response()->json(['m'=> 'm'], 403);
+        HeyMan::whenYouVisitUrl(['welcome', 'welcome_'])->always()->response()->json(['m' => 'm'], 403);
         HeyMan::whenYouVisitUrl('welcome1')->thisValueShouldAllow(true)->otherwise()->weDenyAccess();
         app(StartGuarding::class)->start();
 
-        $this->get('welcome')->assertJson(['m'=>'m'])->assertStatus(403);
+        $this->get('welcome')->assertJson(['m' => 'm'])->assertStatus(403);
         $this->get('welcome1')->assertStatus(200);
     }
 
@@ -101,10 +101,10 @@ class ReactionsTest extends TestCase
         HeyMan::whenYouVisitUrl('welcome')
             ->thisValueShouldAllow(false)
             ->otherwise()
-            ->weRespondFrom(SomeClass::class.'@someMethod2', ['p1' => 20, 'p2' =>30]);
+            ->weRespondFrom(SomeClass::class.'@someMethod2', ['p1' => 20, 'p2' => 30]);
         app(StartGuarding::class)->start();
 
-        $this->get('welcome')->assertStatus(566)->assertJson(['Wow'=> '50']);
+        $this->get('welcome')->assertStatus(566)->assertJson(['Wow' => '50']);
     }
 
     public function test_we_respond_from_2()
@@ -118,7 +118,7 @@ class ReactionsTest extends TestCase
 
         app(StartGuarding::class)->start();
 
-        $this->get('welcome')->assertStatus(201)->assertJson(['Wow'=> '50']);
+        $this->get('welcome')->assertStatus(201)->assertJson(['Wow' => '50']);
     }
 
     public function test_we_respond_from_3()
