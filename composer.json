@@ -1,7 +1,18 @@
 {
     "name": "imanghafoori/laravel-heyman",
     "description": "A package to help you write expressive defensive code in a functional manner",
-    "keywords": ["laravel", "laravel-authorization", "laravel5-package", "PHP", "laravel5", "laravel-acl", "laravel-validation", "eloquent-validation", "laravel-permission", "laravel-roles"],
+    "keywords": [
+        "laravel",
+        "laravel-authorization",
+        "laravel5-package",
+        "PHP",
+        "laravel5",
+        "laravel-acl",
+        "laravel-validation",
+        "eloquent-validation",
+        "laravel-permission",
+        "laravel-roles"
+    ],
     "license": "MIT",
     "homepage": "https://github.com/imanghafoori1/laravel-HeyMan",
     "authors": [
@@ -12,7 +23,7 @@
     ],
     "require": {
         "php": ">=7.1",
-        "laravel/framework":"~5.1|6.*|7.*|8.*|9.*|10.*"
+        "laravel/framework": "~5.1|6.*|7.*|8.*|9.*|10.*|^11.0"
     },
     "require-dev": {
         "orchestra/testbench": ">=3.0",
@@ -33,12 +44,14 @@
         "psr-4": {
             "Imanghafoori\\HeyManTests\\": "tests"
         },
-	"classmap": ["tests/TestCase.php"]
+        "classmap": [
+            "tests/TestCase.php"
+        ]
     },
     "suggest": {
         "imanghafoori/laravel-widgetize": "Gives you a better structure and caching opportunity for your web pages.",
         "imanghafoori/laravel-anypass": " Allows you login with any password in local environment.",
-		"imanghafoori/laravel-masterpass": "You can easily set a master password without code change.",
+        "imanghafoori/laravel-masterpass": "You can easily set a master password without code change.",
         "imanghafoori/laravel-terminator": "Gives you opportunity to refactor your controllers."
     },
     "scripts": {
