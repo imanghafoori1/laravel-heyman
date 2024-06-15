@@ -7,7 +7,7 @@
 ### Readability Counts. In fact, Readability is the primary value of your code !!!
 
 <a href="https://scrutinizer-ci.com/g/imanghafoori1/laravel-heyman"><img src="https://img.shields.io/scrutinizer/g/imanghafoori1/laravel-heyman.svg?style=round-square" alt="Quality Score"></img></a>
-[![code coverage](https://codecov.io/gh/imanghafoori1/laravel-heyman/branch/master/graph/badge.svg)](https://codecov.io/gh/imanghafoori1/laravel-heyman)
+[![Coverage Status](https://coveralls.io/repos/github/imanghafoori1/laravel-heyman/badge.svg?branch=master)](https://coveralls.io/github/imanghafoori1/laravel-heyman?branch=master)
 [![Maintainability](https://api.codeclimate.com/v1/badges/9d6be7b057103cb14410/maintainability)](https://codeclimate.com/github/imanghafoori1/laravel-heyman/maintainability)
 [![Imports](https://github.com/imanghafoori1/laravel-heyman/actions/workflows/imports.yml/badge.svg?branch=master)](https://github.com/imanghafoori1/laravel-heyman/actions/workflows/imports.yml)
 [![Test](https://github.com/imanghafoori1/laravel-heyman/actions/workflows/tests.yml/badge.svg?branch=master)](https://github.com/imanghafoori1/laravel-heyman/actions/workflows/tests.yml)
