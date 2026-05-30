@@ -45,7 +45,7 @@ class Consider
      * @param  $key
      * @param  callable|null  $closure
      */
-    private function turn($key, callable $closure = null)
+    private function turn($key, ?callable $closure = null)
     {
         $key = 'heyman_ignore_'.$key;
 
