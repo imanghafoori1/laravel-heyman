@@ -7,7 +7,7 @@ use Imanghafoori\HeyMan\Reactions\Then;
 
 class Abort extends BaseReaction
 {
-    public function abort($code, string $message = null, array $headers = [])
+    public function abort($code, ?string $message = null, array $headers = [])
     {
         $this->commit(func_get_args(), [static::class, 'abortIt']);
 

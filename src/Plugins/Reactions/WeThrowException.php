@@ -8,14 +8,14 @@ use Imanghafoori\HeyMan\Reactions\Then;
 
 class WeThrowException extends BaseReaction
 {
-    public function weThrowNew(string $exception, string $message = null)
+    public function weThrowNew(string $exception, ?string $message = null)
     {
         $this->commit(func_get_args(), [static::class, 'exception']);
 
         return new Then($this);
     }
 
-    public function weDenyAccess(string $message = null)
+    public function weDenyAccess(?string $message = null)
     {
         $this->commit([AuthorizationException::class, $message], [static::class, 'exception']);
 
